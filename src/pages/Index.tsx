@@ -1,92 +1,155 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChevronDown, BookOpen, Search, FileText, Youtube, Linkedin, Twitter } from "lucide-react";
+import { ChevronDown, BookOpen, Search, FileText, Youtube, Linkedin, Twitter, Dna } from "lucide-react";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation Header */}
+      {/* Navigation Header - Schrodinger Style */}
       <header className="sticky top-0 z-50 bg-white shadow-sm border-b">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-sm">B</span>
+              <div className="w-8 h-8 bg-gradient-to-r from-[#003057] to-[#00AEEF] rounded-full flex items-center justify-center">
+                <Dna className="text-white h-5 w-5" />
               </div>
-              <span className="text-xl font-bold text-gray-900">Bioinformatics.lk</span>
+              <span className="text-xl font-bold text-[#003057]">Bioinformatics.lk</span>
             </div>
             
             {/* Navigation Menu */}
             <nav className="hidden md:flex items-center space-x-8">
-              <a href="#" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">Home</a>
-              <a href="#" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">About</a>
-              <a href="#" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">Courses</a>
-              <a href="#" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">Research</a>
-              <a href="#" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">News</a>
-              <a href="#" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">Contact</a>
+              <a href="#" className="text-[#222222] hover:text-[#00AEEF] transition-colors font-medium">Home</a>
+              <a href="#" className="text-[#222222] hover:text-[#00AEEF] transition-colors font-medium">About</a>
+              <a href="#" className="text-[#222222] hover:text-[#00AEEF] transition-colors font-medium">Courses</a>
+              <a href="#" className="text-[#222222] hover:text-[#00AEEF] transition-colors font-medium">Research</a>
+              <a href="#" className="text-[#222222] hover:text-[#00AEEF] transition-colors font-medium">News</a>
+              <a href="#" className="text-[#222222] hover:text-[#00AEEF] transition-colors font-medium">Contact</a>
             </nav>
 
             {/* CTA Button */}
-            <Button className="hidden md:inline-flex bg-blue-600 hover:bg-blue-700">
+            <Button className="hidden md:inline-flex bg-[#00AEEF] hover:bg-[#003057] transition-colors">
               Get Started
             </Button>
 
             {/* Mobile Menu Button */}
             <button className="md:hidden">
-              <ChevronDown className="h-6 w-6" />
+              <ChevronDown className="h-6 w-6 text-[#003057]" />
             </button>
           </div>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-cyan-600">
-        <div className="absolute inset-0 bg-black/20"></div>
+      {/* Hero Section - Schrodinger Inspired */}
+      <section className="relative overflow-hidden bg-gradient-to-r from-[#003057] to-[#00AEEF]">
+        {/* Animated Molecular Background */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-10 left-10 w-32 h-32 animate-spin">
+            <svg viewBox="0 0 100 100" className="w-full h-full">
+              <circle cx="20" cy="20" r="4" fill="white" className="animate-pulse" />
+              <circle cx="50" cy="30" r="3" fill="white" className="animate-pulse delay-300" />
+              <circle cx="80" cy="20" r="4" fill="white" className="animate-pulse delay-700" />
+              <circle cx="30" cy="60" r="3" fill="white" className="animate-pulse delay-500" />
+              <circle cx="70" cy="70" r="4" fill="white" className="animate-pulse delay-200" />
+              <line x1="20" y1="20" x2="50" y2="30" stroke="white" strokeWidth="1" />
+              <line x1="50" y1="30" x2="80" y2="20" stroke="white" strokeWidth="1" />
+              <line x1="20" y1="20" x2="30" y2="60" stroke="white" strokeWidth="1" />
+              <line x1="50" y1="30" x2="70" y2="70" stroke="white" strokeWidth="1" />
+            </svg>
+          </div>
+          <div className="absolute top-40 right-20 w-24 h-24 animate-spin" style={{animationDirection: 'reverse', animationDuration: '20s'}}>
+            <svg viewBox="0 0 100 100" className="w-full h-full">
+              <circle cx="30" cy="30" r="5" fill="white" className="animate-pulse delay-100" />
+              <circle cx="70" cy="30" r="4" fill="white" className="animate-pulse delay-400" />
+              <circle cx="50" cy="70" r="5" fill="white" className="animate-pulse delay-600" />
+              <line x1="30" y1="30" x2="70" y2="30" stroke="white" strokeWidth="1" />
+              <line x1="30" y1="30" x2="50" y2="70" stroke="white" strokeWidth="1" />
+              <line x1="70" y1="30" x2="50" y2="70" stroke="white" strokeWidth="1" />
+            </svg>
+          </div>
+        </div>
+        
         <div className="relative container mx-auto px-4 py-24 lg:py-32">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="text-white space-y-6">
               <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
-                Accelerating <span className="bg-gradient-to-r from-cyan-400 to-blue-300 bg-clip-text text-transparent">Bioinformatics</span> Innovation
+                Accelerating <span className="text-[#00AEEF]">Bioinformatics</span> Innovation
               </h1>
               <p className="text-xl lg:text-2xl text-blue-100 leading-relaxed">
                 Empowering researchers and students in genomics, proteomics, and computational biology through world-class education and cutting-edge research.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-cyan-500 hover:bg-cyan-600 text-white px-8 py-4 text-lg">
+                <Button size="lg" className="bg-[#00AEEF] hover:bg-white hover:text-[#003057] text-white px-8 py-4 text-lg transition-all">
                   Explore Courses
                 </Button>
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 text-lg">
+                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-[#003057] px-8 py-4 text-lg transition-all">
                   View Research
                 </Button>
               </div>
             </div>
             <div className="relative">
-              <div className="w-full h-96 bg-gradient-to-br from-cyan-400/20 to-blue-500/20 rounded-3xl backdrop-blur-sm border border-white/20 flex items-center justify-center">
-                <img 
-                  src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop&crop=center" 
-                  alt="Bioinformatics visualization" 
-                  className="w-full h-full object-cover rounded-3xl opacity-80"
-                />
+              {/* Interactive Protein Structure Visualization */}
+              <div className="w-full h-96 bg-white/10 rounded-3xl backdrop-blur-sm border border-white/20 flex items-center justify-center relative overflow-hidden">
+                {/* DNA Double Helix Animation */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="relative w-48 h-64">
+                    <svg viewBox="0 0 200 300" className="w-full h-full animate-spin" style={{animationDuration: '10s'}}>
+                      {/* Left strand */}
+                      <path d="M50 50 Q75 100 50 150 Q25 200 50 250" stroke="#00AEEF" strokeWidth="4" fill="none" />
+                      {/* Right strand */}
+                      <path d="M150 50 Q125 100 150 150 Q175 200 150 250" stroke="#00AEEF" strokeWidth="4" fill="none" />
+                      {/* Base pairs */}
+                      {Array.from({length: 8}).map((_, i) => (
+                        <line 
+                          key={i}
+                          x1={50 + (i % 2 ? 25 : -25) * Math.sin(i * 0.8)}
+                          y1={70 + i * 25}
+                          x2={150 + (i % 2 ? -25 : 25) * Math.sin(i * 0.8)}
+                          y2={70 + i * 25}
+                          stroke="white"
+                          strokeWidth="2"
+                          className="animate-pulse"
+                          style={{animationDelay: `${i * 200}ms`}}
+                        />
+                      ))}
+                      {/* Nucleotide bases */}
+                      {Array.from({length: 16}).map((_, i) => (
+                        <circle
+                          key={i}
+                          cx={i % 2 === 0 ? 50 + (i % 4 < 2 ? 25 : -25) * Math.sin(i * 0.4) : 150 + (i % 4 < 2 ? -25 : 25) * Math.sin(i * 0.4)}
+                          cy={70 + Math.floor(i / 2) * 25}
+                          r="3"
+                          fill={i % 4 === 0 ? "#00AEEF" : i % 4 === 1 ? "#FFFFFF" : i % 4 === 2 ? "#00AEEF" : "#FFFFFF"}
+                          className="animate-pulse"
+                          style={{animationDelay: `${i * 100}ms`}}
+                        />
+                      ))}
+                    </svg>
+                  </div>
+                </div>
               </div>
-              {/* Floating elements */}
-              <div className="absolute -top-4 -right-4 w-20 h-20 bg-cyan-400/30 rounded-full backdrop-blur-sm animate-pulse"></div>
-              <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-blue-400/30 rounded-full backdrop-blur-sm animate-pulse delay-1000"></div>
+              {/* Floating molecular elements */}
+              <div className="absolute -top-4 -right-4 w-20 h-20 bg-[#00AEEF]/30 rounded-full backdrop-blur-sm animate-pulse flex items-center justify-center">
+                <Dna className="text-white h-8 w-8" />
+              </div>
+              <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-white/30 rounded-full backdrop-blur-sm animate-pulse delay-1000 flex items-center justify-center">
+                <Search className="text-white h-6 w-6" />
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Mission Section */}
-      <section className="py-20 bg-gray-50">
+      {/* Mission Section - Schrodinger Colors */}
+      <section className="py-20 bg-[#F4F4F4]">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
-              <h2 className="text-4xl font-bold text-gray-900">
-                Advancing Sri Lankan <span className="text-blue-600">Bioinformatics</span>
+              <h2 className="text-4xl font-bold text-[#003057]">
+                Advancing Sri Lankan <span className="text-[#00AEEF]">Bioinformatics</span>
               </h2>
-              <p className="text-lg text-gray-600 leading-relaxed">
+              <p className="text-lg text-[#222222] leading-relaxed">
                 Bioinformatics.lk is Sri Lanka's premier platform for bioinformatics education and research. 
                 We bridge the gap between traditional biology and modern computational methods, providing 
                 comprehensive training and fostering innovative research in genomics, proteomics, and 
@@ -94,12 +157,12 @@ const Index = () => {
               </p>
               <div className="grid grid-cols-2 gap-6">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-blue-600">500+</div>
-                  <div className="text-gray-600">Students Trained</div>
+                  <div className="text-3xl font-bold text-[#00AEEF]">500+</div>
+                  <div className="text-[#222222]">Students Trained</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-blue-600">25+</div>
-                  <div className="text-gray-600">Research Projects</div>
+                  <div className="text-3xl font-bold text-[#00AEEF]">25+</div>
+                  <div className="text-[#222222]">Research Projects</div>
                 </div>
               </div>
             </div>
@@ -109,6 +172,19 @@ const Index = () => {
                 alt="Research and innovation" 
                 className="w-full h-96 object-cover rounded-2xl shadow-2xl"
               />
+              {/* Protein overlay */}
+              <div className="absolute top-4 right-4 w-16 h-16 bg-[#003057]/80 rounded-full flex items-center justify-center backdrop-blur-sm">
+                <svg viewBox="0 0 40 40" className="w-8 h-8 text-[#00AEEF] animate-spin" style={{animationDuration: '8s'}}>
+                  <circle cx="20" cy="10" r="3" fill="currentColor" />
+                  <circle cx="30" cy="20" r="3" fill="currentColor" />
+                  <circle cx="20" cy="30" r="3" fill="currentColor" />
+                  <circle cx="10" cy="20" r="3" fill="currentColor" />
+                  <line x1="20" y1="10" x2="30" y2="20" stroke="currentColor" strokeWidth="1" />
+                  <line x1="30" y1="20" x2="20" y2="30" stroke="currentColor" strokeWidth="1" />
+                  <line x1="20" y1="30" x2="10" y2="20" stroke="currentColor" strokeWidth="1" />
+                  <line x1="10" y1="20" x2="20" y2="10" stroke="currentColor" strokeWidth="1" />
+                </svg>
+              </div>
             </div>
           </div>
         </div>
@@ -118,8 +194,8 @@ const Index = () => {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Featured Courses</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <h2 className="text-4xl font-bold text-[#003057] mb-4">Featured Courses</h2>
+            <p className="text-xl text-[#222222] max-w-3xl mx-auto">
               Master the fundamentals and advanced concepts of bioinformatics through our comprehensive course offerings
             </p>
           </div>
@@ -148,30 +224,34 @@ const Index = () => {
                 level: "Advanced"
               }
             ].map((course, index) => (
-              <Card key={index} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+              <Card key={index} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-2 hover:border-[#00AEEF]">
                 <div className="relative overflow-hidden">
                   <img 
                     src={course.image} 
                     alt={course.title}
                     className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                  <div className="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                  <div className="absolute top-4 right-4 bg-[#003057] text-white px-3 py-1 rounded-full text-sm font-medium">
                     {course.level}
+                  </div>
+                  {/* Molecular icon overlay */}
+                  <div className="absolute bottom-4 left-4 w-8 h-8 bg-[#00AEEF]/80 rounded-full flex items-center justify-center">
+                    <Dna className="h-4 w-4 text-white" />
                   </div>
                 </div>
                 <CardHeader>
-                  <CardTitle className="text-xl group-hover:text-blue-600 transition-colors">
+                  <CardTitle className="text-xl group-hover:text-[#00AEEF] transition-colors text-[#003057]">
                     {course.title}
                   </CardTitle>
-                  <CardDescription className="text-gray-600">
+                  <CardDescription className="text-[#222222]">
                     {course.description}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="pt-0">
                   <div className="flex justify-between items-center mb-4">
-                    <span className="text-sm text-gray-500">Duration: {course.duration}</span>
+                    <span className="text-sm text-[#222222]">Duration: {course.duration}</span>
                   </div>
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700">
+                  <Button className="w-full bg-[#00AEEF] hover:bg-[#003057] transition-colors">
                     Learn More
                   </Button>
                 </CardContent>
@@ -182,8 +262,26 @@ const Index = () => {
       </section>
 
       {/* Research Highlights Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-900 to-blue-800 text-white">
-        <div className="container mx-auto px-4">
+      <section className="py-20 bg-[#003057] text-white relative overflow-hidden">
+        {/* Background molecular pattern */}
+        <div className="absolute inset-0 opacity-5">
+          {Array.from({length: 12}).map((_, i) => (
+            <div 
+              key={i}
+              className="absolute animate-pulse"
+              style={{
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${i * 0.5}s`,
+                animationDuration: '3s'
+              }}
+            >
+              <Dna className="h-8 w-8" />
+            </div>
+          ))}
+        </div>
+        
+        <div className="container mx-auto px-4 relative">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4">Research Initiatives</h2>
             <p className="text-xl text-blue-100 max-w-3xl mx-auto">
@@ -210,10 +308,10 @@ const Index = () => {
               }
             ].map((item, index) => (
               <div key={index} className="text-center group">
-                <div className="inline-flex items-center justify-center w-20 h-20 bg-cyan-500/20 rounded-full mb-6 group-hover:bg-cyan-500/30 transition-colors">
+                <div className="inline-flex items-center justify-center w-20 h-20 bg-[#00AEEF]/20 rounded-full mb-6 group-hover:bg-[#00AEEF]/30 transition-colors">
                   {item.icon}
                 </div>
-                <h3 className="text-2xl font-bold mb-4">{item.title}</h3>
+                <h3 className="text-2xl font-bold mb-4 text-[#00AEEF]">{item.title}</h3>
                 <p className="text-blue-100 leading-relaxed">{item.description}</p>
               </div>
             ))}
@@ -222,11 +320,11 @@ const Index = () => {
       </section>
 
       {/* News Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-[#F4F4F4]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Latest News & Updates</h2>
-            <p className="text-xl text-gray-600">Stay informed about the latest developments in bioinformatics</p>
+            <h2 className="text-4xl font-bold text-[#003057] mb-4">Latest News & Updates</h2>
+            <p className="text-xl text-[#222222]">Stay informed about the latest developments in bioinformatics</p>
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
@@ -250,7 +348,7 @@ const Index = () => {
                 image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=250&fit=crop&crop=center"
               }
             ].map((article, index) => (
-              <Card key={index} className="group hover:shadow-lg transition-all duration-300">
+              <Card key={index} className="group hover:shadow-lg transition-all duration-300 hover:border-[#00AEEF] border-2">
                 <div className="relative overflow-hidden">
                   <img 
                     src={article.image} 
@@ -259,14 +357,14 @@ const Index = () => {
                   />
                 </div>
                 <CardHeader>
-                  <div className="text-sm text-blue-600 font-medium mb-2">{article.date}</div>
-                  <CardTitle className="text-xl group-hover:text-blue-600 transition-colors">
+                  <div className="text-sm text-[#00AEEF] font-medium mb-2">{article.date}</div>
+                  <CardTitle className="text-xl group-hover:text-[#00AEEF] transition-colors text-[#003057]">
                     {article.title}
                   </CardTitle>
-                  <CardDescription>{article.preview}</CardDescription>
+                  <CardDescription className="text-[#222222]">{article.preview}</CardDescription>
                 </CardHeader>
                 <CardContent className="pt-0">
-                  <Button variant="link" className="p-0 text-blue-600 hover:text-blue-800">
+                  <Button variant="link" className="p-0 text-[#00AEEF] hover:text-[#003057]">
                     Read More →
                   </Button>
                 </CardContent>
@@ -277,14 +375,14 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-16">
+      <footer className="bg-[#222222] text-white py-16">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8">
             {/* Logo and Description */}
             <div className="space-y-4">
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">B</span>
+                <div className="w-8 h-8 bg-gradient-to-r from-[#003057] to-[#00AEEF] rounded-full flex items-center justify-center">
+                  <Dna className="text-white h-5 w-5" />
                 </div>
                 <span className="text-xl font-bold">Bioinformatics.lk</span>
               </div>
@@ -295,42 +393,42 @@ const Index = () => {
 
             {/* Quick Links */}
             <div>
-              <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+              <h3 className="text-lg font-semibold mb-4 text-[#00AEEF]">Quick Links</h3>
               <ul className="space-y-2">
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">About Us</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Courses</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Research</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Publications</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-[#00AEEF] transition-colors">About Us</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-[#00AEEF] transition-colors">Courses</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-[#00AEEF] transition-colors">Research</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-[#00AEEF] transition-colors">Publications</a></li>
               </ul>
             </div>
 
             {/* Programs */}
             <div>
-              <h3 className="text-lg font-semibold mb-4">Programs</h3>
+              <h3 className="text-lg font-semibold mb-4 text-[#00AEEF]">Programs</h3>
               <ul className="space-y-2">
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Certificate Courses</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Workshops</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Research Projects</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Collaborations</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-[#00AEEF] transition-colors">Certificate Courses</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-[#00AEEF] transition-colors">Workshops</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-[#00AEEF] transition-colors">Research Projects</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-[#00AEEF] transition-colors">Collaborations</a></li>
               </ul>
             </div>
 
             {/* Contact & Social */}
             <div>
-              <h3 className="text-lg font-semibold mb-4">Connect With Us</h3>
+              <h3 className="text-lg font-semibold mb-4 text-[#00AEEF]">Connect With Us</h3>
               <div className="space-y-4">
                 <p className="text-gray-400">
                   Email: info@bioinformatics.lk<br />
                   Phone: +94 11 234 5678
                 </p>
                 <div className="flex space-x-4">
-                  <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors">
+                  <a href="#" className="w-10 h-10 bg-[#003057] rounded-full flex items-center justify-center hover:bg-[#00AEEF] transition-colors">
                     <Linkedin className="h-5 w-5" />
                   </a>
-                  <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors">
+                  <a href="#" className="w-10 h-10 bg-[#003057] rounded-full flex items-center justify-center hover:bg-[#00AEEF] transition-colors">
                     <Twitter className="h-5 w-5" />
                   </a>
-                  <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors">
+                  <a href="#" className="w-10 h-10 bg-[#003057] rounded-full flex items-center justify-center hover:bg-[#00AEEF] transition-colors">
                     <Youtube className="h-5 w-5" />
                   </a>
                 </div>
