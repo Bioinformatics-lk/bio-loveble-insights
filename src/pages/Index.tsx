@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChevronDown, BookOpen, Search, FileText, Youtube, Linkedin, Twitter, Dna } from "lucide-react";
@@ -89,44 +88,17 @@ const Index = () => {
               </div>
             </div>
             <div className="relative">
-              {/* Interactive Protein Structure Visualization */}
+              {/* Video Showcase Window */}
               <div className="w-full h-96 bg-white/10 rounded-3xl backdrop-blur-sm border border-white/20 flex items-center justify-center relative overflow-hidden">
-                {/* DNA Double Helix Animation */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="relative w-48 h-64">
-                    <svg viewBox="0 0 200 300" className="w-full h-full animate-spin" style={{animationDuration: '10s'}}>
-                      {/* Left strand */}
-                      <path d="M50 50 Q75 100 50 150 Q25 200 50 250" stroke="#00AEEF" strokeWidth="4" fill="none" />
-                      {/* Right strand */}
-                      <path d="M150 50 Q125 100 150 150 Q175 200 150 250" stroke="#00AEEF" strokeWidth="4" fill="none" />
-                      {/* Base pairs */}
-                      {Array.from({length: 8}).map((_, i) => (
-                        <line 
-                          key={i}
-                          x1={50 + (i % 2 ? 25 : -25) * Math.sin(i * 0.8)}
-                          y1={70 + i * 25}
-                          x2={150 + (i % 2 ? -25 : 25) * Math.sin(i * 0.8)}
-                          y2={70 + i * 25}
-                          stroke="white"
-                          strokeWidth="2"
-                          className="animate-pulse"
-                          style={{animationDelay: `${i * 200}ms`}}
-                        />
-                      ))}
-                      {/* Nucleotide bases */}
-                      {Array.from({length: 16}).map((_, i) => (
-                        <circle
-                          key={i}
-                          cx={i % 2 === 0 ? 50 + (i % 4 < 2 ? 25 : -25) * Math.sin(i * 0.4) : 150 + (i % 4 < 2 ? -25 : 25) * Math.sin(i * 0.4)}
-                          cy={70 + Math.floor(i / 2) * 25}
-                          r="3"
-                          fill={i % 4 === 0 ? "#00AEEF" : i % 4 === 1 ? "#FFFFFF" : i % 4 === 2 ? "#00AEEF" : "#FFFFFF"}
-                          className="animate-pulse"
-                          style={{animationDelay: `${i * 100}ms`}}
-                        />
-                      ))}
-                    </svg>
-                  </div>
+                {/* Vimeo Video Embed */}
+                <div className="w-full h-full rounded-3xl overflow-hidden">
+                  <iframe 
+                    src="https://player.vimeo.com/video/1089032788?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1"
+                    frameBorder="0" 
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
+                    className="w-full h-full object-cover"
+                    title="Bioinformatics Showcase"
+                  ></iframe>
                 </div>
               </div>
               {/* Floating molecular elements */}
