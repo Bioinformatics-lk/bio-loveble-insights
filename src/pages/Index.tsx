@@ -1,8 +1,16 @@
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChevronDown, BookOpen, Search, FileText, Youtube, Linkedin, Twitter, Dna } from "lucide-react";
 
 const Index = () => {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation Header - Schrodinger Style */}
@@ -21,9 +29,9 @@ const Index = () => {
             <nav className="hidden md:flex items-center space-x-8">
               <a href="#" className="text-[#222222] hover:text-[#00AEEF] transition-colors font-medium">Home</a>
               <a href="#" className="text-[#222222] hover:text-[#00AEEF] transition-colors font-medium">About</a>
-              <a href="#" className="text-[#222222] hover:text-[#00AEEF] transition-colors font-medium">Courses</a>
-              <a href="#" className="text-[#222222] hover:text-[#00AEEF] transition-colors font-medium">Research</a>
-              <a href="#" className="text-[#222222] hover:text-[#00AEEF] transition-colors font-medium">News</a>
+              <a href="#courses" className="text-[#222222] hover:text-[#00AEEF] transition-colors font-medium">Courses</a>
+              <a href="#research" className="text-[#222222] hover:text-[#00AEEF] transition-colors font-medium">Research</a>
+              <a href="#news" className="text-[#222222] hover:text-[#00AEEF] transition-colors font-medium">News</a>
               <a href="#" className="text-[#222222] hover:text-[#00AEEF] transition-colors font-medium">Contact</a>
             </nav>
 
@@ -69,44 +77,50 @@ const Index = () => {
           </div>
         </div>
         
-        <div className="relative container mx-auto px-4 py-24 lg:py-32">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="text-white space-y-6">
-              <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
+        <div className="relative container mx-auto px-4 py-16 lg:py-24">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div className="text-white space-y-4 lg:space-y-6">
+              <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold leading-tight">
                 Accelerating <span className="text-[#00AEEF]">Bioinformatics</span> Innovation
               </h1>
-              <p className="text-xl lg:text-2xl text-blue-100 leading-relaxed">
+              <p className="text-lg md:text-xl lg:text-2xl text-blue-100 leading-relaxed">
                 Empowering researchers and students in genomics, proteomics, and computational biology through world-class education and cutting-edge research.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-[#00AEEF] hover:bg-white hover:text-[#003057] text-white px-8 py-4 text-lg transition-all">
+                <Button 
+                  size="lg" 
+                  className="bg-[#00AEEF] hover:bg-white hover:text-[#003057] text-white px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg transition-all"
+                  onClick={() => scrollToSection('courses')}
+                >
                   Explore Courses
                 </Button>
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-[#003057] px-8 py-4 text-lg transition-all">
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="border-white text-white hover:bg-white hover:text-[#003057] px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg transition-all"
+                  onClick={() => scrollToSection('research')}
+                >
                   View Research
                 </Button>
               </div>
             </div>
             <div className="relative">
-              {/* Video Showcase Window */}
-              <div className="w-full h-96 bg-white/10 rounded-3xl backdrop-blur-sm border border-white/20 flex items-center justify-center relative overflow-hidden">
-                {/* Vimeo Video Embed */}
-                <div className="w-full h-full rounded-3xl overflow-hidden">
+              {/* 3D Video Showcase Window */}
+              <div className="relative">
+                {/* 3D Background Frame */}
+                <div className="absolute -inset-4 bg-gradient-to-br from-white/20 via-white/30 to-white/10 rounded-[2rem] backdrop-blur-sm shadow-2xl transform rotate-1"></div>
+                <div className="absolute -inset-2 bg-gradient-to-tl from-white/30 via-white/40 to-white/20 rounded-[1.5rem] backdrop-blur-sm shadow-xl transform -rotate-0.5"></div>
+                
+                {/* Video Container */}
+                <div className="relative w-full h-64 md:h-80 lg:h-96 bg-gradient-to-br from-white/40 via-white/60 to-white/30 rounded-2xl backdrop-blur-sm border border-white/40 overflow-hidden shadow-xl">
                   <iframe 
-                    src="https://player.vimeo.com/video/1089032788?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1"
+                    src="https://player.vimeo.com/video/1089037562?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1"
                     frameBorder="0" 
                     allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full rounded-2xl"
                     title="Bioinformatics Showcase"
                   ></iframe>
                 </div>
-              </div>
-              {/* Floating molecular elements */}
-              <div className="absolute -top-4 -right-4 w-20 h-20 bg-[#00AEEF]/30 rounded-full backdrop-blur-sm animate-pulse flex items-center justify-center">
-                <Dna className="text-white h-8 w-8" />
-              </div>
-              <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-white/30 rounded-full backdrop-blur-sm animate-pulse delay-1000 flex items-center justify-center">
-                <Search className="text-white h-6 w-6" />
               </div>
             </div>
           </div>
@@ -114,27 +128,27 @@ const Index = () => {
       </section>
 
       {/* Mission Section - Schrodinger Colors */}
-      <section className="py-20 bg-[#F4F4F4]">
+      <section className="py-12 md:py-20 bg-[#F4F4F4]" id="about">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <h2 className="text-4xl font-bold text-[#003057]">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div className="space-y-4 lg:space-y-6">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#003057]">
                 Advancing Sri Lankan <span className="text-[#00AEEF]">Bioinformatics</span>
               </h2>
-              <p className="text-lg text-[#222222] leading-relaxed">
+              <p className="text-base md:text-lg text-[#222222] leading-relaxed">
                 Bioinformatics.lk is Sri Lanka's premier platform for bioinformatics education and research. 
                 We bridge the gap between traditional biology and modern computational methods, providing 
                 comprehensive training and fostering innovative research in genomics, proteomics, and 
                 artificial intelligence applications in life sciences.
               </p>
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-2 gap-4 lg:gap-6">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-[#00AEEF]">500+</div>
-                  <div className="text-[#222222]">Students Trained</div>
+                  <div className="text-2xl md:text-3xl font-bold text-[#00AEEF]">500+</div>
+                  <div className="text-sm md:text-base text-[#222222]">Students Trained</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-[#00AEEF]">25+</div>
-                  <div className="text-[#222222]">Research Projects</div>
+                  <div className="text-2xl md:text-3xl font-bold text-[#00AEEF]">25+</div>
+                  <div className="text-sm md:text-base text-[#222222]">Research Projects</div>
                 </div>
               </div>
             </div>
@@ -142,11 +156,11 @@ const Index = () => {
               <img 
                 src="https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?w=600&h=400&fit=crop&crop=center" 
                 alt="Research and innovation" 
-                className="w-full h-96 object-cover rounded-2xl shadow-2xl"
+                className="w-full h-64 md:h-96 object-cover rounded-2xl shadow-2xl"
               />
               {/* Protein overlay */}
-              <div className="absolute top-4 right-4 w-16 h-16 bg-[#003057]/80 rounded-full flex items-center justify-center backdrop-blur-sm">
-                <svg viewBox="0 0 40 40" className="w-8 h-8 text-[#00AEEF] animate-spin" style={{animationDuration: '8s'}}>
+              <div className="absolute top-4 right-4 w-12 h-12 md:w-16 md:h-16 bg-[#003057]/80 rounded-full flex items-center justify-center backdrop-blur-sm">
+                <svg viewBox="0 0 40 40" className="w-6 h-6 md:w-8 md:h-8 text-[#00AEEF] animate-spin" style={{animationDuration: '8s'}}>
                   <circle cx="20" cy="10" r="3" fill="currentColor" />
                   <circle cx="30" cy="20" r="3" fill="currentColor" />
                   <circle cx="20" cy="30" r="3" fill="currentColor" />
@@ -163,16 +177,16 @@ const Index = () => {
       </section>
 
       {/* Featured Courses Section */}
-      <section className="py-20 bg-white">
+      <section className="py-12 md:py-20 bg-white" id="courses">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-[#003057] mb-4">Featured Courses</h2>
-            <p className="text-xl text-[#222222] max-w-3xl mx-auto">
+          <div className="text-center mb-8 lg:mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#003057] mb-4">Featured Courses</h2>
+            <p className="text-lg md:text-xl text-[#222222] max-w-3xl mx-auto">
               Master the fundamentals and advanced concepts of bioinformatics through our comprehensive course offerings
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {[
               {
                 title: "Introduction to Bioinformatics",
@@ -201,7 +215,7 @@ const Index = () => {
                   <img 
                     src={course.image} 
                     alt={course.title}
-                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-40 md:h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute top-4 right-4 bg-[#003057] text-white px-3 py-1 rounded-full text-sm font-medium">
                     {course.level}
@@ -212,10 +226,10 @@ const Index = () => {
                   </div>
                 </div>
                 <CardHeader>
-                  <CardTitle className="text-xl group-hover:text-[#00AEEF] transition-colors text-[#003057]">
+                  <CardTitle className="text-lg md:text-xl group-hover:text-[#00AEEF] transition-colors text-[#003057]">
                     {course.title}
                   </CardTitle>
-                  <CardDescription className="text-[#222222]">
+                  <CardDescription className="text-sm md:text-base text-[#222222]">
                     {course.description}
                   </CardDescription>
                 </CardHeader>
@@ -234,7 +248,7 @@ const Index = () => {
       </section>
 
       {/* Research Highlights Section */}
-      <section className="py-20 bg-[#003057] text-white relative overflow-hidden">
+      <section className="py-12 md:py-20 bg-[#003057] text-white relative overflow-hidden" id="research">
         {/* Background molecular pattern */}
         <div className="absolute inset-0 opacity-5">
           {Array.from({length: 12}).map((_, i) => (
@@ -248,43 +262,43 @@ const Index = () => {
                 animationDuration: '3s'
               }}
             >
-              <Dna className="h-8 w-8" />
+              <Dna className="h-6 w-6 md:h-8 md:w-8" />
             </div>
           ))}
         </div>
         
         <div className="container mx-auto px-4 relative">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Research Initiatives</h2>
-            <p className="text-xl text-blue-100 max-w-3xl mx-auto">
+          <div className="text-center mb-8 lg:mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Research Initiatives</h2>
+            <p className="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto">
               Pioneering research in computational biology and bioinformatics applications
             </p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
             {[
               {
-                icon: <Search className="h-12 w-12" />,
+                icon: <Search className="h-8 w-8 md:h-12 md:w-12" />,
                 title: "Genomics Research",
                 description: "Advanced genome analysis and population genetics studies focusing on South Asian populations."
               },
               {
-                icon: <BookOpen className="h-12 w-12" />,
+                icon: <BookOpen className="h-8 w-8 md:h-12 md:w-12" />,
                 title: "AI in Biology", 
                 description: "Developing machine learning models for protein structure prediction and drug target identification."
               },
               {
-                icon: <FileText className="h-12 w-12" />,
+                icon: <FileText className="h-8 w-8 md:h-12 md:w-12" />,
                 title: "Drug Discovery",
                 description: "Computational approaches to identify novel therapeutic compounds and biomarkers."
               }
             ].map((item, index) => (
               <div key={index} className="text-center group">
-                <div className="inline-flex items-center justify-center w-20 h-20 bg-[#00AEEF]/20 rounded-full mb-6 group-hover:bg-[#00AEEF]/30 transition-colors">
+                <div className="inline-flex items-center justify-center w-16 h-16 md:w-20 md:h-20 bg-[#00AEEF]/20 rounded-full mb-4 lg:mb-6 group-hover:bg-[#00AEEF]/30 transition-colors">
                   {item.icon}
                 </div>
-                <h3 className="text-2xl font-bold mb-4 text-[#00AEEF]">{item.title}</h3>
-                <p className="text-blue-100 leading-relaxed">{item.description}</p>
+                <h3 className="text-xl md:text-2xl font-bold mb-4 text-[#00AEEF]">{item.title}</h3>
+                <p className="text-sm md:text-base text-blue-100 leading-relaxed">{item.description}</p>
               </div>
             ))}
           </div>
@@ -292,14 +306,14 @@ const Index = () => {
       </section>
 
       {/* News Section */}
-      <section className="py-20 bg-[#F4F4F4]">
+      <section className="py-12 md:py-20 bg-[#F4F4F4]" id="news">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-[#003057] mb-4">Latest News & Updates</h2>
-            <p className="text-xl text-[#222222]">Stay informed about the latest developments in bioinformatics</p>
+          <div className="text-center mb-8 lg:mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#003057] mb-4">Latest News & Updates</h2>
+            <p className="text-lg md:text-xl text-[#222222]">Stay informed about the latest developments in bioinformatics</p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
             {[
               {
                 date: "Dec 15, 2024",
@@ -325,15 +339,15 @@ const Index = () => {
                   <img 
                     src={article.image} 
                     alt={article.title}
-                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-40 md:h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
                 <CardHeader>
                   <div className="text-sm text-[#00AEEF] font-medium mb-2">{article.date}</div>
-                  <CardTitle className="text-xl group-hover:text-[#00AEEF] transition-colors text-[#003057]">
+                  <CardTitle className="text-lg md:text-xl group-hover:text-[#00AEEF] transition-colors text-[#003057]">
                     {article.title}
                   </CardTitle>
-                  <CardDescription className="text-[#222222]">{article.preview}</CardDescription>
+                  <CardDescription className="text-sm md:text-base text-[#222222]">{article.preview}</CardDescription>
                 </CardHeader>
                 <CardContent className="pt-0">
                   <Button variant="link" className="p-0 text-[#00AEEF] hover:text-[#003057]">
@@ -347,9 +361,9 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#222222] text-white py-16">
+      <footer className="bg-[#222222] text-white py-12 md:py-16">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-4 gap-6 lg:gap-8">
             {/* Logo and Description */}
             <div className="space-y-4">
               <div className="flex items-center space-x-2">
@@ -358,7 +372,7 @@ const Index = () => {
                 </div>
                 <span className="text-xl font-bold">Bioinformatics.lk</span>
               </div>
-              <p className="text-gray-400 leading-relaxed">
+              <p className="text-gray-400 leading-relaxed text-sm md:text-base">
                 Advancing bioinformatics education and research in Sri Lanka through innovative programs and cutting-edge technology.
               </p>
             </div>
@@ -367,10 +381,10 @@ const Index = () => {
             <div>
               <h3 className="text-lg font-semibold mb-4 text-[#00AEEF]">Quick Links</h3>
               <ul className="space-y-2">
-                <li><a href="#" className="text-gray-400 hover:text-[#00AEEF] transition-colors">About Us</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-[#00AEEF] transition-colors">Courses</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-[#00AEEF] transition-colors">Research</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-[#00AEEF] transition-colors">Publications</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-[#00AEEF] transition-colors text-sm md:text-base">About Us</a></li>
+                <li><a href="#courses" className="text-gray-400 hover:text-[#00AEEF] transition-colors text-sm md:text-base">Courses</a></li>
+                <li><a href="#research" className="text-gray-400 hover:text-[#00AEEF] transition-colors text-sm md:text-base">Research</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-[#00AEEF] transition-colors text-sm md:text-base">Publications</a></li>
               </ul>
             </div>
 
@@ -378,10 +392,10 @@ const Index = () => {
             <div>
               <h3 className="text-lg font-semibold mb-4 text-[#00AEEF]">Programs</h3>
               <ul className="space-y-2">
-                <li><a href="#" className="text-gray-400 hover:text-[#00AEEF] transition-colors">Certificate Courses</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-[#00AEEF] transition-colors">Workshops</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-[#00AEEF] transition-colors">Research Projects</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-[#00AEEF] transition-colors">Collaborations</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-[#00AEEF] transition-colors text-sm md:text-base">Certificate Courses</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-[#00AEEF] transition-colors text-sm md:text-base">Workshops</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-[#00AEEF] transition-colors text-sm md:text-base">Research Projects</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-[#00AEEF] transition-colors text-sm md:text-base">Collaborations</a></li>
               </ul>
             </div>
 
@@ -389,7 +403,7 @@ const Index = () => {
             <div>
               <h3 className="text-lg font-semibold mb-4 text-[#00AEEF]">Connect With Us</h3>
               <div className="space-y-4">
-                <p className="text-gray-400">
+                <p className="text-gray-400 text-sm md:text-base">
                   Email: info@bioinformatics.lk<br />
                   Phone: +94 11 234 5678
                 </p>
@@ -408,8 +422,8 @@ const Index = () => {
             </div>
           </div>
 
-          <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 Bioinformatics.lk. All rights reserved. | Privacy Policy | Terms of Service</p>
+          <div className="border-t border-gray-800 mt-8 lg:mt-12 pt-6 lg:pt-8 text-center text-gray-400">
+            <p className="text-sm md:text-base">&copy; 2024 Bioinformatics.lk. All rights reserved. | Privacy Policy | Terms of Service</p>
           </div>
         </div>
       </footer>
