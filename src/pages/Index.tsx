@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -5,6 +6,7 @@ import { ChevronDown, BookOpen, Search, FileText, Youtube, Linkedin, Twitter, Us
 import { AuthModal } from "@/components/auth/AuthModal";
 import { ContactModal } from "@/components/contact/ContactModal";
 import { SearchBar } from "@/components/search/SearchBar";
+import { UserDashboard } from "@/components/dashboard/UserDashboard";
 import { supabase } from "@/integrations/supabase/client";
 import { User } from '@supabase/supabase-js';
 
@@ -39,9 +41,9 @@ const Index = () => {
 
   // Animate counters with 3x slower speed
   useEffect(() => {
-    const targets = { courses: 6, students: 11, projects: 10, partnerships: 5 };
-    const duration = 6000; // 3x slower (was 2000, now 6000)
-    const increment = 150; // 3x slower (was 50, now 150)
+    const targets = { courses: 11, students: 10, projects: 5, partnerships: 4 };
+    const duration = 9000; // 3x slower than before (was 6000, now 9000)
+    const increment = 225; // 3x slower (was 150, now 225)
 
     const timer = setInterval(() => {
       setCounters(prev => {
@@ -88,21 +90,30 @@ const Index = () => {
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
+  const handlePartnershipClick = (url: string) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
+  // If user is logged in, show dashboard
+  if (user) {
+    return <UserDashboard user={user} />;
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
       {/* Navigation Header */}
       <header className="sticky top-0 z-50 bg-white/10 backdrop-blur-md border-b border-purple-300/30">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-6">
-              <div className="flex items-center space-x-2 ml-8">
+            <div className="flex items-center space-x-8">
+              <div className="flex items-center space-x-2 ml-12">
                 <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center">
                   <FlaskConical className="text-white h-5 w-5" />
                 </div>
                 <span className="text-xl font-bold text-white">Bioinformatics.lk</span>
               </div>
               
-              <nav className="hidden lg:flex items-center space-x-4">
+              <nav className="hidden lg:flex items-center space-x-6">
                 <Button
                   variant="ghost"
                   onClick={() => scrollToSection('team')}
@@ -167,25 +178,12 @@ const Index = () => {
                 <SearchBar />
               </div>
               
-              {user ? (
-                <div className="flex items-center gap-2">
-                  <span className="text-purple-100 text-sm">Welcome!</span>
-                  <Button
-                    onClick={handleLogout}
-                    variant="outline"
-                    className="border-purple-300/30 text-purple-100 hover:bg-white/10"
-                  >
-                    Logout
-                  </Button>
-                </div>
-              ) : (
-                <Button
-                  onClick={() => setAuthModalOpen(true)}
-                  className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-all transform hover:scale-105"
-                >
-                  Login
-                </Button>
-              )}
+              <Button
+                onClick={() => setAuthModalOpen(true)}
+                className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-all transform hover:scale-105"
+              >
+                Login
+              </Button>
             </div>
           </div>
         </div>
@@ -298,9 +296,9 @@ const Index = () => {
                 url: "https://www.linkedin.com/in/anu-gamage-62192b201/"
               }
             ].map((member, index) => (
-              <Card key={index} className="bg-white border border-gray-200 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
+              <Card key={index} className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/20 to-purple-600/20 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
                 <CardHeader className="text-center">
-                  <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden">
+                  <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-gradient-to-r from-blue-600 to-purple-600">
                     <img 
                       src={member.image} 
                       alt={member.name}
@@ -323,17 +321,17 @@ const Index = () => {
       </section>
 
       {/* Research Section */}
-      <section className="py-12 md:py-20 bg-white/95 backdrop-blur-sm" id="research">
+      <section className="py-12 md:py-20 bg-white" id="research">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 lg:mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Research Areas</h2>
             <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-              Pioneering research in computational biology and bioinformatics applications
+              Pioneering research in bioinformatics, cheminformatics, computational chemistry and AI-driven drug discovery applications
             </p>
           </div>
           
           <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-            <Card className="bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg">
+            <Card className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg">
               <div className="relative overflow-hidden">
                 <img 
                   src="/lovable-uploads/7f777ef7-1b68-4be2-8518-94fbe3d1c86e.png" 
@@ -352,7 +350,7 @@ const Index = () => {
               </CardHeader>
             </Card>
 
-            <Card className="bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg">
+            <Card className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg">
               <div className="relative overflow-hidden">
                 <img 
                   src="/lovable-uploads/9b130339-4a9e-4910-8516-0d16b6a30c73.png" 
@@ -366,12 +364,12 @@ const Index = () => {
                   Cheminformatics
                 </CardTitle>
                 <CardDescription className="text-gray-600">
-                  Globally accessible comprehensive database with an AI-integrated web platform cataloging endemic medicinal plants with detailed information, their chemical structure information, molecular scaffolds, chemical classification, chemical structures, physicochemical properties, drug-likeness properties, ADMET properties, chemical descriptors, predicted viral target proteins, natural-product-inspired AI designed compounds.
+                  Development of globally accessible comprehensive database with an AI-integrated web platform cataloging endemic medicinal plants with detailed information.
                 </CardDescription>
               </CardHeader>
             </Card>
 
-            <Card className="bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg">
+            <Card className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg">
               <div className="relative overflow-hidden">
                 <img 
                   src="/lovable-uploads/b285632b-3423-4b61-b1e2-20607153ff98.png" 
@@ -399,7 +397,7 @@ const Index = () => {
           <div className="text-center mb-8 lg:mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Courses</h2>
             <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-              Master the fundamentals and advanced concepts of bioinformatics through our comprehensive course offerings
+              Master the fundamentals and advanced concepts of bioinformatics, cheminformatics, computational chemistry, and AI in drug discovery through our comprehensive course offerings
             </p>
           </div>
           
@@ -436,7 +434,11 @@ const Index = () => {
                 image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=250&fit=crop&crop=center"
               }
             ].map((course, index) => (
-              <Card key={index} className="bg-white border border-gray-200 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
+              <Card 
+                key={index} 
+                className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md cursor-pointer"
+                onClick={handleLearnMore}
+              >
                 <div className="relative overflow-hidden">
                   <img 
                     src={course.image} 
@@ -445,21 +447,13 @@ const Index = () => {
                   />
                 </div>
                 <CardHeader>
-                  <CardTitle className="text-lg md:text-xl text-purple-600">
+                  <CardTitle className="text-lg md:text-xl bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent hover:from-purple-700 hover:to-blue-700 transition-all">
                     {course.title}
                   </CardTitle>
                   <CardDescription className="text-sm md:text-base text-gray-700">
                     {course.description}
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="pt-0">
-                  <Button 
-                    className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-colors"
-                    onClick={handleLearnMore}
-                  >
-                    Learn More
-                  </Button>
-                </CardContent>
               </Card>
             ))}
           </div>
@@ -485,20 +479,16 @@ const Index = () => {
               "Research Article Writing",
               "Drug Formulation Development"
             ].map((service, index) => (
-              <Card key={index} className="bg-white border border-gray-200 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
+              <Card 
+                key={index} 
+                className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md cursor-pointer"
+                onClick={handleLearnMore}
+              >
                 <CardHeader>
-                  <CardTitle className="text-lg md:text-xl text-purple-600 text-center">
+                  <CardTitle className="text-lg md:text-xl bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent text-center hover:from-purple-700 hover:to-blue-700 transition-all">
                     {service}
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <Button 
-                    className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-colors"
-                    onClick={handleLearnMore}
-                  >
-                    Learn More
-                  </Button>
-                </CardContent>
               </Card>
             ))}
           </div>
@@ -519,25 +509,28 @@ const Index = () => {
             {[
               {
                 category: "Academics",
-                partner: "University of Peradeniya, Faculty of Agriculture, Department of Animal Science"
+                partner: "University of Peradeniya, Faculty of Agriculture, Department of Animal Science",
+                url: "https://agri.pdn.ac.lk/ansc/"
               },
               {
                 category: "Open Source",
                 partners: [
-                  "Institute of Scientific Informatics",
-                  "Global Chemistry Inc, U.S.A"
+                  { name: "Institute of Scientific Informatics", url: "https://www.linkedin.com/company/institute-of-scientific-informatics/?viewAsMember=true" },
+                  { name: "Global Chemistry Inc, U.S.A", url: "https://globalchemistry.org/" }
                 ]
               },
               {
                 category: "Education and Research",
-                partner: "Chemo-Informatics Academy, Nigeria"
+                partner: "Chemo-Informatics Academy, Nigeria",
+                url: "https://www.linkedin.com/company/chemoinformatics-academy/posts/?feedView=all"
               },
               {
                 category: "Industry",
-                partner: "Standard Seed Corporation, Delaware, Wilmington, U.S.A"
+                partner: "Standard Seed Corporation, Delaware, Wilmington, U.S.A",
+                url: "https://standardseedai.com/"
               }
             ].map((partnership, index) => (
-              <Card key={index} className="bg-white border border-gray-200 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
+              <Card key={index} className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
                 <CardHeader>
                   <CardTitle className="text-lg md:text-xl text-purple-600">
                     {partnership.category}
@@ -545,13 +538,20 @@ const Index = () => {
                   {partnership.partners ? (
                     <div className="space-y-2">
                       {partnership.partners.map((partner, partnerIndex) => (
-                        <CardDescription key={partnerIndex} className="text-sm md:text-base text-gray-700 border-l-2 border-purple-300 pl-3">
-                          {partner}
+                        <CardDescription 
+                          key={partnerIndex} 
+                          className="text-sm md:text-base text-gray-700 border-l-2 border-purple-300 pl-3 cursor-pointer hover:text-purple-600 hover:underline transition-all"
+                          onClick={() => handlePartnershipClick(partner.url)}
+                        >
+                          {partner.name}
                         </CardDescription>
                       ))}
                     </div>
                   ) : (
-                    <CardDescription className="text-sm md:text-base text-gray-700">
+                    <CardDescription 
+                      className="text-sm md:text-base text-gray-700 cursor-pointer hover:text-purple-600 hover:underline transition-all"
+                      onClick={() => handlePartnershipClick(partnership.url!)}
+                    >
                       {partnership.partner}
                     </CardDescription>
                   )}
@@ -591,7 +591,7 @@ const Index = () => {
                 image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=250&fit=crop&crop=center"
               }
             ].map((article, index) => (
-              <Card key={index} className="bg-white border border-gray-200 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
+              <Card key={index} className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
                 <div className="relative overflow-hidden">
                   <img 
                     src={article.image} 
@@ -648,9 +648,9 @@ const Index = () => {
                 image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop&crop=face"
               }
             ].map((story, index) => (
-              <Card key={index} className="bg-white border border-gray-200 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
+              <Card key={index} className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
                 <CardHeader className="text-center">
-                  <div className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden">
+                  <div className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden border-4 border-gradient-to-r from-blue-600 to-purple-600">
                     <img 
                       src={story.image} 
                       alt={story.name}

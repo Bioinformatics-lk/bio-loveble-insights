@@ -3,14 +3,59 @@ import React, { useState } from 'react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 export const SearchBar = () => {
   const [query, setQuery] = useState('');
+  const { toast } = useToast();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    // Implement search functionality here
-    console.log('Searching for:', query);
+    if (!query.trim()) return;
+    
+    // Perform site-wide search
+    const searchResults = performSiteSearch(query);
+    
+    if (searchResults.length > 0) {
+      // Scroll to first result
+      const firstResult = document.getElementById(searchResults[0]);
+      if (firstResult) {
+        firstResult.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        toast({
+          title: "Search Results",
+          description: `Found ${searchResults.length} result(s) for "${query}"`,
+        });
+      }
+    } else {
+      toast({
+        title: "No Results",
+        description: `No results found for "${query}"`,
+        variant: "destructive",
+      });
+    }
+  };
+
+  const performSiteSearch = (searchTerm: string): string[] => {
+    const searchSections = [
+      { id: 'team', keywords: ['team', 'lakmal', 'saumya', 'anuththara', 'doctor', 'researcher'] },
+      { id: 'research', keywords: ['research', 'bioinformatics', 'cheminformatics', 'drug', 'discovery', 'ai', 'medicinal', 'plants'] },
+      { id: 'courses', keywords: ['courses', 'education', 'training', 'molecular', 'docking', 'dynamics', 'machine', 'learning'] },
+      { id: 'services', keywords: ['services', 'pharmacology', 'network', 'molecular', 'simulation', 'formulation'] },
+      { id: 'partnerships', keywords: ['partnerships', 'university', 'peradeniya', 'global', 'chemistry', 'standard', 'seed'] },
+      { id: 'news', keywords: ['news', 'updates', 'genomics', 'lab', 'workshop', 'collaboration'] },
+      { id: 'success-stories', keywords: ['success', 'stories', 'testimonial', 'students', 'graduates'] }
+    ];
+
+    const results: string[] = [];
+    const lowerQuery = searchTerm.toLowerCase();
+
+    searchSections.forEach(section => {
+      if (section.keywords.some(keyword => keyword.includes(lowerQuery) || lowerQuery.includes(keyword))) {
+        results.push(section.id);
+      }
+    });
+
+    return results;
   };
 
   return (
