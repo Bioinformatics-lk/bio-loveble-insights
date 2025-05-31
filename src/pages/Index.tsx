@@ -1,9 +1,35 @@
 
+import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChevronDown, BookOpen, Search, FileText, Youtube, Linkedin, Twitter, Dna } from "lucide-react";
+import { ChevronDown, BookOpen, Search, FileText, Youtube, Linkedin, Twitter, Users, FlaskConical, GraduationCap, Newspaper, Briefcase, MessageCircle, Handshake, Trophy } from "lucide-react";
+import { AuthModal } from "@/components/auth/AuthModal";
+import { ContactModal } from "@/components/contact/ContactModal";
+import { SearchBar } from "@/components/search/SearchBar";
+import { supabase } from "@/integrations/supabase/client";
+import { User } from '@supabase/supabase-js';
 
 const Index = () => {
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [contactModalOpen, setContactModalOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setUser(session?.user ?? null);
+      }
+    );
+
+    return () => subscription.unsubscribe();
+  }, []);
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -11,85 +37,171 @@ const Index = () => {
     }
   };
 
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+  };
+
   return (
-    <div className="min-h-screen bg-white">
-      {/* Navigation Header - Schrodinger Style */}
-      <header className="sticky top-0 z-50 bg-white shadow-sm border-b">
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
+      {/* Navigation Header */}
+      <header className="sticky top-0 z-50 bg-white/10 backdrop-blur-md border-b border-purple-300/30">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
-            {/* Logo */}
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-[#003057] to-[#00AEEF] rounded-full flex items-center justify-center">
-                <Dna className="text-white h-5 w-5" />
+              <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center">
+                <FlaskConical className="text-white h-5 w-5" />
               </div>
-              <span className="text-xl font-bold text-[#003057]">Bioinformatics.lk</span>
+              <span className="text-xl font-bold text-white">Bioinformatics.lk</span>
             </div>
             
-            {/* Navigation Menu */}
-            <nav className="hidden md:flex items-center space-x-8">
-              <a href="#" className="text-[#222222] hover:text-[#00AEEF] transition-colors font-medium">Home</a>
-              <a href="#" className="text-[#222222] hover:text-[#00AEEF] transition-colors font-medium">About</a>
-              <a href="#courses" className="text-[#222222] hover:text-[#00AEEF] transition-colors font-medium">Courses</a>
-              <a href="#research" className="text-[#222222] hover:text-[#00AEEF] transition-colors font-medium">Research</a>
-              <a href="#news" className="text-[#222222] hover:text-[#00AEEF] transition-colors font-medium">News</a>
-              <a href="#" className="text-[#222222] hover:text-[#00AEEF] transition-colors font-medium">Contact</a>
+            <nav className="hidden md:flex items-center space-x-6">
+              <Button
+                variant="ghost"
+                onClick={() => scrollToSection('team')}
+                className="text-purple-100 hover:text-white hover:bg-white/10 transition-all transform hover:scale-105"
+              >
+                <Users className="w-4 h-4 mr-2" />
+                Our Team
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => scrollToSection('research')}
+                className="text-purple-100 hover:text-white hover:bg-white/10 transition-all transform hover:scale-105"
+              >
+                <FlaskConical className="w-4 h-4 mr-2" />
+                Research
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => scrollToSection('courses')}
+                className="text-purple-100 hover:text-white hover:bg-white/10 transition-all transform hover:scale-105"
+              >
+                <GraduationCap className="w-4 h-4 mr-2" />
+                Courses
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => scrollToSection('services')}
+                className="text-purple-100 hover:text-white hover:bg-white/10 transition-all transform hover:scale-105"
+              >
+                <Briefcase className="w-4 h-4 mr-2" />
+                Services
+              </Button>
             </nav>
 
-            {/* CTA Button */}
-            <Button className="hidden md:inline-flex bg-[#00AEEF] hover:bg-[#003057] transition-colors">
-              Get Started
-            </Button>
-
-            {/* Mobile Menu Button */}
-            <button className="md:hidden">
-              <ChevronDown className="h-6 w-6 text-[#003057]" />
-            </button>
+            {user ? (
+              <div className="flex items-center gap-2">
+                <span className="text-purple-100 text-sm">Welcome!</span>
+                <Button
+                  onClick={handleLogout}
+                  variant="outline"
+                  className="border-purple-300/30 text-purple-100 hover:bg-white/10"
+                >
+                  Logout
+                </Button>
+              </div>
+            ) : (
+              <Button
+                onClick={() => setAuthModalOpen(true)}
+                className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-all transform hover:scale-105"
+              >
+                Login
+              </Button>
+            )}
           </div>
         </div>
       </header>
 
-      {/* Hero Section - Schrodinger Inspired */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-[#003057] to-[#00AEEF]">
-        {/* Animated Molecular Background */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-10 left-10 w-32 h-32 animate-spin">
-            <svg viewBox="0 0 100 100" className="w-full h-full">
-              <circle cx="20" cy="20" r="4" fill="white" className="animate-pulse" />
-              <circle cx="50" cy="30" r="3" fill="white" className="animate-pulse delay-300" />
-              <circle cx="80" cy="20" r="4" fill="white" className="animate-pulse delay-700" />
-              <circle cx="30" cy="60" r="3" fill="white" className="animate-pulse delay-500" />
-              <circle cx="70" cy="70" r="4" fill="white" className="animate-pulse delay-200" />
-              <line x1="20" y1="20" x2="50" y2="30" stroke="white" strokeWidth="1" />
-              <line x1="50" y1="30" x2="80" y2="20" stroke="white" strokeWidth="1" />
-              <line x1="20" y1="20" x2="30" y2="60" stroke="white" strokeWidth="1" />
-              <line x1="50" y1="30" x2="70" y2="70" stroke="white" strokeWidth="1" />
-            </svg>
-          </div>
-          <div className="absolute top-40 right-20 w-24 h-24 animate-spin" style={{animationDirection: 'reverse', animationDuration: '20s'}}>
-            <svg viewBox="0 0 100 100" className="w-full h-full">
-              <circle cx="30" cy="30" r="5" fill="white" className="animate-pulse delay-100" />
-              <circle cx="70" cy="30" r="4" fill="white" className="animate-pulse delay-400" />
-              <circle cx="50" cy="70" r="5" fill="white" className="animate-pulse delay-600" />
-              <line x1="30" y1="30" x2="70" y2="30" stroke="white" strokeWidth="1" />
-              <line x1="30" y1="30" x2="50" y2="70" stroke="white" strokeWidth="1" />
-              <line x1="70" y1="30" x2="50" y2="70" stroke="white" strokeWidth="1" />
-            </svg>
-          </div>
-        </div>
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-purple-900/50 via-blue-900/50 to-indigo-900/50 backdrop-blur-sm">
+        <div className="absolute inset-0 bg-white/5"></div>
         
         <div className="relative container mx-auto px-4 py-16 lg:py-24">
+          {/* Hero Buttons */}
+          <div className="flex flex-wrap justify-center gap-3 mb-8">
+            <Button
+              onClick={() => scrollToSection('team')}
+              className="bg-white/10 backdrop-blur-sm border border-purple-300/30 text-purple-100 hover:bg-white/20 transition-all transform hover:scale-105"
+              variant="outline"
+            >
+              <Users className="w-4 h-4 mr-2" />
+              Our Team
+            </Button>
+            <Button
+              onClick={() => scrollToSection('research')}
+              className="bg-white/10 backdrop-blur-sm border border-purple-300/30 text-purple-100 hover:bg-white/20 transition-all transform hover:scale-105"
+              variant="outline"
+            >
+              <FlaskConical className="w-4 h-4 mr-2" />
+              Research
+            </Button>
+            <Button
+              onClick={() => scrollToSection('courses')}
+              className="bg-white/10 backdrop-blur-sm border border-purple-300/30 text-purple-100 hover:bg-white/20 transition-all transform hover:scale-105"
+              variant="outline"
+            >
+              <GraduationCap className="w-4 h-4 mr-2" />
+              Our Courses
+            </Button>
+            <Button
+              onClick={() => scrollToSection('news')}
+              className="bg-white/10 backdrop-blur-sm border border-purple-300/30 text-purple-100 hover:bg-white/20 transition-all transform hover:scale-105"
+              variant="outline"
+            >
+              <Newspaper className="w-4 h-4 mr-2" />
+              News
+            </Button>
+            <Button
+              onClick={() => scrollToSection('services')}
+              className="bg-white/10 backdrop-blur-sm border border-purple-300/30 text-purple-100 hover:bg-white/20 transition-all transform hover:scale-105"
+              variant="outline"
+            >
+              <Briefcase className="w-4 h-4 mr-2" />
+              Our Services
+            </Button>
+            <Button
+              onClick={() => setContactModalOpen(true)}
+              className="bg-white/10 backdrop-blur-sm border border-purple-300/30 text-purple-100 hover:bg-white/20 transition-all transform hover:scale-105"
+              variant="outline"
+            >
+              <MessageCircle className="w-4 h-4 mr-2" />
+              Contact Us
+            </Button>
+            <Button
+              onClick={() => scrollToSection('partnerships')}
+              className="bg-white/10 backdrop-blur-sm border border-purple-300/30 text-purple-100 hover:bg-white/20 transition-all transform hover:scale-105"
+              variant="outline"
+            >
+              <Handshake className="w-4 h-4 mr-2" />
+              Our Partnerships
+            </Button>
+            <Button
+              onClick={() => scrollToSection('success-stories')}
+              className="bg-white/10 backdrop-blur-sm border border-purple-300/30 text-purple-100 hover:bg-white/20 transition-all transform hover:scale-105"
+              variant="outline"
+            >
+              <Trophy className="w-4 h-4 mr-2" />
+              Success Stories
+            </Button>
+          </div>
+
+          {/* Search Bar */}
+          <div className="flex justify-center mb-12">
+            <SearchBar />
+          </div>
+          
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div className="text-white space-y-4 lg:space-y-6">
               <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold leading-tight">
-                Accelerating <span className="text-[#00AEEF]">Bioinformatics</span> Innovation
+                Accelerating <span className="text-purple-300">Bioinformatics</span> Innovation
               </h1>
-              <p className="text-lg md:text-xl lg:text-2xl text-blue-100 leading-relaxed">
+              <p className="text-lg md:text-xl lg:text-2xl text-purple-100 leading-relaxed">
                 Empowering researchers and students in genomics, proteomics, and computational biology through world-class education and cutting-edge research.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button 
                   size="lg" 
-                  className="bg-[#00AEEF] hover:bg-white hover:text-[#003057] text-white px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg transition-all"
+                  className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg transition-all transform hover:scale-105"
                   onClick={() => scrollToSection('courses')}
                 >
                   Explore Courses
@@ -97,7 +209,7 @@ const Index = () => {
                 <Button 
                   size="lg" 
                   variant="outline" 
-                  className="border-white text-white hover:bg-white hover:text-[#003057] px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg transition-all"
+                  className="border-purple-300/30 text-purple-100 hover:bg-white/10 px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg transition-all transform hover:scale-105"
                   onClick={() => scrollToSection('research')}
                 >
                   View Research
@@ -105,83 +217,112 @@ const Index = () => {
               </div>
             </div>
             <div className="relative">
-              {/* 3D Video Showcase Window */}
-              <div className="relative">
-                {/* 3D Background Frame */}
-                <div className="absolute -inset-4 bg-gradient-to-br from-white/20 via-white/30 to-white/10 rounded-[2rem] backdrop-blur-sm shadow-2xl transform rotate-1"></div>
-                <div className="absolute -inset-2 bg-gradient-to-tl from-white/30 via-white/40 to-white/20 rounded-[1.5rem] backdrop-blur-sm shadow-xl transform -rotate-0.5"></div>
-                
-                {/* Video Container */}
-                <div className="relative w-full h-64 md:h-80 lg:h-96 bg-gradient-to-br from-white/40 via-white/60 to-white/30 rounded-2xl backdrop-blur-sm border border-white/40 overflow-hidden shadow-xl">
-                  <iframe 
-                    src="https://player.vimeo.com/video/1089037562?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1"
-                    frameBorder="0" 
-                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
-                    className="w-full h-full rounded-2xl"
-                    title="Bioinformatics Showcase"
-                  ></iframe>
-                </div>
+              <div className="relative w-full h-64 md:h-80 lg:h-96 bg-white/10 backdrop-blur-sm rounded-2xl border border-purple-300/30 overflow-hidden shadow-2xl">
+                <iframe 
+                  src="https://player.vimeo.com/video/1089037562?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1"
+                  frameBorder="0" 
+                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
+                  className="w-full h-full"
+                  title="Bioinformatics Showcase"
+                ></iframe>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Mission Section - Schrodinger Colors */}
-      <section className="py-12 md:py-20 bg-[#F4F4F4]" id="about">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            <div className="space-y-4 lg:space-y-6">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#003057]">
-                Advancing Sri Lankan <span className="text-[#00AEEF]">Bioinformatics</span>
-              </h2>
-              <p className="text-base md:text-lg text-[#222222] leading-relaxed">
-                Bioinformatics.lk is Sri Lanka's premier platform for bioinformatics education and research. 
-                We bridge the gap between traditional biology and modern computational methods, providing 
-                comprehensive training and fostering innovative research in genomics, proteomics, and 
-                artificial intelligence applications in life sciences.
-              </p>
-              <div className="grid grid-cols-2 gap-4 lg:gap-6">
-                <div className="text-center">
-                  <div className="text-2xl md:text-3xl font-bold text-[#00AEEF]">500+</div>
-                  <div className="text-sm md:text-base text-[#222222]">Students Trained</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl md:text-3xl font-bold text-[#00AEEF]">25+</div>
-                  <div className="text-sm md:text-base text-[#222222]">Research Projects</div>
-                </div>
-              </div>
-            </div>
-            <div className="relative">
-              <img 
-                src="https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?w=600&h=400&fit=crop&crop=center" 
-                alt="Research and innovation" 
-                className="w-full h-64 md:h-96 object-cover rounded-2xl shadow-2xl"
-              />
-              {/* Protein overlay */}
-              <div className="absolute top-4 right-4 w-12 h-12 md:w-16 md:h-16 bg-[#003057]/80 rounded-full flex items-center justify-center backdrop-blur-sm">
-                <svg viewBox="0 0 40 40" className="w-6 h-6 md:w-8 md:h-8 text-[#00AEEF] animate-spin" style={{animationDuration: '8s'}}>
-                  <circle cx="20" cy="10" r="3" fill="currentColor" />
-                  <circle cx="30" cy="20" r="3" fill="currentColor" />
-                  <circle cx="20" cy="30" r="3" fill="currentColor" />
-                  <circle cx="10" cy="20" r="3" fill="currentColor" />
-                  <line x1="20" y1="10" x2="30" y2="20" stroke="currentColor" strokeWidth="1" />
-                  <line x1="30" y1="20" x2="20" y2="30" stroke="currentColor" strokeWidth="1" />
-                  <line x1="20" y1="30" x2="10" y2="20" stroke="currentColor" strokeWidth="1" />
-                  <line x1="10" y1="20" x2="20" y2="10" stroke="currentColor" strokeWidth="1" />
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Courses Section */}
-      <section className="py-12 md:py-20 bg-white" id="courses">
+      {/* Our Team Section */}
+      <section className="py-12 md:py-20 bg-white/5 backdrop-blur-sm" id="team">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 lg:mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#003057] mb-4">Featured Courses</h2>
-            <p className="text-lg md:text-xl text-[#222222] max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Our Team</h2>
+            <p className="text-lg md:text-xl text-purple-100 max-w-3xl mx-auto">
+              Meet our expert team of researchers and educators
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+            {[
+              {
+                name: "Dr. Lakmal Ranathunga",
+                qualification: "PhD in Veterinary Medicine",
+                image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face"
+              },
+              {
+                name: "Mrs. Saumya Poorni",
+                qualification: "PhD in Aquaculture (Reading)",
+                image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=300&h=300&fit=crop&crop=face"
+              },
+              {
+                name: "Mr. Anuththara Gamage",
+                qualification: "B.Sc Honours, Research Scientist at Standard Seed Corporation",
+                image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face"
+              }
+            ].map((member, index) => (
+              <Card key={index} className="bg-white/10 backdrop-blur-sm border border-purple-300/30 hover:bg-white/20 transition-all transform hover:scale-105">
+                <CardHeader className="text-center">
+                  <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden">
+                    <img 
+                      src={member.image} 
+                      alt={member.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <CardTitle className="text-white">{member.name}</CardTitle>
+                  <CardDescription className="text-purple-200">{member.qualification}</CardDescription>
+                </CardHeader>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Research Section */}
+      <section className="py-12 md:py-20 bg-gradient-to-br from-purple-900/30 via-blue-900/30 to-indigo-900/30 backdrop-blur-sm" id="research">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8 lg:mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Research Areas</h2>
+            <p className="text-lg md:text-xl text-purple-100 max-w-3xl mx-auto">
+              Pioneering research in computational biology and bioinformatics applications
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+            {[
+              {
+                title: "Bioinformatics",
+                description: "Advanced computational methods for biological data analysis and interpretation.",
+                icon: <FlaskConical className="h-8 w-8 md:h-12 md:w-12" />
+              },
+              {
+                title: "Cheminformatics", 
+                description: "Chemical information analysis and molecular modeling for drug discovery.",
+                icon: <Search className="h-8 w-8 md:h-12 md:w-12" />
+              },
+              {
+                title: "AI-driven Drug Discovery",
+                description: "Machine learning and AI applications in pharmaceutical research and development.",
+                icon: <BookOpen className="h-8 w-8 md:h-12 md:w-12" />
+              }
+            ].map((item, index) => (
+              <div key={index} className="text-center group">
+                <div className="inline-flex items-center justify-center w-16 h-16 md:w-20 md:h-20 bg-purple-600/30 backdrop-blur-sm rounded-full mb-4 lg:mb-6 group-hover:bg-purple-600/50 transition-all border border-purple-300/30">
+                  {item.icon}
+                </div>
+                <h3 className="text-xl md:text-2xl font-bold mb-4 text-purple-200">{item.title}</h3>
+                <p className="text-sm md:text-base text-purple-100 leading-relaxed">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Our Courses Section */}
+      <section className="py-12 md:py-20 bg-white/5 backdrop-blur-sm" id="courses">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8 lg:mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Our Courses</h2>
+            <p className="text-lg md:text-xl text-purple-100 max-w-3xl mx-auto">
               Master the fundamentals and advanced concepts of bioinformatics through our comprehensive course offerings
             </p>
           </div>
@@ -191,53 +332,52 @@ const Index = () => {
               {
                 title: "Introduction to Bioinformatics",
                 description: "Learn the fundamentals of biological data analysis, sequence alignment, and database searching.",
-                image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=250&fit=crop&crop=center",
-                duration: "8 weeks",
-                level: "Beginner"
+                image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=250&fit=crop&crop=center"
               },
               {
-                title: "Genomics & Next-Gen Sequencing",
-                description: "Explore genome assembly, variant calling, and RNA-seq analysis using modern tools.",
-                image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=400&h=250&fit=crop&crop=center",
-                duration: "10 weeks",
-                level: "Intermediate"
+                title: "Network Pharmacology",
+                description: "Explore drug-target interactions and molecular networks in pharmaceutical research.",
+                image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=250&fit=crop&crop=center"
               },
               {
-                title: "AI in Drug Discovery",
+                title: "Molecular Docking",
+                description: "Master computational methods for predicting molecular binding and drug design.",
+                image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=400&h=250&fit=crop&crop=center"
+              },
+              {
+                title: "Molecular Dynamics",
+                description: "Simulate molecular behavior and protein folding using advanced computational techniques.",
+                image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=400&h=250&fit=crop&crop=center"
+              },
+              {
+                title: "AI and ML in Drug Discovery",
                 description: "Apply machine learning and AI techniques to accelerate drug discovery processes.",
-                image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=250&fit=crop&crop=center",
-                duration: "12 weeks",
-                level: "Advanced"
+                image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=250&fit=crop&crop=center"
+              },
+              {
+                title: "Introduction to Cheminformatics",
+                description: "Learn chemical information processing and molecular property prediction methods.",
+                image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=250&fit=crop&crop=center"
               }
             ].map((course, index) => (
-              <Card key={index} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-2 hover:border-[#00AEEF]">
+              <Card key={index} className="bg-white/10 backdrop-blur-sm border border-purple-300/30 hover:bg-white/20 transition-all transform hover:scale-105">
                 <div className="relative overflow-hidden">
                   <img 
                     src={course.image} 
                     alt={course.title}
                     className="w-full h-40 md:h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                  <div className="absolute top-4 right-4 bg-[#003057] text-white px-3 py-1 rounded-full text-sm font-medium">
-                    {course.level}
-                  </div>
-                  {/* Molecular icon overlay */}
-                  <div className="absolute bottom-4 left-4 w-8 h-8 bg-[#00AEEF]/80 rounded-full flex items-center justify-center">
-                    <Dna className="h-4 w-4 text-white" />
-                  </div>
                 </div>
                 <CardHeader>
-                  <CardTitle className="text-lg md:text-xl group-hover:text-[#00AEEF] transition-colors text-[#003057]">
+                  <CardTitle className="text-lg md:text-xl text-white">
                     {course.title}
                   </CardTitle>
-                  <CardDescription className="text-sm md:text-base text-[#222222]">
+                  <CardDescription className="text-sm md:text-base text-purple-200">
                     {course.description}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="pt-0">
-                  <div className="flex justify-between items-center mb-4">
-                    <span className="text-sm text-[#222222]">Duration: {course.duration}</span>
-                  </div>
-                  <Button className="w-full bg-[#00AEEF] hover:bg-[#003057] transition-colors">
+                  <Button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-colors">
                     Learn More
                   </Button>
                 </CardContent>
@@ -247,70 +387,12 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Research Highlights Section */}
-      <section className="py-12 md:py-20 bg-[#003057] text-white relative overflow-hidden" id="research">
-        {/* Background molecular pattern */}
-        <div className="absolute inset-0 opacity-5">
-          {Array.from({length: 12}).map((_, i) => (
-            <div 
-              key={i}
-              className="absolute animate-pulse"
-              style={{
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                animationDelay: `${i * 0.5}s`,
-                animationDuration: '3s'
-              }}
-            >
-              <Dna className="h-6 w-6 md:h-8 md:w-8" />
-            </div>
-          ))}
-        </div>
-        
-        <div className="container mx-auto px-4 relative">
-          <div className="text-center mb-8 lg:mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Research Initiatives</h2>
-            <p className="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto">
-              Pioneering research in computational biology and bioinformatics applications
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-            {[
-              {
-                icon: <Search className="h-8 w-8 md:h-12 md:w-12" />,
-                title: "Genomics Research",
-                description: "Advanced genome analysis and population genetics studies focusing on South Asian populations."
-              },
-              {
-                icon: <BookOpen className="h-8 w-8 md:h-12 md:w-12" />,
-                title: "AI in Biology", 
-                description: "Developing machine learning models for protein structure prediction and drug target identification."
-              },
-              {
-                icon: <FileText className="h-8 w-8 md:h-12 md:w-12" />,
-                title: "Drug Discovery",
-                description: "Computational approaches to identify novel therapeutic compounds and biomarkers."
-              }
-            ].map((item, index) => (
-              <div key={index} className="text-center group">
-                <div className="inline-flex items-center justify-center w-16 h-16 md:w-20 md:h-20 bg-[#00AEEF]/20 rounded-full mb-4 lg:mb-6 group-hover:bg-[#00AEEF]/30 transition-colors">
-                  {item.icon}
-                </div>
-                <h3 className="text-xl md:text-2xl font-bold mb-4 text-[#00AEEF]">{item.title}</h3>
-                <p className="text-sm md:text-base text-blue-100 leading-relaxed">{item.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* News Section */}
-      <section className="py-12 md:py-20 bg-[#F4F4F4]" id="news">
+      <section className="py-12 md:py-20 bg-gradient-to-br from-purple-900/30 via-blue-900/30 to-indigo-900/30 backdrop-blur-sm" id="news">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 lg:mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#003057] mb-4">Latest News & Updates</h2>
-            <p className="text-lg md:text-xl text-[#222222]">Stay informed about the latest developments in bioinformatics</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Latest News & Updates</h2>
+            <p className="text-lg md:text-xl text-purple-100">Stay informed about the latest developments in bioinformatics</p>
           </div>
           
           <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
@@ -334,7 +416,7 @@ const Index = () => {
                 image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=250&fit=crop&crop=center"
               }
             ].map((article, index) => (
-              <Card key={index} className="group hover:shadow-lg transition-all duration-300 hover:border-[#00AEEF] border-2">
+              <Card key={index} className="bg-white/10 backdrop-blur-sm border border-purple-300/30 hover:bg-white/20 transition-all transform hover:scale-105">
                 <div className="relative overflow-hidden">
                   <img 
                     src={article.image} 
@@ -343,14 +425,14 @@ const Index = () => {
                   />
                 </div>
                 <CardHeader>
-                  <div className="text-sm text-[#00AEEF] font-medium mb-2">{article.date}</div>
-                  <CardTitle className="text-lg md:text-xl group-hover:text-[#00AEEF] transition-colors text-[#003057]">
+                  <div className="text-sm text-purple-300 font-medium mb-2">{article.date}</div>
+                  <CardTitle className="text-lg md:text-xl text-white">
                     {article.title}
                   </CardTitle>
-                  <CardDescription className="text-sm md:text-base text-[#222222]">{article.preview}</CardDescription>
+                  <CardDescription className="text-sm md:text-base text-purple-200">{article.preview}</CardDescription>
                 </CardHeader>
                 <CardContent className="pt-0">
-                  <Button variant="link" className="p-0 text-[#00AEEF] hover:text-[#003057]">
+                  <Button variant="link" className="p-0 text-purple-300 hover:text-white">
                     Read More →
                   </Button>
                 </CardContent>
@@ -360,61 +442,188 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Our Services Section */}
+      <section className="py-12 md:py-20 bg-white/5 backdrop-blur-sm" id="services">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8 lg:mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Our Services</h2>
+            <p className="text-lg md:text-xl text-purple-100 max-w-3xl mx-auto">
+              Professional bioinformatics and computational biology services
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {[
+              "Network Pharmacology Services",
+              "Molecular Docking Services", 
+              "Molecular Dynamics Simulation Services",
+              "AI and ML in Drug Discovery Services",
+              "Research Article Writing Services"
+            ].map((service, index) => (
+              <Card key={index} className="bg-white/10 backdrop-blur-sm border border-purple-300/30 hover:bg-white/20 transition-all transform hover:scale-105">
+                <CardHeader>
+                  <CardTitle className="text-lg md:text-xl text-white text-center">
+                    {service}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <Button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-colors">
+                    Learn More
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Our Partnerships Section */}
+      <section className="py-12 md:py-20 bg-gradient-to-br from-purple-900/30 via-blue-900/30 to-indigo-900/30 backdrop-blur-sm" id="partnerships">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8 lg:mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Our Partnerships</h2>
+            <p className="text-lg md:text-xl text-purple-100 max-w-3xl mx-auto">
+              Collaborating with leading institutions worldwide
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
+            {[
+              {
+                category: "Academics",
+                partner: "University of Peradeniya, Faculty of Agriculture, Department of Animal Science"
+              },
+              {
+                category: "Open Source",
+                partner: "Institute of Scientific Informatics, Global Chemistry Inc, U.S.A"
+              },
+              {
+                category: "Education and Research",
+                partner: "Chemo-Informatics Academy, Nigeria"
+              },
+              {
+                category: "Industry",
+                partner: "Standard Seed Corporation, Delaware, Wilmington, U.S.A"
+              }
+            ].map((partnership, index) => (
+              <Card key={index} className="bg-white/10 backdrop-blur-sm border border-purple-300/30 hover:bg-white/20 transition-all transform hover:scale-105">
+                <CardHeader>
+                  <CardTitle className="text-lg md:text-xl text-purple-300">
+                    {partnership.category}
+                  </CardTitle>
+                  <CardDescription className="text-sm md:text-base text-white">
+                    {partnership.partner}
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Success Stories Section */}
+      <section className="py-12 md:py-20 bg-white/5 backdrop-blur-sm" id="success-stories">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8 lg:mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Success Stories</h2>
+            <p className="text-lg md:text-xl text-purple-100 max-w-3xl mx-auto">
+              Hear from our students and their achievements
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+            {[
+              {
+                name: "Sarah Johnson",
+                role: "PhD Student",
+                testimonial: "The bioinformatics course transformed my research approach. The practical skills I gained have been invaluable in my PhD work.",
+                image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=300&h=300&fit=crop&crop=face"
+              },
+              {
+                name: "Michael Chen",
+                role: "Research Scientist",
+                testimonial: "Excellent instruction in molecular docking. The knowledge helped me secure a position at a leading pharmaceutical company.",
+                image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face"
+              },
+              {
+                name: "Emily Rodriguez",
+                role: "Biotech Startup Founder",
+                testimonial: "The AI in drug discovery course gave me the foundation to start my own biotech company. Highly recommended!",
+                image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop&crop=face"
+              }
+            ].map((story, index) => (
+              <Card key={index} className="bg-white/10 backdrop-blur-sm border border-purple-300/30 hover:bg-white/20 transition-all transform hover:scale-105">
+                <CardHeader className="text-center">
+                  <div className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden">
+                    <img 
+                      src={story.image} 
+                      alt={story.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <CardTitle className="text-white">{story.name}</CardTitle>
+                  <CardDescription className="text-purple-200">{story.role}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-purple-100 text-sm italic">"{story.testimonial}"</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer className="bg-[#222222] text-white py-12 md:py-16">
+      <footer className="bg-gradient-to-br from-purple-900/50 via-blue-900/50 to-indigo-900/50 backdrop-blur-sm text-white py-12 md:py-16">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-6 lg:gap-8">
-            {/* Logo and Description */}
             <div className="space-y-4">
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-gradient-to-r from-[#003057] to-[#00AEEF] rounded-full flex items-center justify-center">
-                  <Dna className="text-white h-5 w-5" />
+                <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center">
+                  <FlaskConical className="text-white h-5 w-5" />
                 </div>
                 <span className="text-xl font-bold">Bioinformatics.lk</span>
               </div>
-              <p className="text-gray-400 leading-relaxed text-sm md:text-base">
+              <p className="text-purple-200 leading-relaxed text-sm md:text-base">
                 Advancing bioinformatics education and research in Sri Lanka through innovative programs and cutting-edge technology.
               </p>
             </div>
 
-            {/* Quick Links */}
             <div>
-              <h3 className="text-lg font-semibold mb-4 text-[#00AEEF]">Quick Links</h3>
+              <h3 className="text-lg font-semibold mb-4 text-purple-300">Quick Links</h3>
               <ul className="space-y-2">
-                <li><a href="#" className="text-gray-400 hover:text-[#00AEEF] transition-colors text-sm md:text-base">About Us</a></li>
-                <li><a href="#courses" className="text-gray-400 hover:text-[#00AEEF] transition-colors text-sm md:text-base">Courses</a></li>
-                <li><a href="#research" className="text-gray-400 hover:text-[#00AEEF] transition-colors text-sm md:text-base">Research</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-[#00AEEF] transition-colors text-sm md:text-base">Publications</a></li>
+                <li><button onClick={() => scrollToSection('team')} className="text-purple-200 hover:text-white transition-colors text-sm md:text-base">Our Team</button></li>
+                <li><button onClick={() => scrollToSection('research')} className="text-purple-200 hover:text-white transition-colors text-sm md:text-base">Research</button></li>
+                <li><button onClick={() => scrollToSection('courses')} className="text-purple-200 hover:text-white transition-colors text-sm md:text-base">Courses</button></li>
+                <li><button onClick={() => scrollToSection('services')} className="text-purple-200 hover:text-white transition-colors text-sm md:text-base">Services</button></li>
               </ul>
             </div>
 
-            {/* Programs */}
             <div>
-              <h3 className="text-lg font-semibold mb-4 text-[#00AEEF]">Programs</h3>
+              <h3 className="text-lg font-semibold mb-4 text-purple-300">Programs</h3>
               <ul className="space-y-2">
-                <li><a href="#" className="text-gray-400 hover:text-[#00AEEF] transition-colors text-sm md:text-base">Certificate Courses</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-[#00AEEF] transition-colors text-sm md:text-base">Workshops</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-[#00AEEF] transition-colors text-sm md:text-base">Research Projects</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-[#00AEEF] transition-colors text-sm md:text-base">Collaborations</a></li>
+                <li><a href="#" className="text-purple-200 hover:text-white transition-colors text-sm md:text-base">Certificate Courses</a></li>
+                <li><a href="#" className="text-purple-200 hover:text-white transition-colors text-sm md:text-base">Workshops</a></li>
+                <li><a href="#" className="text-purple-200 hover:text-white transition-colors text-sm md:text-base">Research Projects</a></li>
+                <li><a href="#" className="text-purple-200 hover:text-white transition-colors text-sm md:text-base">Collaborations</a></li>
               </ul>
             </div>
 
-            {/* Contact & Social */}
             <div>
-              <h3 className="text-lg font-semibold mb-4 text-[#00AEEF]">Connect With Us</h3>
+              <h3 className="text-lg font-semibold mb-4 text-purple-300">Connect With Us</h3>
               <div className="space-y-4">
-                <p className="text-gray-400 text-sm md:text-base">
+                <p className="text-purple-200 text-sm md:text-base">
                   Email: info@bioinformatics.lk<br />
                   Phone: +94 11 234 5678
                 </p>
                 <div className="flex space-x-4">
-                  <a href="#" className="w-10 h-10 bg-[#003057] rounded-full flex items-center justify-center hover:bg-[#00AEEF] transition-colors">
+                  <a href="#" className="w-10 h-10 bg-purple-600/30 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-purple-600/50 transition-colors border border-purple-300/30">
                     <Linkedin className="h-5 w-5" />
                   </a>
-                  <a href="#" className="w-10 h-10 bg-[#003057] rounded-full flex items-center justify-center hover:bg-[#00AEEF] transition-colors">
+                  <a href="#" className="w-10 h-10 bg-purple-600/30 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-purple-600/50 transition-colors border border-purple-300/30">
                     <Twitter className="h-5 w-5" />
                   </a>
-                  <a href="#" className="w-10 h-10 bg-[#003057] rounded-full flex items-center justify-center hover:bg-[#00AEEF] transition-colors">
+                  <a href="#" className="w-10 h-10 bg-purple-600/30 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-purple-600/50 transition-colors border border-purple-300/30">
                     <Youtube className="h-5 w-5" />
                   </a>
                 </div>
@@ -422,11 +631,15 @@ const Index = () => {
             </div>
           </div>
 
-          <div className="border-t border-gray-800 mt-8 lg:mt-12 pt-6 lg:pt-8 text-center text-gray-400">
+          <div className="border-t border-purple-300/30 mt-8 lg:mt-12 pt-6 lg:pt-8 text-center text-purple-200">
             <p className="text-sm md:text-base">&copy; 2024 Bioinformatics.lk. All rights reserved. | Privacy Policy | Terms of Service</p>
           </div>
         </div>
       </footer>
+
+      {/* Modals */}
+      <AuthModal isOpen={authModalOpen} onClose={() => setAuthModalOpen(false)} />
+      <ContactModal isOpen={contactModalOpen} onClose={() => setContactModalOpen(false)} />
     </div>
   );
 };
