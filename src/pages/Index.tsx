@@ -1,8 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChevronDown, BookOpen, Search, FileText, Youtube, Linkedin, Twitter, Users, FlaskConical, GraduationCap, Newspaper, Briefcase, MessageCircle, Handshake, Trophy } from "lucide-react";
+import { ChevronDown, BookOpen, Search, FileText, Youtube, Linkedin, Twitter, Users, FlaskConical, GraduationCap, Newspaper, Briefcase, MessageCircle, Handshake, Trophy, ExternalLink } from "lucide-react";
 import { AuthModal } from "@/components/auth/AuthModal";
 import { ContactModal } from "@/components/contact/ContactModal";
 import { SearchBar } from "@/components/search/SearchBar";
@@ -38,11 +37,11 @@ const Index = () => {
     return () => subscription.unsubscribe();
   }, []);
 
-  // Animate counters
+  // Animate counters with 3x slower speed
   useEffect(() => {
-    const targets = { courses: 6, students: 11, projects: 10, partnerships: 4 };
-    const duration = 2000;
-    const increment = 50;
+    const targets = { courses: 6, students: 11, projects: 10, partnerships: 5 };
+    const duration = 6000; // 3x slower (was 2000, now 6000)
+    const increment = 150; // 3x slower (was 50, now 150)
 
     const timer = setInterval(() => {
       setCounters(prev => {
@@ -83,6 +82,10 @@ const Index = () => {
 
   const handleLearnMore = () => {
     setAuthModalOpen(true);
+  };
+
+  const handleTeamMemberClick = (url: string) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -198,15 +201,17 @@ const Index = () => {
             <SearchBar />
           </div>
           
-          <div className="text-center">
-            <div className="text-white space-y-4 lg:space-y-6 mb-12">
-              <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold leading-tight">
+          {/* Main Hero Content - Split Layout */}
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-12">
+            {/* Left Side - Text Content */}
+            <div className="text-white space-y-4 lg:space-y-6">
+              <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold leading-tight text-left">
                 Accelerating <span className="text-purple-300">Bioinformatics</span> Innovation
               </h1>
-              <p className="text-lg md:text-xl lg:text-2xl text-purple-100 leading-relaxed max-w-4xl mx-auto">
+              <p className="text-lg md:text-xl lg:text-2xl text-purple-100 leading-relaxed text-left">
                 Empowering researchers and students in genomics, proteomics, and computational biology through world-class education and cutting-edge research.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex flex-col sm:flex-row gap-4 justify-start">
                 <Button 
                   size="lg" 
                   className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg transition-all transform hover:scale-105"
@@ -225,44 +230,45 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Video Section - Hidden on mobile */}
-            <div className="relative mb-12 hidden md:block">
-              <div className="relative w-full max-w-4xl mx-auto h-64 md:h-80 lg:h-96 bg-gradient-to-br from-purple-600/20 to-blue-600/20 backdrop-blur-sm rounded-2xl border-2 border-purple-300/50 overflow-hidden shadow-2xl">
+            {/* Right Side - Video */}
+            <div className="relative hidden lg:block">
+              <div className="relative w-full h-64 md:h-80 lg:h-96 bg-gradient-to-br from-purple-600/20 to-blue-600/20 backdrop-blur-sm rounded-2xl border-2 border-purple-300/50 overflow-hidden shadow-2xl">
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-600/10 to-blue-600/10"></div>
                 <iframe 
                   src="https://player.vimeo.com/video/1089037562?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1"
                   frameBorder="0" 
                   allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
-                  className="w-full h-full"
+                  className="w-full h-full relative z-10"
                   title="Bioinformatics Showcase"
                 ></iframe>
               </div>
             </div>
+          </div>
 
-            {/* Counters Section */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-white mb-2">{counters.courses.toString().padStart(2, '0')}</div>
-                <div className="text-purple-200 text-sm md:text-base">Number of Courses</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-white mb-2">{counters.students.toString().padStart(2, '0')}</div>
-                <div className="text-purple-200 text-sm md:text-base">Students Enrolled</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-white mb-2">{counters.projects.toString().padStart(2, '0')}</div>
-                <div className="text-purple-200 text-sm md:text-base">Research Projects</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-white mb-2">{counters.partnerships.toString().padStart(2, '0')}</div>
-                <div className="text-purple-200 text-sm md:text-base">Partnerships</div>
-              </div>
+          {/* Counters Section */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
+            <div className="text-center">
+              <div className="text-3xl md:text-4xl font-bold text-white mb-2">{counters.courses.toString().padStart(2, '0')}</div>
+              <div className="text-purple-200 text-sm md:text-base">Number of Courses</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl md:text-4xl font-bold text-white mb-2">{counters.students.toString().padStart(2, '0')}</div>
+              <div className="text-purple-200 text-sm md:text-base">Students Enrolled</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl md:text-4xl font-bold text-white mb-2">{counters.projects.toString().padStart(2, '0')}</div>
+              <div className="text-purple-200 text-sm md:text-base">Research Projects</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl md:text-4xl font-bold text-white mb-2">{counters.partnerships.toString().padStart(2, '0')}</div>
+              <div className="text-purple-200 text-sm md:text-base">Partnerships</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Our Team Section */}
-      <section className="py-12 md:py-20 bg-white/5 backdrop-blur-sm" id="team">
+      <section className="py-12 md:py-20 bg-white" id="team">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 lg:mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Team</h2>
@@ -276,20 +282,23 @@ const Index = () => {
               {
                 name: "Dr. Lakmal Ranathunga",
                 qualification: "PhD in Veterinary Medicine",
-                image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face"
+                image: "/lovable-uploads/99dec8fe-51c3-46ea-af63-6bd557692e29.png",
+                url: "https://agri.pdn.ac.lk/ansc/staff/academic_staff_detail/35"
               },
               {
                 name: "Mrs. Saumya Poorni",
                 qualification: "PhD in Aquaculture (Reading)",
-                image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=300&h=300&fit=crop&crop=face"
+                image: "/lovable-uploads/a0ce1ac5-e01f-4cc3-a67a-42a5bc885eda.png",
+                url: "https://www.linkedin.com/in/saumya-poorni-73009a314/"
               },
               {
                 name: "Mr. Anuththara Gamage",
                 qualification: "B.Sc Honours, Research Scientist at Standard Seed Corporation",
-                image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face"
+                image: "/lovable-uploads/b42b66f6-f7c5-4932-af71-ccf28ed41fbf.png",
+                url: "https://www.linkedin.com/in/anu-gamage-62192b201/"
               }
             ].map((member, index) => (
-              <Card key={index} className="bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg">
+              <Card key={index} className="bg-white border border-gray-200 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
                 <CardHeader className="text-center">
                   <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden">
                     <img 
@@ -298,8 +307,14 @@ const Index = () => {
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <CardTitle className="text-gray-800">{member.name}</CardTitle>
-                  <CardDescription className="text-gray-600">{member.qualification}</CardDescription>
+                  <CardTitle 
+                    className="text-purple-600 cursor-pointer hover:text-purple-800 hover:font-bold hover:underline transition-all flex items-center justify-center gap-2"
+                    onClick={() => handleTeamMemberClick(member.url)}
+                  >
+                    {member.name}
+                    <ExternalLink className="h-4 w-4" />
+                  </CardTitle>
+                  <CardDescription className="text-gray-700">{member.qualification}</CardDescription>
                 </CardHeader>
               </Card>
             ))}
@@ -308,7 +323,7 @@ const Index = () => {
       </section>
 
       {/* Research Section */}
-      <section className="py-12 md:py-20 bg-white/5 backdrop-blur-sm" id="research">
+      <section className="py-12 md:py-20 bg-white/95 backdrop-blur-sm" id="research">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 lg:mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Research Areas</h2>
@@ -379,7 +394,7 @@ const Index = () => {
       </section>
 
       {/* Our Courses Section */}
-      <section className="py-12 md:py-20 bg-white/5 backdrop-blur-sm" id="courses">
+      <section className="py-12 md:py-20 bg-white" id="courses">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 lg:mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Courses</h2>
@@ -421,7 +436,7 @@ const Index = () => {
                 image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=250&fit=crop&crop=center"
               }
             ].map((course, index) => (
-              <Card key={index} className="bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg">
+              <Card key={index} className="bg-white border border-gray-200 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
                 <div className="relative overflow-hidden">
                   <img 
                     src={course.image} 
@@ -430,10 +445,10 @@ const Index = () => {
                   />
                 </div>
                 <CardHeader>
-                  <CardTitle className="text-lg md:text-xl text-gray-800">
+                  <CardTitle className="text-lg md:text-xl text-purple-600">
                     {course.title}
                   </CardTitle>
-                  <CardDescription className="text-sm md:text-base text-gray-600">
+                  <CardDescription className="text-sm md:text-base text-gray-700">
                     {course.description}
                   </CardDescription>
                 </CardHeader>
@@ -452,7 +467,7 @@ const Index = () => {
       </section>
 
       {/* Our Services Section */}
-      <section className="py-12 md:py-20 bg-white/5 backdrop-blur-sm" id="services">
+      <section className="py-12 md:py-20 bg-white" id="services">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 lg:mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Services</h2>
@@ -470,9 +485,9 @@ const Index = () => {
               "Research Article Writing",
               "Drug Formulation Development"
             ].map((service, index) => (
-              <Card key={index} className="bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg">
+              <Card key={index} className="bg-white border border-gray-200 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
                 <CardHeader>
-                  <CardTitle className="text-lg md:text-xl text-gray-800 text-center">
+                  <CardTitle className="text-lg md:text-xl text-purple-600 text-center">
                     {service}
                   </CardTitle>
                 </CardHeader>
@@ -491,7 +506,7 @@ const Index = () => {
       </section>
 
       {/* Our Partnerships Section */}
-      <section className="py-12 md:py-20 bg-white/5 backdrop-blur-sm" id="partnerships">
+      <section className="py-12 md:py-20 bg-white" id="partnerships">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 lg:mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Partnerships</h2>
@@ -508,7 +523,10 @@ const Index = () => {
               },
               {
                 category: "Open Source",
-                partner: "Institute of Scientific Informatics, Global Chemistry Inc, U.S.A"
+                partners: [
+                  "Institute of Scientific Informatics",
+                  "Global Chemistry Inc, U.S.A"
+                ]
               },
               {
                 category: "Education and Research",
@@ -519,14 +537,24 @@ const Index = () => {
                 partner: "Standard Seed Corporation, Delaware, Wilmington, U.S.A"
               }
             ].map((partnership, index) => (
-              <Card key={index} className="bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg">
+              <Card key={index} className="bg-white border border-gray-200 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
                 <CardHeader>
                   <CardTitle className="text-lg md:text-xl text-purple-600">
                     {partnership.category}
                   </CardTitle>
-                  <CardDescription className="text-sm md:text-base text-gray-700">
-                    {partnership.partner}
-                  </CardDescription>
+                  {partnership.partners ? (
+                    <div className="space-y-2">
+                      {partnership.partners.map((partner, partnerIndex) => (
+                        <CardDescription key={partnerIndex} className="text-sm md:text-base text-gray-700 border-l-2 border-purple-300 pl-3">
+                          {partner}
+                        </CardDescription>
+                      ))}
+                    </div>
+                  ) : (
+                    <CardDescription className="text-sm md:text-base text-gray-700">
+                      {partnership.partner}
+                    </CardDescription>
+                  )}
                 </CardHeader>
               </Card>
             ))}
@@ -535,7 +563,7 @@ const Index = () => {
       </section>
 
       {/* Latest News & Updates Section */}
-      <section className="py-12 md:py-20 bg-white/5 backdrop-blur-sm" id="news">
+      <section className="py-12 md:py-20 bg-white" id="news">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 lg:mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Latest News & Updates</h2>
@@ -563,7 +591,7 @@ const Index = () => {
                 image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=250&fit=crop&crop=center"
               }
             ].map((article, index) => (
-              <Card key={index} className="bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg">
+              <Card key={index} className="bg-white border border-gray-200 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
                 <div className="relative overflow-hidden">
                   <img 
                     src={article.image} 
@@ -576,7 +604,7 @@ const Index = () => {
                   <CardTitle className="text-lg md:text-xl text-gray-800">
                     {article.title}
                   </CardTitle>
-                  <CardDescription className="text-sm md:text-base text-gray-600">{article.preview}</CardDescription>
+                  <CardDescription className="text-sm md:text-base text-gray-700">{article.preview}</CardDescription>
                 </CardHeader>
                 <CardContent className="pt-0">
                   <Button variant="link" className="p-0 text-purple-600 hover:text-purple-800">
@@ -590,7 +618,7 @@ const Index = () => {
       </section>
 
       {/* Success Stories Section */}
-      <section className="py-12 md:py-20 bg-white/5 backdrop-blur-sm" id="success-stories">
+      <section className="py-12 md:py-20 bg-white" id="success-stories">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 lg:mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Success Stories</h2>
@@ -620,7 +648,7 @@ const Index = () => {
                 image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop&crop=face"
               }
             ].map((story, index) => (
-              <Card key={index} className="bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg">
+              <Card key={index} className="bg-white border border-gray-200 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
                 <CardHeader className="text-center">
                   <div className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden">
                     <img 
@@ -629,8 +657,8 @@ const Index = () => {
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <CardTitle className="text-gray-800">{story.name}</CardTitle>
-                  <CardDescription className="text-gray-600">{story.role}</CardDescription>
+                  <CardTitle className="text-purple-600">{story.name}</CardTitle>
+                  <CardDescription className="text-gray-700">{story.role}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-700 text-sm italic">"{story.testimonial}"</p>
