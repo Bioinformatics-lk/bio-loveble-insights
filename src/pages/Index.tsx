@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChevronDown, BookOpen, Search, FileText, Youtube, Linkedin, Twitter, Users, FlaskConical, GraduationCap, Newspaper, Briefcase, MessageCircle, Handshake, Trophy, ExternalLink } from "lucide-react";
+import { ChevronDown, BookOpen, Search, FileText, Youtube, Linkedin, Twitter, Users, FlaskConical, GraduationCap, Newspaper, Briefcase, MessageCircle, Handshake, Trophy, ExternalLink, Dna, Molecule, HumanBrain } from "lucide-react";
 import { AuthModal } from "@/components/auth/AuthModal";
 import { ContactModal } from "@/components/contact/ContactModal";
 import { SearchBar } from "@/components/search/SearchBar";
@@ -13,7 +13,9 @@ import { User } from '@supabase/supabase-js';
 const Index = () => {
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [contactModalOpen, setContactModalOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   // Counter animation states
   const [counters, setCounters] = useState({
@@ -37,6 +39,17 @@ const Index = () => {
     );
 
     return () => subscription.unsubscribe();
+  }, []);
+
+  // Handle scroll for header color change
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 100);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Animate counters with 3x slower speed
@@ -102,71 +115,115 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
       {/* Navigation Header */}
-      <header className="sticky top-0 z-50 bg-white/10 backdrop-blur-md border-b border-purple-300/30">
+      <header className={`sticky top-0 z-50 backdrop-blur-md border-b transition-all duration-300 ${
+        isScrolled 
+          ? 'bg-white/95 border-gray-300/30' 
+          : 'bg-white/10 border-purple-300/30'
+      }`}>
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-8">
-              <div className="flex items-center space-x-2 ml-12">
-                <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center">
-                  <FlaskConical className="text-white h-5 w-5" />
+            <div className="flex items-center space-x-8 flex-1">
+              <div className="flex items-center space-x-2 ml-16">
+                <div className="w-8 h-8 flex items-center justify-center">
+                  <img 
+                    src="/lovable-uploads/ab0b32e6-1d9c-493d-a917-e4007b0b8309.png" 
+                    alt="Bioinformatics.lk" 
+                    className="w-8 h-8 object-contain"
+                  />
                 </div>
-                <span className="text-xl font-bold text-white">Bioinformatics.lk</span>
+                <span className={`text-xl font-bold transition-colors duration-300 ${
+                  isScrolled ? 'text-gray-800' : 'text-white'
+                }`}>
+                  Bioinformatics.lk
+                </span>
               </div>
               
-              <nav className="hidden lg:flex items-center space-x-6">
+              <nav className="hidden lg:flex items-center space-x-8 ml-8">
                 <Button
                   variant="ghost"
                   onClick={() => scrollToSection('team')}
-                  className="text-purple-100 hover:text-white hover:bg-white/10 transition-all transform hover:scale-105 text-sm"
+                  className={`transition-all transform hover:scale-105 text-sm ${
+                    isScrolled 
+                      ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                      : 'text-purple-100 hover:text-white hover:bg-white/10'
+                  }`}
                 >
                   Our Team
                 </Button>
                 <Button
                   variant="ghost"
                   onClick={() => scrollToSection('research')}
-                  className="text-purple-100 hover:text-white hover:bg-white/10 transition-all transform hover:scale-105 text-sm"
+                  className={`transition-all transform hover:scale-105 text-sm ${
+                    isScrolled 
+                      ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                      : 'text-purple-100 hover:text-white hover:bg-white/10'
+                  }`}
                 >
                   Research
                 </Button>
                 <Button
                   variant="ghost"
                   onClick={() => scrollToSection('courses')}
-                  className="text-purple-100 hover:text-white hover:bg-white/10 transition-all transform hover:scale-105 text-sm"
+                  className={`transition-all transform hover:scale-105 text-sm ${
+                    isScrolled 
+                      ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                      : 'text-purple-100 hover:text-white hover:bg-white/10'
+                  }`}
                 >
                   Our Courses
                 </Button>
                 <Button
                   variant="ghost"
                   onClick={() => scrollToSection('news')}
-                  className="text-purple-100 hover:text-white hover:bg-white/10 transition-all transform hover:scale-105 text-sm"
+                  className={`transition-all transform hover:scale-105 text-sm ${
+                    isScrolled 
+                      ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                      : 'text-purple-100 hover:text-white hover:bg-white/10'
+                  }`}
                 >
                   News
                 </Button>
                 <Button
                   variant="ghost"
                   onClick={() => scrollToSection('services')}
-                  className="text-purple-100 hover:text-white hover:bg-white/10 transition-all transform hover:scale-105 text-sm"
+                  className={`transition-all transform hover:scale-105 text-sm ${
+                    isScrolled 
+                      ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                      : 'text-purple-100 hover:text-white hover:bg-white/10'
+                  }`}
                 >
                   Our Services
                 </Button>
                 <Button
                   variant="ghost"
                   onClick={() => setContactModalOpen(true)}
-                  className="text-purple-100 hover:text-white hover:bg-white/10 transition-all transform hover:scale-105 text-sm"
+                  className={`transition-all transform hover:scale-105 text-sm ${
+                    isScrolled 
+                      ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                      : 'text-purple-100 hover:text-white hover:bg-white/10'
+                  }`}
                 >
                   Contact Us
                 </Button>
                 <Button
                   variant="ghost"
                   onClick={() => scrollToSection('partnerships')}
-                  className="text-purple-100 hover:text-white hover:bg-white/10 transition-all transform hover:scale-105 text-sm"
+                  className={`transition-all transform hover:scale-105 text-sm ${
+                    isScrolled 
+                      ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                      : 'text-purple-100 hover:text-white hover:bg-white/10'
+                  }`}
                 >
                   Our Partnerships
                 </Button>
                 <Button
                   variant="ghost"
                   onClick={() => scrollToSection('success-stories')}
-                  className="text-purple-100 hover:text-white hover:bg-white/10 transition-all transform hover:scale-105 text-sm"
+                  className={`transition-all transform hover:scale-105 text-sm ${
+                    isScrolled 
+                      ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                      : 'text-purple-100 hover:text-white hover:bg-white/10'
+                  }`}
                 >
                   Success Stories
                 </Button>
@@ -174,13 +231,28 @@ const Index = () => {
             </div>
 
             <div className="flex items-center gap-4">
-              <div className="hidden md:block">
-                <SearchBar />
-              </div>
+              {searchOpen && (
+                <div className="hidden md:block">
+                  <SearchBar />
+                </div>
+              )}
+              
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setSearchOpen(!searchOpen)}
+                className={`transition-all ${
+                  isScrolled 
+                    ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                    : 'text-white hover:text-white hover:bg-white/10'
+                }`}
+              >
+                <Search className="h-6 w-6" />
+              </Button>
               
               <Button
                 onClick={() => setAuthModalOpen(true)}
-                className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-all transform hover:scale-105"
+                className="bg-purple-600 hover:bg-purple-700 text-white transition-all transform hover:scale-105"
               >
                 Login
               </Button>
@@ -195,9 +267,11 @@ const Index = () => {
         
         <div className="relative container mx-auto px-4 py-16 lg:py-24">
           {/* Mobile Search Bar */}
-          <div className="flex justify-center mb-8 md:hidden">
-            <SearchBar />
-          </div>
+          {searchOpen && (
+            <div className="flex justify-center mb-8 md:hidden">
+              <SearchBar />
+            </div>
+          )}
           
           {/* Main Hero Content - Split Layout */}
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-12">
@@ -212,7 +286,7 @@ const Index = () => {
               <div className="flex flex-col sm:flex-row gap-4 justify-start">
                 <Button 
                   size="lg" 
-                  className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg transition-all transform hover:scale-105"
+                  className="bg-purple-600 hover:bg-purple-700 text-white px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg transition-all transform hover:scale-105"
                   onClick={() => scrollToSection('courses')}
                 >
                   Explore Courses
@@ -269,7 +343,9 @@ const Index = () => {
       <section className="py-12 md:py-20 bg-white" id="team">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 lg:mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Team</h2>
+            <div className="inline-block bg-[#AFA9FF] px-6 py-3 rounded-lg mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Our Team</h2>
+            </div>
             <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
               Meet our expert team of researchers and educators
             </p>
@@ -306,7 +382,7 @@ const Index = () => {
                     />
                   </div>
                   <CardTitle 
-                    className="text-purple-600 cursor-pointer hover:text-purple-800 hover:font-bold hover:underline transition-all flex items-center justify-center gap-2"
+                    className="text-black cursor-pointer hover:text-[#190EA8] hover:font-bold hover:underline transition-all flex items-center justify-center gap-2"
                     onClick={() => handleTeamMemberClick(member.url)}
                   >
                     {member.name}
@@ -324,7 +400,9 @@ const Index = () => {
       <section className="py-12 md:py-20 bg-white" id="research">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 lg:mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Research Areas</h2>
+            <div className="inline-block bg-[#EEBBFF] px-6 py-3 rounded-lg mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Research Areas</h2>
+            </div>
             <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
               Pioneering research in bioinformatics, cheminformatics, computational chemistry and AI-driven drug discovery applications
             </p>
@@ -341,7 +419,7 @@ const Index = () => {
               </div>
               <CardHeader>
                 <CardTitle className="text-xl text-gray-800 flex items-center gap-2">
-                  <FlaskConical className="h-6 w-6 text-purple-600" />
+                  <Dna className="h-6 w-6 text-purple-600" />
                   Bioinformatics
                 </CardTitle>
                 <CardDescription className="text-gray-600">
@@ -360,7 +438,7 @@ const Index = () => {
               </div>
               <CardHeader>
                 <CardTitle className="text-xl text-gray-800 flex items-center gap-2">
-                  <Search className="h-6 w-6 text-purple-600" />
+                  <Molecule className="h-6 w-6 text-purple-600" />
                   Cheminformatics
                 </CardTitle>
                 <CardDescription className="text-gray-600">
@@ -379,7 +457,7 @@ const Index = () => {
               </div>
               <CardHeader>
                 <CardTitle className="text-xl text-gray-800 flex items-center gap-2">
-                  <BookOpen className="h-6 w-6 text-purple-600" />
+                  <HumanBrain className="h-6 w-6 text-purple-600" />
                   AI-driven Drug Discovery
                 </CardTitle>
                 <CardDescription className="text-gray-600">
@@ -395,9 +473,11 @@ const Index = () => {
       <section className="py-12 md:py-20 bg-white" id="courses">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 lg:mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Courses</h2>
+            <div className="inline-block bg-[#BBF7FF] px-6 py-3 rounded-lg mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Our Courses</h2>
+            </div>
             <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-              Master the fundamentals and advanced concepts of bioinformatics, cheminformatics, computational chemistry, and AI in drug discovery through our comprehensive course offerings
+              Unlock the power of bioinformatics, cheminformatics, computational chemistry, and AI in drug discovery with our dynamic and comprehensive course offerings, designed to empower you with both foundational and advanced insights
             </p>
           </div>
           
@@ -406,32 +486,32 @@ const Index = () => {
               {
                 title: "Introduction to Bioinformatics",
                 description: "Learn the fundamentals of biological data analysis, sequence alignment, and database searching.",
-                image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=250&fit=crop&crop=center"
+                image: "/lovable-uploads/4e188a16-d71f-4a8b-a106-11f470010a4f.png"
               },
               {
                 title: "Network Pharmacology",
                 description: "Explore drug-target interactions and molecular networks in pharmaceutical research.",
-                image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=250&fit=crop&crop=center"
+                image: "/lovable-uploads/d1b14824-ca0c-46d3-b10a-1c79874bc655.png"
               },
               {
                 title: "Molecular Docking",
                 description: "Master computational methods for predicting molecular binding and drug design.",
-                image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=400&h=250&fit=crop&crop=center"
+                image: "/lovable-uploads/2b975c3d-b2b0-487e-a418-c7c4853ddbaa.png"
               },
               {
                 title: "Molecular Dynamics",
                 description: "Simulate molecular behavior and protein folding using advanced computational techniques.",
-                image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=400&h=250&fit=crop&crop=center"
+                image: "/lovable-uploads/78d5a7b4-78cf-48e5-a432-8686026b08b6.png"
               },
               {
                 title: "AI and ML in Drug Discovery",
                 description: "Apply machine learning and AI techniques to accelerate drug discovery processes.",
-                image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=250&fit=crop&crop=center"
+                image: "/lovable-uploads/a574e257-4cfe-41e2-8a21-472924163bf2.png"
               },
               {
                 title: "Introduction to Cheminformatics",
                 description: "Learn chemical information processing and molecular property prediction methods.",
-                image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=250&fit=crop&crop=center"
+                image: "/lovable-uploads/98298637-f3f3-4bba-b8ca-01d994276f78.png"
               }
             ].map((course, index) => (
               <Card 
@@ -447,7 +527,7 @@ const Index = () => {
                   />
                 </div>
                 <CardHeader>
-                  <CardTitle className="text-lg md:text-xl bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent hover:from-purple-700 hover:to-blue-700 transition-all">
+                  <CardTitle className="text-lg md:text-xl text-black hover:text-[#0090A3] transition-all">
                     {course.title}
                   </CardTitle>
                   <CardDescription className="text-sm md:text-base text-gray-700">
@@ -675,8 +755,12 @@ const Index = () => {
           <div className="grid md:grid-cols-4 gap-6 lg:gap-8">
             <div className="space-y-4">
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center">
-                  <FlaskConical className="text-white h-5 w-5" />
+                <div className="w-8 h-8 flex items-center justify-center">
+                  <img 
+                    src="/lovable-uploads/ab0b32e6-1d9c-493d-a917-e4007b0b8309.png" 
+                    alt="Bioinformatics.lk" 
+                    className="w-8 h-8 object-contain"
+                  />
                 </div>
                 <span className="text-xl font-bold">Bioinformatics.lk</span>
               </div>
