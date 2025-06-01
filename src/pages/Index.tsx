@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -116,42 +117,42 @@ const Index = () => {
       {/* Background Design Elements */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <img 
-          src="/lovable-uploads/aa12b497-7a59-454c-8a64-280cf1801f26.png" 
+          src="/lovable-uploads/e25ed7e5-cc9e-43d9-ade7-050b1de6cd89.png" 
           alt=""
           className="absolute top-[200px] left-[5%] w-32 h-32 opacity-50 rotate-12"
         />
         <img 
-          src="/lovable-uploads/9ee9ae98-d45f-4060-9453-e5e9dc04f92f.png" 
+          src="/lovable-uploads/090ca63b-e20f-49b9-92ec-c62c30fc0854.png" 
           alt=""
           className="absolute top-[400px] right-[5%] w-40 h-40 opacity-60 -rotate-12"
         />
         <img 
-          src="/lovable-uploads/c76ab7d0-0d12-41fc-a19d-c8ed0af3a724.png" 
+          src="/lovable-uploads/bdc6c566-3485-4804-b36e-f8bc050977ac.png" 
           alt=""
           className="absolute top-[800px] left-[10%] w-36 h-36 opacity-50 rotate-45"
         />
         <img 
-          src="/lovable-uploads/8ae78e83-403d-4c3d-b2bf-9cdf88ee1214.png" 
+          src="/lovable-uploads/8b62e48b-7183-478c-9e5a-6c7a4ede3d57.png" 
           alt=""
           className="absolute top-[1200px] right-[8%] w-38 h-38 opacity-60 -rotate-30"
         />
         <img 
-          src="/lovable-uploads/aa12b497-7a59-454c-8a64-280cf1801f26.png" 
+          src="/lovable-uploads/1caec919-8f0b-4d2b-b62e-0c2a086ec756.png" 
           alt=""
           className="absolute top-[1600px] left-[15%] w-34 h-34 opacity-50 rotate-60"
         />
         <img 
-          src="/lovable-uploads/9ee9ae98-d45f-4060-9453-e5e9dc04f92f.png" 
+          src="/lovable-uploads/f4204e37-de38-48dd-864e-2dfa047f879d.png" 
           alt=""
           className="absolute top-[2000px] right-[12%] w-42 h-42 opacity-60 rotate-15"
         />
         <img 
-          src="/lovable-uploads/c76ab7d0-0d12-41fc-a19d-c8ed0af3a724.png" 
+          src="/lovable-uploads/bdc6c566-3485-4804-b36e-f8bc050977ac.png" 
           alt=""
           className="absolute top-[2400px] left-[8%] w-30 h-30 opacity-50 -rotate-45"
         />
         <img 
-          src="/lovable-uploads/8ae78e83-403d-4c3d-b2bf-9cdf88ee1214.png" 
+          src="/lovable-uploads/8b62e48b-7183-478c-9e5a-6c7a4ede3d57.png" 
           alt=""
           className="absolute top-[2800px] right-[15%] w-36 h-36 opacity-60 rotate-30"
         />
@@ -167,17 +168,17 @@ const Index = () => {
           <div className="flex items-center justify-between h-16">
             {/* Logo and Brand Name - Left Side */}
             <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 flex items-center justify-center">
+              <div className="w-16 h-16 flex items-center justify-center">
                 <img 
                   src="/lovable-uploads/76f3562a-0d90-4bbc-a1b8-640acc56da80.png" 
                   alt="Bioinformatics.lk" 
-                  className="w-12 h-12 object-contain"
+                  className="w-16 h-16 object-contain"
                 />
               </div>
               <span className={`text-xl font-bold transition-colors duration-300 ${
                 isScrolled ? 'text-gray-800' : 'text-white'
               }`}>
-                informatics.lk
+                ioinformatics.lk
               </span>
             </div>
 
@@ -697,7 +698,7 @@ const Index = () => {
                 category: "Education and Research",
                 partner: "Agriculture.lk",
                 url: "https://agriculture.lk/",
-                image: "/lovable-uploads/4717a1d7-6c8d-411e-a4ec-d38407bc3bf5.png"
+                image: "/lovable-uploads/e278cf89-1409-4a6a-9fc0-72a0d940ceba.png"
               }
             ].map((partnership, index) => (
               <Card key={index} className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
@@ -705,15 +706,15 @@ const Index = () => {
                   <img 
                     src={partnership.image} 
                     alt={partnership.partner}
-                    className="w-full h-32 object-contain bg-gray-50 p-4"
+                    className="w-full h-40 md:h-48 object-cover"
                   />
                 </div>
                 <CardHeader>
-                  <CardTitle className="text-lg md:text-xl text-purple-600 hover:text-[#A50076] transition-colors cursor-pointer">
+                  <CardTitle className="text-lg md:text-xl text-black hover:text-[#A50053] transition-colors cursor-pointer">
                     {partnership.category}
                   </CardTitle>
                   <CardDescription 
-                    className="text-sm md:text-base text-black cursor-pointer hover:text-[#A00063] hover:underline transition-all"
+                    className="text-sm md:text-base text-black cursor-pointer hover:text-[#A50053] hover:underline transition-all"
                     onClick={() => handlePartnershipClick(partnership.url)}
                   >
                     {partnership.partner}
@@ -740,17 +741,17 @@ const Index = () => {
               {
                 title: "Our Student's Achievement in the Graphical Abstract Competition 2024",
                 description: "This course in Bioinformatics was helpful for our student in becoming the second runner-up in the graphical abstract competition at the Faculty of Agriculture Undergraduate Research Symposium 2024.",
-                image: "/lovable-uploads/519715ae-248a-4c05-8f22-8c0b2b40e239.png"
+                image: "/lovable-uploads/e25ed7e5-cc9e-43d9-ade7-050b1de6cd89.png"
               },
               {
                 title: "Outstanding Poster Presentation Award at ICIET 2024", 
                 description: "We are excited to share that our student secured first place for Outstanding Poster Presentation at the International Conference on Innovation and Emerging Technologies (ICIET) held at the Faculty of Technology, University of Sri Jayawardenapura, on the 21st and 22nd of November 2024.",
-                image: "/lovable-uploads/5bcc7c6f-2e42-4e80-ad6f-750db87e9fc4.png"
+                image: "/lovable-uploads/090ca63b-e20f-49b9-92ec-c62c30fc0854.png"
               },
               {
                 title: "Research Collaboration Announced",
                 description: "Partnership with local and international institutions to advance bioinformatics research capabilities.",
-                image: "/lovable-uploads/6f7f0e18-e58a-4be0-b4d9-8266695b8a5e.png"
+                image: "/lovable-uploads/84227a92-d6f9-4c5c-9a93-d1233db16dfc.png"
               }
             ].map((article, index) => (
               <Card key={index} className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
@@ -796,13 +797,13 @@ const Index = () => {
                 name: "Saumya Poorni",
                 role: "PhD Student",
                 testimonial: "The bioinformatics course transformed my research approach. The practical skills I gained have been invaluable in my PhD work.",
-                image: "/lovable-uploads/88dcbdd5-4666-4c05-9ee8-93493283d085.png"
+                image: "/lovable-uploads/e278cf89-1409-4a6a-9fc0-72a0d940ceba.png"
               },
               {
                 name: "Kasuni Karunarathne",
                 role: "Demonstrator at UoP",
                 testimonial: "This course in Bioinformatics was helpful in becoming the second runner-up in the graphical abstract competition at the Faculty of Agriculture Undergraduate Research Symposium 2024.",
-                image: "/lovable-uploads/c030abde-25c2-45ab-9c8f-0e9257ee88f6.png"
+                image: "/lovable-uploads/e25ed7e5-cc9e-43d9-ade7-050b1de6cd89.png"
               },
               {
                 name: "Dharani Ariyasinghe",
