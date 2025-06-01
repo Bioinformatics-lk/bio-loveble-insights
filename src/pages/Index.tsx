@@ -1,8 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChevronDown, BookOpen, Search, FileText, Youtube, Linkedin, Twitter, Users, FlaskConical, GraduationCap, Newspaper, Briefcase, MessageCircle, Handshake, Trophy, ExternalLink, Dna, Molecule, HumanBrain } from "lucide-react";
+import { ChevronDown, BookOpen, Search, FileText, Youtube, Linkedin, Twitter, Users, FlaskConical, GraduationCap, Newspaper, Briefcase, MessageCircle, Handshake, Trophy, ExternalLink, Dna, Atom, Brain } from "lucide-react";
 import { AuthModal } from "@/components/auth/AuthModal";
 import { ContactModal } from "@/components/contact/ContactModal";
 import { SearchBar } from "@/components/search/SearchBar";
@@ -438,7 +437,7 @@ const Index = () => {
               </div>
               <CardHeader>
                 <CardTitle className="text-xl text-gray-800 flex items-center gap-2">
-                  <Molecule className="h-6 w-6 text-purple-600" />
+                  <Atom className="h-6 w-6 text-purple-600" />
                   Cheminformatics
                 </CardTitle>
                 <CardDescription className="text-gray-600">
@@ -457,7 +456,7 @@ const Index = () => {
               </div>
               <CardHeader>
                 <CardTitle className="text-xl text-gray-800 flex items-center gap-2">
-                  <HumanBrain className="h-6 w-6 text-purple-600" />
+                  <Brain className="h-6 w-6 text-purple-600" />
                   AI-driven Drug Discovery
                 </CardTitle>
                 <CardDescription className="text-gray-600">
@@ -656,19 +655,19 @@ const Index = () => {
                 date: "Dec 15, 2024",
                 title: "New Genomics Lab Launched",
                 preview: "State-of-the-art computational genomics facility opens to support advanced research projects.",
-                image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&h=250&fit=crop&crop=center"
+                image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&h=250&fit=crop&crop=face"
               },
               {
                 date: "Dec 10, 2024", 
                 title: "AI Workshop Series Begins",
                 preview: "Comprehensive workshop series on artificial intelligence applications in biological research.",
-                image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=250&fit=crop&crop=center"
+                image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=250&fit=crop&crop=face"
               },
               {
                 date: "Dec 5, 2024",
                 title: "Research Collaboration Announced",
                 preview: "Partnership with international institutions to advance bioinformatics research capabilities.",
-                image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=250&fit=crop&crop=center"
+                image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=250&fit=crop&crop=face"
               }
             ].map((article, index) => (
               <Card key={index} className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
