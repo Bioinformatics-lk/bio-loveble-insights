@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChevronDown, BookOpen, Search, FileText, Youtube, Linkedin, Twitter, Users, FlaskConical, GraduationCap, Newspaper, Briefcase, MessageCircle, Handshake, Trophy, ExternalLink, Dna, Atom, Brain } from "lucide-react";
+import { ChevronDown, BookOpen, Search, FileText, Youtube, Linkedin, Twitter, Users, FlaskConical, GraduationCap, Newspaper, Briefcase, MessageCircle, Handshake, Trophy, ExternalLink, Dna, Atom, Brain, Network, Computer } from "lucide-react";
 import { AuthModal } from "@/components/auth/AuthModal";
 import { ContactModal } from "@/components/contact/ContactModal";
 import { SearchBar } from "@/components/search/SearchBar";
@@ -122,22 +122,7 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-8 flex-1">
-              <div className="flex items-center space-x-2 ml-16">
-                <div className="w-8 h-8 flex items-center justify-center">
-                  <img 
-                    src="/lovable-uploads/ab0b32e6-1d9c-493d-a917-e4007b0b8309.png" 
-                    alt="Bioinformatics.lk" 
-                    className="w-8 h-8 object-contain"
-                  />
-                </div>
-                <span className={`text-xl font-bold transition-colors duration-300 ${
-                  isScrolled ? 'text-gray-800' : 'text-white'
-                }`}>
-                  Bioinformatics.lk
-                </span>
-              </div>
-              
-              <nav className="hidden lg:flex items-center space-x-8 ml-8">
+              <nav className="hidden lg:flex items-center space-x-6 ml-8">
                 <Button
                   variant="ghost"
                   onClick={() => scrollToSection('team')}
@@ -230,6 +215,21 @@ const Index = () => {
             </div>
 
             <div className="flex items-center gap-4">
+              <div className="flex items-center space-x-2">
+                <div className="w-12 h-12 flex items-center justify-center">
+                  <img 
+                    src="/lovable-uploads/a9671fd4-a581-4c7c-a7a1-7e7c918a14d1.png" 
+                    alt="Bioinformatics.lk" 
+                    className="w-12 h-12 object-contain"
+                  />
+                </div>
+                <span className={`text-xl font-bold transition-colors duration-300 ${
+                  isScrolled ? 'text-gray-800' : 'text-white'
+                }`}>
+                  ioinformatics.lk
+                </span>
+              </div>
+              
               {searchOpen && (
                 <div className="hidden md:block">
                   <SearchBar />
@@ -240,13 +240,13 @@ const Index = () => {
                 variant="ghost"
                 size="icon"
                 onClick={() => setSearchOpen(!searchOpen)}
-                className={`transition-all ${
+                className={`transition-all w-12 h-12 ${
                   isScrolled 
                     ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
                     : 'text-white hover:text-white hover:bg-white/10'
                 }`}
               >
-                <Search className="h-6 w-6" />
+                <Search className="h-8 w-8" />
               </Button>
               
               <Button
@@ -543,20 +543,46 @@ const Index = () => {
       <section className="py-12 md:py-20 bg-white" id="services">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 lg:mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Services</h2>
+            <div className="inline-block bg-[#FFCB9C] px-6 py-3 rounded-lg mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Our Services</h2>
+            </div>
             <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-              Professional bioinformatics and computational biology services
+              Professional bioinformatics, cheminformatics and computational biology services
             </p>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {[
-              "Network Pharmacology",
-              "Molecular Docking", 
-              "Molecular Dynamics Simulation",
-              "AI and ML in Drug Discovery",
-              "Research Article Writing",
-              "Drug Formulation Development"
+              {
+                title: "Network Pharmacology",
+                description: "Network Pharmacology is a cutting-edge approach integrating systems biology and pharmacology to understand drug actions and interactions at a network level. It helps identify key targets, predict drug efficacy, and uncover new therapeutic pathways.",
+                icon: Network
+              },
+              {
+                title: "Molecular Docking", 
+                description: "Molecular Docking is a computational technique that predicts the preferred orientation of a small molecule (ligand) when bound to a target protein (receptor). It helps in drug discovery by estimating binding affinity and identifying potential drug candidates.",
+                icon: Atom
+              },
+              {
+                title: "Molecular Dynamics Simulation",
+                description: "Molecular Dynamics (MD) Simulation is a computational method that models the physical movements of atoms and molecules over time, helping to understand biomolecular behavior, stability, and interactions at the atomic level.",
+                icon: Computer
+              },
+              {
+                title: "AI and ML in Drug Discovery",
+                description: "Artificial Intelligence (AI) and Machine Learning (ML) accelerate drug discovery by analyzing vast datasets to predict drug-target interactions, optimize lead compounds, and identify novel candidates more efficiently than traditional methods.",
+                icon: Brain
+              },
+              {
+                title: "Research Article Writing",
+                description: "Professional research article writing involves crafting scientifically accurate, clear, and well-structured manuscripts for publication in peer-reviewed journals. This includes literature review, data interpretation, and formatting to journal standards.",
+                icon: FileText
+              },
+              {
+                title: "Drug Formulation Development",
+                description: "Drug Formulation Development involves designing and producing stable, effective, and safe pharmaceutical formulations, optimizing drug delivery, dosage form, and bioavailability to meet therapeutic needs.",
+                icon: FlaskConical
+              }
             ].map((service, index) => (
               <Card 
                 key={index} 
@@ -564,9 +590,13 @@ const Index = () => {
                 onClick={handleLearnMore}
               >
                 <CardHeader>
-                  <CardTitle className="text-lg md:text-xl bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent text-center hover:from-purple-700 hover:to-blue-700 transition-all">
-                    {service}
+                  <CardTitle className="text-lg md:text-xl text-black hover:text-[#AA5100] transition-all flex items-center gap-2">
+                    <service.icon className="h-6 w-6 text-orange-600" />
+                    {service.title}
                   </CardTitle>
+                  <CardDescription className="text-sm md:text-base text-gray-700">
+                    {service.description}
+                  </CardDescription>
                 </CardHeader>
               </Card>
             ))}
@@ -578,62 +608,65 @@ const Index = () => {
       <section className="py-12 md:py-20 bg-white" id="partnerships">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 lg:mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Partnerships</h2>
+            <div className="inline-block bg-[#FFBBE5] px-6 py-3 rounded-lg mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Our Partnerships</h2>
+            </div>
             <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-              Collaborating with leading institutions worldwide
+              Collaborating with leading institutions local and worldwide
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {[
               {
                 category: "Academics",
                 partner: "University of Peradeniya, Faculty of Agriculture, Department of Animal Science",
-                url: "https://agri.pdn.ac.lk/ansc/"
+                url: "https://agri.pdn.ac.lk/ansc/",
+                image: "/lovable-uploads/d8097562-162f-4f31-aa8f-fca58c32105b.png"
               },
               {
                 category: "Open Source",
-                partners: [
-                  { name: "Institute of Scientific Informatics", url: "https://www.linkedin.com/company/institute-of-scientific-informatics/?viewAsMember=true" },
-                  { name: "Global Chemistry Inc, U.S.A", url: "https://globalchemistry.org/" }
-                ]
+                partner: "Institute of Scientific Informatics",
+                url: "https://www.linkedin.com/company/institute-of-scientific-informatics/?viewAsMember=true",
+                image: "/lovable-uploads/7199b7a9-f4cc-4911-b14f-bab36fd1e1e2.png"
+              },
+              {
+                category: "Open Source",
+                partner: "Global Chemistry Inc, U.S.A",
+                url: "https://globalchemistry.org/",
+                image: "/lovable-uploads/fd5781c0-9f08-4b6d-83fd-79fb6114605e.png"
               },
               {
                 category: "Education and Research",
                 partner: "Chemo-Informatics Academy, Nigeria",
-                url: "https://www.linkedin.com/company/chemoinformatics-academy/posts/?feedView=all"
+                url: "https://www.linkedin.com/company/chemoinformatics-academy/posts/?feedView=all",
+                image: "/lovable-uploads/191663e8-610a-4c66-ae3f-955e7fa07cce.png"
               },
               {
                 category: "Industry",
                 partner: "Standard Seed Corporation, Delaware, Wilmington, U.S.A",
-                url: "https://standardseedai.com/"
+                url: "https://standardseedai.com/",
+                image: "/lovable-uploads/cee2d064-56af-4313-9c95-99df1b851eb5.png"
               }
             ].map((partnership, index) => (
               <Card key={index} className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
+                <div className="relative overflow-hidden">
+                  <img 
+                    src={partnership.image} 
+                    alt={partnership.partner}
+                    className="w-full h-32 object-contain bg-gray-50 p-4"
+                  />
+                </div>
                 <CardHeader>
                   <CardTitle className="text-lg md:text-xl text-purple-600">
                     {partnership.category}
                   </CardTitle>
-                  {partnership.partners ? (
-                    <div className="space-y-2">
-                      {partnership.partners.map((partner, partnerIndex) => (
-                        <CardDescription 
-                          key={partnerIndex} 
-                          className="text-sm md:text-base text-gray-700 border-l-2 border-purple-300 pl-3 cursor-pointer hover:text-purple-600 hover:underline transition-all"
-                          onClick={() => handlePartnershipClick(partner.url)}
-                        >
-                          {partner.name}
-                        </CardDescription>
-                      ))}
-                    </div>
-                  ) : (
-                    <CardDescription 
-                      className="text-sm md:text-base text-gray-700 cursor-pointer hover:text-purple-600 hover:underline transition-all"
-                      onClick={() => handlePartnershipClick(partnership.url!)}
-                    >
-                      {partnership.partner}
-                    </CardDescription>
-                  )}
+                  <CardDescription 
+                    className="text-sm md:text-base text-black cursor-pointer hover:text-[#A00063] hover:underline transition-all"
+                    onClick={() => handlePartnershipClick(partnership.url)}
+                  >
+                    {partnership.partner}
+                  </CardDescription>
                 </CardHeader>
               </Card>
             ))}
