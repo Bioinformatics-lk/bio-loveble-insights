@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -112,7 +113,51 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 relative">
+      {/* Background Design Elements */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <img 
+          src="/lovable-uploads/aa12b497-7a59-454c-8a64-280cf1801f26.png" 
+          alt=""
+          className="absolute top-[200px] left-[5%] w-32 h-32 opacity-50 rotate-12"
+        />
+        <img 
+          src="/lovable-uploads/9ee9ae98-d45f-4060-9453-e5e9dc04f92f.png" 
+          alt=""
+          className="absolute top-[400px] right-[5%] w-40 h-40 opacity-60 -rotate-12"
+        />
+        <img 
+          src="/lovable-uploads/c76ab7d0-0d12-41fc-a19d-c8ed0af3a724.png" 
+          alt=""
+          className="absolute top-[800px] left-[10%] w-36 h-36 opacity-50 rotate-45"
+        />
+        <img 
+          src="/lovable-uploads/8ae78e83-403d-4c3d-b2bf-9cdf88ee1214.png" 
+          alt=""
+          className="absolute top-[1200px] right-[8%] w-38 h-38 opacity-60 -rotate-30"
+        />
+        <img 
+          src="/lovable-uploads/aa12b497-7a59-454c-8a64-280cf1801f26.png" 
+          alt=""
+          className="absolute top-[1600px] left-[15%] w-34 h-34 opacity-50 rotate-60"
+        />
+        <img 
+          src="/lovable-uploads/9ee9ae98-d45f-4060-9453-e5e9dc04f92f.png" 
+          alt=""
+          className="absolute top-[2000px] right-[12%] w-42 h-42 opacity-60 rotate-15"
+        />
+        <img 
+          src="/lovable-uploads/c76ab7d0-0d12-41fc-a19d-c8ed0af3a724.png" 
+          alt=""
+          className="absolute top-[2400px] left-[8%] w-30 h-30 opacity-50 -rotate-45"
+        />
+        <img 
+          src="/lovable-uploads/8ae78e83-403d-4c3d-b2bf-9cdf88ee1214.png" 
+          alt=""
+          className="absolute top-[2800px] right-[15%] w-36 h-36 opacity-60 rotate-30"
+        />
+      </div>
+
       {/* Navigation Header */}
       <header className={`sticky top-0 z-50 backdrop-blur-md border-b transition-all duration-300 ${
         isScrolled 
@@ -121,115 +166,116 @@ const Index = () => {
       }`}>
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-8 flex-1">
-              <nav className="hidden lg:flex items-center space-x-6 ml-8">
-                <Button
-                  variant="ghost"
-                  onClick={() => scrollToSection('team')}
-                  className={`transition-all transform hover:scale-105 text-sm ${
-                    isScrolled 
-                      ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
-                      : 'text-purple-100 hover:text-white hover:bg-white/10'
-                  }`}
-                >
-                  Our Team
-                </Button>
-                <Button
-                  variant="ghost"
-                  onClick={() => scrollToSection('research')}
-                  className={`transition-all transform hover:scale-105 text-sm ${
-                    isScrolled 
-                      ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
-                      : 'text-purple-100 hover:text-white hover:bg-white/10'
-                  }`}
-                >
-                  Research
-                </Button>
-                <Button
-                  variant="ghost"
-                  onClick={() => scrollToSection('courses')}
-                  className={`transition-all transform hover:scale-105 text-sm ${
-                    isScrolled 
-                      ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
-                      : 'text-purple-100 hover:text-white hover:bg-white/10'
-                  }`}
-                >
-                  Our Courses
-                </Button>
-                <Button
-                  variant="ghost"
-                  onClick={() => scrollToSection('news')}
-                  className={`transition-all transform hover:scale-105 text-sm ${
-                    isScrolled 
-                      ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
-                      : 'text-purple-100 hover:text-white hover:bg-white/10'
-                  }`}
-                >
-                  News
-                </Button>
-                <Button
-                  variant="ghost"
-                  onClick={() => scrollToSection('services')}
-                  className={`transition-all transform hover:scale-105 text-sm ${
-                    isScrolled 
-                      ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
-                      : 'text-purple-100 hover:text-white hover:bg-white/10'
-                  }`}
-                >
-                  Our Services
-                </Button>
-                <Button
-                  variant="ghost"
-                  onClick={() => setContactModalOpen(true)}
-                  className={`transition-all transform hover:scale-105 text-sm ${
-                    isScrolled 
-                      ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
-                      : 'text-purple-100 hover:text-white hover:bg-white/10'
-                  }`}
-                >
-                  Contact Us
-                </Button>
-                <Button
-                  variant="ghost"
-                  onClick={() => scrollToSection('partnerships')}
-                  className={`transition-all transform hover:scale-105 text-sm ${
-                    isScrolled 
-                      ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
-                      : 'text-purple-100 hover:text-white hover:bg-white/10'
-                  }`}
-                >
-                  Our Partnerships
-                </Button>
-                <Button
-                  variant="ghost"
-                  onClick={() => scrollToSection('success-stories')}
-                  className={`transition-all transform hover:scale-105 text-sm ${
-                    isScrolled 
-                      ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
-                      : 'text-purple-100 hover:text-white hover:bg-white/10'
-                  }`}
-                >
-                  Success Stories
-                </Button>
-              </nav>
+            {/* Logo and Brand Name - Left Side */}
+            <div className="flex items-center space-x-2">
+              <div className="w-16 h-16 flex items-center justify-center">
+                <img 
+                  src="/lovable-uploads/a9671fd4-a581-4c7c-a7a1-7e7c918a14d1.png" 
+                  alt="Bioinformatics.lk" 
+                  className="w-16 h-16 object-contain"
+                />
+              </div>
+              <span className={`text-xl font-bold transition-colors duration-300 ${
+                isScrolled ? 'text-gray-800' : 'text-white'
+              }`}>
+                informatics.lk
+              </span>
             </div>
 
+            {/* Navigation Links - Center */}
+            <nav className="hidden lg:flex items-center space-x-6">
+              <Button
+                variant="ghost"
+                onClick={() => scrollToSection('team')}
+                className={`transition-all transform hover:scale-105 text-sm ${
+                  isScrolled 
+                    ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                    : 'text-purple-100 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                Our Team
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => scrollToSection('research')}
+                className={`transition-all transform hover:scale-105 text-sm ${
+                  isScrolled 
+                    ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                    : 'text-purple-100 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                Research
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => scrollToSection('courses')}
+                className={`transition-all transform hover:scale-105 text-sm ${
+                  isScrolled 
+                    ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                    : 'text-purple-100 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                Our Courses
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => scrollToSection('news')}
+                className={`transition-all transform hover:scale-105 text-sm ${
+                  isScrolled 
+                    ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                    : 'text-purple-100 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                News
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => scrollToSection('services')}
+                className={`transition-all transform hover:scale-105 text-sm ${
+                  isScrolled 
+                    ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                    : 'text-purple-100 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                Our Services
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => setContactModalOpen(true)}
+                className={`transition-all transform hover:scale-105 text-sm ${
+                  isScrolled 
+                    ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                    : 'text-purple-100 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                Contact Us
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => scrollToSection('partnerships')}
+                className={`transition-all transform hover:scale-105 text-sm ${
+                  isScrolled 
+                    ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                    : 'text-purple-100 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                Our Partnerships
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => scrollToSection('success-stories')}
+                className={`transition-all transform hover:scale-105 text-sm ${
+                  isScrolled 
+                    ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                    : 'text-purple-100 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                Success Stories
+              </Button>
+            </nav>
+
+            {/* Right Side - Search and Login */}
             <div className="flex items-center gap-4">
-              <div className="flex items-center space-x-2">
-                <div className="w-12 h-12 flex items-center justify-center">
-                  <img 
-                    src="/lovable-uploads/a9671fd4-a581-4c7c-a7a1-7e7c918a14d1.png" 
-                    alt="Bioinformatics.lk" 
-                    className="w-12 h-12 object-contain"
-                  />
-                </div>
-                <span className={`text-xl font-bold transition-colors duration-300 ${
-                  isScrolled ? 'text-gray-800' : 'text-white'
-                }`}>
-                  ioinformatics.lk
-                </span>
-              </div>
-              
               {searchOpen && (
                 <div className="hidden md:block">
                   <SearchBar />
@@ -261,7 +307,7 @@ const Index = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-purple-900/50 via-blue-900/50 to-indigo-900/50 backdrop-blur-sm">
+      <section className="relative overflow-hidden bg-gradient-to-br from-purple-900/50 via-blue-900/50 to-indigo-900/50 backdrop-blur-sm z-10">
         <div className="absolute inset-0 bg-white/5"></div>
         
         <div className="relative container mx-auto px-4 py-16 lg:py-24">
@@ -339,7 +385,7 @@ const Index = () => {
       </section>
 
       {/* Our Team Section */}
-      <section className="py-12 md:py-20 bg-white" id="team">
+      <section className="py-12 md:py-20 bg-white relative z-10" id="team">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 lg:mb-12">
             <div className="inline-block bg-[#AFA9FF] px-6 py-3 rounded-lg mb-4">
@@ -396,7 +442,7 @@ const Index = () => {
       </section>
 
       {/* Research Section */}
-      <section className="py-12 md:py-20 bg-white" id="research">
+      <section className="py-12 md:py-20 bg-white relative z-10" id="research">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 lg:mb-12">
             <div className="inline-block bg-[#EEBBFF] px-6 py-3 rounded-lg mb-4">
@@ -469,7 +515,7 @@ const Index = () => {
       </section>
 
       {/* Our Courses Section */}
-      <section className="py-12 md:py-20 bg-white" id="courses">
+      <section className="py-12 md:py-20 bg-white relative z-10" id="courses">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 lg:mb-12">
             <div className="inline-block bg-[#BBF7FF] px-6 py-3 rounded-lg mb-4">
@@ -540,7 +586,7 @@ const Index = () => {
       </section>
 
       {/* Our Services Section */}
-      <section className="py-12 md:py-20 bg-white" id="services">
+      <section className="py-12 md:py-20 bg-white relative z-10" id="services">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 lg:mb-12">
             <div className="inline-block bg-[#FFCB9C] px-6 py-3 rounded-lg mb-4">
@@ -605,7 +651,7 @@ const Index = () => {
       </section>
 
       {/* Our Partnerships Section */}
-      <section className="py-12 md:py-20 bg-white" id="partnerships">
+      <section className="py-12 md:py-20 bg-white relative z-10" id="partnerships">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 lg:mb-12">
             <div className="inline-block bg-[#FFBBE5] px-6 py-3 rounded-lg mb-4">
@@ -675,31 +721,30 @@ const Index = () => {
       </section>
 
       {/* Latest News & Updates Section */}
-      <section className="py-12 md:py-20 bg-white" id="news">
+      <section className="py-12 md:py-20 bg-white relative z-10" id="news">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 lg:mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Latest News & Updates</h2>
+            <div className="inline-block bg-[#C8FFA4] px-6 py-3 rounded-lg mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Latest News & Updates</h2>
+            </div>
             <p className="text-lg md:text-xl text-gray-600">Stay informed about the latest developments in bioinformatics</p>
           </div>
           
           <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
             {[
               {
-                date: "Dec 15, 2024",
-                title: "New Genomics Lab Launched",
-                preview: "State-of-the-art computational genomics facility opens to support advanced research projects.",
-                image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&h=250&fit=crop&crop=face"
+                title: "Our Student's Achievement in the Graphical Abstract Competition 2024",
+                description: "This course in Bioinformatics was helpful for our student in becoming the second runner-up in the graphical abstract competition at the Faculty of Agriculture Undergraduate Research Symposium 2024.",
+                image: "/lovable-uploads/c030abde-25c2-45ab-9c8f-0e9257ee88f6.png"
               },
               {
-                date: "Dec 10, 2024", 
-                title: "AI Workshop Series Begins",
-                preview: "Comprehensive workshop series on artificial intelligence applications in biological research.",
-                image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=250&fit=crop&crop=face"
+                title: "Outstanding Poster Presentation Award at ICIET 2024", 
+                description: "We are excited to share that our student secured first place for Outstanding Poster Presentation at the International Conference on Innovation and Emerging Technologies (ICIET) held at the Faculty of Technology, University of Sri Jayawardenapura, on the 21st and 22nd of November 2024.",
+                image: "/lovable-uploads/88dcbdd5-4666-4c05-9ee8-93493283d085.png"
               },
               {
-                date: "Dec 5, 2024",
                 title: "Research Collaboration Announced",
-                preview: "Partnership with international institutions to advance bioinformatics research capabilities.",
+                description: "Partnership with local and international institutions to advance bioinformatics research capabilities.",
                 image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=250&fit=crop&crop=face"
               }
             ].map((article, index) => (
@@ -712,14 +757,13 @@ const Index = () => {
                   />
                 </div>
                 <CardHeader>
-                  <div className="text-sm text-purple-600 font-medium mb-2">{article.date}</div>
-                  <CardTitle className="text-lg md:text-xl text-gray-800">
+                  <CardTitle className="text-lg md:text-xl text-black hover:text-[#00A81C] transition-all">
                     {article.title}
                   </CardTitle>
-                  <CardDescription className="text-sm md:text-base text-gray-700">{article.preview}</CardDescription>
+                  <CardDescription className="text-sm md:text-base text-gray-700">{article.description}</CardDescription>
                 </CardHeader>
                 <CardContent className="pt-0">
-                  <Button variant="link" className="p-0 text-purple-600 hover:text-purple-800">
+                  <Button variant="link" className="p-0 text-green-600 hover:text-green-800">
                     Read More →
                   </Button>
                 </CardContent>
@@ -730,10 +774,12 @@ const Index = () => {
       </section>
 
       {/* Success Stories Section */}
-      <section className="py-12 md:py-20 bg-white" id="success-stories">
+      <section className="py-12 md:py-20 bg-white relative z-10" id="success-stories">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 lg:mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Success Stories</h2>
+            <div className="inline-block bg-[#FFD97B] px-6 py-3 rounded-lg mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Success Stories</h2>
+            </div>
             <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
               Hear from our students and their achievements
             </p>
@@ -742,22 +788,22 @@ const Index = () => {
           <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
             {[
               {
-                name: "Sarah Johnson",
+                name: "Saumya Poorni",
                 role: "PhD Student",
                 testimonial: "The bioinformatics course transformed my research approach. The practical skills I gained have been invaluable in my PhD work.",
-                image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=300&h=300&fit=crop&crop=face"
+                image: "/lovable-uploads/88dcbdd5-4666-4c05-9ee8-93493283d085.png"
               },
               {
-                name: "Michael Chen",
-                role: "Research Scientist",
-                testimonial: "Excellent instruction in molecular docking. The knowledge helped me secure a position at a leading pharmaceutical company.",
-                image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face"
+                name: "Kasuni Karunarathne",
+                role: "Demonstrator at UoP",
+                testimonial: "This course in Bioinformatics was helpful in becoming the second runner-up in the graphical abstract competition at the Faculty of Agriculture Undergraduate Research Symposium 2024.",
+                image: "/lovable-uploads/c030abde-25c2-45ab-9c8f-0e9257ee88f6.png"
               },
               {
-                name: "Emily Rodriguez",
-                role: "Biotech Startup Founder",
-                testimonial: "The AI in drug discovery course gave me the foundation to start my own biotech company. Highly recommended!",
-                image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop&crop=face"
+                name: "Dharani Ariyasinghe",
+                role: "Research Student",
+                testimonial: "A beginner course in Bioinformatics changed my vision in drug discovery and opened new pathways in my career.",
+                image: "/lovable-uploads/bd937a38-24e6-4ada-8518-99144be047af.png"
               }
             ].map((story, index) => (
               <Card key={index} className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
@@ -769,7 +815,7 @@ const Index = () => {
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <CardTitle className="text-purple-600">{story.name}</CardTitle>
+                  <CardTitle className="text-black hover:text-[#E5C400] transition-all cursor-pointer">{story.name}</CardTitle>
                   <CardDescription className="text-gray-700">{story.role}</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -782,7 +828,7 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gradient-to-br from-purple-900/50 via-blue-900/50 to-indigo-900/50 backdrop-blur-sm text-white py-12 md:py-16">
+      <footer className="bg-gradient-to-br from-purple-900/50 via-blue-900/50 to-indigo-900/50 backdrop-blur-sm text-white py-12 md:py-16 relative z-10">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-6 lg:gap-8">
             <div className="space-y-4">
