@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -54,9 +53,9 @@ const Index = () => {
 
   // Animate counters with 3x slower speed
   useEffect(() => {
-    const targets = { courses: 11, students: 10, projects: 5, partnerships: 4 };
-    const duration = 9000; // 3x slower than before (was 6000, now 9000)
-    const increment = 225; // 3x slower (was 150, now 225)
+    const targets = { courses: 6, students: 10, projects: 5, partnerships: 5 };
+    const duration = 9000;
+    const increment = 225;
 
     const timer = setInterval(() => {
       setCounters(prev => {
@@ -167,12 +166,12 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             {/* Logo and Brand Name - Left Side */}
-            <div className="flex items-center space-x-2">
-              <div className="w-16 h-16 flex items-center justify-center">
+            <div className="flex items-center space-x-3">
+              <div className="w-12 h-12 flex items-center justify-center">
                 <img 
-                  src="/lovable-uploads/a9671fd4-a581-4c7c-a7a1-7e7c918a14d1.png" 
+                  src="/lovable-uploads/76f3562a-0d90-4bbc-a1b8-640acc56da80.png" 
                   alt="Bioinformatics.lk" 
-                  className="w-16 h-16 object-contain"
+                  className="w-12 h-12 object-contain"
                 />
               </div>
               <span className={`text-xl font-bold transition-colors duration-300 ${
@@ -183,7 +182,7 @@ const Index = () => {
             </div>
 
             {/* Navigation Links - Center */}
-            <nav className="hidden lg:flex items-center space-x-6">
+            <nav className="hidden lg:flex items-center space-x-4">
               <Button
                 variant="ghost"
                 onClick={() => scrollToSection('team')}
@@ -463,7 +462,7 @@ const Index = () => {
                 />
               </div>
               <CardHeader>
-                <CardTitle className="text-xl text-gray-800 flex items-center gap-2">
+                <CardTitle className="text-xl text-gray-800 flex items-center gap-2 hover:text-[#A00098] transition-colors cursor-pointer">
                   <Dna className="h-6 w-6 text-purple-600" />
                   Bioinformatics
                 </CardTitle>
@@ -482,7 +481,7 @@ const Index = () => {
                 />
               </div>
               <CardHeader>
-                <CardTitle className="text-xl text-gray-800 flex items-center gap-2">
+                <CardTitle className="text-xl text-gray-800 flex items-center gap-2 hover:text-[#A00098] transition-colors cursor-pointer">
                   <Atom className="h-6 w-6 text-purple-600" />
                   Cheminformatics
                 </CardTitle>
@@ -501,7 +500,7 @@ const Index = () => {
                 />
               </div>
               <CardHeader>
-                <CardTitle className="text-xl text-gray-800 flex items-center gap-2">
+                <CardTitle className="text-xl text-gray-800 flex items-center gap-2 hover:text-[#A00098] transition-colors cursor-pointer">
                   <Brain className="h-6 w-6 text-purple-600" />
                   AI-driven Drug Discovery
                 </CardTitle>
@@ -668,31 +667,37 @@ const Index = () => {
                 category: "Academics",
                 partner: "University of Peradeniya, Faculty of Agriculture, Department of Animal Science",
                 url: "https://agri.pdn.ac.lk/ansc/",
-                image: "/lovable-uploads/d8097562-162f-4f31-aa8f-fca58c32105b.png"
+                image: "/lovable-uploads/f819fa08-d68c-4051-aaf6-9400fcbd120f.png"
               },
               {
                 category: "Open Source",
                 partner: "Institute of Scientific Informatics",
                 url: "https://www.linkedin.com/company/institute-of-scientific-informatics/?viewAsMember=true",
-                image: "/lovable-uploads/7199b7a9-f4cc-4911-b14f-bab36fd1e1e2.png"
+                image: "/lovable-uploads/2e7cdf35-206d-4ea5-9a42-57a8463de5da.png"
               },
               {
                 category: "Open Source",
                 partner: "Global Chemistry Inc, U.S.A",
                 url: "https://globalchemistry.org/",
-                image: "/lovable-uploads/fd5781c0-9f08-4b6d-83fd-79fb6114605e.png"
+                image: "/lovable-uploads/b6881a52-3aa0-4dfb-95bf-1061d262f01c.png"
               },
               {
                 category: "Education and Research",
                 partner: "Chemo-Informatics Academy, Nigeria",
                 url: "https://www.linkedin.com/company/chemoinformatics-academy/posts/?feedView=all",
-                image: "/lovable-uploads/191663e8-610a-4c66-ae3f-955e7fa07cce.png"
+                image: "/lovable-uploads/1953afc8-f585-4e96-a138-a7ae2375e033.png"
               },
               {
                 category: "Industry",
                 partner: "Standard Seed Corporation, Delaware, Wilmington, U.S.A",
                 url: "https://standardseedai.com/",
-                image: "/lovable-uploads/cee2d064-56af-4313-9c95-99df1b851eb5.png"
+                image: "/lovable-uploads/b6abe787-a4b1-469e-ace7-f3ba7c44eb36.png"
+              },
+              {
+                category: "Education and Research",
+                partner: "Agriculture.lk",
+                url: "https://agriculture.lk/",
+                image: "/lovable-uploads/4717a1d7-6c8d-411e-a4ec-d38407bc3bf5.png"
               }
             ].map((partnership, index) => (
               <Card key={index} className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
@@ -704,7 +709,7 @@ const Index = () => {
                   />
                 </div>
                 <CardHeader>
-                  <CardTitle className="text-lg md:text-xl text-purple-600">
+                  <CardTitle className="text-lg md:text-xl text-purple-600 hover:text-[#A50076] transition-colors cursor-pointer">
                     {partnership.category}
                   </CardTitle>
                   <CardDescription 
@@ -735,17 +740,17 @@ const Index = () => {
               {
                 title: "Our Student's Achievement in the Graphical Abstract Competition 2024",
                 description: "This course in Bioinformatics was helpful for our student in becoming the second runner-up in the graphical abstract competition at the Faculty of Agriculture Undergraduate Research Symposium 2024.",
-                image: "/lovable-uploads/c030abde-25c2-45ab-9c8f-0e9257ee88f6.png"
+                image: "/lovable-uploads/519715ae-248a-4c05-8f22-8c0b2b40e239.png"
               },
               {
                 title: "Outstanding Poster Presentation Award at ICIET 2024", 
                 description: "We are excited to share that our student secured first place for Outstanding Poster Presentation at the International Conference on Innovation and Emerging Technologies (ICIET) held at the Faculty of Technology, University of Sri Jayawardenapura, on the 21st and 22nd of November 2024.",
-                image: "/lovable-uploads/88dcbdd5-4666-4c05-9ee8-93493283d085.png"
+                image: "/lovable-uploads/5bcc7c6f-2e42-4e80-ad6f-750db87e9fc4.png"
               },
               {
                 title: "Research Collaboration Announced",
                 description: "Partnership with local and international institutions to advance bioinformatics research capabilities.",
-                image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=250&fit=crop&crop=face"
+                image: "/lovable-uploads/6f7f0e18-e58a-4be0-b4d9-8266695b8a5e.png"
               }
             ].map((article, index) => (
               <Card key={index} className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
