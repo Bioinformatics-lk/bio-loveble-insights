@@ -57,9 +57,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signOut = async () => {
     try {
-      await supabase.auth.signOut();
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      
+      // Clear any stored session data
+      localStorage.removeItem('supabase.auth.token');
+      
+      // Force user state update
+      setUser(null);
+      
+      // Navigate to landing page
+      window.location.href = '/';
     } catch (error) {
       console.error('Error signing out:', error);
+      throw error; // Propagate error to be handled by the component
     }
   };
 

@@ -19,12 +19,17 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const handleLogout = async () => {
+    if (isLoggingOut) return; // Prevent multiple clicks
+
     setIsLoggingOut(true);
     try {
       await signOut();
+      // Force navigation to landing page
+      window.location.href = '/';
     } catch (error) {
       console.error('Error during logout:', error);
       setIsLoggingOut(false);
+      alert('Failed to logout. Please try again.');
     }
   };
 
