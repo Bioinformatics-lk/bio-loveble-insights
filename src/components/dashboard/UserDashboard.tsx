@@ -4,10 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { BookOpen, Briefcase, LogOut, User } from "lucide-react";
 import { User as SupabaseUser } from '@supabase/supabase-js';
+import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from 'react-router-dom';
-import { useState, useCallback } from 'react';
-import { useAuth } from "@/hooks/useAuth";
-import { useToast } from "@/components/ui/use-toast";
 
 interface UserDashboardProps {
   user: SupabaseUser;
@@ -15,59 +13,17 @@ interface UserDashboardProps {
 
 export const UserDashboard = ({ user }: UserDashboardProps) => {
   const navigate = useNavigate();
-  const { signOut } = useAuth();
-  const { toast } = useToast();
-  const [isLoggingOut, setIsLoggingOut] = useState(false);
-  const [isNavigating, setIsNavigating] = useState(false);
 
-  const handleLogout = useCallback(async () => {
-    if (isLoggingOut) return; // Prevent multiple clicks
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+  };
 
-    try {
-      setIsLoggingOut(true);
-      toast({
-        title: "Logging out...",
-        description: "Please wait while we securely sign you out.",
-        duration: 2000,
-      });
-
-      // Add a small delay for the animation
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
-      // Clear any pending navigation
-      setIsNavigating(false);
-      
-      // Attempt to sign out
-      await signOut().catch((error) => {
-        console.error('Error during signOut:', error);
-        // Force a hard reload if there's an error
-        window.location.href = '/login';
-      });
-
-    } catch (error) {
-      console.error('Error logging out:', error);
-      toast({
-        title: "Error logging out",
-        description: "Please try again or refresh the page.",
-        variant: "destructive",
-        duration: 5000,
-      });
-      // Force reload as a fallback
-      window.location.reload();
-    }
-  }, [isLoggingOut, signOut, toast]);
-
-  const handleViewCourses = useCallback(() => {
-    setIsNavigating(true);
+  const handleViewCourses = () => {
     navigate('/courses');
-  }, [navigate]);
+  };
 
   return (
-    <div className={`
-      min-h-screen bg-gradient-to-br from-slate-900 to-purple-900 
-      relative overflow-hidden transition-all duration-500
-      ${isLoggingOut ? 'opacity-50 scale-95' : 'opacity-100 scale-100'}
-    `}>
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 relative overflow-hidden">
       {/* Background Images */}
       <div className="absolute inset-0 z-0">
         {/* Top Left Image */}
@@ -91,33 +47,33 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
           style={{ backgroundImage: 'url("/lovable-uploads/P4.png")' }}
         />
         {/* Overlay Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/50 to-purple-900/50 backdrop-blur-[2px]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-50/50 to-blue-50/50 backdrop-blur-[2px]" />
       </div>
 
       {/* Top Bar */}
-      <header className="sticky top-0 z-50 w-full bg-slate-900/90 backdrop-blur-sm border-b border-purple-800 shadow-lg transition-transform duration-300 ease-in-out">
+      <header className="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-sm border-b border-purple-100 shadow-sm">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Left Side - Logo and User Info */}
             <div className="flex items-center space-x-4 md:space-x-6">
               {/* Site Name */}
-              <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent transform transition-all duration-300 hover:scale-105">
+              <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
                 Bioinformatics.lk
               </h1>
               
               {/* Divider */}
-              <div className="h-6 w-px bg-purple-800"></div>
+              <div className="h-6 w-px bg-purple-200"></div>
               
               {/* User Profile */}
-              <div className="flex items-center space-x-3 transform transition-all duration-300 hover:scale-105">
-                <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center transition-transform duration-300 hover:rotate-12">
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center">
                   <User className="h-4 w-4 md:h-5 md:w-5 text-white" />
                 </div>
                 <div className="hidden sm:block">
-                  <p className="text-sm md:text-base font-medium text-gray-200 transition-colors duration-300">
+                  <p className="text-sm md:text-base font-medium text-gray-900">
                     {user?.user_metadata?.username || 'User'}
                   </p>
-                  <p className="text-xs md:text-sm text-gray-400 transition-colors duration-300">
+                  <p className="text-xs md:text-sm text-gray-500">
                     {user?.email}
                   </p>
                 </div>
@@ -127,84 +83,59 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
             {/* Right Side - Logout Button */}
             <Button
               onClick={handleLogout}
-              disabled={isLoggingOut}
-              className={`
-                bg-slate-800 hover:bg-slate-700 text-gray-200 
-                border border-purple-800 shadow-lg 
-                hover:shadow-purple-900/20 flex items-center space-x-2
-                transition-all duration-300 ease-in-out transform
-                hover:scale-105 hover:rotate-1 active:scale-95
-                ${isLoggingOut ? 'opacity-50 cursor-not-allowed translate-y-1' : ''}
-              `}
+              className="bg-white hover:bg-gray-100 text-gray-900 border border-gray-200 shadow-sm hover:shadow flex items-center space-x-2"
               size="sm"
             >
-              <LogOut className={`
-                h-4 w-4 transition-all duration-300
-                ${isLoggingOut ? 'rotate-180 scale-110' : ''}
-              `} />
-              <span>
-                {isLoggingOut ? 'Signing out...' : 'Sign out'}
-              </span>
+              <LogOut className="h-4 w-4" />
+              <span className="hidden sm:inline">Logout</span>
             </Button>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className={`container mx-auto px-4 py-16 relative z-10 transition-transform duration-500 ${isNavigating ? 'translate-x-full opacity-0' : 'translate-x-0 opacity-100'}`}>
+      <main className="container mx-auto px-4 py-16 relative z-10">
         <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
           {/* Courses Card */}
-          <Card className="group hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:rotate-1 border-2 border-transparent hover:border-purple-600 bg-slate-900/90 backdrop-blur-sm">
+          <Card className="hover:shadow-xl transition-all transform hover:scale-105 border-2 border-transparent hover:border-purple-600 bg-white/90 backdrop-blur-sm">
             <CardHeader className="text-center">
-              <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:rotate-12">
-                <BookOpen className="h-12 w-12 text-white transition-transform duration-300 group-hover:scale-110" />
+              <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
+                <BookOpen className="h-12 w-12 text-white" />
               </div>
-              <CardTitle className="text-3xl bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent font-bold transition-transform duration-300 group-hover:scale-105">
+              <CardTitle className="text-3xl bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent font-bold">
                 Courses
               </CardTitle>
-              <CardDescription className="text-gray-400 text-lg mt-2 transition-all duration-300 group-hover:text-purple-400">
+              <CardDescription className="text-gray-700 text-lg mt-2">
                 Access our comprehensive bioinformatics courses
               </CardDescription>
             </CardHeader>
             <CardContent>
               <Button 
                 onClick={handleViewCourses}
-                disabled={isNavigating}
-                className={`
-                  w-full bg-gradient-to-r from-blue-600 to-purple-600
-                  hover:from-blue-700 hover:to-purple-700 text-lg py-6
-                  font-semibold shadow-lg hover:shadow-purple-900/20 transition-all
-                  duration-300 transform hover:scale-105 text-white
-                  ${isNavigating ? 'opacity-50 cursor-not-allowed' : ''}
-                `}
+                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-lg py-6 font-semibold shadow-lg hover:shadow-xl transition-all"
                 size="lg"
               >
-                {isNavigating ? 'Loading...' : 'View Courses'}
+                View Courses
               </Button>
             </CardContent>
           </Card>
 
           {/* Services Card */}
-          <Card className="group hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:rotate-1 border-2 border-transparent hover:border-purple-600 bg-slate-900/90 backdrop-blur-sm">
+          <Card className="hover:shadow-xl transition-all transform hover:scale-105 border-2 border-transparent hover:border-purple-600 bg-white/90 backdrop-blur-sm">
             <CardHeader className="text-center">
-              <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:rotate-12">
-                <Briefcase className="h-12 w-12 text-white transition-transform duration-300 group-hover:scale-110" />
+              <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
+                <Briefcase className="h-12 w-12 text-white" />
               </div>
-              <CardTitle className="text-3xl bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent font-bold transition-transform duration-300 group-hover:scale-105">
+              <CardTitle className="text-3xl bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent font-bold">
                 Services
               </CardTitle>
-              <CardDescription className="text-gray-400 text-lg mt-2 transition-all duration-300 group-hover:text-purple-400">
+              <CardDescription className="text-gray-700 text-lg mt-2">
                 Professional bioinformatics and computational biology services
               </CardDescription>
             </CardHeader>
             <CardContent>
               <Button 
-                className={`
-                  w-full bg-gradient-to-r from-blue-600 to-purple-600
-                  hover:from-blue-700 hover:to-purple-700 text-lg py-6
-                  font-semibold shadow-lg hover:shadow-purple-900/20 transition-all
-                  duration-300 transform hover:scale-105 text-white
-                `}
+                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-lg py-6 font-semibold shadow-lg hover:shadow-xl transition-all"
                 size="lg"
               >
                 View Services

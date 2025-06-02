@@ -1,65 +1,43 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { Toaster } from "@/components/ui/toaster";
-import { LoginPage } from './components/auth/LoginPage';
-import { UserDashboard } from "@/components/dashboard/UserDashboard";
-import { CoursesPage } from "@/components/courses/CoursesPage";
-import { useAuth } from '@/hooks/useAuth';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { User } from '@supabase/supabase-js';
+import { supabase } from '@/integrations/supabase/client';
+import Index from '@/pages/Index';
+import { UserDashboard } from '@/components/dashboard/UserDashboard';
+import { CoursesPage } from '@/components/courses/CoursesPage';
 
 function App() {
-  const { user, loading } = useAuth();
-  const [isInitialized, setIsInitialized] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const initializeApp = async () => {
-      try {
-        // Wait for the initial auth check
-        if (!loading) {
-          setIsInitialized(true);
-        }
-      } catch (error) {
-        console.error('Error initializing app:', error);
-        // Still set as initialized to show potential error states
-        setIsInitialized(true);
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setUser(session?.user ?? null);
       }
-    };
-
-    initializeApp();
-  }, [loading]);
-
-  if (!isInitialized) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-purple-900 flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-t-purple-500 border-r-purple-500 border-b-transparent border-l-transparent rounded-full animate-spin mb-4"></div>
-          <p className="text-gray-200 text-lg">Loading...</p>
-        </div>
-      </div>
     );
-  }
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-slate-900 to-purple-900">
+    <Router>
       <Routes>
         <Route 
-          path="/login" 
-          element={user ? <Navigate to="/" replace /> : <LoginPage />} 
-        />
-        <Route 
           path="/" 
-          element={user ? <UserDashboard user={user} /> : <Navigate to="/login" replace />} 
+          element={user ? <UserDashboard user={user} /> : <Index />} 
         />
         <Route 
           path="/courses" 
-          element={user ? <CoursesPage /> : <Navigate to="/login" replace />} 
-        />
-        <Route 
-          path="*" 
-          element={<Navigate to="/" replace />} 
+          element={user ? <CoursesPage /> : <Navigate to="/" />} 
         />
       </Routes>
-      <Toaster />
-    </div>
+    </Router>
   );
 }
 
