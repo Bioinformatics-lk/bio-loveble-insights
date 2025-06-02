@@ -219,36 +219,30 @@ const Index = () => {
               </nav>
             </div>
           )}
-        </header>
+        </div>
+      </header>
 
-        {/* Hero Content */}
-        <div className="flex-1 flex items-center justify-center px-4 lg:px-6">
-          <div className="container mx-auto text-center">
-            <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
-              Advancing
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400"> Bioinformatics </span>
-              Through Innovation
-            </h1>
-            <p className="text-xl lg:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto">
-              Empowering researchers and students with cutting-edge computational biology tools, 
-              comprehensive courses, and collaborative research opportunities.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-              <Button size="lg" className="bg-pink-600 hover:bg-pink-700 text-white px-8 py-3 text-lg">
-                <Play className="w-5 h-5 mr-2" />
-                View Courses
-              </Button>
-              
-              <Button
-                onClick={() => setAuthModalOpen(true)}
-                className="bg-purple-600 hover:bg-purple-700 text-white transition-all transform hover:scale-105"
-              >
-                Login
-              </Button>
+      {/* Hero Content */}
+      <section className="hero">
+        <div className="container">
+          <div className="hero-content">
+            <div className="hero-text">
+              <h1>Advancing Bioinformatics Through Innovation</h1>
+              <p>Empowering researchers and students with cutting-edge computational biology tools, comprehensive courses, and collaborative research opportunities</p>
+            </div>
+            <div className="hero-video">
+              <iframe 
+                src="https://player.vimeo.com/video/1089037562" 
+                width="100%" 
+                height="400" 
+                frameBorder="0" 
+                allow="autoplay; fullscreen; picture-in-picture" 
+                allowFullScreen
+              />
             </div>
           </div>
         </div>
-      </header>
+      </section>
 
       {/* Hero Section */}
       <section className="relative overflow-hidden z-10">
