@@ -14,7 +14,7 @@ import {
   ChevronRight
 } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const courses = [
   {
@@ -72,9 +72,28 @@ const courses = [
 export const CoursesPage = () => {
   const navigate = useNavigate();
   const [hoveredStep, setHoveredStep] = useState<number | null>(null);
+  const [isNavigating, setIsNavigating] = useState(false);
+  const [isPageVisible, setIsPageVisible] = useState(false);
+
+  useEffect(() => {
+    // Trigger entrance animation
+    setIsPageVisible(true);
+  }, []);
+
+  const handleNavigateBack = () => {
+    setIsNavigating(true);
+    setIsPageVisible(false);
+    setTimeout(() => {
+      navigate('/');
+    }, 300);
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 relative overflow-hidden">
+    <div className={`
+      min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 
+      relative overflow-hidden transition-all duration-500 ease-in-out
+      ${isPageVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
+    `}>
       {/* Background Images */}
       <div className="absolute inset-0 z-0">
         {/* Top Left Image */}
@@ -104,19 +123,29 @@ export const CoursesPage = () => {
       {/* Back Button */}
       <div className="sticky top-4 left-4 z-50 container mx-auto px-4">
         <Button
-          onClick={() => navigate('/')}
+          onClick={handleNavigateBack}
           variant="ghost"
-          className="bg-white/90 hover:bg-white shadow-sm hover:shadow flex items-center space-x-2"
+          disabled={isNavigating}
+          className={`
+            bg-white/90 hover:bg-white shadow-sm hover:shadow 
+            flex items-center space-x-2 transition-all duration-300 
+            transform hover:scale-105 hover:-translate-x-1
+            ${isNavigating ? 'opacity-50 cursor-not-allowed' : ''}
+          `}
           size="sm"
         >
-          <ArrowLeft className="h-4 w-4" />
-          <span>Back to Dashboard</span>
+          <ArrowLeft className={`h-4 w-4 transition-transform duration-300 ${isNavigating ? 'translate-x-2' : ''}`} />
+          <span>{isNavigating ? 'Going back...' : 'Back to Dashboard'}</span>
         </Button>
       </div>
 
-      <main className="container mx-auto px-4 py-16 relative z-10">
+      <main className={`
+        container mx-auto px-4 py-16 relative z-10 
+        transition-all duration-500 ease-in-out
+        ${isNavigating ? 'opacity-0 -translate-x-10' : 'opacity-100 translate-x-0'}
+      `}>
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 transition-all duration-500 ease-in-out transform">
           <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-4">
             Course Pipeline
           </h1>
@@ -128,10 +157,22 @@ export const CoursesPage = () => {
         {/* Course Pipeline - Desktop */}
         <div className="hidden lg:flex flex-col items-center space-y-12 max-w-4xl mx-auto">
           {courses.map((course, index) => (
-            <div key={index} className="relative w-full">
+            <div 
+              key={index} 
+              className={`
+                relative w-full transform transition-all duration-500 ease-in-out
+                ${isPageVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}
+                ${isNavigating ? 'opacity-0 -translate-x-10' : ''}
+              `}
+              style={{ transitionDelay: `${index * 100}ms` }}
+            >
               {/* Connecting Line */}
               {index < courses.length - 1 && (
-                <div className="absolute left-[120px] top-full h-12 w-1 bg-gradient-to-b from-purple-600 to-transparent" />
+                <div className={`
+                  absolute left-[120px] top-full h-12 w-1
+                  transition-all duration-300 ease-in-out
+                  ${hoveredStep === course.step ? 'bg-purple-600' : 'bg-gradient-to-b from-purple-600 to-transparent'}
+                `} />
               )}
               
               {/* Course Card */}
@@ -197,13 +238,21 @@ export const CoursesPage = () => {
         {/* Course Pipeline - Mobile */}
         <div className="lg:hidden space-y-4">
           {courses.map((course, index) => (
-            <div key={index} className="relative">
+            <div 
+              key={index} 
+              className={`
+                relative transform transition-all duration-500 ease-in-out
+                ${isPageVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}
+                ${isNavigating ? 'opacity-0 -translate-x-10' : ''}
+              `}
+              style={{ transitionDelay: `${index * 50}ms` }}
+            >
               <Card 
                 className={`
                   transform transition-all duration-300
                   hover:scale-102 hover:shadow-lg border-2
                   ${course.isSpecial ? 'bg-gradient-to-br from-orange-50 to-rose-50 border-orange-200' : 'bg-white/90 border-transparent'}
-                  backdrop-blur-sm p-4
+                  backdrop-blur-sm p-4 hover:border-purple-600
                 `}
               >
                 <div className="flex items-start space-x-4">
@@ -240,7 +289,11 @@ export const CoursesPage = () => {
               </Card>
               {/* Connecting Line */}
               {index < courses.length - 1 && (
-                <div className="absolute left-6 top-full h-4 border-l-2 border-purple-300/50" />
+                <div className={`
+                  absolute left-6 top-full h-4 border-l-2
+                  transition-colors duration-300
+                  ${hoveredStep === course.step ? 'border-purple-600' : 'border-purple-300/50'}
+                `} />
               )}
             </div>
           ))}
