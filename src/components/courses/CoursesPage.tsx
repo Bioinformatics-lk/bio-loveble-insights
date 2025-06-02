@@ -189,7 +189,7 @@ export const CoursesPage = () => {
                   `}
                 />
 
-                {/* Course Card */}
+                {/* Course Card with Details Popup */}
                 <motion.div
                   className="w-[calc(50%-2rem)] relative"
                   whileHover={{ scale: 1.02 }}
@@ -246,16 +246,40 @@ export const CoursesPage = () => {
                   <AnimatePresence>
                     {selectedCourse === course.step && (
                       <motion.div
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
+                        initial={{ opacity: 0, x: course.title === "Network Pharmacology" ||
+                                                course.title === "AI and ML in Drug Discovery" ||
+                                                course.title === "Molecular Dynamics" ? 100 : -100 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: course.title === "Network Pharmacology" ||
+                                              course.title === "AI and ML in Drug Discovery" ||
+                                              course.title === "Molecular Dynamics" ? 100 : -100 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
                         className={`
-                          absolute ${index % 2 === 0 ? 'right-0' : 'left-0'} top-full mt-2
-                          w-full max-w-sm bg-white/10 backdrop-blur-md
+                          absolute top-1/2 -translate-y-1/2
+                          ${course.title === "Network Pharmacology" ||
+                            course.title === "AI and ML in Drug Discovery" ||
+                            course.title === "Molecular Dynamics"
+                            ? 'left-full ml-8'
+                            : 'right-full mr-8'}
+                          w-64 bg-white/10 backdrop-blur-md
                           border-2 border-white/20 rounded-lg shadow-xl
                           p-4 z-20
                         `}
                       >
+                        {/* Connecting Line */}
+                        <div 
+                          className={`
+                            absolute top-1/2 -translate-y-1/2
+                            ${course.title === "Network Pharmacology" ||
+                              course.title === "AI and ML in Drug Discovery" ||
+                              course.title === "Molecular Dynamics"
+                              ? 'right-full mr-2'
+                              : 'left-full ml-2'}
+                            w-6 h-0.5 bg-white/20
+                          `}
+                        />
+                        
+                        {/* Popup Content */}
                         <div className="flex flex-col space-y-3">
                           <div className="flex items-center justify-between">
                             <span className="text-white font-semibold">Course Fee</span>
@@ -276,6 +300,39 @@ export const CoursesPage = () => {
                     )}
                   </AnimatePresence>
                 </motion.div>
+
+                {/* Mobile Course Details Popup */}
+                <AnimatePresence>
+                  {selectedCourse === course.step && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 20 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      className="lg:hidden absolute left-0 right-0 top-full mt-2 bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-lg shadow-xl p-4 z-20"
+                    >
+                      {/* Connecting Line for Mobile */}
+                      <div className="absolute top-0 left-6 h-2 border-l-2 border-white/20 -translate-y-full" />
+                      
+                      <div className="flex flex-col space-y-3">
+                        <div className="flex items-center justify-between">
+                          <span className="text-white font-semibold">Course Fee</span>
+                          <span className="text-white flex items-center">
+                            <DollarSign className="w-4 h-4 mr-1" />
+                            {course.price}
+                          </span>
+                        </div>
+                        <Button
+                          onClick={() => handleEnrollClick(course.enrollmentLink)}
+                          className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white"
+                        >
+                          Enroll Now
+                          <ExternalLink className="w-4 h-4 ml-2" />
+                        </Button>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
             ))}
           </div>
@@ -335,11 +392,15 @@ export const CoursesPage = () => {
               <AnimatePresence>
                 {selectedCourse === course.step && (
                   <motion.div
-                    initial={{ opacity: 0, y: -10 }}
+                    initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className="absolute left-0 right-0 top-full mt-2 bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-lg shadow-xl p-4 z-20"
+                    exit={{ opacity: 0, y: 20 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    className="lg:hidden absolute left-0 right-0 top-full mt-2 bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-lg shadow-xl p-4 z-20"
                   >
+                    {/* Connecting Line for Mobile */}
+                    <div className="absolute top-0 left-6 h-2 border-l-2 border-white/20 -translate-y-full" />
+                    
                     <div className="flex flex-col space-y-3">
                       <div className="flex items-center justify-between">
                         <span className="text-white font-semibold">Course Fee</span>
