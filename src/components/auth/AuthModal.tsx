@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -6,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { LoginTransition } from './LoginTransition';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -18,6 +18,7 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showTransition, setShowTransition] = useState(false);
   const { toast } = useToast();
 
   const handleAuth = async (e: React.FormEvent) => {
@@ -31,7 +32,10 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
           password,
         });
         if (error) throw error;
-        toast({ title: "Successfully logged in!" });
+        setShowTransition(true); // Show transition before closing modal
+        setTimeout(() => {
+          onClose();
+        }, 2300); // Close modal after transition (2s + 300ms fade)
       } else {
         const { error } = await supabase.auth.signUp({
           email,
@@ -45,18 +49,21 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
         });
         if (error) throw error;
         toast({ title: "Account created successfully!" });
+        onClose();
       }
-      onClose();
     } catch (error: any) {
       toast({
         title: "Error",
         description: error.message,
         variant: "destructive",
       });
-    } finally {
       setLoading(false);
     }
   };
+
+  if (showTransition) {
+    return <LoginTransition />;
+  }
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
