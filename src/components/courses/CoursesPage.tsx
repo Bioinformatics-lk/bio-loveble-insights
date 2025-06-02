@@ -126,79 +126,72 @@ export const CoursesPage = () => {
         </div>
 
         {/* Course Pipeline - Desktop */}
-        <div className="hidden lg:block overflow-x-auto">
-          <div className="min-w-[1024px] p-8">
-            <div className="flex items-center justify-between gap-4 relative">
-              {courses.map((course, index) => (
-                <div key={index} className="flex-1 relative">
-                  {/* Course Card */}
-                  <Card 
-                    className={`
-                      transform transition-all duration-300 cursor-pointer
-                      hover:scale-105 hover:shadow-xl border-2
-                      ${hoveredStep === course.step ? 'border-purple-600 shadow-lg' : 'border-transparent shadow'}
-                      ${course.isSpecial ? 'bg-gradient-to-br from-orange-50 to-rose-50' : 'bg-white/90'}
-                      backdrop-blur-sm p-6 relative z-10
-                    `}
-                    onMouseEnter={() => setHoveredStep(course.step)}
-                    onMouseLeave={() => setHoveredStep(null)}
-                  >
-                    <div className="flex flex-col items-center text-center space-y-4">
-                      {/* Step Number */}
-                      <div className={`
-                        w-12 h-12 rounded-full bg-gradient-to-r ${course.color}
-                        flex items-center justify-center text-white font-bold text-xl
-                        shadow-lg mb-2
-                      `}>
-                        {course.step}
-                      </div>
-                      {/* Icon */}
-                      <div className={`
-                        w-16 h-16 rounded-full bg-gradient-to-r ${course.color}
-                        flex items-center justify-center shadow-lg
-                        ${course.isSpecial ? 'animate-pulse' : ''}
-                      `}>
-                        <course.icon className="h-8 w-8 text-white" />
-                      </div>
-                      <div>
-                        <h3 className={`
-                          text-lg font-semibold bg-gradient-to-r
-                          ${course.isSpecial ? 'from-rose-600 to-orange-600' : 'from-purple-600 to-blue-600'}
-                          bg-clip-text text-transparent
-                        `}>
-                          {course.title}
-                        </h3>
-                        <p className="text-sm text-gray-600 mt-2">{course.description}</p>
-                      </div>
+        <div className="hidden lg:flex flex-col items-center space-y-12 max-w-4xl mx-auto">
+          {courses.map((course, index) => (
+            <div key={index} className="relative w-full">
+              {/* Connecting Line */}
+              {index < courses.length - 1 && (
+                <div className="absolute left-[120px] top-full h-12 w-1 bg-gradient-to-b from-purple-600 to-transparent" />
+              )}
+              
+              {/* Course Card */}
+              <Card 
+                className={`
+                  transform transition-all duration-300 cursor-pointer
+                  hover:scale-105 hover:shadow-xl border-2 w-full
+                  ${hoveredStep === course.step ? 'border-purple-600 shadow-lg' : 'border-transparent shadow'}
+                  ${course.isSpecial ? 'bg-gradient-to-br from-orange-50 to-rose-50' : 'bg-white/90'}
+                  backdrop-blur-sm p-6 relative z-10
+                `}
+                onMouseEnter={() => setHoveredStep(course.step)}
+                onMouseLeave={() => setHoveredStep(null)}
+              >
+                <div className="flex items-center space-x-6">
+                  <div className="flex flex-col items-center space-y-2">
+                    {/* Step Number */}
+                    <div className={`
+                      w-12 h-12 rounded-full bg-gradient-to-r ${course.color}
+                      flex items-center justify-center text-white font-bold text-xl
+                      shadow-lg
+                    `}>
+                      {course.step}
                     </div>
-                  </Card>
-                  
-                  {/* Connecting Arrow */}
+                    {/* Icon */}
+                    <div className={`
+                      w-16 h-16 rounded-full bg-gradient-to-r ${course.color}
+                      flex items-center justify-center shadow-lg
+                      ${course.isSpecial ? 'animate-pulse' : ''}
+                    `}>
+                      <course.icon className="h-8 w-8 text-white" />
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex-1">
+                    <h3 className={`
+                      text-2xl font-semibold bg-gradient-to-r
+                      ${course.isSpecial ? 'from-rose-600 to-orange-600' : 'from-purple-600 to-blue-600'}
+                      bg-clip-text text-transparent mb-2
+                    `}>
+                      {course.title}
+                    </h3>
+                    <p className="text-gray-600">{course.description}</p>
+                  </div>
+
+                  {/* Arrow */}
                   {index < courses.length - 1 && (
-                    <div 
-                      className={`
-                        absolute top-1/2 -right-2 w-8 h-0.5
-                        transition-colors duration-300
-                        ${hoveredStep === course.step || hoveredStep === course.step + 1
-                          ? 'bg-purple-600'
-                          : 'bg-gray-300'}
-                      `}
-                    >
-                      <div 
-                        className={`
-                          absolute right-0 -top-1.5 w-3 h-3 border-t-2 border-r-2
-                          rotate-45 transition-colors duration-300
-                          ${hoveredStep === course.step || hoveredStep === course.step + 1
-                            ? 'border-purple-600'
-                            : 'border-gray-300'}
-                        `}
-                      />
+                    <div className={`
+                      w-8 h-8 rounded-full border-2
+                      ${hoveredStep === course.step ? 'border-purple-600 text-purple-600' : 'border-gray-300 text-gray-300'}
+                      flex items-center justify-center transition-colors duration-300
+                    `}>
+                      <ChevronRight className="h-5 w-5 rotate-90" />
                     </div>
                   )}
                 </div>
-              ))}
+              </Card>
             </div>
-          </div>
+          ))}
         </div>
 
         {/* Course Pipeline - Mobile */}
