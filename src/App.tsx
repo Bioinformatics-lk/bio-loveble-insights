@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { UserDashboard } from '@/components/dashboard/UserDashboard';
+import SignIn from '@/pages/auth/signin';
 import { User } from '@supabase/supabase-js';
 
 function App() {
@@ -45,8 +46,8 @@ function App() {
           }
         />
         <Route
-          path="/auth/*"
-          element={user ? <Navigate to="/" replace /> : null}
+          path="/auth/signin"
+          element={user ? <Navigate to="/" replace /> : <SignIn />}
         />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

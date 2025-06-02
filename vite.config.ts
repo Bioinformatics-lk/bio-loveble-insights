@@ -13,11 +13,15 @@ export default defineConfig({
   build: {
     outDir: "dist",
     rollupOptions: {
-      external: [],
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
+      },
     },
   },
   define: {
-    "process.env": process.env,
+    // Vite's env handling
+    'import.meta.env.VITE_PAYHERE_MERCHANT_ID': JSON.stringify(process.env.VITE_PAYHERE_MERCHANT_ID),
+    'import.meta.env.VITE_PAYHERE_MERCHANT_SECRET': JSON.stringify(process.env.VITE_PAYHERE_MERCHANT_SECRET),
   },
   server: {
     host: "::",
