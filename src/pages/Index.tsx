@@ -111,12 +111,12 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             {/* Logo and Brand Name - Left Side */}
-            <div className="flex items-center -space-x-1">
-              <div className="w-8 h-8 flex items-center justify-center">
+            <div className="flex items-center">
+              <div className="w-4 h-4 flex items-center justify-center">
                 <img 
                   src="/lovable-uploads/76f3562a-0d90-4bbc-a1b8-640acc56da80.png" 
                   alt="Bioinformatics.lk" 
-                  className="w-8 h-8 object-contain"
+                  className="w-4 h-4 object-contain"
                 />
               </div>
               <span className={`text-xl font-bold transition-colors duration-300 ${
