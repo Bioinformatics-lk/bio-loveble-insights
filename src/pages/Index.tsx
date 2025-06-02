@@ -1,20 +1,28 @@
-import { useState, useEffect } from 'react';
-import { supabase } from '@/integrations/supabase/client';
-import { Search, Menu, X, Play, Users, Award, Calendar, Phone, Mail, MapPin, ChevronRight, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { AuthModal } from '@/components/auth/AuthModal';
-import { ContactModal } from '@/components/contact/ContactModal';
-import UserDashboard from '@/components/dashboard/UserDashboard';
-import { useMediaQuery } from 'react-responsive';
+import React, { useState, useEffect } from 'react';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { ChevronDown, BookOpen, Search, FileText, Youtube, Linkedin, Twitter, Users, FlaskConical, GraduationCap, Newspaper, Briefcase, MessageCircle, Handshake, Trophy, ExternalLink, Dna, Atom, Brain, Network, Computer } from "lucide-react";
+import { AuthModal } from "@/components/auth/AuthModal";
+import { ContactModal } from "@/components/contact/ContactModal";
+import { SearchBar } from "@/components/search/SearchBar";
+import { UserDashboard } from "@/components/dashboard/UserDashboard";
+import { supabase } from "@/integrations/supabase/client";
+import { User } from '@supabase/supabase-js';
 
 const Index = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [user, setUser] = useState<any>(null);
-  const [showAuthModal, setShowAuthModal] = useState(false);
-  const [showContactModal, setShowContactModal] = useState(false);
-  const [isSearchVisible, setIsSearchVisible] = useState(false);
-  const isMobile = useMediaQuery({ maxWidth: 768 });
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [contactModalOpen, setContactModalOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Counter animation states
+  const [counters, setCounters] = useState({
+    courses: 0,
+    students: 0,
+    projects: 0,
+    partnerships: 0
+  });
 
   useEffect(() => {
     // Get initial session
@@ -129,146 +137,130 @@ const Index = () => {
               </span>
             </div>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-8">
-              <a href="#home" className="hover:text-pink-300 transition-colors">Home</a>
-              <a href="#about" className="hover:text-pink-300 transition-colors">About Us</a>
-              <a href="#courses" className="hover:text-pink-300 transition-colors">Courses</a>
-              <a href="#research" className="hover:text-pink-300 transition-colors">Research</a>
-              <a href="#partnerships" className="hover:text-pink-300 transition-colors">Partnerships</a>
-              <a href="#news" className="hover:text-pink-300 transition-colors">News</a>
-              <a href="#team" className="hover:text-pink-300 transition-colors">Team</a>
-              <button 
-                onClick={() => setShowContactModal(true)}
-                className="hover:text-pink-300 transition-colors"
+            {/* Navigation Links - Center */}
+            <nav className="hidden lg:flex items-center space-x-4">
+              <Button
+                variant="ghost"
+                onClick={() => scrollToSection('team')}
+                className={`transition-all transform hover:scale-105 text-sm ${
+                  isScrolled 
+                    ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                    : 'text-purple-100 hover:text-white hover:bg-white/10'
+                }`}
               >
-                Contact
-              </button>
+                Our Team
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => scrollToSection('research')}
+                className={`transition-all transform hover:scale-105 text-sm ${
+                  isScrolled 
+                    ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                    : 'text-purple-100 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                Research
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => scrollToSection('courses')}
+                className={`transition-all transform hover:scale-105 text-sm ${
+                  isScrolled 
+                    ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                    : 'text-purple-100 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                Our Courses
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => scrollToSection('news')}
+                className={`transition-all transform hover:scale-105 text-sm ${
+                  isScrolled 
+                    ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                    : 'text-purple-100 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                News
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => scrollToSection('services')}
+                className={`transition-all transform hover:scale-105 text-sm ${
+                  isScrolled 
+                    ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                    : 'text-purple-100 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                Our Services
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => setContactModalOpen(true)}
+                className={`transition-all transform hover:scale-105 text-sm ${
+                  isScrolled 
+                    ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                    : 'text-purple-100 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                Contact Us
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => scrollToSection('partnerships')}
+                className={`transition-all transform hover:scale-105 text-sm ${
+                  isScrolled 
+                    ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                    : 'text-purple-100 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                Our Partnerships
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => scrollToSection('success-stories')}
+                className={`transition-all transform hover:scale-105 text-sm ${
+                  isScrolled 
+                    ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                    : 'text-purple-100 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                Success Stories
+              </Button>
             </nav>
 
-            {/* Right Side Actions */}
-            <div className="flex items-center space-x-4">
-              {/* Search */}
-              <div className="relative hidden md:block">
-                {!isSearchOpen ? (
-                  <button 
-                    onClick={toggleSearch}
-                    className="p-2 hover:bg-white/10 rounded-full transition-colors"
-                  >
-                    <Search className="w-5 h-5" />
-                  </button>
-                ) : (
-                  <div className="flex items-center space-x-2">
-                    <input
-                      type="text"
-                      placeholder="Search..."
-                      className="px-3 py-1 bg-white/20 border border-white/30 rounded-full text-white placeholder-white/70 focus:outline-none focus:bg-white/30"
-                    />
-                    <button 
-                      onClick={toggleSearch}
-                      className="p-2 hover:bg-white/10 rounded-full transition-colors"
-                    >
-                      <X className="w-5 h-5" />
-                    </button>
-                  </div>
-                )}
-              </div>
-
-              {/* Auth Buttons */}
-              <div className="hidden lg:flex items-center space-x-2">
-                <Button variant="outline" className="text-white border-white hover:bg-white hover:text-purple-900" onClick={handleLogin}>
-                  Login
-                </Button>
-                <Button className="bg-pink-600 hover:bg-pink-700 text-white" onClick={handleSignup}>
-                  Sign Up
-                </Button>
-              </div>
-
-              {/* Mobile Menu Toggle */}
-              <button 
-                onClick={toggleMenu}
-                className="lg:hidden p-2 hover:bg-white/10 rounded-full transition-colors"
+            {/* Right Side - Search and Login */}
+            <div className="flex items-center gap-4">
+              {/* Desktop Search Bar - Only show when searchOpen is true */}
+              {searchOpen && (
+                <div className="hidden md:block">
+                  <SearchBar />
+                </div>
+              )}
+              
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setSearchOpen(!searchOpen)}
+                className={`transition-all w-12 h-12 ${
+                  isScrolled 
+                    ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                    : 'text-white hover:text-white hover:bg-white/10'
+                }`}
               >
-                {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-              </button>
+                <Search className="h-8 w-8" />
+              </Button>
+              
+              <Button
+                onClick={() => setAuthModalOpen(true)}
+                className="bg-purple-600 hover:bg-purple-700 text-white transition-all transform hover:scale-105"
+              >
+                Login
+              </Button>
             </div>
           </div>
-
-          {/* Mobile Menu */}
-          {isMenuOpen && (
-            <div className="lg:hidden absolute top-full left-0 right-0 bg-purple-900/95 backdrop-blur-sm border-t border-white/20">
-              <nav className="container mx-auto py-4 flex flex-col space-y-4">
-                <a href="#home" className="hover:text-pink-300 transition-colors">Home</a>
-                <a href="#about" className="hover:text-pink-300 transition-colors">About Us</a>
-                <a href="#courses" className="hover:text-pink-300 transition-colors">Courses</a>
-                <a href="#research" className="hover:text-pink-300 transition-colors">Research</a>
-                <a href="#partnerships" className="hover:text-pink-300 transition-colors">Partnerships</a>
-                <a href="#news" className="hover:text-pink-300 transition-colors">News</a>
-                <a href="#team" className="hover:text-pink-300 transition-colors">Team</a>
-                <button 
-                  onClick={() => setShowContactModal(true)}
-                  className="hover:text-pink-300 transition-colors text-left"
-                >
-                  Contact
-                </button>
-                <div className="flex flex-col space-y-2 pt-4 border-t border-white/20">
-                  <Button variant="outline" className="text-white border-white hover:bg-white hover:text-purple-900" onClick={handleLogin}>
-                    Login
-                  </Button>
-                  <Button className="bg-pink-600 hover:bg-pink-700 text-white" onClick={handleSignup}>
-                    Sign Up
-                  </Button>
-                </div>
-              </nav>
-            </div>
-          )}
         </div>
       </header>
-
-      {/* Hero Content */}
-      <section className="hero">
-        <div className="container">
-          <div className="hero-content">
-            <div className="hero-text">
-              <h1>Advancing Bioinformatics Through Innovation</h1>
-              <p>Empowering researchers and students with cutting-edge computational biology tools, comprehensive courses, and collaborative research opportunities</p>
-            </div>
-            <div className="hero-video">
-              <iframe 
-                src="https://player.vimeo.com/video/1089037562" 
-                width="100%" 
-                height="400" 
-                frameBorder="0" 
-                allow="autoplay; fullscreen; picture-in-picture" 
-                allowFullScreen
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Search Icon - Only show in mobile */}
-      {isMobile && isSearchVisible && (
-        <div className="search-icon-container md:hidden">
-          <div className="search-overlay">
-            <div className="container mx-auto px-4">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  className="w-full px-4 py-2 bg-white/90 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                />
-                <button 
-                  onClick={() => setIsSearchVisible(false)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Hero Section */}
       <section className="relative overflow-hidden z-10">
