@@ -1,70 +1,42 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthForm } from './components/auth/AuthForm';
-import { UserDashboard } from './components/dashboard/UserDashboard';
-import { CoursesPage } from './components/courses/CoursesPage';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
-import { AnimatePresence } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { User } from '@supabase/supabase-js';
+import { supabase } from '@/integrations/supabase/client';
+import Index from '@/pages/Index';
+import { UserDashboard } from '@/components/dashboard/UserDashboard';
+import { CoursesPage } from '@/components/courses/CoursesPage';
 
-// Protected Route Component
-const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const { user, loading } = useAuth();
+function App() {
+  const [user, setUser] = useState<User | null>(null);
 
-  if (loading) {
-    return <div className="min-h-screen bg-gradient-to-br from-indigo-900 to-purple-900 flex items-center justify-center">
-      <div className="w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin" />
-    </div>;
-  }
+  useEffect(() => {
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
 
-  if (!user) {
-    return <Navigate to="/" replace />;
-  }
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setUser(session?.user ?? null);
+      }
+    );
 
-  return <>{children}</>;
-};
-
-const AppRoutes = () => {
-  const { user } = useAuth();
+    return () => subscription.unsubscribe();
+  }, []);
 
   return (
-    <AnimatePresence mode="wait">
+    <Router>
       <Routes>
-        {/* Use AuthForm as the main landing page */}
         <Route 
           path="/" 
-          element={user ? <Navigate to="/dashboard" replace /> : <AuthForm />}
-        />
-
-        {/* Protected routes */}
-        <Route 
-          path="/dashboard" 
-          element={
-            <ProtectedRoute>
-              <UserDashboard user={user!} />
-            </ProtectedRoute>
-          } 
+          element={user ? <UserDashboard user={user} /> : <Index />} 
         />
         <Route 
           path="/courses" 
-          element={
-            <ProtectedRoute>
-              <CoursesPage />
-            </ProtectedRoute>
-          } 
+          element={user ? <CoursesPage /> : <Navigate to="/" />} 
         />
-
-        {/* Fallback route */}
-        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-    </AnimatePresence>
-  );
-};
-
-function App() {
-  return (
-    <Router>
-      <AuthProvider>
-        <AppRoutes />
-      </AuthProvider>
     </Router>
   );
 }

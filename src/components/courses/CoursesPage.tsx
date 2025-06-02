@@ -129,35 +129,54 @@ export const CoursesPage = () => {
         {/* Course Pipeline - Desktop */}
         <div className="hidden lg:flex justify-center">
           <div className="relative max-w-4xl w-full">
+            {/* Vertical Line */}
             <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-white/20" />
+            
             {courses.map((course, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`flex ${index % 2 === 0 ? 'justify-end' : 'justify-start'} mb-8 relative w-full`}
+                className={`flex items-start mb-16 ${
+                  index % 2 === 0 ? 'justify-end pr-8' : 'flex-row-reverse pl-8'
+                } relative`}
               >
                 {/* Connecting Line */}
                 <div 
-                  className={`absolute top-1/2 ${index % 2 === 0 ? 'left-[50%]' : 'right-[50%]'} h-0.5 bg-white/20 w-8`}
+                  className={`absolute top-1/2 ${
+                    index % 2 === 0 ? 'right-0 left-auto' : 'left-0 right-auto'
+                  } w-8 h-0.5 bg-white/20`}
                 />
                 
+                {/* Timeline Node */}
+                <div 
+                  className={`
+                    absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2
+                    w-6 h-6 rounded-full bg-gradient-to-r ${course.color}
+                    ${hoveredStep === course.step ? 'scale-150' : 'scale-100'}
+                    transition-transform duration-300
+                    shadow-lg z-10
+                  `}
+                />
+
                 {/* Course Card */}
-                <div className={`w-[calc(50%-2rem)] ${index % 2 === 0 ? 'mr-8' : 'ml-8'}`}>
-                  <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    transition={{ type: "spring", stiffness: 300 }}
+                <motion.div
+                  className="w-[calc(50%-2rem)]"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <Card 
+                    className={`
+                      transform transition-all duration-300 cursor-pointer
+                      border-2 ${hoveredStep === course.step ? 'border-white/40' : 'border-white/10'}
+                      ${course.isSpecial ? 'bg-gradient-to-br from-rose-500/10 to-orange-500/10' : 'bg-white/10'}
+                      backdrop-blur-sm relative z-10
+                    `}
+                    onMouseEnter={() => setHoveredStep(course.step)}
+                    onMouseLeave={() => setHoveredStep(null)}
                   >
-                    <Card 
-                      className={`
-                        transform transition-all duration-300 cursor-pointer
-                        border-2 ${course.isSpecial ? 'border-orange-400/30' : 'border-white/20'}
-                        ${course.isSpecial ? 'bg-gradient-to-br from-orange-500/10 to-rose-500/10' : 'bg-white/10'}
-                        backdrop-blur-sm hover:bg-white/20 p-6 relative z-10
-                      `}
-                    >
+                    <div className="p-6">
                       <div className="flex flex-col items-center text-center space-y-4">
                         {/* Step Number */}
                         <div className={`
@@ -179,22 +198,14 @@ export const CoursesPage = () => {
                           <h3 className="text-lg font-semibold text-white">
                             {course.title}
                           </h3>
-                          <p className="text-sm text-white/70 mt-2">{course.description}</p>
+                          <p className="text-sm text-white/70 mt-2">
+                            {course.description}
+                          </p>
                         </div>
                       </div>
-                    </Card>
-                  </motion.div>
-                </div>
-
-                {/* Timeline Node */}
-                <div 
-                  className={`
-                    absolute left-1/2 top-1/2 w-4 h-4 rounded-full
-                    transform -translate-x-1/2 -translate-y-1/2
-                    ${course.isSpecial ? 'bg-orange-500' : 'bg-purple-500'}
-                    shadow-lg z-20
-                  `}
-                />
+                    </div>
+                  </Card>
+                </motion.div>
               </motion.div>
             ))}
           </div>
@@ -213,8 +224,8 @@ export const CoursesPage = () => {
               <Card 
                 className={`
                   transform transition-all duration-300
-                  border-2 ${course.isSpecial ? 'border-orange-400/30' : 'border-white/20'}
-                  ${course.isSpecial ? 'bg-gradient-to-br from-orange-500/10 to-rose-500/10' : 'bg-white/10'}
+                  border-2 border-white/10 hover:border-white/30
+                  ${course.isSpecial ? 'bg-gradient-to-br from-rose-500/10 to-orange-500/10' : 'bg-white/10'}
                   backdrop-blur-sm p-4
                 `}
               >
@@ -241,7 +252,9 @@ export const CoursesPage = () => {
                     <h3 className="text-base font-semibold text-white">
                       {course.title}
                     </h3>
-                    <p className="text-xs text-white/70 mt-1">{course.description}</p>
+                    <p className="text-xs text-white/70 mt-1">
+                      {course.description}
+                    </p>
                   </div>
                   <ChevronRight className="h-5 w-5 text-white/70 mt-2" />
                 </div>
