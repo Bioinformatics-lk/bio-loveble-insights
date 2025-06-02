@@ -65,44 +65,35 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
-        "gradient-flow": {
-          "0%, 100%": {
-            "background-position": "0% 50%",
-          },
-          "50%": {
-            "background-position": "100% 50%",
-          },
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-5px)" },
         },
-        "text-breathe": {
-          "0%, 100%": {
-            transform: "scale(1)",
-          },
-          "50%": {
-            transform: "scale(1.05)",
-          },
+        "glow-pulse": {
+          "0%, 100%": { opacity: "0.4" },
+          "50%": { opacity: "0.6" },
         },
-        "text-shimmer": {
-          "0%": {
-            opacity: "0.5",
-          },
-          "50%": {
-            opacity: "1",
-          },
-          "100%": {
-            opacity: "0.5",
-          },
+        "gradient-slow": {
+          "0%, 100%": { "background-position": "0% 50%" },
+          "50%": { "background-position": "100% 50%" },
+        },
+        "gradient-medium": {
+          "0%, 100%": { "background-position": "0% 50%" },
+          "50%": { "background-position": "100% 50%" },
+        },
+        "gradient-fast": {
+          "0%, 100%": { "background-position": "0% 50%" },
+          "50%": { "background-position": "100% 50%" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "gradient-flow": "gradient-flow 4s ease infinite",
-        "gradient-flow-reverse": "gradient-flow 4s ease infinite reverse",
-        "text-breathe": "text-breathe 2s ease-in-out infinite",
-        "text-shimmer": "text-shimmer 2s ease-in-out infinite",
-      },
-      backgroundSize: {
-        "300%": "300%",
+        float: "float 3s ease-in-out infinite",
+        "glow-pulse": "glow-pulse 2s ease-in-out infinite",
+        "gradient-slow": "gradient-slow 8s ease infinite",
+        "gradient-medium": "gradient-medium 5s ease infinite",
+        "gradient-fast": "gradient-fast 3s ease infinite",
       },
     },
   },
