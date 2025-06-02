@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Search, User, Home, BookOpen, Award, Upload } from 'lucide-react';
+import { User, BookOpen, Award, Upload } from 'lucide-react';
 import LMSDashboard from './LMSDashboard';
 
 interface UserProfile {
@@ -53,7 +53,16 @@ const UserDashboard = () => {
     if (error && error.code !== 'PGRST116') {
       console.error('Error fetching profile:', error);
     } else if (data) {
-      setProfile(data);
+      // Ensure all required fields are present
+      const profileData: UserProfile = {
+        id: data.id,
+        username: data.username || null,
+        full_name: data.full_name || null,
+        organization: data.organization || null,
+        description: data.description || null,
+        profile_picture_url: data.profile_picture_url || null
+      };
+      setProfile(profileData);
       setFormData({
         username: data.username || '',
         full_name: data.full_name || '',

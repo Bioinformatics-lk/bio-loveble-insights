@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Search, Menu, X, Play, Users, Award, Calendar, Phone, Mail, MapPin, ChevronRight, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
@@ -13,7 +12,6 @@ const Index = () => {
   const [user, setUser] = useState<any>(null);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
-  const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
 
   useEffect(() => {
     // Check if user is logged in
@@ -38,12 +36,10 @@ const Index = () => {
   const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
 
   const handleLogin = () => {
-    setAuthMode('login');
     setShowAuthModal(true);
   };
 
   const handleSignup = () => {
-    setAuthMode('signup');
     setShowAuthModal(true);
   };
 
@@ -792,7 +788,6 @@ const Index = () => {
       <AuthModal 
         isOpen={showAuthModal} 
         onClose={() => setShowAuthModal(false)} 
-        mode={authMode}
       />
       <ContactModal 
         isOpen={showContactModal} 
