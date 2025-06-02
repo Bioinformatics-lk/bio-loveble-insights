@@ -123,14 +123,14 @@ const Index = () => {
           <div className="flex items-center justify-between h-16">
             {/* Logo and Brand Name - Left Side */}
             <div className="flex items-center">
-              <div className="w-4 h-4 flex items-center justify-center">
+              <div className="w-8 h-8 flex items-center justify-center">
                 <img 
                   src="/lovable-uploads/76f3562a-0d90-4bbc-a1b8-640acc56da80.png" 
                   alt="Bioinformatics.lk" 
-                  className="w-4 h-4 object-contain"
+                  className="w-8 h-8 object-contain"
                 />
               </div>
-              <span className={`text-xl font-bold transition-colors duration-300 ${
+              <span className={`text-xl font-bold transition-colors duration-300 -ml-1 ${
                 isScrolled ? 'text-gray-800' : 'text-white'
               }`}>
                 ioinformatics.lk
