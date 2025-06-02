@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChevronDown, BookOpen, Search, FileText, Youtube, Linkedin, Twitter, Users, FlaskConical, GraduationCap, Newspaper, Briefcase, MessageCircle, Handshake, Trophy, ExternalLink, Dna, Atom, Brain, Network, Computer } from "lucide-react";
+import { ChevronDown, BookOpen, Search, FileText, Youtube, Linkedin, Twitter, Users, FlaskConical, GraduationCap, Newspaper, Briefcase, MessageCircle, Handshake, Trophy, ExternalLink, Dna, Atom, Brain, Network, Computer, Menu, X } from "lucide-react";
 import { AuthModal } from "@/components/auth/AuthModal";
 import { ContactModal } from "@/components/contact/ContactModal";
 import { SearchBar } from "@/components/search/SearchBar";
@@ -13,6 +13,7 @@ const Index = () => {
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [contactModalOpen, setContactModalOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -168,7 +169,9 @@ const Index = () => {
                 <img 
                   src="/lovable-uploads/76f3562a-0d90-4bbc-a1b8-640acc56da80.png" 
                   alt="Bioinformatics.lk" 
-                  className="w-8 h-8 object-contain"
+                  className={`w-8 h-8 object-contain transition-all duration-300 ${
+                    isScrolled ? 'filter brightness-0' : 'filter brightness-100'
+                  }`}
                 />
               </div>
               <span className={`text-xl font-bold transition-colors duration-300 ml-0.5 ${
@@ -176,6 +179,22 @@ const Index = () => {
               }`}>
                 ioinformatics.lk
               </span>
+            </div>
+
+            {/* Mobile Menu Button - Add after the logo section */}
+            <div className="flex items-center md:hidden">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className={`transition-all w-12 h-12 ${
+                  isScrolled 
+                    ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                    : 'text-white hover:text-white hover:bg-white/10'
+                }`}
+              >
+                {mobileMenuOpen ? <X className="h-8 w-8" /> : <Menu className="h-8 w-8" />}
+              </Button>
             </div>
 
             {/* Navigation Links - Center */}
@@ -275,16 +294,30 @@ const Index = () => {
               {/* Desktop Search Bar and Icon */}
               <div className="hidden md:block">
                 {searchOpen ? (
-                  <SearchBar />
+                  <div className="relative">
+                    <SearchBar className={`${isScrolled ? 'text-black placeholder-gray-500' : 'text-white placeholder-white/70'}`} />
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => setSearchOpen(false)}
+                      className={`absolute right-2 top-1/2 -translate-y-1/2 transition-all w-8 h-8 ${
+                        isScrolled 
+                          ? 'text-purple-600 hover:text-purple-700 hover:bg-purple-100' 
+                          : 'text-purple-300 hover:text-purple-200 hover:bg-white/10'
+                      }`}
+                    >
+                      <X className="h-5 w-5" />
+                    </Button>
+                  </div>
                 ) : (
                   <Button
                     variant="ghost"
                     size="icon"
-                    onClick={() => setSearchOpen(!searchOpen)}
+                    onClick={() => setSearchOpen(true)}
                     className={`transition-all w-12 h-12 ${
                       isScrolled 
-                        ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
-                        : 'text-white hover:text-white hover:bg-white/10'
+                        ? 'text-purple-600 hover:text-purple-700 hover:bg-purple-100' 
+                        : 'text-purple-300 hover:text-purple-200 hover:bg-white/10'
                     }`}
                   >
                     <Search className="h-8 w-8" />
@@ -300,8 +333,8 @@ const Index = () => {
                   onClick={() => setSearchOpen(!searchOpen)}
                   className={`transition-all w-12 h-12 ${
                     isScrolled 
-                      ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
-                      : 'text-white hover:text-white hover:bg-white/10'
+                      ? 'text-purple-600 hover:text-purple-700 hover:bg-purple-100' 
+                      : 'text-purple-300 hover:text-purple-200 hover:bg-white/10'
                   }`}
                 >
                   <Search className="h-8 w-8" />
@@ -319,6 +352,96 @@ const Index = () => {
         </div>
       </header>
 
+      {/* Mobile Navigation Menu - Add before the Hero section */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-50 bg-gradient-to-br from-purple-900/95 via-blue-900/95 to-indigo-900/95 backdrop-blur-md md:hidden">
+          <div className="container mx-auto px-4 py-8">
+            <nav className="flex flex-col space-y-4">
+              <Button
+                variant="ghost"
+                onClick={() => {
+                  scrollToSection('team');
+                  setMobileMenuOpen(false);
+                }}
+                className="text-white hover:bg-white/10 text-lg justify-start"
+              >
+                Our Team
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => {
+                  scrollToSection('research');
+                  setMobileMenuOpen(false);
+                }}
+                className="text-white hover:bg-white/10 text-lg justify-start"
+              >
+                Research Areas
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => {
+                  scrollToSection('courses');
+                  setMobileMenuOpen(false);
+                }}
+                className="text-white hover:bg-white/10 text-lg justify-start"
+              >
+                Our Courses
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => {
+                  scrollToSection('news');
+                  setMobileMenuOpen(false);
+                }}
+                className="text-white hover:bg-white/10 text-lg justify-start"
+              >
+                Latest News & Updates
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => {
+                  scrollToSection('services');
+                  setMobileMenuOpen(false);
+                }}
+                className="text-white hover:bg-white/10 text-lg justify-start"
+              >
+                Our Services
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => {
+                  setContactModalOpen(true);
+                  setMobileMenuOpen(false);
+                }}
+                className="text-white hover:bg-white/10 text-lg justify-start"
+              >
+                Contact Us
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => {
+                  scrollToSection('partnerships');
+                  setMobileMenuOpen(false);
+                }}
+                className="text-white hover:bg-white/10 text-lg justify-start"
+              >
+                Our Partnerships
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => {
+                  scrollToSection('success-stories');
+                  setMobileMenuOpen(false);
+                }}
+                className="text-white hover:bg-white/10 text-lg justify-start"
+              >
+                Success Stories
+              </Button>
+            </nav>
+          </div>
+        </div>
+      )}
+
       {/* Hero Section */}
       <section className="relative overflow-hidden z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900"></div>
@@ -327,7 +450,21 @@ const Index = () => {
           {/* Mobile Search Bar */}
           {searchOpen && (
             <div className="md:hidden w-full max-w-sm mx-auto mb-8">
-              <SearchBar />
+              <div className="relative">
+                <SearchBar className={`${isScrolled ? 'text-black placeholder-gray-500' : 'text-white placeholder-white/70'}`} />
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setSearchOpen(false)}
+                  className={`absolute right-2 top-1/2 -translate-y-1/2 transition-all w-8 h-8 ${
+                    isScrolled 
+                      ? 'text-purple-600 hover:text-purple-700 hover:bg-purple-100' 
+                      : 'text-purple-300 hover:text-purple-200 hover:bg-white/10'
+                  }`}
+                >
+                  <X className="h-5 w-5" />
+                </Button>
+              </div>
             </div>
           )}
           
