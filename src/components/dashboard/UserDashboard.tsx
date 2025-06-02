@@ -29,22 +29,22 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
         {/* Top Left Image */}
         <div 
           className="absolute top-0 left-0 w-1/2 h-1/2 bg-contain bg-no-repeat opacity-20"
-          style={{ backgroundImage: 'url("/P1.png")' }}
+          style={{ backgroundImage: 'url("/lovable-uploads/P1.png")' }}
         />
         {/* Top Right Image */}
         <div 
           className="absolute top-0 right-0 w-1/2 h-1/2 bg-contain bg-no-repeat opacity-20"
-          style={{ backgroundImage: 'url("/P2.png")' }}
+          style={{ backgroundImage: 'url("/lovable-uploads/P2.png")' }}
         />
         {/* Bottom Left Image */}
         <div 
           className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-contain bg-no-repeat opacity-20"
-          style={{ backgroundImage: 'url("/P3.png")' }}
+          style={{ backgroundImage: 'url("/lovable-uploads/P3.png")' }}
         />
         {/* Bottom Right Image */}
         <div 
           className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-contain bg-no-repeat opacity-20"
-          style={{ backgroundImage: 'url("/P4.png")' }}
+          style={{ backgroundImage: 'url("/lovable-uploads/P4.png")' }}
         />
         {/* Overlay Gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-purple-50/90 to-blue-50/90 backdrop-blur-sm" />
