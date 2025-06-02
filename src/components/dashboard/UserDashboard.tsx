@@ -5,8 +5,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { BookOpen, Briefcase, LogOut, User } from "lucide-react";
 import { User as SupabaseUser } from '@supabase/supabase-js';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useAuth } from "@/hooks/useAuth";
+import { useToast } from "@/components/ui/use-toast";
 
 interface UserDashboardProps {
   user: SupabaseUser;
@@ -15,27 +16,48 @@ interface UserDashboardProps {
 export const UserDashboard = ({ user }: UserDashboardProps) => {
   const navigate = useNavigate();
   const { signOut } = useAuth();
+  const { toast } = useToast();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [isNavigating, setIsNavigating] = useState(false);
 
-  const handleLogout = async () => {
+  const handleLogout = useCallback(async () => {
+    if (isLoggingOut) return; // Prevent multiple clicks
+
     try {
       setIsLoggingOut(true);
+      toast({
+        title: "Logging out...",
+        description: "Please wait while we securely sign you out.",
+        duration: 2000,
+      });
+
+      // Add a small delay for the animation
+      await new Promise(resolve => setTimeout(resolve, 500));
       await signOut();
-      // The auth state change will automatically redirect to login
+
+      // The navigation will be handled by the auth hook
     } catch (error) {
       console.error('Error logging out:', error);
+      toast({
+        title: "Error logging out",
+        description: "Please try again.",
+        variant: "destructive",
+      });
       setIsLoggingOut(false);
     }
-  };
+  }, [isLoggingOut, signOut, toast]);
 
-  const handleViewCourses = () => {
+  const handleViewCourses = useCallback(() => {
     setIsNavigating(true);
     navigate('/courses');
-  };
+  }, [navigate]);
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-slate-900 to-purple-900 relative overflow-hidden transition-opacity duration-300 ${isLoggingOut ? 'opacity-50' : 'opacity-100'}`}>
+    <div className={`
+      min-h-screen bg-gradient-to-br from-slate-900 to-purple-900 
+      relative overflow-hidden transition-all duration-500
+      ${isLoggingOut ? 'opacity-50 scale-95' : 'opacity-100 scale-100'}
+    `}>
       {/* Background Images */}
       <div className="absolute inset-0 z-0">
         {/* Top Left Image */}
@@ -97,17 +119,21 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
               onClick={handleLogout}
               disabled={isLoggingOut}
               className={`
-                bg-slate-800 hover:bg-slate-700 text-gray-200 border border-purple-800
-                shadow-lg hover:shadow-purple-900/20 flex items-center space-x-2
+                bg-slate-800 hover:bg-slate-700 text-gray-200 
+                border border-purple-800 shadow-lg 
+                hover:shadow-purple-900/20 flex items-center space-x-2
                 transition-all duration-300 ease-in-out transform
-                hover:scale-105 hover:rotate-1
-                ${isLoggingOut ? 'opacity-50 cursor-not-allowed' : ''}
+                hover:scale-105 hover:rotate-1 active:scale-95
+                ${isLoggingOut ? 'opacity-50 cursor-not-allowed translate-y-1' : ''}
               `}
               size="sm"
             >
-              <LogOut className={`h-4 w-4 transition-transform duration-300 ${isLoggingOut ? 'rotate-180' : ''}`} />
+              <LogOut className={`
+                h-4 w-4 transition-all duration-300
+                ${isLoggingOut ? 'rotate-180 scale-110' : ''}
+              `} />
               <span className="hidden sm:inline">
-                {isLoggingOut ? 'Logging out...' : 'Logout'}
+                {isLoggingOut ? 'Signing out...' : 'Sign out'}
               </span>
             </Button>
           </div>

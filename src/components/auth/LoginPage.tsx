@@ -1,36 +1,59 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import { useToast } from "@/components/ui/use-toast";
 
 export const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
-  const handleGoogleLogin = async () => {
+  const handleGoogleLogin = useCallback(async () => {
+    if (isLoading) return; // Prevent multiple clicks
+
     try {
       setIsLoading(true);
+      toast({
+        title: "Connecting to Google...",
+        description: "Please wait while we redirect you.",
+        duration: 2000,
+      });
+
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
           redirectTo: `${window.location.origin}/`,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          },
         },
       });
+      
       if (error) throw error;
     } catch (error) {
       console.error('Error logging in with Google:', error);
-    } finally {
+      toast({
+        title: "Error connecting to Google",
+        description: "Please try again.",
+        variant: "destructive",
+      });
       setIsLoading(false);
     }
-  };
+  }, [isLoading, toast]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md">
+    <div className={`
+      min-h-screen bg-gradient-to-br from-slate-900 to-purple-900 
+      flex items-center justify-center p-4 transition-all duration-500
+      ${isLoading ? 'opacity-75 scale-98' : 'opacity-100 scale-100'}
+    `}>
+      <Card className="w-full max-w-md bg-slate-900/90 border-purple-800">
         <CardHeader className="text-center">
-          <CardTitle className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+          <CardTitle className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
             Welcome to Bioinformatics.lk
           </CardTitle>
-          <CardDescription className="text-lg text-gray-600">
+          <CardDescription className="text-lg text-gray-300">
             Sign in to access your courses and resources
           </CardDescription>
         </CardHeader>
@@ -39,14 +62,18 @@ export const LoginPage = () => {
             onClick={handleGoogleLogin}
             disabled={isLoading}
             className={`
-              w-full bg-white hover:bg-gray-50 text-gray-900 
-              border border-gray-200 shadow-sm hover:shadow 
+              w-full bg-slate-800 hover:bg-slate-700 text-gray-200
+              border border-purple-800 shadow-lg hover:shadow-purple-900/20
               transition-all duration-300 transform hover:scale-105
-              ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}
+              active:scale-95 space-x-2
+              ${isLoading ? 'opacity-50 cursor-not-allowed translate-y-1' : ''}
             `}
             size="lg"
           >
-            <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
+            <svg className={`
+              w-5 h-5 transition-all duration-300
+              ${isLoading ? 'rotate-180 animate-spin' : ''}
+            `} viewBox="0 0 24 24">
               <path
                 fill="currentColor"
                 d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -64,7 +91,7 @@ export const LoginPage = () => {
                 d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
               />
             </svg>
-            {isLoading ? 'Signing in...' : 'Continue with Google'}
+            <span>{isLoading ? 'Connecting...' : 'Continue with Google'}</span>
           </Button>
         </CardContent>
       </Card>
