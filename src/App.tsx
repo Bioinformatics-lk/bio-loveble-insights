@@ -14,20 +14,30 @@ function App() {
 
   useEffect(() => {
     // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-      setIsAuthenticating(false);
-    });
+    const initializeAuth = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        setUser(session?.user ?? null);
+      } catch (error) {
+        console.error('Error getting session:', error);
+      } finally {
+        setIsAuthenticating(false);
+      }
+    };
+
+    initializeAuth();
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
+        console.log('Auth state changed:', event, session?.user?.email);
+        
         if (event === 'SIGNED_IN') {
           setShowLoginTransition(true);
-          // Set user immediately to ensure proper auth state
           setUser(session?.user ?? null);
         } else if (event === 'SIGNED_OUT') {
           setUser(null);
+          setShowLoginTransition(false);
         }
       }
     );
@@ -37,7 +47,13 @@ function App() {
 
   // Show loading state
   if (isAuthenticating) {
-    return null;
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-pulse text-2xl text-purple-600">
+          Loading...
+        </div>
+      </div>
+    );
   }
 
   // Show login transition
