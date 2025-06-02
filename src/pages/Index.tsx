@@ -149,7 +149,7 @@ const Index = () => {
             {/* Right Side Actions */}
             <div className="flex items-center space-x-4">
               {/* Search */}
-              <div className="relative">
+              <div className="relative hidden md:block">
                 {!isSearchOpen ? (
                   <button 
                     onClick={toggleSearch}
@@ -247,20 +247,26 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Search Icon - Only show in mobile or when search is active */}
-      {isMobile && (
-        <div className="search-icon-container">
-          <button 
-            onClick={() => setIsSearchVisible(!isSearchVisible)}
-            className="search-icon-button"
-          >
-            <Search className="w-5 h-5" />
-          </button>
-          {isSearchVisible && (
-            <div className="search-overlay">
-              {/* Your search content here */}
+      {/* Search Icon - Only show in mobile */}
+      {isMobile && isSearchVisible && (
+        <div className="search-icon-container md:hidden">
+          <div className="search-overlay">
+            <div className="container mx-auto px-4">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  className="w-full px-4 py-2 bg-white/90 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                />
+                <button 
+                  onClick={() => setIsSearchVisible(false)}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
             </div>
-          )}
+          </div>
         </div>
       )}
 
