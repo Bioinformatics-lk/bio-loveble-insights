@@ -18,22 +18,33 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check active sessions and sets the user
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-      setLoading(false);
-    });
+    // Initial session check
+    const initializeAuth = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        setUser(session?.user ?? null);
+      } catch (error) {
+        console.error('Error checking auth session:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    // Listen for changes on auth state (logged in, signed out, etc.)
+    initializeAuth();
+
+    // Auth state change listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       setUser(session?.user ?? null);
-      setLoading(false);
-
-      if (event === 'SIGNED_IN') {
-        navigate('/');
-      }
-      if (event === 'SIGNED_OUT') {
-        navigate('/login');
+      
+      switch (event) {
+        case 'SIGNED_IN':
+          navigate('/dashboard');
+          break;
+        case 'SIGNED_OUT':
+          window.location.href = '/';
+          break;
+        default:
+          break;
       }
     });
 
@@ -44,10 +55,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signIn = async (email: string, password: string) => {
     try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
       return { error };
     } catch (error) {
       console.error('Error signing in:', error);
@@ -60,6 +68,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       await supabase.auth.signOut();
     } catch (error) {
       console.error('Error signing out:', error);
+      throw error;
     }
   };
 
