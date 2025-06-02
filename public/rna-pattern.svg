@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="rnaGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563EB;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#9333EA;stop-opacity:0.2"/>
+    </linearGradient>
+  </defs>
+  <path d="M40,100 Q70,60 100,100 Q130,140 160,100" 
+        stroke="url(#rnaGradient)" 
+        fill="none" 
+        stroke-width="4"
+        stroke-linecap="round"/>
+  <circle cx="40" cy="100" r="8" fill="url(#rnaGradient)"/>
+  <circle cx="100" cy="100" r="8" fill="url(#rnaGradient)"/>
+  <circle cx="160" cy="100" r="8" fill="url(#rnaGradient)"/>
+  <path d="M40,140 Q70,100 100,140 Q130,180 160,140" 
+        stroke="url(#rnaGradient)" 
+        fill="none" 
+        stroke-width="4"
+        stroke-linecap="round"/>
+  <circle cx="40" cy="140" r="8" fill="url(#rnaGradient)"/>
+  <circle cx="100" cy="140" r="8" fill="url(#rnaGradient)"/>
+  <circle cx="160" cy="140" r="8" fill="url(#rnaGradient)"/>
+  <path d="M40,60 Q70,20 100,60 Q130,100 160,60" 
+        stroke="url(#rnaGradient)" 
+        fill="none" 
+        stroke-width="4"
+        stroke-linecap="round"/>
+  <circle cx="40" cy="60" r="8" fill="url(#rnaGradient)"/>
+  <circle cx="100" cy="60" r="8" fill="url(#rnaGradient)"/>
+  <circle cx="160" cy="60" r="8" fill="url(#rnaGradient)"/>
+</svg> 
