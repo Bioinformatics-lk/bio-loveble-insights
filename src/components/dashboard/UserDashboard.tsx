@@ -5,9 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Search, BookOpen, Briefcase } from "lucide-react";
+import { Search, BookOpen, Briefcase, LogOut } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { initializePayment, generateHash } from '@/lib/payhere';
+import { useRouter } from 'next/router';
 
 interface UserDashboardProps {
   user: User;
@@ -31,6 +32,7 @@ interface Course {
 }
 
 export const UserDashboard = ({ user }: UserDashboardProps) => {
+  const router = useRouter();
   const [profile, setProfile] = useState<UserProfile>({
     username: '',
     organization: '',
@@ -83,17 +85,34 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
     }
   };
 
-  const updateProfile = async () => {
-    const { error } = await supabase
-      .from('profiles')
-      .upsert({
-        id: user.id,
-        ...profile,
-        updated_at: new Date()
-      });
-
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
     if (!error) {
-      setIsEditingProfile(false);
+      router.push('/auth/signin');
+    }
+  };
+
+  const updateProfile = async () => {
+    try {
+      const { error } = await supabase
+        .from('profiles')
+        .upsert({
+          id: user.id,
+          username: profile.username,
+          organization: profile.organization,
+          description: profile.description,
+          profile_picture_url: profile.profile_picture_url,
+          updated_at: new Date().toISOString()
+        });
+
+      if (!error) {
+        setIsEditingProfile(false);
+        alert('Profile updated successfully!');
+      } else {
+        alert('Error updating profile: ' + error.message);
+      }
+    } catch (error) {
+      alert('Error updating profile');
     }
   };
 
@@ -163,18 +182,23 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-100 relative">
+      {/* DNA/RNA Background Pattern */}
+      <div className="absolute inset-0 opacity-5 pointer-events-none">
+        <img
+          src="/dna-pattern.png"
+          alt="DNA Pattern"
+          className="w-full h-full object-cover"
+        />
+      </div>
+
       {/* Header with Logo and Search */}
-      <header className="bg-white shadow-sm">
+      <header className="bg-white shadow-sm relative z-10">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <img 
-                src="/lovable-uploads/76f3562a-0d90-4bbc-a1b8-640acc56da80.png"
-                alt="Logo"
-                className="w-8 h-8"
-              />
-              <div className="relative">
+            <div className="flex items-center space-x-4 flex-1">
+              <h1 className="text-2xl font-bold text-blue-600">Bioinformatics.lk</h1>
+              <div className="relative ml-8">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                 <Input
                   type="text"
@@ -185,6 +209,14 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
                 />
               </div>
             </div>
+            <Button 
+              variant="ghost" 
+              className="flex items-center space-x-2"
+              onClick={handleLogout}
+            >
+              <LogOut className="w-4 h-4" />
+              <span>Logout</span>
+            </Button>
           </div>
         </div>
       </header>
@@ -333,10 +365,30 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
             <DialogDescription>
               <div className="prose max-w-none">
                 <div className="mt-4 space-y-4">
-                  <p><strong>Duration:</strong> {selectedCourse?.duration}</p>
-                  <div dangerouslySetInnerHTML={{ __html: selectedCourse?.full_description || '' }} />
-                  <p><strong>Price:</strong> LKR {selectedCourse?.price.toLocaleString()}</p>
-                  <Button onClick={() => selectedCourse && handleEnrollment(selectedCourse.id)}>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <h3 className="font-bold text-lg mb-2">Course Details</h3>
+                      <ul className="list-disc pl-4 space-y-2">
+                        <li><strong>Duration:</strong> {selectedCourse?.duration}</li>
+                        <li><strong>Price:</strong> LKR {selectedCourse?.price.toLocaleString()}</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <img
+                        src="/course-illustration.png"
+                        alt="Course Illustration"
+                        className="w-full h-48 object-cover rounded-lg"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-lg mb-2">Course Description</h3>
+                    <div className="prose" dangerouslySetInnerHTML={{ __html: selectedCourse?.full_description || '' }} />
+                  </div>
+                  <Button 
+                    className="w-full mt-4"
+                    onClick={() => selectedCourse && handleEnrollment(selectedCourse.id)}
+                  >
                     Enroll Now
                   </Button>
                 </div>
