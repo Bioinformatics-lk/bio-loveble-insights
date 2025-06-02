@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from "@/components/ui/toaster";
 import { LoginPage } from './components/auth/LoginPage';
 import { UserDashboard } from "@/components/dashboard/UserDashboard";
@@ -11,13 +11,22 @@ function App() {
   const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    // Mark as initialized after the first auth check
-    if (!loading) {
-      setIsInitialized(true);
-    }
+    const initializeApp = async () => {
+      try {
+        // Wait for the initial auth check
+        if (!loading) {
+          setIsInitialized(true);
+        }
+      } catch (error) {
+        console.error('Error initializing app:', error);
+        // Still set as initialized to show potential error states
+        setIsInitialized(true);
+      }
+    };
+
+    initializeApp();
   }, [loading]);
 
-  // Show loading state
   if (!isInitialized) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 to-purple-900 flex items-center justify-center">
@@ -30,29 +39,27 @@ function App() {
   }
 
   return (
-    <Router>
-      <div className="relative min-h-screen">
-        <Routes>
-          <Route 
-            path="/login" 
-            element={user ? <Navigate to="/" replace /> : <LoginPage />} 
-          />
-          <Route 
-            path="/" 
-            element={user ? <UserDashboard user={user} /> : <Navigate to="/login" replace />} 
-          />
-          <Route 
-            path="/courses" 
-            element={user ? <CoursesPage /> : <Navigate to="/login" replace />} 
-          />
-          <Route 
-            path="*" 
-            element={<Navigate to="/" replace />} 
-          />
-        </Routes>
-        <Toaster />
-      </div>
-    </Router>
+    <div className="relative min-h-screen bg-gradient-to-br from-slate-900 to-purple-900">
+      <Routes>
+        <Route 
+          path="/login" 
+          element={user ? <Navigate to="/" replace /> : <LoginPage />} 
+        />
+        <Route 
+          path="/" 
+          element={user ? <UserDashboard user={user} /> : <Navigate to="/login" replace />} 
+        />
+        <Route 
+          path="/courses" 
+          element={user ? <CoursesPage /> : <Navigate to="/login" replace />} 
+        />
+        <Route 
+          path="*" 
+          element={<Navigate to="/" replace />} 
+        />
+      </Routes>
+      <Toaster />
+    </div>
   );
 }
 
