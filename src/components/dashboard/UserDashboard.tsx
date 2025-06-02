@@ -20,11 +20,15 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
   const handleLogout = async () => {
     try {
       setIsLoggingOut(true);
-      await supabase.auth.signOut();
-      // The auth state change listener in App.tsx will handle the redirect
+      // First fade out the dashboard
+      setTimeout(async () => {
+        // Then sign out
+        await supabase.auth.signOut();
+        // Navigate to home page
+        navigate('/');
+      }, 300);
     } catch (error) {
       console.error('Error logging out:', error);
-    } finally {
       setIsLoggingOut(false);
     }
   };
@@ -35,7 +39,11 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
   };
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 relative overflow-hidden transition-opacity duration-300 ${isLoggingOut ? 'opacity-50' : 'opacity-100'}`}>
+    <div className={`
+      min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 
+      relative overflow-hidden transition-all duration-300 ease-in-out
+      ${isLoggingOut ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}
+    `}>
       {/* Background Images */}
       <div className="absolute inset-0 z-0">
         {/* Top Left Image */}
