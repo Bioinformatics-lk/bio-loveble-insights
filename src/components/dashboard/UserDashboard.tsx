@@ -53,21 +53,21 @@ const UserDashboard = () => {
     if (error && error.code !== 'PGRST116') {
       console.error('Error fetching profile:', error);
     } else if (data) {
-      // Ensure all required fields are present
+      // Safely access properties with fallbacks
       const profileData: UserProfile = {
         id: data.id,
         username: data.username || null,
         full_name: data.full_name || null,
-        organization: data.organization || null,
-        description: data.description || null,
-        profile_picture_url: data.profile_picture_url || null
+        organization: (data as any).organization || null,
+        description: (data as any).description || null,
+        profile_picture_url: (data as any).profile_picture_url || null
       };
       setProfile(profileData);
       setFormData({
         username: data.username || '',
         full_name: data.full_name || '',
-        organization: data.organization || '',
-        description: data.description || ''
+        organization: (data as any).organization || '',
+        description: (data as any).description || ''
       });
     }
   };
