@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 const courses = [
   {
@@ -74,7 +75,7 @@ export const CoursesPage = () => {
   const [hoveredStep, setHoveredStep] = useState<number | null>(null);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-900 to-purple-900 relative overflow-hidden">
       {/* Background Images */}
       <div className="absolute inset-0 z-0">
         {/* Top Left Image */}
@@ -98,7 +99,7 @@ export const CoursesPage = () => {
           style={{ backgroundImage: 'url("/lovable-uploads/P4.png")' }}
         />
         {/* Overlay Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-50/50 to-blue-50/50 backdrop-blur-[2px]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/50 to-purple-900/50 backdrop-blur-[2px]" />
       </div>
 
       {/* Back Button */}
@@ -106,7 +107,7 @@ export const CoursesPage = () => {
         <Button
           onClick={() => navigate('/')}
           variant="ghost"
-          className="bg-white/90 hover:bg-white shadow-sm hover:shadow flex items-center space-x-2"
+          className="bg-white/10 hover:bg-white/20 text-white border border-white/20 shadow-sm hover:shadow flex items-center space-x-2 transition-all duration-300"
           size="sm"
         >
           <ArrowLeft className="h-4 w-4" />
@@ -117,99 +118,103 @@ export const CoursesPage = () => {
       <main className="container mx-auto px-4 py-16 relative z-10">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Course Pipeline
           </h1>
-          <p className="text-gray-600 text-lg md:text-xl max-w-2xl mx-auto">
+          <p className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto">
             Follow our structured learning path from fundamentals to advanced research
           </p>
         </div>
 
         {/* Course Pipeline - Desktop */}
-        <div className="hidden lg:block overflow-x-auto">
-          <div className="min-w-[1024px] p-8">
-            <div className="flex items-center justify-between gap-4 relative">
-              {courses.map((course, index) => (
-                <div key={index} className="flex-1 relative">
-                  {/* Course Card */}
-                  <Card 
-                    className={`
-                      transform transition-all duration-300 cursor-pointer
-                      hover:scale-105 hover:shadow-xl border-2
-                      ${hoveredStep === course.step ? 'border-purple-600 shadow-lg' : 'border-transparent shadow'}
-                      ${course.isSpecial ? 'bg-gradient-to-br from-orange-50 to-rose-50' : 'bg-white/90'}
-                      backdrop-blur-sm p-6 relative z-10
-                    `}
-                    onMouseEnter={() => setHoveredStep(course.step)}
-                    onMouseLeave={() => setHoveredStep(null)}
+        <div className="hidden lg:flex justify-center">
+          <div className="relative max-w-4xl w-full">
+            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-white/20" />
+            {courses.map((course, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className={`flex ${index % 2 === 0 ? 'justify-end' : 'justify-start'} mb-8 relative w-full`}
+              >
+                {/* Connecting Line */}
+                <div 
+                  className={`absolute top-1/2 ${index % 2 === 0 ? 'left-[50%]' : 'right-[50%]'} h-0.5 bg-white/20 w-8`}
+                />
+                
+                {/* Course Card */}
+                <div className={`w-[calc(50%-2rem)] ${index % 2 === 0 ? 'mr-8' : 'ml-8'}`}>
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    transition={{ type: "spring", stiffness: 300 }}
                   >
-                    <div className="flex flex-col items-center text-center space-y-4">
-                      {/* Step Number */}
-                      <div className={`
-                        w-12 h-12 rounded-full bg-gradient-to-r ${course.color}
-                        flex items-center justify-center text-white font-bold text-xl
-                        shadow-lg mb-2
-                      `}>
-                        {course.step}
-                      </div>
-                      {/* Icon */}
-                      <div className={`
-                        w-16 h-16 rounded-full bg-gradient-to-r ${course.color}
-                        flex items-center justify-center shadow-lg
-                        ${course.isSpecial ? 'animate-pulse' : ''}
-                      `}>
-                        <course.icon className="h-8 w-8 text-white" />
-                      </div>
-                      <div>
-                        <h3 className={`
-                          text-lg font-semibold bg-gradient-to-r
-                          ${course.isSpecial ? 'from-rose-600 to-orange-600' : 'from-purple-600 to-blue-600'}
-                          bg-clip-text text-transparent
-                        `}>
-                          {course.title}
-                        </h3>
-                        <p className="text-sm text-gray-600 mt-2">{course.description}</p>
-                      </div>
-                    </div>
-                  </Card>
-                  
-                  {/* Connecting Arrow */}
-                  {index < courses.length - 1 && (
-                    <div 
+                    <Card 
                       className={`
-                        absolute top-1/2 -right-2 w-8 h-0.5
-                        transition-colors duration-300
-                        ${hoveredStep === course.step || hoveredStep === course.step + 1
-                          ? 'bg-purple-600'
-                          : 'bg-gray-300'}
+                        transform transition-all duration-300 cursor-pointer
+                        border-2 ${course.isSpecial ? 'border-orange-400/30' : 'border-white/20'}
+                        ${course.isSpecial ? 'bg-gradient-to-br from-orange-500/10 to-rose-500/10' : 'bg-white/10'}
+                        backdrop-blur-sm hover:bg-white/20 p-6 relative z-10
                       `}
                     >
-                      <div 
-                        className={`
-                          absolute right-0 -top-1.5 w-3 h-3 border-t-2 border-r-2
-                          rotate-45 transition-colors duration-300
-                          ${hoveredStep === course.step || hoveredStep === course.step + 1
-                            ? 'border-purple-600'
-                            : 'border-gray-300'}
-                        `}
-                      />
-                    </div>
-                  )}
+                      <div className="flex flex-col items-center text-center space-y-4">
+                        {/* Step Number */}
+                        <div className={`
+                          w-12 h-12 rounded-full bg-gradient-to-r ${course.color}
+                          flex items-center justify-center text-white font-bold text-xl
+                          shadow-lg mb-2
+                        `}>
+                          {course.step}
+                        </div>
+                        {/* Icon */}
+                        <div className={`
+                          w-16 h-16 rounded-full bg-gradient-to-r ${course.color}
+                          flex items-center justify-center shadow-lg
+                          ${course.isSpecial ? 'animate-pulse' : ''}
+                        `}>
+                          <course.icon className="h-8 w-8 text-white" />
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-semibold text-white">
+                            {course.title}
+                          </h3>
+                          <p className="text-sm text-white/70 mt-2">{course.description}</p>
+                        </div>
+                      </div>
+                    </Card>
+                  </motion.div>
                 </div>
-              ))}
-            </div>
+
+                {/* Timeline Node */}
+                <div 
+                  className={`
+                    absolute left-1/2 top-1/2 w-4 h-4 rounded-full
+                    transform -translate-x-1/2 -translate-y-1/2
+                    ${course.isSpecial ? 'bg-orange-500' : 'bg-purple-500'}
+                    shadow-lg z-20
+                  `}
+                />
+              </motion.div>
+            ))}
           </div>
         </div>
 
         {/* Course Pipeline - Mobile */}
         <div className="lg:hidden space-y-4">
           {courses.map((course, index) => (
-            <div key={index} className="relative">
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="relative"
+            >
               <Card 
                 className={`
                   transform transition-all duration-300
-                  hover:scale-102 hover:shadow-lg border-2
-                  ${course.isSpecial ? 'bg-gradient-to-br from-orange-50 to-rose-50 border-orange-200' : 'bg-white/90 border-transparent'}
+                  border-2 ${course.isSpecial ? 'border-orange-400/30' : 'border-white/20'}
+                  ${course.isSpecial ? 'bg-gradient-to-br from-orange-500/10 to-rose-500/10' : 'bg-white/10'}
                   backdrop-blur-sm p-4
                 `}
               >
@@ -233,23 +238,19 @@ export const CoursesPage = () => {
                   </div>
                   {/* Text Content */}
                   <div className="flex-1">
-                    <h3 className={`
-                      text-base font-semibold bg-gradient-to-r
-                      ${course.isSpecial ? 'from-rose-600 to-orange-600' : 'from-purple-600 to-blue-600'}
-                      bg-clip-text text-transparent
-                    `}>
+                    <h3 className="text-base font-semibold text-white">
                       {course.title}
                     </h3>
-                    <p className="text-xs text-gray-600 mt-1">{course.description}</p>
+                    <p className="text-xs text-white/70 mt-1">{course.description}</p>
                   </div>
-                  <ChevronRight className="h-5 w-5 text-purple-600 mt-2" />
+                  <ChevronRight className="h-5 w-5 text-white/70 mt-2" />
                 </div>
               </Card>
               {/* Connecting Line */}
               {index < courses.length - 1 && (
-                <div className="absolute left-6 top-full h-4 border-l-2 border-purple-300/50" />
+                <div className="absolute left-6 top-full h-4 border-l-2 border-white/20" />
               )}
-            </div>
+            </motion.div>
           ))}
         </div>
       </main>

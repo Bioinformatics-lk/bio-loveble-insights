@@ -1,42 +1,85 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { User } from '@supabase/supabase-js';
-import { supabase } from '@/integrations/supabase/client';
-import Index from '@/pages/Index';
-import { UserDashboard } from '@/components/dashboard/UserDashboard';
-import { CoursesPage } from '@/components/courses/CoursesPage';
+import { AuthForm } from './components/auth/AuthForm';
+import { UserDashboard } from './components/dashboard/UserDashboard';
+import { CoursesPage } from './components/courses/CoursesPage';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { AnimatePresence } from 'framer-motion';
 
-function App() {
-  const [user, setUser] = useState<User | null>(null);
+// Protected Route Component
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const { user, loading } = useAuth();
 
-  useEffect(() => {
-    // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-    });
+  if (loading) {
+    return <div className="min-h-screen bg-gradient-to-br from-indigo-900 to-purple-900 flex items-center justify-center">
+      <div className="w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin" />
+    </div>;
+  }
 
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setUser(session?.user ?? null);
-      }
-    );
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
 
-    return () => subscription.unsubscribe();
-  }, []);
+  return <>{children}</>;
+};
+
+// Public Route Component (redirects to dashboard if already logged in)
+const PublicRoute = ({ children }: { children: React.ReactNode }) => {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return <div className="min-h-screen bg-gradient-to-br from-indigo-900 to-purple-900 flex items-center justify-center">
+      <div className="w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin" />
+    </div>;
+  }
+
+  if (user) {
+    return <Navigate to="/" replace />;
+  }
+
+  return <>{children}</>;
+};
+
+const AppRoutes = () => {
+  const { user } = useAuth();
 
   return (
-    <Router>
+    <AnimatePresence mode="wait">
       <Routes>
         <Route 
+          path="/login" 
+          element={
+            <PublicRoute>
+              <AuthForm />
+            </PublicRoute>
+          } 
+        />
+        <Route 
           path="/" 
-          element={user ? <UserDashboard user={user} /> : <Index />} 
+          element={
+            <ProtectedRoute>
+              <UserDashboard user={user!} />
+            </ProtectedRoute>
+          } 
         />
         <Route 
           path="/courses" 
-          element={user ? <CoursesPage /> : <Navigate to="/" />} 
+          element={
+            <ProtectedRoute>
+              <CoursesPage />
+            </ProtectedRoute>
+          } 
         />
       </Routes>
+    </AnimatePresence>
+  );
+};
+
+function App() {
+  return (
+    <Router>
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
     </Router>
   );
 }
