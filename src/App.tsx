@@ -2,46 +2,92 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthForm } from './components/auth/AuthForm';
 import { UserDashboard } from './components/dashboard/UserDashboard';
 import { CoursesPage } from './components/courses/CoursesPage';
-import { HeroPage } from './components/landing/HeroPage';
+import { LandingPage } from './pages/LandingPage';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { AnimatePresence } from 'framer-motion';
 
-const LoadingSpinner = () => (
-  <div className="min-h-screen bg-gradient-to-br from-indigo-900 to-purple-900 flex items-center justify-center">
-    <div className="w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin" />
-  </div>
-);
-
+// Protected Route Component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { user, loading } = useAuth();
-  if (loading) return <LoadingSpinner />;
-  return user ? <>{children}</> : <Navigate to="/" replace />;
+
+  if (loading) {
+    return <div className="min-h-screen bg-gradient-to-br from-indigo-900 to-purple-900 flex items-center justify-center">
+      <div className="w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin" />
+    </div>;
+  }
+
+  if (!user) {
+    return <Navigate to="/" replace />;
+  }
+
+  return <>{children}</>;
+};
+
+// Auth Route Component (redirects to dashboard if already logged in)
+const AuthRoute = ({ children }: { children: React.ReactNode }) => {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return <div className="min-h-screen bg-gradient-to-br from-indigo-900 to-purple-900 flex items-center justify-center">
+      <div className="w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin" />
+    </div>;
+  }
+
+  if (user) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  return <>{children}</>;
 };
 
 const AppRoutes = () => {
-  const { user, loading } = useAuth();
-  
-  if (loading) return <LoadingSpinner />;
+  const { user } = useAuth();
 
   return (
     <AnimatePresence mode="wait">
       <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={user ? <Navigate to="/dashboard" replace /> : <HeroPage />} />
-        <Route path="/login" element={user ? <Navigate to="/dashboard" replace /> : <AuthForm />} />
-
-        {/* Protected Routes */}
-        <Route path="/dashboard" element={<ProtectedRoute><UserDashboard user={user!} /></ProtectedRoute>} />
-        <Route path="/courses" element={<ProtectedRoute><CoursesPage /></ProtectedRoute>} />
+        {/* Landing page as the main route */}
+        <Route 
+          path="/" 
+          element={user ? <Navigate to="/dashboard" replace /> : <LandingPage />}
+        />
         
-        {/* Catch all route */}
+        {/* Auth routes */}
+        <Route 
+          path="/login" 
+          element={
+            <AuthRoute>
+              <AuthForm />
+            </AuthRoute>
+          } 
+        />
+
+        {/* Protected routes */}
+        <Route 
+          path="/dashboard" 
+          element={
+            <ProtectedRoute>
+              <UserDashboard user={user!} />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/courses" 
+          element={
+            <ProtectedRoute>
+              <CoursesPage />
+            </ProtectedRoute>
+          } 
+        />
+
+        {/* Fallback route */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </AnimatePresence>
   );
 };
 
-export default function App() {
+function App() {
   return (
     <Router>
       <AuthProvider>
@@ -50,3 +96,5 @@ export default function App() {
     </Router>
   );
 }
+
+export default App;
