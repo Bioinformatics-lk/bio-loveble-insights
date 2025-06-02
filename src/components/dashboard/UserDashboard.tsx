@@ -5,14 +5,21 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { BookOpen, Briefcase, LogOut, User } from "lucide-react";
 import { User as SupabaseUser } from '@supabase/supabase-js';
 import { supabase } from "@/integrations/supabase/client";
+import { useNavigate } from 'react-router-dom';
 
 interface UserDashboardProps {
   user: SupabaseUser;
 }
 
 export const UserDashboard = ({ user }: UserDashboardProps) => {
+  const navigate = useNavigate();
+
   const handleLogout = async () => {
     await supabase.auth.signOut();
+  };
+
+  const handleViewCourses = () => {
+    navigate('/courses');
   };
 
   return (
@@ -89,6 +96,7 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
             </CardHeader>
             <CardContent>
               <Button 
+                onClick={handleViewCourses}
                 className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-lg py-6 font-semibold shadow-lg hover:shadow-xl transition-all"
                 size="lg"
               >

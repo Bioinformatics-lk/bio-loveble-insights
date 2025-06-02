@@ -1,25 +1,44 @@
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { User } from '@supabase/supabase-js';
+import { supabase } from '@/integrations/supabase/client';
+import Index from '@/pages/Index';
+import { UserDashboard } from '@/components/dashboard/UserDashboard';
+import { CoursesPage } from '@/components/courses/CoursesPage';
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
+function App() {
+  const [user, setUser] = useState<User | null>(null);
 
-const queryClient = new QueryClient();
+  useEffect(() => {
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <Toaster />
-    <Sonner />
-    <BrowserRouter>
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setUser(session?.user ?? null);
+      }
+    );
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  return (
+    <Router>
       <Routes>
-        <Route path="/" element={<Index />} />
-        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-        <Route path="*" element={<NotFound />} />
+        <Route 
+          path="/" 
+          element={user ? <UserDashboard user={user} /> : <Index />} 
+        />
+        <Route 
+          path="/courses" 
+          element={user ? <CoursesPage /> : <Navigate to="/" />} 
+        />
       </Routes>
-    </BrowserRouter>
-  </QueryClientProvider>
-);
+    </Router>
+  );
+}
 
 export default App;
