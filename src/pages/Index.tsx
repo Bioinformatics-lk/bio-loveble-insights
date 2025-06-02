@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { AuthModal } from '@/components/auth/AuthModal';
 import { ContactModal } from '@/components/contact/ContactModal';
 import UserDashboard from '@/components/dashboard/UserDashboard';
-import { useMediaQuery } from 'react-responsive';
 
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,64 +12,118 @@ const Index = () => {
   const [user, setUser] = useState<any>(null);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
-  const [isSearchVisible, setIsSearchVisible] = useState(false);
-  const isMobile = useMediaQuery({ maxWidth: 768 });
 
   useEffect(() => {
-    // Check if user is logged in
+    // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
     });
 
     // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setUser(session?.user ?? null);
+      }
+    );
 
     return () => subscription.unsubscribe();
   }, []);
 
+  // Handle scroll for header color change
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 100);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Animate counters with 3x slower speed
+  useEffect(() => {
+    const targets = { courses: 6, students: 10, projects: 5, partnerships: 5 };
+    const duration = 9000;
+    const increment = 225;
+
+    const timer = setInterval(() => {
+      setCounters(prev => {
+        const newCounters = { ...prev };
+        let allComplete = true;
+
+        Object.keys(targets).forEach(key => {
+          if (newCounters[key as keyof typeof newCounters] < targets[key as keyof typeof targets]) {
+            newCounters[key as keyof typeof newCounters] = Math.min(
+              newCounters[key as keyof typeof newCounters] + 1,
+              targets[key as keyof typeof targets]
+            );
+            allComplete = false;
+          }
+        });
+
+        if (allComplete) {
+          clearInterval(timer);
+        }
+
+        return newCounters;
+      });
+    }, increment);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+  };
+
+  const handleLearnMore = () => {
+    setAuthModalOpen(true);
+  };
+
+  const handleTeamMemberClick = (url: string) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
+  const handlePartnershipClick = (url: string) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
   // If user is logged in, show dashboard
   if (user) {
-    return <UserDashboard />;
+    return <UserDashboard user={user} />;
   }
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
-
-  const handleLogin = () => {
-    setShowAuthModal(true);
-  };
-
-  const handleSignup = () => {
-    setShowAuthModal(true);
-  };
-
   return (
-    <div className="min-h-screen bg-white relative overflow-x-hidden">
-      {/* Background images with reduced opacity */}
-      <div className="fixed inset-0 pointer-events-none opacity-20 z-0">
-        <img src="/lovable-uploads/e278cf89-1409-4a6a-9fc0-72a0d940ceba.png" alt="" className="absolute left-10 top-64 w-32 h-32 object-contain" />
-        <img src="/lovable-uploads/84227a92-d6f9-4c5c-9a93-d1233db16dfc.png" alt="" className="absolute right-20 top-96 w-40 h-40 object-contain" />
-        <img src="/lovable-uploads/f4204e37-de38-48dd-864e-2dfa047f879d.png" alt="" className="absolute left-32 top-[600px] w-36 h-36 object-contain" />
-        <img src="/lovable-uploads/bdc6c566-3485-4804-b36e-f8bc050977ac.png" alt="" className="absolute right-16 top-[800px] w-44 h-44 object-contain" />
-        <img src="/lovable-uploads/e278cf89-1409-4a6a-9fc0-72a0d940ceba.png" alt="" className="absolute left-20 top-[1000px] w-38 h-38 object-contain" />
-        <img src="/lovable-uploads/84227a92-d6f9-4c5c-9a93-d1233db16dfc.png" alt="" className="absolute right-24 top-[1200px] w-42 h-42 object-contain" />
-      </div>
-
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 text-white min-h-screen flex flex-col relative z-10">
-        {/* Header */}
-        <header className="relative z-20 p-4 lg:p-6">
-          <div className="container mx-auto flex items-center justify-between">
-            {/* Logo and Brand */}
-            <div className="flex items-center space-x-2">
-              <img 
-                src="/lovable-uploads/76f3562a-0d90-4bbc-a1b8-640acc56da80.png" 
-                alt="Logo" 
-                className="w-12 h-12 object-contain"
-              />
-              <span className="text-xl font-bold text-white">ioinformatics.lk</span>
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 relative">
+      {/* Navigation Header */}
+      <header className={`sticky top-0 z-50 backdrop-blur-md border-b transition-all duration-300 ${
+        isScrolled 
+          ? 'bg-white/95 border-gray-300/30' 
+          : 'bg-white/10 border-purple-300/30'
+      }`}>
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo and Brand Name - Left Side */}
+            <div className="flex items-center -space-x-1">
+              <div className="w-8 h-8 flex items-center justify-center">
+                <img 
+                  src="/lovable-uploads/76f3562a-0d90-4bbc-a1b8-640acc56da80.png" 
+                  alt="Bioinformatics.lk" 
+                  className="w-8 h-8 object-contain"
+                />
+              </div>
+              <span className={`text-xl font-bold transition-colors duration-300 ${
+                isScrolled ? 'text-gray-800' : 'text-white'
+              }`}>
+                ioinformatics.lk
+              </span>
             </div>
 
             {/* Desktop Navigation */}
@@ -93,28 +146,27 @@ const Index = () => {
             {/* Right Side Actions */}
             <div className="flex items-center space-x-4">
               {/* Search */}
-              <div className="search-icon-container">
-                <button 
-                  onClick={() => setIsSearchVisible(!isSearchVisible)}
-                  className="search-icon-button"
-                >
-                  <Search className="w-5 h-5" />
-                </button>
-                {(isMobile || isSearchVisible) && (
-                  <div className="search-overlay">
-                    <div className="flex items-center space-x-2">
-                      <input
-                        type="text"
-                        placeholder="Search..."
-                        className="px-3 py-1 bg-white/20 border border-white/30 rounded-full text-white placeholder-white/70 focus:outline-none focus:bg-white/30"
-                      />
-                      <button 
-                        onClick={toggleSearch}
-                        className="p-2 hover:bg-white/10 rounded-full transition-colors"
-                      >
-                        <X className="w-5 h-5" />
-                      </button>
-                    </div>
+              <div className="relative">
+                {!isSearchOpen ? (
+                  <button 
+                    onClick={toggleSearch}
+                    className="p-2 hover:bg-white/10 rounded-full transition-colors"
+                  >
+                    <Search className="w-5 h-5" />
+                  </button>
+                ) : (
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="text"
+                      placeholder="Search..."
+                      className="px-3 py-1 bg-white/20 border border-white/30 rounded-full text-white placeholder-white/70 focus:outline-none focus:bg-white/30"
+                    />
+                    <button 
+                      onClick={toggleSearch}
+                      className="p-2 hover:bg-white/10 rounded-full transition-colors"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
                   </div>
                 )}
               </div>
@@ -186,617 +238,609 @@ const Index = () => {
                 <Play className="w-5 h-5 mr-2" />
                 View Courses
               </Button>
-              <Button size="lg" variant="outline" className="text-white border-white hover:bg-white hover:text-purple-900 px-8 py-3 text-lg">
-                Learn More
+              
+              <Button
+                onClick={() => setAuthModalOpen(true)}
+                className="bg-purple-600 hover:bg-purple-700 text-white transition-all transform hover:scale-105"
+              >
+                Login
               </Button>
             </div>
           </div>
         </div>
+      </header>
 
-        {/* Statistics */}
-        <div className="relative z-10 bg-white/10 backdrop-blur-sm">
-          <div className="container mx-auto px-4 lg:px-6 py-8">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-              <div>
-                <div className="text-3xl lg:text-4xl font-bold text-pink-400 mb-2">06</div>
-                <div className="text-gray-200">Courses</div>
+      {/* Hero Section */}
+      <section className="relative overflow-hidden z-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900"></div>
+        
+        <div className="relative container mx-auto px-4 py-16 lg:py-24">
+          {/* Mobile Search Bar */}
+          {searchOpen && (
+            <div className="flex justify-center mb-8 md:hidden">
+              <SearchBar />
+            </div>
+          )}
+          
+          {/* Main Hero Content - Split Layout */}
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-12">
+            {/* Left Side - Text Content */}
+            <div className="text-white space-y-4 lg:space-y-6">
+              <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold leading-tight text-left">
+                Accelerating <span className="text-purple-300">Bioinformatics</span> Innovation
+              </h1>
+              <p className="text-lg md:text-xl lg:text-2xl text-purple-100 leading-relaxed text-left">
+                Empowering researchers and students in genomics, proteomics, and computational biology through world-class education and cutting-edge research.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-start">
+                <Button 
+                  size="lg" 
+                  className="bg-purple-600 hover:bg-purple-700 text-white px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg transition-all transform hover:scale-105"
+                  onClick={() => scrollToSection('courses')}
+                >
+                  Explore Courses
+                </Button>
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="border-purple-300/30 text-black bg-white/90 hover:bg-white hover:text-black px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg transition-all transform hover:scale-105 font-semibold"
+                  onClick={() => scrollToSection('research')}
+                >
+                  View Research
+                </Button>
               </div>
-              <div>
-                <div className="text-3xl lg:text-4xl font-bold text-purple-400 mb-2">500+</div>
-                <div className="text-gray-200">Students</div>
-              </div>
-              <div>
-                <div className="text-3xl lg:text-4xl font-bold text-blue-400 mb-2">50+</div>
-                <div className="text-gray-200">Research Projects</div>
-              </div>
-              <div>
-                <div className="text-3xl lg:text-4xl font-bold text-green-400 mb-2">05</div>
-                <div className="text-gray-200">Partnerships</div>
+            </div>
+
+            {/* Right Side - Video */}
+            <div className="relative hidden lg:block">
+              <div className="relative w-full h-64 md:h-80 lg:h-96 bg-gradient-to-br from-purple-600/20 to-blue-600/20 backdrop-blur-sm rounded-2xl border-2 border-purple-300/50 overflow-hidden shadow-2xl">
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-600/10 to-blue-600/10"></div>
+                <iframe 
+                  src="https://player.vimeo.com/video/1089037562?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1"
+                  frameBorder="0" 
+                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
+                  className="w-full h-full relative z-10"
+                  title="Bioinformatics Showcase"
+                ></iframe>
               </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* About Us Section */}
-      <section id="about" className="py-20 bg-white relative z-10">
-        <div className="container mx-auto px-4 lg:px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-6">About Us</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We are a leading bioinformatics research and education platform, dedicated to advancing 
-              computational biology through innovative research, comprehensive education, and collaborative partnerships.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          {/* Counters Section */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
             <div className="text-center">
-              <div className="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Users className="w-8 h-8 text-pink-600" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">Expert Faculty</h3>
-              <p className="text-gray-600">
-                Our team consists of world-renowned researchers and educators with extensive experience 
-                in bioinformatics, computational biology, and related fields.
-              </p>
+              <div className="text-3xl md:text-4xl font-bold text-white mb-2">{counters.courses.toString().padStart(2, '0')}</div>
+              <div className="text-purple-200 text-sm md:text-base">Number of Courses</div>
             </div>
-            
             <div className="text-center">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Award className="w-8 h-8 text-purple-600" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">Award-Winning Research</h3>
-              <p className="text-gray-600">
-                Our research has been recognized globally with numerous awards and publications 
-                in top-tier journals, contributing to breakthrough discoveries in the field.
-              </p>
+              <div className="text-3xl md:text-4xl font-bold text-white mb-2">{counters.students.toString().padStart(2, '0')}</div>
+              <div className="text-purple-200 text-sm md:text-base">Students Enrolled</div>
             </div>
-            
             <div className="text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Calendar className="w-8 h-8 text-blue-600" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">Flexible Learning</h3>
-              <p className="text-gray-600">
-                Our comprehensive course offerings are designed to accommodate learners at all levels, 
-                from beginners to advanced researchers, with flexible scheduling options.
-              </p>
+              <div className="text-3xl md:text-4xl font-bold text-white mb-2">{counters.projects.toString().padStart(2, '0')}</div>
+              <div className="text-purple-200 text-sm md:text-base">Research Projects</div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Our Courses Section */}
-      <section id="courses" className="py-20 bg-gray-50 relative z-10">
-        <div className="container mx-auto px-4 lg:px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-6">Our Courses</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Comprehensive bioinformatics education designed to equip you with the skills needed 
-              for modern computational biology research and applications.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Course 1 */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="aspect-video bg-gradient-to-br from-blue-400 to-purple-600 flex items-center justify-center">
-                <img src="/lovable-uploads/4e188a16-d71f-4a8b-a106-11f470010a4f.png" alt="Introduction to Bioinformatics" className="w-full h-full object-cover" />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-800 mb-3">Introduction to Bioinformatics</h3>
-                <p className="text-gray-600 mb-4">Learn the fundamentals of biological data analysis, sequence alignment, and database searching.</p>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-2xl font-bold text-green-600">$299</span>
-                  <span className="text-sm text-gray-500">6 weeks</span>
-                </div>
-                <Button className="w-full bg-pink-600 hover:bg-pink-700">Enroll Now</Button>
-              </div>
-            </div>
-
-            {/* Course 2 */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="aspect-video bg-gradient-to-br from-green-400 to-blue-600 flex items-center justify-center">
-                <img src="/lovable-uploads/d1b14824-ca0c-46d3-b10a-1c79874bc655.png" alt="Network Pharmacology" className="w-full h-full object-cover" />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-800 mb-3">Network Pharmacology</h3>
-                <p className="text-gray-600 mb-4">Explore drug-target interactions and molecular networks in pharmaceutical research.</p>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-2xl font-bold text-green-600">$399</span>
-                  <span className="text-sm text-gray-500">8 weeks</span>
-                </div>
-                <Button className="w-full bg-pink-600 hover:bg-pink-700">Enroll Now</Button>
-              </div>
-            </div>
-
-            {/* Course 3 */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="aspect-video bg-gradient-to-br from-purple-400 to-pink-600 flex items-center justify-center">
-                <img src="/lovable-uploads/2b975c3d-b2b0-487e-a418-c7c4853ddbaa.png" alt="Molecular Docking" className="w-full h-full object-cover" />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-800 mb-3">Molecular Docking</h3>
-                <p className="text-gray-600 mb-4">Master computational methods for predicting molecular binding and drug design.</p>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-2xl font-bold text-green-600">$349</span>
-                  <span className="text-sm text-gray-500">7 weeks</span>
-                </div>
-                <Button className="w-full bg-pink-600 hover:bg-pink-700">Enroll Now</Button>
-              </div>
-            </div>
-
-            {/* Course 4 */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="aspect-video bg-gradient-to-br from-red-400 to-orange-600 flex items-center justify-center">
-                <img src="/lovable-uploads/78d5a7b4-78cf-48e5-a432-8686026b08b6.png" alt="Molecular Dynamics" className="w-full h-full object-cover" />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-800 mb-3">Molecular Dynamics</h3>
-                <p className="text-gray-600 mb-4">Simulate molecular behavior and protein folding using advanced computational techniques.</p>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-2xl font-bold text-green-600">$449</span>
-                  <span className="text-sm text-gray-500">10 weeks</span>
-                </div>
-                <Button className="w-full bg-pink-600 hover:bg-pink-700">Enroll Now</Button>
-              </div>
-            </div>
-
-            {/* Course 5 */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="aspect-video bg-gradient-to-br from-teal-400 to-cyan-600 flex items-center justify-center">
-                <img src="/lovable-uploads/a574e257-4cfe-41e2-8a21-472924163bf2.png" alt="AI and ML in Drug Discovery" className="w-full h-full object-cover" />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-800 mb-3">AI and ML in Drug Discovery</h3>
-                <p className="text-gray-600 mb-4">Apply machine learning and AI techniques to accelerate drug discovery processes.</p>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-2xl font-bold text-green-600">$499</span>
-                  <span className="text-sm text-gray-500">12 weeks</span>
-                </div>
-                <Button className="w-full bg-pink-600 hover:bg-pink-700">Enroll Now</Button>
-              </div>
-            </div>
-
-            {/* Course 6 */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="aspect-video bg-gradient-to-br from-indigo-400 to-purple-600 flex items-center justify-center">
-                <img src="/lovable-uploads/98298637-f3f3-4bba-b8ca-01d994276f78.png" alt="Introduction to Cheminformatics" className="w-full h-full object-cover" />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-800 mb-3">Introduction to Cheminformatics</h3>
-                <p className="text-gray-600 mb-4">Learn chemical information processing and molecular property prediction methods.</p>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-2xl font-bold text-green-600">$329</span>
-                  <span className="text-sm text-gray-500">6 weeks</span>
-                </div>
-                <Button className="w-full bg-pink-600 hover:bg-pink-700">Enroll Now</Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Research Areas Section */}
-      <section id="research" className="py-20 bg-white relative z-10">
-        <div className="container mx-auto px-4 lg:px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-6">Research Areas</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Our cutting-edge research spans multiple domains of computational biology and bioinformatics.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center group">
-              <div className="w-20 h-20 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-pink-200 transition-colors">
-                <div className="w-12 h-12 bg-pink-600 rounded-full"></div>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-4 group-hover:text-[#A00098] transition-colors cursor-pointer">Bioinformatics</h3>
-              <p className="text-gray-600">
-                Advanced algorithms and tools for biological sequence analysis, genome annotation, and comparative genomics.
-              </p>
-            </div>
-            
-            <div className="text-center group">
-              <div className="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-purple-200 transition-colors">
-                <div className="w-12 h-12 bg-purple-600 rounded-full"></div>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-4 group-hover:text-[#A00098] transition-colors cursor-pointer">Cheminformatics</h3>
-              <p className="text-gray-600">
-                Computational methods for chemical information processing, molecular property prediction, and drug design.
-              </p>
-            </div>
-            
-            <div className="text-center group">
-              <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-blue-200 transition-colors">
-                <div className="w-12 h-12 bg-blue-600 rounded-full"></div>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-4 group-hover:text-[#A00098] transition-colors cursor-pointer">AI-driven Drug Discovery</h3>
-              <p className="text-gray-600">
-                Machine learning and AI applications in pharmaceutical research, virtual screening, and lead optimization.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Our Partnerships Section */}
-      <section id="partnerships" className="py-20 bg-gray-50 relative z-10">
-        <div className="container mx-auto px-4 lg:px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-6">Our Partnerships</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Collaborating with leading institutions and organizations worldwide to advance bioinformatics research and education.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Academics */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow group">
-              <div className="aspect-video overflow-hidden">
-                <img 
-                  src="/lovable-uploads/5bcc7c6f-2e42-4e80-ad6f-750db87e9fc4.png" 
-                  alt="Faculty of Agriculture" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-2 group-hover:text-[#A50053] transition-colors cursor-pointer">Academics</h3>
-                <p className="text-gray-600">University of Peradeniya, Faculty of Agriculture, Department of Animal Science</p>
-              </div>
-            </div>
-
-            {/* Open Source - Institute */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow group">
-              <div className="aspect-video overflow-hidden">
-                <img 
-                  src="/lovable-uploads/1953afc8-f585-4e96-a138-a7ae2375e033.png" 
-                  alt="Institute of Scientific Informatics" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-2 group-hover:text-[#A50053] transition-colors cursor-pointer">Open Source</h3>
-                <p className="text-gray-600">Institute of Scientific Informatics</p>
-              </div>
-            </div>
-
-            {/* Open Source - Global Chemistry */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow group">
-              <div className="aspect-video overflow-hidden">
-                <img 
-                  src="/lovable-uploads/6f7f0e18-e58a-4be0-b4d9-8266695b8a5e.png" 
-                  alt="Global Chemistry" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-2 group-hover:text-[#A50053] transition-colors cursor-pointer">Open Source</h3>
-                <p className="text-gray-600">Global Chemistry Inc, U.S.A.</p>
-              </div>
-            </div>
-
-            {/* Education and Research - Chemo-Informatics */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow group">
-              <div className="aspect-video overflow-hidden">
-                <img 
-                  src="/lovable-uploads/2e7cdf35-206d-4ea5-9a42-57a8463de5da.png" 
-                  alt="Chemoinformatics" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-2 group-hover:text-[#A50053] transition-colors cursor-pointer">Education and Research</h3>
-                <p className="text-gray-600">Chemo-Informatics Academy, Nigeria</p>
-              </div>
-            </div>
-
-            {/* Industry */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow group">
-              <div className="aspect-video overflow-hidden">
-                <img 
-                  src="/lovable-uploads/f819fa08-d68c-4051-aaf6-9400fcbd120f.png" 
-                  alt="Standard Seed Corporation" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-2 group-hover:text-[#A50053] transition-colors cursor-pointer">Industry</h3>
-                <p className="text-gray-600">Standard Seed Corporation, Delaware, Wilmington, U.S.A.</p>
-              </div>
-            </div>
-
-            {/* Education and Research - Agriculture.lk */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow group">
-              <div className="aspect-video overflow-hidden">
-                <img 
-                  src="/lovable-uploads/e25ed7e5-cc9e-43d9-ade7-050b1de6cd89.png" 
-                  alt="Agriculture" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-2 group-hover:text-[#A00063] transition-colors cursor-pointer">
-                  <a href="https://agriculture.lk/" target="_blank" rel="noopener noreferrer" className="hover:text-[#A00063]">
-                    Education and Research
-                  </a>
-                </h3>
-                <p className="text-gray-600">Agriculture.lk</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Latest News & Updates Section */}
-      <section id="news" className="py-20 bg-white relative z-10">
-        <div className="container mx-auto px-4 lg:px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-6">Latest News & Updates</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Stay updated with our latest research findings, student achievements, and institutional developments.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="aspect-video bg-gray-200 overflow-hidden">
-                <img 
-                  src="/lovable-uploads/b6881a52-3aa0-4dfb-95bf-1061d262f01c.png" 
-                  alt="Kasuni" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-6">
-                <div className="text-sm text-pink-600 mb-2">December 15, 2024</div>
-                <h3 className="text-xl font-bold text-gray-800 mb-3">Our Student's Achievement in the Graphical Abstract Competition 2024</h3>
-                <p className="text-gray-600 mb-4">Congratulations to our student for the outstanding performance in the international competition.</p>
-                <a href="#" className="text-pink-600 hover:text-pink-700 font-medium flex items-center">
-                  Read More <ChevronRight className="w-4 h-4 ml-1" />
-                </a>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="aspect-video bg-gray-200 overflow-hidden">
-                <img 
-                  src="/lovable-uploads/b6abe787-a4b1-469e-ace7-f3ba7c44eb36.png" 
-                  alt="Poorni" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-6">
-                <div className="text-sm text-pink-600 mb-2">December 10, 2024</div>
-                <h3 className="text-xl font-bold text-gray-800 mb-3">Outstanding Poster Presentation Award at ICIET 2024</h3>
-                <p className="text-gray-600 mb-4">Our research team received recognition for their innovative work in computational biology.</p>
-                <a href="#" className="text-pink-600 hover:text-pink-700 font-medium flex items-center">
-                  Read More <ChevronRight className="w-4 h-4 ml-1" />
-                </a>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="aspect-video bg-gray-200 overflow-hidden">
-                <img 
-                  src="/lovable-uploads/090ca63b-e20f-49b9-92ec-c62c30fc0854.png" 
-                  alt="news 03" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-6">
-                <div className="text-sm text-pink-600 mb-2">December 5, 2024</div>
-                <h3 className="text-xl font-bold text-gray-800 mb-3">Research Collaboration Announced</h3>
-                <p className="text-gray-600 mb-4">New partnership established with international research institutions for advancing drug discovery.</p>
-                <a href="#" className="text-pink-600 hover:text-pink-700 font-medium flex items-center">
-                  Read More <ChevronRight className="w-4 h-4 ml-1" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Success Stories Section */}
-      <section className="py-20 bg-gray-50 relative z-10">
-        <div className="container mx-auto px-4 lg:px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-6">Success Stories</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Hear from our alumni and current students about their journey and achievements in bioinformatics.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white rounded-lg shadow-lg p-8">
-              <div className="flex items-center mb-6">
-                <img 
-                  src="/lovable-uploads/8b62e48b-7183-478c-9e5a-6c7a4ede3d57.png" 
-                  alt="Saumya Poorni" 
-                  className="w-16 h-16 rounded-full object-cover mr-4"
-                />
-                <div>
-                  <h4 className="text-lg font-bold text-gray-800">Saumya Poorni</h4>
-                  <p className="text-gray-600">PhD Candidate</p>
-                </div>
-              </div>
-              <p className="text-gray-700 italic">
-                "The comprehensive curriculum and hands-on research opportunities have been instrumental 
-                in shaping my career in computational biology. The faculty's guidance and the collaborative 
-                environment have exceeded my expectations."
-              </p>
-            </div>
-
-            <div className="bg-white rounded-lg shadow-lg p-8">
-              <div className="flex items-center mb-6">
-                <img 
-                  src="/lovable-uploads/1caec919-8f0b-4d2b-b62e-0c2a086ec756.png" 
-                  alt="Kasuni Karunarathne" 
-                  className="w-16 h-16 rounded-full object-cover mr-4"
-                />
-                <div>
-                  <h4 className="text-lg font-bold text-gray-800">Kasuni Karunarathne</h4>
-                  <p className="text-gray-600">Research Scientist</p>
-                </div>
-              </div>
-              <p className="text-gray-700 italic">
-                "The practical approach to learning bioinformatics tools and techniques has prepared me 
-                well for my current role in pharmaceutical research. The skills I gained here are directly 
-                applicable to real-world challenges."
-              </p>
+            <div className="text-center">
+              <div className="text-3xl md:text-4xl font-bold text-white mb-2">{counters.partnerships.toString().padStart(2, '0')}</div>
+              <div className="text-purple-200 text-sm md:text-base">Partnerships</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Our Team Section */}
-      <section id="team" className="py-20 bg-white relative z-10">
-        <div className="container mx-auto px-4 lg:px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-6">Our Team</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Meet our distinguished faculty and research team members who are driving innovation in bioinformatics.
+      <section className="py-12 md:py-20 bg-white relative z-10" id="team">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8 lg:mb-12">
+            <div className="inline-block bg-[#AFA9FF] px-6 py-3 rounded-lg mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Our Team</h2>
+            </div>
+            <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+              Meet our expert team of researchers and educators
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-4 overflow-hidden">
-                <img src="/lovable-uploads/519715ae-248a-4c05-8f22-8c0b2b40e239.png" alt="Dr. Sarah Johnson" className="w-full h-full object-cover" />
-              </div>
-              <h4 className="text-lg font-bold text-gray-800 mb-2">Dr. Sarah Johnson</h4>
-              <p className="text-gray-600 mb-4">Director & Principal Investigator</p>
-              <Button size="sm" variant="outline" className="text-gray-700 border-gray-300 hover:bg-gray-50">
-                View Profile
-              </Button>
-            </div>
+          <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+            {[
+              {
+                name: "Dr. Lakmal Ranathunga",
+                qualification: "PhD in Veterinary Medicine",
+                image: "/lovable-uploads/99dec8fe-51c3-46ea-af63-6bd557692e29.png",
+                url: "https://agri.pdn.ac.lk/ansc/staff/academic_staff_detail/35"
+              },
+              {
+                name: "Mrs. Saumya Poorni",
+                qualification: "PhD in Aquaculture (Reading)",
+                image: "/lovable-uploads/a0ce1ac5-e01f-4cc3-a67a-42a5bc885eda.png",
+                url: "https://www.linkedin.com/in/saumya-poorni-73009a314/"
+              },
+              {
+                name: "Mr. Anuththara Gamage",
+                qualification: "B.Sc Honours, Research Scientist at Standard Seed Corporation",
+                image: "/lovable-uploads/b42b66f6-f7c5-4932-af71-ccf28ed41fbf.png",
+                url: "https://www.linkedin.com/in/anu-gamage-62192b201/"
+              }
+            ].map((member, index) => (
+              <Card key={index} className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/20 to-purple-600/20 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
+                <CardHeader className="text-center">
+                  <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-gradient-to-r from-blue-600 to-purple-600">
+                    <img 
+                      src={member.image} 
+                      alt={member.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <CardTitle 
+                    className="text-black cursor-pointer hover:text-[#190EA8] hover:font-bold hover:underline transition-all flex items-center justify-center gap-2"
+                    onClick={() => handleTeamMemberClick(member.url)}
+                  >
+                    {member.name}
+                    <ExternalLink className="h-4 w-4" />
+                  </CardTitle>
+                  <CardDescription className="text-gray-700">{member.qualification}</CardDescription>
+                </CardHeader>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            <div className="text-center">
-              <div className="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-4 overflow-hidden">
-                <img src="/lovable-uploads/4717a1d7-6c8d-411e-a4ec-d38407bc3bf5.png" alt="Dr. Michael Chen" className="w-full h-full object-cover" />
-              </div>
-              <h4 className="text-lg font-bold text-gray-800 mb-2">Dr. Michael Chen</h4>
-              <p className="text-gray-600 mb-4">Senior Research Scientist</p>
-              <Button size="sm" variant="outline" className="text-gray-700 border-gray-300 hover:bg-gray-50">
-                View Profile
-              </Button>
+      {/* Research Section */}
+      <section className="py-12 md:py-20 bg-white relative z-10" id="research">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8 lg:mb-12">
+            <div className="inline-block bg-[#EEBBFF] px-6 py-3 rounded-lg mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Research Areas</h2>
             </div>
+            <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+              Pioneering research in bioinformatics, cheminformatics, computational chemistry and AI-driven drug discovery applications
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+            <Card className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg">
+              <div className="relative overflow-hidden">
+                <img 
+                  src="/lovable-uploads/7f777ef7-1b68-4be2-8518-94fbe3d1c86e.png" 
+                  alt="Bioinformatics Research"
+                  className="w-full h-48 object-cover"
+                />
+              </div>
+              <CardHeader>
+                <CardTitle className="text-xl text-gray-800 flex items-center gap-2 hover:text-[#A00098] transition-colors cursor-pointer">
+                  <Dna className="h-6 w-6 text-purple-600" />
+                  Bioinformatics
+                </CardTitle>
+                <CardDescription className="text-gray-600">
+                  Identification of Active Compounds in Sri Lankan Medicinal Plants as Antivirals Against African Swine Fever
+                </CardDescription>
+              </CardHeader>
+            </Card>
 
-            <div className="text-center">
-              <div className="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-4 overflow-hidden">
-                <img src="/lovable-uploads/88dcbdd5-4666-4c05-9ee8-93493283d085.png" alt="Dr. Emily Rodriguez" className="w-full h-full object-cover" />
+            <Card className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg">
+              <div className="relative overflow-hidden">
+                <img 
+                  src="/lovable-uploads/9b130339-4a9e-4910-8516-0d16b6a30c73.png" 
+                  alt="Cheminformatics Research"
+                  className="w-full h-48 object-cover"
+                />
               </div>
-              <h4 className="text-lg font-bold text-gray-800 mb-2">Dr. Emily Rodriguez</h4>
-              <p className="text-gray-600 mb-4">Computational Biologist</p>
-              <Button size="sm" variant="outline" className="text-gray-700 border-gray-300 hover:bg-gray-50">
-                View Profile
-              </Button>
-            </div>
+              <CardHeader>
+                <CardTitle className="text-xl text-gray-800 flex items-center gap-2 hover:text-[#A00098] transition-colors cursor-pointer">
+                  <Atom className="h-6 w-6 text-purple-600" />
+                  Cheminformatics
+                </CardTitle>
+                <CardDescription className="text-gray-600">
+                  Development of globally accessible comprehensive database with an AI-integrated web platform cataloging endemic medicinal plants with detailed information.
+                </CardDescription>
+              </CardHeader>
+            </Card>
 
-            <div className="text-center">
-              <div className="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-4 overflow-hidden">
-                <img src="/lovable-uploads/7f777ef7-1b68-4be2-8518-94fbe3d1c86e.png" alt="Dr. David Kumar" className="w-full h-full object-cover" />
+            <Card className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg">
+              <div className="relative overflow-hidden">
+                <img 
+                  src="/lovable-uploads/b285632b-3423-4b61-b1e2-20607153ff98.png" 
+                  alt="AI-driven Drug Discovery Research"
+                  className="w-full h-48 object-cover"
+                />
               </div>
-              <h4 className="text-lg font-bold text-gray-800 mb-2">Dr. David Kumar</h4>
-              <p className="text-gray-600 mb-4">Machine Learning Specialist</p>
-              <Button size="sm" variant="outline" className="text-gray-700 border-gray-300 hover:bg-gray-50">
-                View Profile
-              </Button>
+              <CardHeader>
+                <CardTitle className="text-xl text-gray-800 flex items-center gap-2 hover:text-[#A00098] transition-colors cursor-pointer">
+                  <Brain className="h-6 w-6 text-purple-600" />
+                  AI-driven Drug Discovery
+                </CardTitle>
+                <CardDescription className="text-gray-600">
+                  Discovery of Antiviral Compounds from Sri Lankan Medicinal Plants and Deep Learning Based De Novo Design and Bioactivity Prediction of Natural-Product-Inspired Inhibitors Against Livestock and Aquaculture Viral Diseases.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Courses Section */}
+      <section className="py-12 md:py-20 bg-white relative z-10" id="courses">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8 lg:mb-12">
+            <div className="inline-block bg-[#BBF7FF] px-6 py-3 rounded-lg mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Our Courses</h2>
             </div>
+            <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+              Unlock the power of bioinformatics, cheminformatics, computational chemistry, and AI in drug discovery with our dynamic and comprehensive course offerings, designed to empower you with both foundational and advanced insights
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {[
+              {
+                title: "Introduction to Bioinformatics",
+                description: "Learn the fundamentals of biological data analysis, sequence alignment, and database searching.",
+                image: "/lovable-uploads/4e188a16-d71f-4a8b-a106-11f470010a4f.png"
+              },
+              {
+                title: "Network Pharmacology",
+                description: "Explore drug-target interactions and molecular networks in pharmaceutical research.",
+                image: "/lovable-uploads/d1b14824-ca0c-46d3-b10a-1c79874bc655.png"
+              },
+              {
+                title: "Molecular Docking",
+                description: "Master computational methods for predicting molecular binding and drug design.",
+                image: "/lovable-uploads/2b975c3d-b2b0-487e-a418-c7c4853ddbaa.png"
+              },
+              {
+                title: "Molecular Dynamics",
+                description: "Simulate molecular behavior and protein folding using advanced computational techniques.",
+                image: "/lovable-uploads/78d5a7b4-78cf-48e5-a432-8686026b08b6.png"
+              },
+              {
+                title: "AI and ML in Drug Discovery",
+                description: "Apply machine learning and AI techniques to accelerate drug discovery processes.",
+                image: "/lovable-uploads/a574e257-4cfe-41e2-8a21-472924163bf2.png"
+              },
+              {
+                title: "Introduction to Cheminformatics",
+                description: "Learn chemical information processing and molecular property prediction methods.",
+                image: "/lovable-uploads/98298637-f3f3-4bba-b8ca-01d994276f78.png"
+              }
+            ].map((course, index) => (
+              <Card 
+                key={index} 
+                className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md cursor-pointer"
+                onClick={handleLearnMore}
+              >
+                <div className="relative overflow-hidden">
+                  <img 
+                    src={course.image} 
+                    alt={course.title}
+                    className="w-full h-40 md:h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <CardHeader>
+                  <CardTitle className="text-lg md:text-xl text-black hover:text-[#0090A3] transition-all">
+                    {course.title}
+                  </CardTitle>
+                  <CardDescription className="text-sm md:text-base text-gray-700">
+                    {course.description}
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Our Services Section */}
+      <section className="py-12 md:py-20 bg-white relative z-10" id="services">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8 lg:mb-12">
+            <div className="inline-block bg-[#FFCB9C] px-6 py-3 rounded-lg mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Our Services</h2>
+            </div>
+            <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+              Professional bioinformatics, cheminformatics and computational biology services
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {[
+              {
+                title: "Network Pharmacology",
+                description: "Network Pharmacology is a cutting-edge approach integrating systems biology and pharmacology to understand drug actions and interactions at a network level. It helps identify key targets, predict drug efficacy, and uncover new therapeutic pathways.",
+                icon: Network
+              },
+              {
+                title: "Molecular Docking", 
+                description: "Molecular Docking is a computational technique that predicts the preferred orientation of a small molecule (ligand) when bound to a target protein (receptor). It helps in drug discovery by estimating binding affinity and identifying potential drug candidates.",
+                icon: Atom
+              },
+              {
+                title: "Molecular Dynamics Simulation",
+                description: "Molecular Dynamics (MD) Simulation is a computational method that models the physical movements of atoms and molecules over time, helping to understand biomolecular behavior, stability, and interactions at the atomic level.",
+                icon: Computer
+              },
+              {
+                title: "AI and ML in Drug Discovery",
+                description: "Artificial Intelligence (AI) and Machine Learning (ML) accelerate drug discovery by analyzing vast datasets to predict drug-target interactions, optimize lead compounds, and identify novel candidates more efficiently than traditional methods.",
+                icon: Brain
+              },
+              {
+                title: "Research Article Writing",
+                description: "Professional research article writing involves crafting scientifically accurate, clear, and well-structured manuscripts for publication in peer-reviewed journals. This includes literature review, data interpretation, and formatting to journal standards.",
+                icon: FileText
+              },
+              {
+                title: "Drug Formulation Development",
+                description: "Drug Formulation Development involves designing and producing stable, effective, and safe pharmaceutical formulations, optimizing drug delivery, dosage form, and bioavailability to meet therapeutic needs.",
+                icon: FlaskConical
+              }
+            ].map((service, index) => (
+              <Card 
+                key={index} 
+                className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md cursor-pointer"
+                onClick={handleLearnMore}
+              >
+                <CardHeader>
+                  <CardTitle className="text-lg md:text-xl text-black hover:text-[#AA5100] transition-all flex items-center gap-2">
+                    <service.icon className="h-6 w-6 text-orange-600" />
+                    {service.title}
+                  </CardTitle>
+                  <CardDescription className="text-sm md:text-base text-gray-700">
+                    {service.description}
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Our Partnerships Section */}
+      <section className="py-12 md:py-20 bg-white relative z-10" id="partnerships">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8 lg:mb-12">
+            <div className="inline-block bg-[#FFBBE5] px-6 py-3 rounded-lg mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Our Partnerships</h2>
+            </div>
+            <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+              Collaborating with leading institutions local and worldwide
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {[
+              {
+                category: "Academics",
+                partner: "University of Peradeniya, Faculty of Agriculture, Department of Animal Science",
+                url: "https://agri.pdn.ac.lk/ansc/",
+                image: "/lovable-uploads/f819fa08-d68c-4051-aaf6-9400fcbd120f.png"
+              },
+              {
+                category: "Open Source",
+                partner: "Institute of Scientific Informatics",
+                url: "https://www.linkedin.com/company/institute-of-scientific-informatics/?viewAsMember=true",
+                image: "/lovable-uploads/2e7cdf35-206d-4ea5-9a42-57a8463de5da.png"
+              },
+              {
+                category: "Open Source",
+                partner: "Global Chemistry Inc, U.S.A",
+                url: "https://globalchemistry.org/",
+                image: "/lovable-uploads/b6881a52-3aa0-4dfb-95bf-1061d262f01c.png"
+              },
+              {
+                category: "Education and Research",
+                partner: "Chemo-Informatics Academy, Nigeria",
+                url: "https://www.linkedin.com/company/chemoinformatics-academy/posts/?feedView=all",
+                image: "/lovable-uploads/1953afc8-f585-4e96-a138-a7ae2375e033.png"
+              },
+              {
+                category: "Industry",
+                partner: "Standard Seed Corporation, Delaware, Wilmington, U.S.A",
+                url: "https://standardseedai.com/",
+                image: "/lovable-uploads/b6abe787-a4b1-469e-ace7-f3ba7c44eb36.png"
+              },
+              {
+                category: "Education and Research",
+                partner: "Agriculture.lk",
+                url: "https://agriculture.lk/",
+                image: "/lovable-uploads/e278cf89-1409-4a6a-9fc0-72a0d940ceba.png"
+              }
+            ].map((partnership, index) => (
+              <Card key={index} className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
+                <div className="relative overflow-hidden">
+                  <img 
+                    src={partnership.image} 
+                    alt={partnership.partner}
+                    className="w-full h-40 md:h-48 object-cover"
+                  />
+                </div>
+                <CardHeader>
+                  <CardTitle className="text-lg md:text-xl text-black hover:text-[#A50053] transition-colors cursor-pointer">
+                    {partnership.category}
+                  </CardTitle>
+                  <CardDescription 
+                    className="text-sm md:text-base text-black cursor-pointer hover:text-[#A50053] hover:underline transition-all"
+                    onClick={() => handlePartnershipClick(partnership.url)}
+                  >
+                    {partnership.partner}
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Latest News & Updates Section */}
+      <section className="py-12 md:py-20 bg-white relative z-10" id="news">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8 lg:mb-12">
+            <div className="inline-block bg-[#C8FFA4] px-6 py-3 rounded-lg mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Latest News & Updates</h2>
+            </div>
+            <p className="text-lg md:text-xl text-gray-600">Stay informed about the latest developments in bioinformatics</p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+            {[
+              {
+                title: "Our Student's Achievement in the Graphical Abstract Competition 2024",
+                description: "This course in Bioinformatics was helpful for our student in becoming the second runner-up in the graphical abstract competition at the Faculty of Agriculture Undergraduate Research Symposium 2024.",
+                image: "/lovable-uploads/99cc8013-24dd-4850-bb4a-f02ad8490859.png"
+              },
+              {
+                title: "Outstanding Poster Presentation Award at ICIET 2024", 
+                description: "We are excited to share that our student secured first place for Outstanding Poster Presentation at the International Conference on Innovation and Emerging Technologies (ICIET) held at the Faculty of Technology, University of Sri Jayawardenapura, on the 21st and 22nd of November 2024.",
+                image: "/lovable-uploads/dce54d2b-edfc-4cf2-ae59-e84b70adfc14.png"
+              },
+              {
+                title: "Research Collaboration Announced",
+                description: "Partnership with local and international institutions to advance bioinformatics research capabilities.",
+                image: "/lovable-uploads/84227a92-d6f9-4c5c-9a93-d1233db16dfc.png"
+              }
+            ].map((article, index) => (
+              <Card key={index} className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
+                <div className="relative overflow-hidden">
+                  <img 
+                    src={article.image} 
+                    alt={article.title}
+                    className="w-full h-40 md:h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <CardHeader>
+                  <CardTitle className="text-lg md:text-xl text-black hover:text-[#00A81C] transition-all">
+                    {article.title}
+                  </CardTitle>
+                  <CardDescription className="text-sm md:text-base text-gray-700">{article.description}</CardDescription>
+                </CardHeader>
+                <CardContent className="pt-0">
+                  <Button variant="link" className="p-0 text-green-600 hover:text-green-800">
+                    Read More →
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Success Stories Section */}
+      <section className="py-12 md:py-20 bg-white relative z-10" id="success-stories">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8 lg:mb-12">
+            <div className="inline-block bg-[#FFD97B] px-6 py-3 rounded-lg mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Success Stories</h2>
+            </div>
+            <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+              Hear from our students and their achievements
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+            {[
+              {
+                name: "Saumya Poorni",
+                role: "PhD Student",
+                testimonial: "The bioinformatics course transformed my research approach. The practical skills I gained have been invaluable in my PhD work.",
+                image: "/lovable-uploads/78dd8c5b-2728-4fb3-b89b-94b50424e57f.png"
+              },
+              {
+                name: "Kasuni Karunarathne",
+                role: "Demonstrator at UoP",
+                testimonial: "This course in Bioinformatics was helpful in becoming the second runner-up in the graphical abstract competition at the Faculty of Agriculture Undergraduate Research Symposium 2024.",
+                image: "/lovable-uploads/c68aaa61-6fe8-4e0f-90ef-ec26edcaf4c6.png"
+              },
+              {
+                name: "Dharani Ariyasinghe",
+                role: "Research Student",
+                testimonial: "A beginner course in Bioinformatics changed my vision in drug discovery and opened new pathways in my career.",
+                image: "/lovable-uploads/bd937a38-24e6-4ada-8518-99144be047af.png"
+              }
+            ].map((story, index) => (
+              <Card key={index} className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
+                <CardHeader className="text-center">
+                  <div className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden border-4 border-gradient-to-r from-blue-600 to-purple-600">
+                    <img 
+                      src={story.image} 
+                      alt={story.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <CardTitle className="text-black hover:text-[#E5C400] transition-all cursor-pointer">{story.name}</CardTitle>
+                  <CardDescription className="text-gray-700">{story.role}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-700 text-sm italic">"{story.testimonial}"</p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-16 relative z-10">
-        <div className="container mx-auto px-4 lg:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-6">
-                <img 
-                  src="/lovable-uploads/76f3562a-0d90-4bbc-a1b8-640acc56da80.png" 
-                  alt="Logo" 
-                  className="w-8 h-8"
-                />
-                <span className="text-xl font-bold">ioinformatics.lk</span>
+      <footer className="bg-gradient-to-br from-purple-900/50 via-blue-900/50 to-indigo-900/50 backdrop-blur-sm text-white py-12 md:py-16 relative z-10">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-4 gap-6 lg:gap-8">
+            <div className="space-y-4">
+              <div className="flex items-center">
+                <span className="text-xl font-bold">Bioinformatics.lk</span>
               </div>
-              <p className="text-gray-300 mb-6">
-                Advancing bioinformatics research and education through innovation, collaboration, and excellence.
+              <p className="text-purple-200 leading-relaxed text-sm md:text-base">
+                Advancing bioinformatics education and research in Sri Lanka through innovative programs and cutting-edge technology.
               </p>
-              <div className="flex space-x-4">
-                <a href="#" className="text-gray-300 hover:text-white transition-colors">
-                  <Facebook className="w-5 h-5" />
-                </a>
-                <a href="#" className="text-gray-300 hover:text-white transition-colors">
-                  <Twitter className="w-5 h-5" />
-                </a>
-                <a href="#" className="text-gray-300 hover:text-white transition-colors">
-                  <Instagram className="w-5 h-5" />
-                </a>
-                <a href="#" className="text-gray-300 hover:text-white transition-colors">
-                  <Linkedin className="w-5 h-5" />
-                </a>
-              </div>
             </div>
 
             <div>
-              <h3 className="text-lg font-bold mb-6">Quick Links</h3>
-              <ul className="space-y-3">
-                <li><a href="#about" className="text-gray-300 hover:text-white transition-colors">About Us</a></li>
-                <li><a href="#courses" className="text-gray-300 hover:text-white transition-colors">Courses</a></li>
-                <li><a href="#research" className="text-gray-300 hover:text-white transition-colors">Research</a></li>
-                <li><a href="#partnerships" className="text-gray-300 hover:text-white transition-colors">Partnerships</a></li>
-                <li><a href="#team" className="text-gray-300 hover:text-white transition-colors">Team</a></li>
+              <h3 className="text-lg font-semibold mb-4 text-purple-300">Quick Links</h3>
+              <ul className="space-y-2">
+                <li><button onClick={() => scrollToSection('team')} className="text-purple-200 hover:text-white transition-colors text-sm md:text-base">Our Team</button></li>
+                <li><button onClick={() => scrollToSection('research')} className="text-purple-200 hover:text-white transition-colors text-sm md:text-base">Research</button></li>
+                <li><button onClick={() => scrollToSection('courses')} className="text-purple-200 hover:text-white transition-colors text-sm md:text-base">Courses</button></li>
+                <li><button onClick={() => scrollToSection('services')} className="text-purple-200 hover:text-white transition-colors text-sm md:text-base">Services</button></li>
               </ul>
             </div>
 
             <div>
-              <h3 className="text-lg font-bold mb-6">Resources</h3>
-              <ul className="space-y-3">
-                <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Documentation</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Tutorials</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Publications</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Downloads</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-white transition-colors">FAQ</a></li>
+              <h3 className="text-lg font-semibold mb-4 text-purple-300">Programs</h3>
+              <ul className="space-y-2">
+                <li><a href="#" className="text-purple-200 hover:text-white transition-colors text-sm md:text-base">Certificate Courses</a></li>
+                <li><a href="#" className="text-purple-200 hover:text-white transition-colors text-sm md:text-base">Workshops</a></li>
+                <li><a href="#" className="text-purple-200 hover:text-white transition-colors text-sm md:text-base">Research Projects</a></li>
+                <li><a href="#" className="text-purple-200 hover:text-white transition-colors text-sm md:text-base">Collaborations</a></li>
               </ul>
             </div>
 
             <div>
-              <h3 className="text-lg font-bold mb-6">Contact Info</h3>
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3">
-                  <Phone className="w-5 h-5 text-pink-400" />
-                  <span className="text-gray-300">+94 11 234 5678</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <Mail className="w-5 h-5 text-pink-400" />
-                  <span className="text-gray-300">info@ioinformatics.lk</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <MapPin className="w-5 h-5 text-pink-400" />
-                  <span className="text-gray-300">Colombo, Sri Lanka</span>
+              <h3 className="text-lg font-semibold mb-4 text-purple-300">Connect With Us</h3>
+              <div className="space-y-4">
+                <p className="text-purple-200 text-sm md:text-base">
+                  Email: info@bioinformatics.lk<br />
+                  Phone: +94 11 234 5678
+                </p>
+                <div className="flex space-x-4">
+                  <a href="#" className="w-10 h-10 bg-purple-600/30 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-purple-600/50 transition-colors border border-purple-300/30">
+                    <Linkedin className="h-5 w-5" />
+                  </a>
+                  <a href="#" className="w-10 h-10 bg-purple-600/30 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-purple-600/50 transition-colors border border-purple-300/30">
+                    <Twitter className="h-5 w-5" />
+                  </a>
+                  <a href="#" className="w-10 h-10 bg-purple-600/30 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-purple-600/50 transition-colors border border-purple-300/30">
+                    <Youtube className="h-5 w-5" />
+                  </a>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="border-t border-gray-700 mt-12 pt-8 text-center">
-            <p className="text-gray-300">
-              © 2024 ioinformatics.lk. All rights reserved.
-            </p>
+          <div className="border-t border-purple-300/30 mt-8 lg:mt-12 pt-6 lg:pt-8 text-center text-purple-200">
+            <p className="text-sm md:text-base">&copy; 2024 Bioinformatics.lk. All rights reserved. | Privacy Policy | Terms of Service</p>
           </div>
         </div>
       </footer>
 
       {/* Modals */}
-      <AuthModal 
-        isOpen={showAuthModal} 
-        onClose={() => setShowAuthModal(false)} 
-      />
-      <ContactModal 
-        isOpen={showContactModal} 
-        onClose={() => setShowContactModal(false)} 
-      />
+      <AuthModal isOpen={authModalOpen} onClose={() => setAuthModalOpen(false)} />
+      <ContactModal isOpen={contactModalOpen} onClose={() => setContactModalOpen(false)} />
     </div>
   );
 };
