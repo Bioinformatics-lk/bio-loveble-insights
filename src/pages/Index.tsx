@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { AuthModal } from '@/components/auth/AuthModal';
 import { ContactModal } from '@/components/contact/ContactModal';
 import UserDashboard from '@/components/dashboard/UserDashboard';
+import { useMediaQuery } from 'react-responsive';
 
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,6 +13,8 @@ const Index = () => {
   const [user, setUser] = useState<any>(null);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
+  const isMobile = useMediaQuery({ maxWidth: 768 });
 
   useEffect(() => {
     // Get initial session
@@ -243,6 +246,23 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Search Icon - Only show in mobile or when search is active */}
+      {isMobile && (
+        <div className="search-icon-container">
+          <button 
+            onClick={() => setIsSearchVisible(!isSearchVisible)}
+            className="search-icon-button"
+          >
+            <Search className="w-5 h-5" />
+          </button>
+          {isSearchVisible && (
+            <div className="search-overlay">
+              {/* Your search content here */}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Hero Section */}
       <section className="relative overflow-hidden z-10">
