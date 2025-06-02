@@ -10,10 +10,11 @@ import {
   Brain, 
   FlaskConical,
   ArrowLeft,
-  ArrowRight,
+  GraduationCap,
   ChevronRight
 } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const courses = [
   {
@@ -45,23 +46,32 @@ const courses = [
     step: 4
   },
   {
-    title: "AI and ML in Drug Discovery",
-    description: "Apply artificial intelligence and machine learning in pharmaceutical research",
-    icon: Brain,
+    title: "Introduction to Cheminformatics",
+    description: "Learn the basics of chemical information handling and drug design",
+    icon: FlaskConical,
     color: "from-green-600 to-emerald-600",
     step: 5
   },
   {
-    title: "Introduction to Cheminformatics",
-    description: "Learn the basics of chemical information handling and drug design",
-    icon: FlaskConical,
+    title: "AI and ML in Drug Discovery",
+    description: "Apply artificial intelligence and machine learning in pharmaceutical research",
+    icon: Brain,
     color: "from-emerald-600 to-purple-600",
     step: 6
+  },
+  {
+    title: "Research Project",
+    description: "Apply your knowledge in a comprehensive research project",
+    icon: GraduationCap,
+    color: "from-rose-600 to-orange-600",
+    step: 7,
+    isSpecial: true
   }
 ];
 
 export const CoursesPage = () => {
   const navigate = useNavigate();
+  const [hoveredStep, setHoveredStep] = useState<number | null>(null);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 relative overflow-hidden">
@@ -111,74 +121,126 @@ export const CoursesPage = () => {
             Course Pipeline
           </h1>
           <p className="text-gray-600 text-lg md:text-xl max-w-2xl mx-auto">
-            Follow our structured learning path from fundamentals to advanced topics
+            Follow our structured learning path from fundamentals to advanced research
           </p>
         </div>
 
-        {/* Pipeline Layout - Desktop */}
-        <div className="hidden lg:flex flex-col items-center space-y-8">
-          <div className="w-full max-w-6xl">
-            {courses.map((course, index) => (
-              <div key={index} className="relative">
-                {/* Course Card */}
-                <div className={`flex items-center ${index % 2 === 0 ? 'justify-start' : 'justify-end'} mb-8`}>
+        {/* Course Pipeline - Desktop */}
+        <div className="hidden lg:block overflow-x-auto">
+          <div className="min-w-[1024px] p-8">
+            <div className="flex items-center justify-between gap-4 relative">
+              {courses.map((course, index) => (
+                <div key={index} className="flex-1 relative">
+                  {/* Course Card */}
                   <Card 
-                    className={`w-[500px] hover:shadow-xl transition-all transform hover:scale-105 border-2 border-transparent hover:border-purple-600 bg-white/90 backdrop-blur-sm p-6 cursor-pointer
-                      ${index % 2 === 0 ? 'ml-0' : 'mr-0'}`}
+                    className={`
+                      transform transition-all duration-300 cursor-pointer
+                      hover:scale-105 hover:shadow-xl border-2
+                      ${hoveredStep === course.step ? 'border-purple-600 shadow-lg' : 'border-transparent shadow'}
+                      ${course.isSpecial ? 'bg-gradient-to-br from-orange-50 to-rose-50' : 'bg-white/90'}
+                      backdrop-blur-sm p-6 relative z-10
+                    `}
+                    onMouseEnter={() => setHoveredStep(course.step)}
+                    onMouseLeave={() => setHoveredStep(null)}
                   >
-                    <div className="flex items-center space-x-4">
+                    <div className="flex flex-col items-center text-center space-y-4">
                       {/* Step Number */}
-                      <div className={`w-12 h-12 rounded-full bg-gradient-to-r ${course.color} flex items-center justify-center text-white font-bold text-xl shadow-lg`}>
+                      <div className={`
+                        w-12 h-12 rounded-full bg-gradient-to-r ${course.color}
+                        flex items-center justify-center text-white font-bold text-xl
+                        shadow-lg mb-2
+                      `}>
                         {course.step}
                       </div>
                       {/* Icon */}
-                      <div className={`w-12 h-12 rounded-full bg-gradient-to-r ${course.color} flex items-center justify-center shadow-lg`}>
-                        <course.icon className="h-6 w-6 text-white" />
+                      <div className={`
+                        w-16 h-16 rounded-full bg-gradient-to-r ${course.color}
+                        flex items-center justify-center shadow-lg
+                        ${course.isSpecial ? 'animate-pulse' : ''}
+                      `}>
+                        <course.icon className="h-8 w-8 text-white" />
                       </div>
-                      {/* Text Content */}
-                      <div className="flex-1">
-                        <h3 className="text-lg font-semibold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                      <div>
+                        <h3 className={`
+                          text-lg font-semibold bg-gradient-to-r
+                          ${course.isSpecial ? 'from-rose-600 to-orange-600' : 'from-purple-600 to-blue-600'}
+                          bg-clip-text text-transparent
+                        `}>
                           {course.title}
                         </h3>
-                        <p className="text-sm text-gray-600">{course.description}</p>
+                        <p className="text-sm text-gray-600 mt-2">{course.description}</p>
                       </div>
-                      <ChevronRight className="h-6 w-6 text-purple-600" />
                     </div>
                   </Card>
+                  
+                  {/* Connecting Arrow */}
+                  {index < courses.length - 1 && (
+                    <div 
+                      className={`
+                        absolute top-1/2 -right-2 w-8 h-0.5
+                        transition-colors duration-300
+                        ${hoveredStep === course.step || hoveredStep === course.step + 1
+                          ? 'bg-purple-600'
+                          : 'bg-gray-300'}
+                      `}
+                    >
+                      <div 
+                        className={`
+                          absolute right-0 -top-1.5 w-3 h-3 border-t-2 border-r-2
+                          rotate-45 transition-colors duration-300
+                          ${hoveredStep === course.step || hoveredStep === course.step + 1
+                            ? 'border-purple-600'
+                            : 'border-gray-300'}
+                        `}
+                      />
+                    </div>
+                  )}
                 </div>
-                
-                {/* Connecting Line */}
-                {index < courses.length - 1 && (
-                  <div className={`absolute ${index % 2 === 0 ? 'right-1/2' : 'left-1/2'} top-full w-1/2 h-8 border-r-4 border-b-4 border-purple-300/50 rounded-br-3xl`} />
-                )}
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Pipeline Layout - Mobile */}
+        {/* Course Pipeline - Mobile */}
         <div className="lg:hidden space-y-4">
           {courses.map((course, index) => (
             <div key={index} className="relative">
               <Card 
-                className="hover:shadow-xl transition-all transform hover:scale-105 border-2 border-transparent hover:border-purple-600 bg-white/90 backdrop-blur-sm p-4 cursor-pointer"
+                className={`
+                  transform transition-all duration-300
+                  hover:scale-102 hover:shadow-lg border-2
+                  ${course.isSpecial ? 'bg-gradient-to-br from-orange-50 to-rose-50 border-orange-200' : 'bg-white/90 border-transparent'}
+                  backdrop-blur-sm p-4
+                `}
               >
                 <div className="flex items-start space-x-4">
-                  {/* Step Number and Icon */}
                   <div className="flex flex-col items-center space-y-2">
-                    <div className={`w-8 h-8 rounded-full bg-gradient-to-r ${course.color} flex items-center justify-center text-white font-bold text-sm shadow-lg`}>
+                    {/* Step Number */}
+                    <div className={`
+                      w-8 h-8 rounded-full bg-gradient-to-r ${course.color}
+                      flex items-center justify-center text-white font-bold text-sm shadow-lg
+                    `}>
                       {course.step}
                     </div>
-                    <div className={`w-8 h-8 rounded-full bg-gradient-to-r ${course.color} flex items-center justify-center shadow-lg`}>
+                    {/* Icon */}
+                    <div className={`
+                      w-8 h-8 rounded-full bg-gradient-to-r ${course.color}
+                      flex items-center justify-center shadow-lg
+                      ${course.isSpecial ? 'animate-pulse' : ''}
+                    `}>
                       <course.icon className="h-4 w-4 text-white" />
                     </div>
                   </div>
                   {/* Text Content */}
                   <div className="flex-1">
-                    <h3 className="text-base font-semibold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                    <h3 className={`
+                      text-base font-semibold bg-gradient-to-r
+                      ${course.isSpecial ? 'from-rose-600 to-orange-600' : 'from-purple-600 to-blue-600'}
+                      bg-clip-text text-transparent
+                    `}>
                       {course.title}
                     </h3>
-                    <p className="text-xs text-gray-600">{course.description}</p>
+                    <p className="text-xs text-gray-600 mt-1">{course.description}</p>
                   </div>
                   <ChevronRight className="h-5 w-5 text-purple-600 mt-2" />
                 </div>
