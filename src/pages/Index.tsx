@@ -394,7 +394,7 @@ const Index = () => {
       {/* Our Team Section */}
       <section className="py-12 md:py-20 bg-white relative z-10" id="team">
         <div className="container mx-auto px-4">
-          <div className="animate-on-scroll text-center mb-8 lg:mb-12">
+          <div className="text-center mb-8 lg:mb-12">
             <div className="inline-block bg-[#AFA9FF] px-6 py-3 rounded-lg mb-4">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Our Team</h2>
             </div>
@@ -424,7 +424,7 @@ const Index = () => {
                 url: "https://www.linkedin.com/in/anu-gamage-62192b201/"
               }
             ].map((member, index) => (
-              <Card key={index} className={`animate-on-scroll delay-${index * 200} bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/20 to-purple-600/20 hover:shadow-lg transition-all transform hover:scale-105 shadow-md`}>
+              <Card key={index} className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/20 to-purple-600/20 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
                 <CardHeader className="text-center">
                   <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-gradient-to-r from-blue-600 to-purple-600">
                     <img 
@@ -451,7 +451,7 @@ const Index = () => {
       {/* Research Section */}
       <section className="py-12 md:py-20 bg-white relative z-10" id="research">
         <div className="container mx-auto px-4">
-          <div className="animate-on-scroll text-center mb-8 lg:mb-12">
+          <div className="text-center mb-8 lg:mb-12">
             <div className="inline-block bg-[#EEBBFF] px-6 py-3 rounded-lg mb-4">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Research Areas</h2>
             </div>
@@ -461,7 +461,7 @@ const Index = () => {
           </div>
           
           <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-            <Card className={`animate-on-scroll delay-0 bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg`}>
+            <Card className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg">
               <div className="relative overflow-hidden">
                 <img 
                   src="/lovable-uploads/7f777ef7-1b68-4be2-8518-94fbe3d1c86e.png" 
@@ -480,7 +480,7 @@ const Index = () => {
               </CardHeader>
             </Card>
 
-            <Card className={`animate-on-scroll delay-100 bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg`}>
+            <Card className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg">
               <div className="relative overflow-hidden">
                 <img 
                   src="/lovable-uploads/9b130339-4a9e-4910-8516-0d16b6a30c73.png" 
@@ -499,7 +499,7 @@ const Index = () => {
               </CardHeader>
             </Card>
 
-            <Card className={`animate-on-scroll delay-200 bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg`}>
+            <Card className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg">
               <div className="relative overflow-hidden">
                 <img 
                   src="/lovable-uploads/b285632b-3423-4b61-b1e2-20607153ff98.png" 
@@ -524,7 +524,7 @@ const Index = () => {
       {/* Our Courses Section */}
       <section className="py-12 md:py-20 bg-white relative z-10" id="courses">
         <div className="container mx-auto px-4">
-          <div className="animate-on-scroll text-center mb-8 lg:mb-12">
+          <div className="text-center mb-8 lg:mb-12">
             <div className="inline-block bg-[#BBF7FF] px-6 py-3 rounded-lg mb-4">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Our Courses</h2>
             </div>
@@ -568,7 +568,7 @@ const Index = () => {
             ].map((course, index) => (
               <Card 
                 key={index} 
-                className={`animate-on-scroll delay-${index * 200} bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md cursor-pointer`}
+                className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md cursor-pointer"
                 onClick={handleLearnMore}
               >
                 <div className="relative overflow-hidden">
@@ -595,7 +595,7 @@ const Index = () => {
       {/* Our Services Section */}
       <section className="py-12 md:py-20 bg-white relative z-10" id="services">
         <div className="container mx-auto px-4">
-          <div className="animate-on-scroll text-center mb-8 lg:mb-12">
+          <div className="text-center mb-8 lg:mb-12">
             <div className="inline-block bg-[#FFCB9C] px-6 py-3 rounded-lg mb-4">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Our Services</h2>
             </div>
@@ -639,7 +639,7 @@ const Index = () => {
             ].map((service, index) => (
               <Card 
                 key={index} 
-                className={`animate-on-scroll delay-${index * 200} bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md cursor-pointer`}
+                className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md cursor-pointer"
                 onClick={handleLearnMore}
               >
                 <CardHeader>
@@ -660,7 +660,7 @@ const Index = () => {
       {/* Our Partnerships Section */}
       <section className="py-12 md:py-20 bg-white relative z-10" id="partnerships">
         <div className="container mx-auto px-4">
-          <div className="animate-on-scroll text-center mb-8 lg:mb-12">
+          <div className="text-center mb-8 lg:mb-12">
             <div className="inline-block bg-[#FFBBE5] px-6 py-3 rounded-lg mb-4">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Our Partnerships</h2>
             </div>
@@ -708,7 +708,7 @@ const Index = () => {
                 image: "/lovable-uploads/e278cf89-1409-4a6a-9fc0-72a0d940ceba.png"
               }
             ].map((partnership, index) => (
-              <Card key={index} className={`animate-on-scroll delay-${index * 200} bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md`}>
+              <Card key={index} className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
                 <div className="relative overflow-hidden">
                   <img 
                     src={partnership.image} 
@@ -736,7 +736,7 @@ const Index = () => {
       {/* Latest News & Updates Section */}
       <section className="py-12 md:py-20 bg-white relative z-10" id="news">
         <div className="container mx-auto px-4">
-          <div className="animate-on-scroll text-center mb-8 lg:mb-12">
+          <div className="text-center mb-8 lg:mb-12">
             <div className="inline-block bg-[#C8FFA4] px-6 py-3 rounded-lg mb-4">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Latest News & Updates</h2>
             </div>
@@ -761,7 +761,7 @@ const Index = () => {
                 image: "/lovable-uploads/84227a92-d6f9-4c5c-9a93-d1233db16dfc.png"
               }
             ].map((article, index) => (
-              <Card key={index} className={`animate-on-scroll delay-${index * 200} bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md`}>
+              <Card key={index} className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
                 <div className="relative overflow-hidden">
                   <img 
                     src={article.image} 
@@ -789,7 +789,7 @@ const Index = () => {
       {/* Success Stories Section */}
       <section className="py-12 md:py-20 bg-white relative z-10" id="success-stories">
         <div className="container mx-auto px-4">
-          <div className="animate-on-scroll text-center mb-8 lg:mb-12">
+          <div className="text-center mb-8 lg:mb-12">
             <div className="inline-block bg-[#FFD97B] px-6 py-3 rounded-lg mb-4">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Success Stories</h2>
             </div>
@@ -819,7 +819,7 @@ const Index = () => {
                 image: "/lovable-uploads/bd937a38-24e6-4ada-8518-99144be047af.png"
               }
             ].map((story, index) => (
-              <Card key={index} className={`animate-on-scroll delay-${index * 200} bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md`}>
+              <Card key={index} className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
                 <CardHeader className="text-center">
                   <div className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden border-4 border-gradient-to-r from-blue-600 to-purple-600">
                     <img 
