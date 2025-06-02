@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { BookOpen, Briefcase, LogOut, User } from "lucide-react";
 import { User as SupabaseUser } from '@supabase/supabase-js';
-import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useAuth } from "@/hooks/useAuth";
 
 interface UserDashboardProps {
   user: SupabaseUser;
@@ -14,17 +14,17 @@ interface UserDashboardProps {
 
 export const UserDashboard = ({ user }: UserDashboardProps) => {
   const navigate = useNavigate();
+  const { signOut } = useAuth();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [isNavigating, setIsNavigating] = useState(false);
 
   const handleLogout = async () => {
     try {
       setIsLoggingOut(true);
-      await supabase.auth.signOut();
-      // The redirect will happen automatically through auth state change
+      await signOut();
+      // The auth state change will automatically redirect to login
     } catch (error) {
       console.error('Error logging out:', error);
-    } finally {
       setIsLoggingOut(false);
     }
   };

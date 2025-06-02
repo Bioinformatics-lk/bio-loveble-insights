@@ -1,42 +1,52 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { User } from '@supabase/supabase-js';
-import { supabase } from '@/integrations/supabase/client';
-import Index from '@/pages/Index';
-import { UserDashboard } from '@/components/dashboard/UserDashboard';
-import { CoursesPage } from '@/components/courses/CoursesPage';
+import { Toaster } from "@/components/ui/toaster";
+import { LoginPage } from "@/components/auth/LoginPage";
+import { UserDashboard } from "@/components/dashboard/UserDashboard";
+import { CoursesPage } from "@/components/courses/CoursesPage";
+import { useAuth } from '@/hooks/useAuth';
+
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
+
+  return <>{children}</>;
+};
 
 function App() {
-  const [user, setUser] = useState<User | null>(null);
-
-  useEffect(() => {
-    // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-    });
-
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setUser(session?.user ?? null);
-      }
-    );
-
-    return () => subscription.unsubscribe();
-  }, []);
+  const { user } = useAuth();
 
   return (
     <Router>
       <Routes>
         <Route 
-          path="/" 
-          element={user ? <UserDashboard user={user} /> : <Index />} 
+          path="/login" 
+          element={user ? <Navigate to="/" /> : <LoginPage />} 
         />
-        <Route 
-          path="/courses" 
-          element={user ? <CoursesPage /> : <Navigate to="/" />} 
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <UserDashboard user={user!} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/courses"
+          element={
+            <ProtectedRoute>
+              <CoursesPage />
+            </ProtectedRoute>
+          }
         />
       </Routes>
+      <Toaster />
     </Router>
   );
 }
