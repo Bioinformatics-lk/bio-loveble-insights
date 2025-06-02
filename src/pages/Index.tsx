@@ -114,50 +114,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 relative">
-      {/* Background Design Elements */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <img 
-          src="/lovable-uploads/e25ed7e5-cc9e-43d9-ade7-050b1de6cd89.png" 
-          alt=""
-          className="absolute top-[200px] left-[5%] w-32 h-32 opacity-50 rotate-12"
-        />
-        <img 
-          src="/lovable-uploads/090ca63b-e20f-49b9-92ec-c62c30fc0854.png" 
-          alt=""
-          className="absolute top-[400px] right-[5%] w-40 h-40 opacity-60 -rotate-12"
-        />
-        <img 
-          src="/lovable-uploads/bdc6c566-3485-4804-b36e-f8bc050977ac.png" 
-          alt=""
-          className="absolute top-[800px] left-[10%] w-36 h-36 opacity-50 rotate-45"
-        />
-        <img 
-          src="/lovable-uploads/8b62e48b-7183-478c-9e5a-6c7a4ede3d57.png" 
-          alt=""
-          className="absolute top-[1200px] right-[8%] w-38 h-38 opacity-60 -rotate-30"
-        />
-        <img 
-          src="/lovable-uploads/1caec919-8f0b-4d2b-b62e-0c2a086ec756.png" 
-          alt=""
-          className="absolute top-[1600px] left-[15%] w-34 h-34 opacity-50 rotate-60"
-        />
-        <img 
-          src="/lovable-uploads/f4204e37-de38-48dd-864e-2dfa047f879d.png" 
-          alt=""
-          className="absolute top-[2000px] right-[12%] w-42 h-42 opacity-60 rotate-15"
-        />
-        <img 
-          src="/lovable-uploads/bdc6c566-3485-4804-b36e-f8bc050977ac.png" 
-          alt=""
-          className="absolute top-[2400px] left-[8%] w-30 h-30 opacity-50 -rotate-45"
-        />
-        <img 
-          src="/lovable-uploads/8b62e48b-7183-478c-9e5a-6c7a4ede3d57.png" 
-          alt=""
-          className="absolute top-[2800px] right-[15%] w-36 h-36 opacity-60 rotate-30"
-        />
-      </div>
-
       {/* Navigation Header */}
       <header className={`sticky top-0 z-50 backdrop-blur-md border-b transition-all duration-300 ${
         isScrolled 
@@ -167,12 +123,12 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             {/* Logo and Brand Name - Left Side */}
-            <div className="flex items-center space-x-3">
-              <div className="w-16 h-16 flex items-center justify-center">
+            <div className="flex items-center">
+              <div className="w-8 h-8 flex items-center justify-center">
                 <img 
                   src="/lovable-uploads/76f3562a-0d90-4bbc-a1b8-640acc56da80.png" 
                   alt="Bioinformatics.lk" 
-                  className="w-16 h-16 object-contain"
+                  className="w-8 h-8 object-contain"
                 />
               </div>
               <span className={`text-xl font-bold transition-colors duration-300 ${
@@ -741,12 +697,12 @@ const Index = () => {
               {
                 title: "Our Student's Achievement in the Graphical Abstract Competition 2024",
                 description: "This course in Bioinformatics was helpful for our student in becoming the second runner-up in the graphical abstract competition at the Faculty of Agriculture Undergraduate Research Symposium 2024.",
-                image: "/lovable-uploads/e25ed7e5-cc9e-43d9-ade7-050b1de6cd89.png"
+                image: "/lovable-uploads/99cc8013-24dd-4850-bb4a-f02ad8490859.png"
               },
               {
                 title: "Outstanding Poster Presentation Award at ICIET 2024", 
                 description: "We are excited to share that our student secured first place for Outstanding Poster Presentation at the International Conference on Innovation and Emerging Technologies (ICIET) held at the Faculty of Technology, University of Sri Jayawardenapura, on the 21st and 22nd of November 2024.",
-                image: "/lovable-uploads/090ca63b-e20f-49b9-92ec-c62c30fc0854.png"
+                image: "/lovable-uploads/dce54d2b-edfc-4cf2-ae59-e84b70adfc14.png"
               },
               {
                 title: "Research Collaboration Announced",
@@ -797,13 +753,13 @@ const Index = () => {
                 name: "Saumya Poorni",
                 role: "PhD Student",
                 testimonial: "The bioinformatics course transformed my research approach. The practical skills I gained have been invaluable in my PhD work.",
-                image: "/lovable-uploads/e278cf89-1409-4a6a-9fc0-72a0d940ceba.png"
+                image: "/lovable-uploads/924395d5-73de-4650-a544-ccbca60f7f83.png"
               },
               {
                 name: "Kasuni Karunarathne",
                 role: "Demonstrator at UoP",
                 testimonial: "This course in Bioinformatics was helpful in becoming the second runner-up in the graphical abstract competition at the Faculty of Agriculture Undergraduate Research Symposium 2024.",
-                image: "/lovable-uploads/e25ed7e5-cc9e-43d9-ade7-050b1de6cd89.png"
+                image: "/lovable-uploads/a0f3e7f1-e806-4af0-b92f-907aafcdecb7.png"
               },
               {
                 name: "Dharani Ariyasinghe",
@@ -838,15 +794,15 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-6 lg:gap-8">
             <div className="space-y-4">
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 flex items-center justify-center">
+              <div className="flex items-center">
+                <div className="w-4 h-4 flex items-center justify-center">
                   <img 
                     src="/lovable-uploads/ab0b32e6-1d9c-493d-a917-e4007b0b8309.png" 
                     alt="Bioinformatics.lk" 
-                    className="w-8 h-8 object-contain"
+                    className="w-4 h-4 object-contain"
                   />
                 </div>
-                <span className="text-xl font-bold">Bioinformatics.lk</span>
+                <span className="text-xl font-bold">ioinformatics.lk</span>
               </div>
               <p className="text-purple-200 leading-relaxed text-sm md:text-base">
                 Advancing bioinformatics education and research in Sri Lanka through innovative programs and cutting-edge technology.
