@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -124,11 +123,11 @@ const Index = () => {
           <div className="flex items-center justify-between h-16">
             {/* Logo and Brand Name - Left Side */}
             <div className="flex items-center">
-              <div className="w-8 h-8 flex items-center justify-center">
+              <div className="w-4 h-4 flex items-center justify-center">
                 <img 
                   src="/lovable-uploads/76f3562a-0d90-4bbc-a1b8-640acc56da80.png" 
                   alt="Bioinformatics.lk" 
-                  className="w-8 h-8 object-contain"
+                  className="w-4 h-4 object-contain"
                 />
               </div>
               <span className={`text-xl font-bold transition-colors duration-300 ${
@@ -232,6 +231,7 @@ const Index = () => {
 
             {/* Right Side - Search and Login */}
             <div className="flex items-center gap-4">
+              {/* Desktop Search Bar - Only show when searchOpen is true */}
               {searchOpen && (
                 <div className="hidden md:block">
                   <SearchBar />
@@ -263,8 +263,8 @@ const Index = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-purple-900/50 via-blue-900/50 to-indigo-900/50 backdrop-blur-sm z-10">
-        <div className="absolute inset-0 bg-white/5"></div>
+      <section className="relative overflow-hidden z-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900"></div>
         
         <div className="relative container mx-auto px-4 py-16 lg:py-24">
           {/* Mobile Search Bar */}
@@ -753,13 +753,13 @@ const Index = () => {
                 name: "Saumya Poorni",
                 role: "PhD Student",
                 testimonial: "The bioinformatics course transformed my research approach. The practical skills I gained have been invaluable in my PhD work.",
-                image: "/lovable-uploads/924395d5-73de-4650-a544-ccbca60f7f83.png"
+                image: "/lovable-uploads/78dd8c5b-2728-4fb3-b89b-94b50424e57f.png"
               },
               {
                 name: "Kasuni Karunarathne",
                 role: "Demonstrator at UoP",
                 testimonial: "This course in Bioinformatics was helpful in becoming the second runner-up in the graphical abstract competition at the Faculty of Agriculture Undergraduate Research Symposium 2024.",
-                image: "/lovable-uploads/a0f3e7f1-e806-4af0-b92f-907aafcdecb7.png"
+                image: "/lovable-uploads/c68aaa61-6fe8-4e0f-90ef-ec26edcaf4c6.png"
               },
               {
                 name: "Dharani Ariyasinghe",
@@ -795,14 +795,7 @@ const Index = () => {
           <div className="grid md:grid-cols-4 gap-6 lg:gap-8">
             <div className="space-y-4">
               <div className="flex items-center">
-                <div className="w-4 h-4 flex items-center justify-center">
-                  <img 
-                    src="/lovable-uploads/ab0b32e6-1d9c-493d-a917-e4007b0b8309.png" 
-                    alt="Bioinformatics.lk" 
-                    className="w-4 h-4 object-contain"
-                  />
-                </div>
-                <span className="text-xl font-bold">ioinformatics.lk</span>
+                <span className="text-xl font-bold">Bioinformatics.lk</span>
               </div>
               <p className="text-purple-200 leading-relaxed text-sm md:text-base">
                 Advancing bioinformatics education and research in Sri Lanka through innovative programs and cutting-edge technology.
