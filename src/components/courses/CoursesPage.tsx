@@ -139,13 +139,19 @@ export const CoursesPage = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className={`flex items-start mb-16 ${
-                  index % 2 === 0 ? 'justify-end pr-8' : 'flex-row-reverse pl-8'
+                  course.title === "Network Pharmacology" ||
+                  course.title === "AI and ML in Drug Discovery"
+                    ? 'flex-row pl-8'
+                    : index % 2 === 0 ? 'justify-end pr-8' : 'flex-row-reverse pl-8'
                 } relative`}
               >
                 {/* Connecting Line */}
                 <div 
                   className={`absolute top-1/2 ${
-                    index % 2 === 0 ? 'right-0 left-auto' : 'left-0 right-auto'
+                    course.title === "Network Pharmacology" ||
+                    course.title === "AI and ML in Drug Discovery"
+                      ? 'left-0 right-auto'
+                      : index % 2 === 0 ? 'right-0 left-auto' : 'left-0 right-auto'
                   } w-8 h-0.5 bg-white/20`}
                 />
                 
@@ -170,7 +176,7 @@ export const CoursesPage = () => {
                     className={`
                       transform transition-all duration-300 cursor-pointer
                       border-2 ${hoveredStep === course.step ? 'border-white/40' : 'border-white/10'}
-                      ${course.isSpecial ? 'bg-gradient-to-br from-rose-500/10 to-orange-500/10' : 'bg-white/10'}
+                      ${course.isSpecial ? 'bg-gradient-to-br from-rose-500/20 to-orange-500/20' : 'bg-white/10'}
                       backdrop-blur-sm relative z-10
                     `}
                     onMouseEnter={() => setHoveredStep(course.step)}
@@ -195,10 +201,16 @@ export const CoursesPage = () => {
                           <course.icon className="h-8 w-8 text-white" />
                         </div>
                         <div>
-                          <h3 className="text-lg font-semibold text-white">
+                          <h3 className={`
+                            text-lg font-semibold text-white
+                            ${course.isSpecial ? 'text-white' : ''}
+                          `}>
                             {course.title}
                           </h3>
-                          <p className="text-sm text-white/70 mt-2">
+                          <p className={`
+                            text-sm mt-2
+                            ${course.isSpecial ? 'text-white/90' : 'text-white/70'}
+                          `}>
                             {course.description}
                           </p>
                         </div>
