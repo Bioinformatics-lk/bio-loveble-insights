@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { AuthModal } from '@/components/auth/AuthModal';
 import { ContactModal } from '@/components/contact/ContactModal';
 import UserDashboard from '@/components/dashboard/UserDashboard';
+import { useMediaQuery } from 'react-responsive';
 
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,6 +13,8 @@ const Index = () => {
   const [user, setUser] = useState<any>(null);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
+  const isMobile = useMediaQuery({ maxWidth: 768 });
 
   useEffect(() => {
     // Check if user is logged in
@@ -90,27 +93,28 @@ const Index = () => {
             {/* Right Side Actions */}
             <div className="flex items-center space-x-4">
               {/* Search */}
-              <div className="relative">
-                {!isSearchOpen ? (
-                  <button 
-                    onClick={toggleSearch}
-                    className="p-2 hover:bg-white/10 rounded-full transition-colors"
-                  >
-                    <Search className="w-5 h-5" />
-                  </button>
-                ) : (
-                  <div className="flex items-center space-x-2">
-                    <input
-                      type="text"
-                      placeholder="Search..."
-                      className="px-3 py-1 bg-white/20 border border-white/30 rounded-full text-white placeholder-white/70 focus:outline-none focus:bg-white/30"
-                    />
-                    <button 
-                      onClick={toggleSearch}
-                      className="p-2 hover:bg-white/10 rounded-full transition-colors"
-                    >
-                      <X className="w-5 h-5" />
-                    </button>
+              <div className="search-icon-container">
+                <button 
+                  onClick={() => setIsSearchVisible(!isSearchVisible)}
+                  className="search-icon-button"
+                >
+                  <Search className="w-5 h-5" />
+                </button>
+                {(isMobile || isSearchVisible) && (
+                  <div className="search-overlay">
+                    <div className="flex items-center space-x-2">
+                      <input
+                        type="text"
+                        placeholder="Search..."
+                        className="px-3 py-1 bg-white/20 border border-white/30 rounded-full text-white placeholder-white/70 focus:outline-none focus:bg-white/30"
+                      />
+                      <button 
+                        onClick={toggleSearch}
+                        className="p-2 hover:bg-white/10 rounded-full transition-colors"
+                      >
+                        <X className="w-5 h-5" />
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>
