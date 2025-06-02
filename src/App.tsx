@@ -1,25 +1,57 @@
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { UserDashboard } from '@/components/dashboard/UserDashboard';
+import { User } from '@supabase/supabase-js';
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
+function App() {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
-const queryClient = new QueryClient();
+  useEffect(() => {
+    // Check active sessions and sets the user
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <Toaster />
-    <Sonner />
-    <BrowserRouter>
+    // Listen for changes on auth state (sign in, sign out, etc.)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
+  return (
+    <Router>
       <Routes>
-        <Route path="/" element={<Index />} />
-        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-        <Route path="*" element={<NotFound />} />
+        <Route
+          path="/"
+          element={
+            user ? (
+              <UserDashboard user={user} />
+            ) : (
+              <Navigate to="/auth/signin" replace />
+            )
+          }
+        />
+        <Route
+          path="/auth/*"
+          element={user ? <Navigate to="/" replace /> : null}
+        />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-    </BrowserRouter>
-  </QueryClientProvider>
-);
+    </Router>
+  );
+}
 
 export default App;
