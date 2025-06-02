@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Search, BookOpen, Briefcase, LogOut } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { initializePayment, generateHash } from '@/lib/payhere';
-import { useRouter } from 'next/router';
+import { useNavigate } from 'react-router-dom';
 
 interface UserDashboardProps {
   user: User;
@@ -32,7 +32,7 @@ interface Course {
 }
 
 export const UserDashboard = ({ user }: UserDashboardProps) => {
-  const router = useRouter();
+  const navigate = useNavigate();
   const [profile, setProfile] = useState<UserProfile>({
     username: '',
     organization: '',
@@ -88,7 +88,7 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
     if (!error) {
-      router.push('/auth/signin');
+      navigate('/auth/signin');
     }
   };
 
@@ -142,7 +142,7 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
 
     // Initialize PayHere payment
     const paymentParams = {
-      merchant_id: process.env.NEXT_PUBLIC_PAYHERE_MERCHANT_ID || '',
+      merchant_id: import.meta.env.VITE_PAYHERE_MERCHANT_ID || '',
       return_url: `${window.location.origin}/payment/success`,
       cancel_url: `${window.location.origin}/payment/cancel`,
       notify_url: `${window.location.origin}/api/payment/notify`,
@@ -158,11 +158,11 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
       currency: 'LKR',
       amount: course.price,
       hash: generateHash({
-        merchant_id: process.env.NEXT_PUBLIC_PAYHERE_MERCHANT_ID || '',
+        merchant_id: import.meta.env.VITE_PAYHERE_MERCHANT_ID || '',
         order_id: `${user.id}_${courseId}_${Date.now()}`,
         amount: course.price,
         currency: 'LKR'
-      }, process.env.PAYHERE_MERCHANT_SECRET || '')
+      }, import.meta.env.VITE_PAYHERE_MERCHANT_SECRET || '')
     };
 
     // Create pending enrollment
