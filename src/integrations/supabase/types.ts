@@ -36,6 +36,74 @@ export type Database = {
         }
         Relationships: []
       }
+      course_enrollments: {
+        Row: {
+          completed: boolean | null
+          course_id: string
+          enrollment_date: string
+          id: string
+          payment_status: string | null
+          user_id: string
+        }
+        Insert: {
+          completed?: boolean | null
+          course_id: string
+          enrollment_date?: string
+          id?: string
+          payment_status?: string | null
+          user_id: string
+        }
+        Update: {
+          completed?: boolean | null
+          course_id?: string
+          enrollment_date?: string
+          id?: string
+          payment_status?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "course_enrollments_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      courses: {
+        Row: {
+          created_at: string
+          description: string
+          duration: string
+          full_description: string
+          id: string
+          image_url: string | null
+          price: number
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          duration: string
+          full_description: string
+          id?: string
+          image_url?: string | null
+          price: number
+          title: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          duration?: string
+          full_description?: string
+          id?: string
+          image_url?: string | null
+          price?: number
+          title?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
