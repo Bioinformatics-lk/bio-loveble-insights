@@ -130,7 +130,7 @@ const Index = () => {
                   className="w-8 h-8 object-contain"
                 />
               </div>
-              <span className={`text-xl font-bold transition-colors duration-300 -ml-1 ${
+              <span className={`text-xl font-bold transition-colors duration-300 ml-2 ${
                 isScrolled ? 'text-gray-800' : 'text-white'
               }`}>
                 ioinformatics.lk
@@ -231,25 +231,41 @@ const Index = () => {
 
             {/* Right Side - Search and Login */}
             <div className="flex items-center gap-4">
-              {/* Desktop Search Bar - Only show when searchOpen is true */}
-              {searchOpen && (
-                <div className="hidden md:block">
+              {/* Desktop Search Bar */}
+              <div className="hidden md:flex items-center gap-4">
+                {searchOpen ? (
                   <SearchBar />
-                </div>
-              )}
+                ) : (
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setSearchOpen(true)}
+                    className={`transition-all w-12 h-12 ${
+                      isScrolled 
+                        ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                        : 'text-white hover:text-white hover:bg-white/10'
+                    }`}
+                  >
+                    <Search className="h-8 w-8" />
+                  </Button>
+                )}
+              </div>
               
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setSearchOpen(!searchOpen)}
-                className={`transition-all w-12 h-12 ${
-                  isScrolled 
-                    ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
-                    : 'text-white hover:text-white hover:bg-white/10'
-                }`}
-              >
-                <Search className="h-8 w-8" />
-              </Button>
+              {/* Mobile Search Icon */}
+              <div className="md:hidden">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setSearchOpen(!searchOpen)}
+                  className={`transition-all w-12 h-12 ${
+                    isScrolled 
+                      ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                      : 'text-white hover:text-white hover:bg-white/10'
+                  }`}
+                >
+                  <Search className="h-8 w-8" />
+                </Button>
+              </div>
               
               <Button
                 onClick={() => setAuthModalOpen(true)}
