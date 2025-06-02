@@ -24,6 +24,30 @@ const Index = () => {
     partnerships: 0
   });
 
+  // Add animation observer
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersection, observerOptions);
+    const animatedElements = document.querySelectorAll('.animate-on-scroll');
+    
+    animatedElements.forEach(el => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   useEffect(() => {
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -113,6 +137,23 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 relative">
+      <style jsx>{`
+        .animate-on-scroll {
+          opacity: 0;
+          transform: translateY(20px);
+          transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .animate-in {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        
+        .delay-200 { transition-delay: 200ms; }
+        .delay-400 { transition-delay: 400ms; }
+        .delay-600 { transition-delay: 600ms; }
+      `}</style>
+
       {/* Navigation Header */}
       <header className={`sticky top-0 z-50 backdrop-blur-md border-b transition-all duration-300 ${
         isScrolled 
@@ -294,13 +335,13 @@ const Index = () => {
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-12">
             {/* Left Side - Text Content */}
             <div className="text-white space-y-4 lg:space-y-6">
-              <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold leading-tight text-left">
+              <h1 className="animate-on-scroll text-3xl md:text-4xl lg:text-6xl font-bold leading-tight text-left">
                 Accelerating <span className="text-purple-300">Bioinformatics</span> Innovation
               </h1>
-              <p className="text-lg md:text-xl lg:text-2xl text-purple-100 leading-relaxed text-left">
+              <p className="animate-on-scroll delay-200 text-lg md:text-xl lg:text-2xl text-purple-100 leading-relaxed text-left">
                 Empowering researchers and students in genomics, proteomics, and computational biology through world-class education and cutting-edge research.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-start">
+              <div className="animate-on-scroll delay-400 flex flex-col sm:flex-row gap-4 justify-start">
                 <Button 
                   size="lg" 
                   className="bg-purple-600 hover:bg-purple-700 text-white px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg transition-all transform hover:scale-105"
@@ -320,7 +361,7 @@ const Index = () => {
             </div>
 
             {/* Right Side - Video */}
-            <div className="relative hidden lg:block">
+            <div className="animate-on-scroll delay-600 relative hidden lg:block">
               <div className="relative w-full h-64 md:h-80 lg:h-96 bg-gradient-to-br from-purple-600/20 to-blue-600/20 backdrop-blur-sm rounded-2xl border-2 border-purple-300/50 overflow-hidden shadow-2xl">
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-600/10 to-blue-600/10"></div>
                 <iframe 
@@ -336,22 +377,16 @@ const Index = () => {
 
           {/* Counters Section */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-white mb-2">{counters.courses.toString().padStart(2, '0')}</div>
-              <div className="text-purple-200 text-sm md:text-base">Number of Courses</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-white mb-2">{counters.students.toString().padStart(2, '0')}</div>
-              <div className="text-purple-200 text-sm md:text-base">Students Enrolled</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-white mb-2">{counters.projects.toString().padStart(2, '0')}</div>
-              <div className="text-purple-200 text-sm md:text-base">Research Projects</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-white mb-2">{counters.partnerships.toString().padStart(2, '0')}</div>
-              <div className="text-purple-200 text-sm md:text-base">Partnerships</div>
-            </div>
+            {Object.entries(counters).map(([key, value], index) => (
+              <div key={key} className={`animate-on-scroll delay-${index * 200} text-center`}>
+                <div className="text-3xl md:text-4xl font-bold text-white mb-2">
+                  {value.toString().padStart(2, '0')}
+                </div>
+                <div className="text-purple-200 text-sm md:text-base">
+                  {key.charAt(0).toUpperCase() + key.slice(1)}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -359,7 +394,7 @@ const Index = () => {
       {/* Our Team Section */}
       <section className="py-12 md:py-20 bg-white relative z-10" id="team">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-8 lg:mb-12">
+          <div className="animate-on-scroll text-center mb-8 lg:mb-12">
             <div className="inline-block bg-[#AFA9FF] px-6 py-3 rounded-lg mb-4">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Our Team</h2>
             </div>
@@ -389,7 +424,7 @@ const Index = () => {
                 url: "https://www.linkedin.com/in/anu-gamage-62192b201/"
               }
             ].map((member, index) => (
-              <Card key={index} className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/20 to-purple-600/20 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
+              <Card key={index} className={`animate-on-scroll delay-${index * 200} bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/20 to-purple-600/20 hover:shadow-lg transition-all transform hover:scale-105 shadow-md`}>
                 <CardHeader className="text-center">
                   <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-gradient-to-r from-blue-600 to-purple-600">
                     <img 
@@ -416,7 +451,7 @@ const Index = () => {
       {/* Research Section */}
       <section className="py-12 md:py-20 bg-white relative z-10" id="research">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-8 lg:mb-12">
+          <div className="animate-on-scroll text-center mb-8 lg:mb-12">
             <div className="inline-block bg-[#EEBBFF] px-6 py-3 rounded-lg mb-4">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Research Areas</h2>
             </div>
@@ -426,7 +461,7 @@ const Index = () => {
           </div>
           
           <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-            <Card className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg">
+            <Card className={`animate-on-scroll delay-0 bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg`}>
               <div className="relative overflow-hidden">
                 <img 
                   src="/lovable-uploads/7f777ef7-1b68-4be2-8518-94fbe3d1c86e.png" 
@@ -445,7 +480,7 @@ const Index = () => {
               </CardHeader>
             </Card>
 
-            <Card className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg">
+            <Card className={`animate-on-scroll delay-100 bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg`}>
               <div className="relative overflow-hidden">
                 <img 
                   src="/lovable-uploads/9b130339-4a9e-4910-8516-0d16b6a30c73.png" 
@@ -464,7 +499,7 @@ const Index = () => {
               </CardHeader>
             </Card>
 
-            <Card className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg">
+            <Card className={`animate-on-scroll delay-200 bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg`}>
               <div className="relative overflow-hidden">
                 <img 
                   src="/lovable-uploads/b285632b-3423-4b61-b1e2-20607153ff98.png" 
@@ -489,7 +524,7 @@ const Index = () => {
       {/* Our Courses Section */}
       <section className="py-12 md:py-20 bg-white relative z-10" id="courses">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-8 lg:mb-12">
+          <div className="animate-on-scroll text-center mb-8 lg:mb-12">
             <div className="inline-block bg-[#BBF7FF] px-6 py-3 rounded-lg mb-4">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Our Courses</h2>
             </div>
@@ -533,7 +568,7 @@ const Index = () => {
             ].map((course, index) => (
               <Card 
                 key={index} 
-                className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md cursor-pointer"
+                className={`animate-on-scroll delay-${index * 200} bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md cursor-pointer`}
                 onClick={handleLearnMore}
               >
                 <div className="relative overflow-hidden">
@@ -560,7 +595,7 @@ const Index = () => {
       {/* Our Services Section */}
       <section className="py-12 md:py-20 bg-white relative z-10" id="services">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-8 lg:mb-12">
+          <div className="animate-on-scroll text-center mb-8 lg:mb-12">
             <div className="inline-block bg-[#FFCB9C] px-6 py-3 rounded-lg mb-4">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Our Services</h2>
             </div>
@@ -604,7 +639,7 @@ const Index = () => {
             ].map((service, index) => (
               <Card 
                 key={index} 
-                className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md cursor-pointer"
+                className={`animate-on-scroll delay-${index * 200} bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md cursor-pointer`}
                 onClick={handleLearnMore}
               >
                 <CardHeader>
@@ -625,7 +660,7 @@ const Index = () => {
       {/* Our Partnerships Section */}
       <section className="py-12 md:py-20 bg-white relative z-10" id="partnerships">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-8 lg:mb-12">
+          <div className="animate-on-scroll text-center mb-8 lg:mb-12">
             <div className="inline-block bg-[#FFBBE5] px-6 py-3 rounded-lg mb-4">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Our Partnerships</h2>
             </div>
@@ -673,7 +708,7 @@ const Index = () => {
                 image: "/lovable-uploads/e278cf89-1409-4a6a-9fc0-72a0d940ceba.png"
               }
             ].map((partnership, index) => (
-              <Card key={index} className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
+              <Card key={index} className={`animate-on-scroll delay-${index * 200} bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md`}>
                 <div className="relative overflow-hidden">
                   <img 
                     src={partnership.image} 
@@ -701,7 +736,7 @@ const Index = () => {
       {/* Latest News & Updates Section */}
       <section className="py-12 md:py-20 bg-white relative z-10" id="news">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-8 lg:mb-12">
+          <div className="animate-on-scroll text-center mb-8 lg:mb-12">
             <div className="inline-block bg-[#C8FFA4] px-6 py-3 rounded-lg mb-4">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Latest News & Updates</h2>
             </div>
@@ -726,7 +761,7 @@ const Index = () => {
                 image: "/lovable-uploads/84227a92-d6f9-4c5c-9a93-d1233db16dfc.png"
               }
             ].map((article, index) => (
-              <Card key={index} className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
+              <Card key={index} className={`animate-on-scroll delay-${index * 200} bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md`}>
                 <div className="relative overflow-hidden">
                   <img 
                     src={article.image} 
@@ -754,7 +789,7 @@ const Index = () => {
       {/* Success Stories Section */}
       <section className="py-12 md:py-20 bg-white relative z-10" id="success-stories">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-8 lg:mb-12">
+          <div className="animate-on-scroll text-center mb-8 lg:mb-12">
             <div className="inline-block bg-[#FFD97B] px-6 py-3 rounded-lg mb-4">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Success Stories</h2>
             </div>
@@ -784,7 +819,7 @@ const Index = () => {
                 image: "/lovable-uploads/bd937a38-24e6-4ada-8518-99144be047af.png"
               }
             ].map((story, index) => (
-              <Card key={index} className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
+              <Card key={index} className={`animate-on-scroll delay-${index * 200} bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md`}>
                 <CardHeader className="text-center">
                   <div className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden border-4 border-gradient-to-r from-blue-600 to-purple-600">
                     <img 
