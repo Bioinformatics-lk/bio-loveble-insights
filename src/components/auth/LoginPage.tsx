@@ -9,7 +9,7 @@ export const LoginPage = () => {
   const { toast } = useToast();
 
   const handleGoogleLogin = useCallback(async () => {
-    if (isLoading) return; // Prevent multiple clicks
+    if (isLoading) return;
 
     try {
       setIsLoading(true);
@@ -19,7 +19,7 @@ export const LoginPage = () => {
         duration: 2000,
       });
 
-      const { error } = await supabase.auth.signInWithOAuth({
+      const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
           redirectTo: `${window.location.origin}/`,
@@ -29,15 +29,27 @@ export const LoginPage = () => {
           },
         },
       });
-      
-      if (error) throw error;
+
+      if (error) {
+        console.error('Auth error:', error);
+        toast({
+          title: "Authentication Error",
+          description: error.message,
+          variant: "destructive",
+          duration: 5000,
+        });
+        throw error;
+      }
+
+      if (!data.url) {
+        throw new Error('No redirect URL received');
+      }
+
+      // Redirect to Google OAuth
+      window.location.href = data.url;
+
     } catch (error) {
-      console.error('Error logging in with Google:', error);
-      toast({
-        title: "Error connecting to Google",
-        description: "Please try again.",
-        variant: "destructive",
-      });
+      console.error('Error during Google sign-in:', error);
       setIsLoading(false);
     }
   }, [isLoading, toast]);
@@ -57,7 +69,11 @@ export const LoginPage = () => {
             Sign in to access your courses and resources
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="space-y-4">
+          <div className="text-center text-sm text-gray-400 mb-4">
+            Please note: Google Sign-In is currently being configured. 
+            You may see an error while we complete the setup.
+          </div>
           <Button
             onClick={handleGoogleLogin}
             disabled={isLoading}
@@ -93,6 +109,12 @@ export const LoginPage = () => {
             </svg>
             <span>{isLoading ? 'Connecting...' : 'Continue with Google'}</span>
           </Button>
+          <div className="text-center text-sm text-gray-400 mt-4">
+            If you continue to experience issues, please contact support at{' '}
+            <a href="mailto:support@bioinformatics.lk" className="text-purple-400 hover:text-purple-300">
+              support@bioinformatics.lk
+            </a>
+          </div>
         </CardContent>
       </Card>
     </div>
