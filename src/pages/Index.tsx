@@ -170,8 +170,11 @@ const Index = () => {
                   src="/lovable-uploads/76f3562a-0d90-4bbc-a1b8-640acc56da80.png" 
                   alt="Bioinformatics.lk" 
                   className={`w-8 h-8 object-contain transition-all duration-300 ${
-                    isScrolled ? 'filter brightness-0' : 'filter brightness-100'
+                    isScrolled ? 'filter hue-rotate-180' : 'filter brightness-100'
                   }`}
+                  style={{
+                    filter: isScrolled ? 'invert(23%) sepia(90%) saturate(6453%) hue-rotate(265deg) brightness(89%) contrast(93%)' : 'none'
+                  }}
                 />
               </div>
               <span className={`text-xl font-bold transition-colors duration-300 ml-0.5 ${
@@ -189,7 +192,7 @@ const Index = () => {
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className={`transition-all w-12 h-12 ${
                   isScrolled 
-                    ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                    ? 'text-purple-600 hover:text-purple-700 hover:bg-purple-100' 
                     : 'text-white hover:text-white hover:bg-white/10'
                 }`}
               >
@@ -296,18 +299,6 @@ const Index = () => {
                 {searchOpen ? (
                   <div className="relative">
                     <SearchBar className={`${isScrolled ? 'text-black placeholder-gray-500' : 'text-white placeholder-white/70'}`} />
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => setSearchOpen(false)}
-                      className={`absolute right-2 top-1/2 -translate-y-1/2 transition-all w-8 h-8 ${
-                        isScrolled 
-                          ? 'text-purple-600 hover:text-purple-700 hover:bg-purple-100' 
-                          : 'text-purple-300 hover:text-purple-200 hover:bg-white/10'
-                      }`}
-                    >
-                      <X className="h-5 w-5" />
-                    </Button>
                   </div>
                 ) : (
                   <Button
@@ -356,6 +347,16 @@ const Index = () => {
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-50 bg-gradient-to-br from-purple-900/95 via-blue-900/95 to-indigo-900/95 backdrop-blur-md md:hidden">
           <div className="container mx-auto px-4 py-8">
+            <div className="flex justify-end mb-6">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-white hover:bg-white/10 w-12 h-12"
+              >
+                <X className="h-8 w-8" />
+              </Button>
+            </div>
             <nav className="flex flex-col space-y-4">
               <Button
                 variant="ghost"
@@ -452,18 +453,6 @@ const Index = () => {
             <div className="md:hidden w-full max-w-sm mx-auto mb-8">
               <div className="relative">
                 <SearchBar className={`${isScrolled ? 'text-black placeholder-gray-500' : 'text-white placeholder-white/70'}`} />
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setSearchOpen(false)}
-                  className={`absolute right-2 top-1/2 -translate-y-1/2 transition-all w-8 h-8 ${
-                    isScrolled 
-                      ? 'text-purple-600 hover:text-purple-700 hover:bg-purple-100' 
-                      : 'text-purple-300 hover:text-purple-200 hover:bg-white/10'
-                  }`}
-                >
-                  <X className="h-5 w-5" />
-                </Button>
               </div>
             </div>
           )}
