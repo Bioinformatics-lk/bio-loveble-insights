@@ -11,7 +11,7 @@ export const LoginTransition = () => {
       setIsExiting(true);
       // Navigate after exit animation completes
       setTimeout(() => {
-        navigate('/dashboard');
+        navigate('/');
       }, 300); // Match this with the exit animation duration
     }, 2000);
 
@@ -21,7 +21,7 @@ export const LoginTransition = () => {
   return (
     <div
       className={`
-        fixed inset-0 z-50 flex items-center justify-center
+        fixed inset-0 z-[9999] flex items-center justify-center
         bg-[#A25FFF] transition-all duration-300 ease-in-out
         ${isExiting ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}
       `}
