@@ -64,17 +64,32 @@ export const CoursesPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 relative">
-      {/* DNA/RNA Background Pattern */}
-      <div 
-        className="absolute inset-0 z-0 opacity-10"
-        style={{
-          backgroundImage: `url('/dna-pattern.svg'), url('/rna-pattern.svg')`,
-          backgroundBlendMode: 'overlay',
-          backgroundSize: 'contain',
-          backgroundRepeat: 'repeat'
-        }}
-      />
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 relative overflow-hidden">
+      {/* Background Images */}
+      <div className="absolute inset-0 z-0">
+        {/* Top Left Image */}
+        <div 
+          className="absolute top-0 left-0 w-1/2 h-1/2 bg-contain bg-no-repeat opacity-20"
+          style={{ backgroundImage: 'url("/P1.jpg")' }}
+        />
+        {/* Top Right Image */}
+        <div 
+          className="absolute top-0 right-0 w-1/2 h-1/2 bg-contain bg-no-repeat opacity-20"
+          style={{ backgroundImage: 'url("/P2.jpg")' }}
+        />
+        {/* Bottom Left Image */}
+        <div 
+          className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-contain bg-no-repeat opacity-20"
+          style={{ backgroundImage: 'url("/P3.jpg")' }}
+        />
+        {/* Bottom Right Image */}
+        <div 
+          className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-contain bg-no-repeat opacity-20"
+          style={{ backgroundImage: 'url("/P4.jpg")' }}
+        />
+        {/* Overlay Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-50/90 to-blue-50/90 backdrop-blur-sm" />
+      </div>
 
       {/* Back Button */}
       <div className="sticky top-4 left-4 z-50 container mx-auto px-4">
