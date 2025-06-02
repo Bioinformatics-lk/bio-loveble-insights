@@ -33,17 +33,27 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
 
       // Add a small delay for the animation
       await new Promise(resolve => setTimeout(resolve, 500));
-      await signOut();
+      
+      // Clear any pending navigation
+      setIsNavigating(false);
+      
+      // Attempt to sign out
+      await signOut().catch((error) => {
+        console.error('Error during signOut:', error);
+        // Force a hard reload if there's an error
+        window.location.href = '/login';
+      });
 
-      // The navigation will be handled by the auth hook
     } catch (error) {
       console.error('Error logging out:', error);
       toast({
         title: "Error logging out",
-        description: "Please try again.",
+        description: "Please try again or refresh the page.",
         variant: "destructive",
+        duration: 5000,
       });
-      setIsLoggingOut(false);
+      // Force reload as a fallback
+      window.location.reload();
     }
   }, [isLoggingOut, signOut, toast]);
 
@@ -132,7 +142,7 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
                 h-4 w-4 transition-all duration-300
                 ${isLoggingOut ? 'rotate-180 scale-110' : ''}
               `} />
-              <span className="hidden sm:inline">
+              <span>
                 {isLoggingOut ? 'Signing out...' : 'Sign out'}
               </span>
             </Button>

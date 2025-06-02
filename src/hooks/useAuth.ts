@@ -18,12 +18,20 @@ export const useAuth = () => {
     // Listen for auth changes
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    } = supabase.auth.onAuthStateChange(async (_event, session) => {
       setUser(session?.user ?? null);
       setLoading(false);
+      
       if (!session?.user) {
-        // Redirect to login when session ends
-        navigate('/login');
+        // Clear all auth-related storage
+        localStorage.clear();
+        sessionStorage.clear();
+        
+        // Force clear the Supabase session
+        await supabase.auth.signOut();
+        
+        // Redirect to login
+        navigate('/login', { replace: true });
       }
     });
 
@@ -33,14 +41,21 @@ export const useAuth = () => {
   const signOut = async () => {
     try {
       setLoading(true);
+      
+      // First, clear all auth-related storage
+      localStorage.clear();
+      sessionStorage.clear();
+      
+      // Then sign out from Supabase
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
       
-      // Clear any local storage or state if needed
-      localStorage.removeItem('supabase.auth.token');
+      // Clear user state
       setUser(null);
       
-      // Navigation will be handled by onAuthStateChange
+      // Force a hard navigation to login
+      window.location.href = '/login';
+      
     } catch (error) {
       console.error('Error signing out:', error);
       throw error;
