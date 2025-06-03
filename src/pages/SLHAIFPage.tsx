@@ -21,33 +21,33 @@ import '@xyflow/react/dist/style.css';
 
 // Custom Node Component for the Brain
 const BrainNode = ({ data }: { data: any }) => (
-  <div className="relative w-48 h-48">
+  <div className="relative w-32 h-32 md:w-48 md:h-48">
     {/* Glowing circle effect */}
     <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#54366B] to-[#363B6B] blur-xl transform-gpu animate-pulse" />
     <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#54366B]/50 to-[#363B6B]/50 animate-pulse transform-gpu" />
     {/* Pulsing ring */}
-    <div className="absolute -inset-4 rounded-full bg-gradient-to-r from-[#54366B]/30 to-[#363B6B]/30 animate-ping" />
+    <div className="absolute -inset-2 md:-inset-4 rounded-full bg-gradient-to-r from-[#54366B]/30 to-[#363B6B]/30 animate-ping" />
     {/* Brain icon */}
     <div className="relative z-10 w-full h-full flex items-center justify-center">
-      <Brain className="w-32 h-32 text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.8)] filter brightness-150 animate-pulse" />
+      <Brain className="w-20 h-20 md:w-32 md:h-32 text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.8)] filter brightness-150 animate-pulse" />
     </div>
     {/* Connection handles */}
-    <Handle type="source" position={Position.Top} className="w-3 h-3 bg-white/50" />
-    <Handle type="source" position={Position.Right} className="w-3 h-3 bg-white/50" />
-    <Handle type="source" position={Position.Bottom} className="w-3 h-3 bg-white/50" />
-    <Handle type="source" position={Position.Left} className="w-3 h-3 bg-white/50" />
+    <Handle type="source" position={Position.Top} className="w-2 h-2 md:w-3 md:h-3 bg-white/50" />
+    <Handle type="source" position={Position.Right} className="w-2 h-2 md:w-3 md:h-3 bg-white/50" />
+    <Handle type="source" position={Position.Bottom} className="w-2 h-2 md:w-3 md:h-3 bg-white/50" />
+    <Handle type="source" position={Position.Left} className="w-2 h-2 md:w-3 md:h-3 bg-white/50" />
   </div>
 );
 
 // Custom Node Component for Topics
 const TopicNode = ({ data }: { data: any }) => (
   <div className="group">
-    <div className="bg-white/10 backdrop-blur-md px-6 py-4 rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300 text-center min-w-[180px] max-w-[220px] transform hover:scale-105">
-      <p className="text-white font-medium text-base whitespace-normal">
+    <div className="bg-white/10 backdrop-blur-md px-4 md:px-6 py-3 md:py-4 rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300 text-center min-w-[140px] md:min-w-[180px] max-w-[160px] md:max-w-[220px] transform hover:scale-105">
+      <p className="text-white font-medium text-sm md:text-base whitespace-normal leading-tight">
         {data.label}
       </p>
     </div>
-    <Handle type="target" position={Position.Top} className="w-3 h-3 bg-white/50" />
+    <Handle type="target" position={Position.Top} className="w-2 h-2 md:w-3 md:h-3 bg-white/50" />
   </div>
 );
 
@@ -77,13 +77,13 @@ export const SLHAIFPage = () => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
     const centerY = windowSize.height / 2;
-    const radius = isMobile ? 250 : 350;
+    const radius = isMobile ? 180 : 350;
 
     const nodes: Node[] = [
       {
         id: 'brain',
         type: 'brain',
-        position: { x: centerX - 96, y: centerY - 96 },
+        position: { x: centerX - (isMobile ? 64 : 96), y: centerY - (isMobile ? 64 : 96) },
         data: { label: 'Brain' },
       },
     ];
@@ -91,8 +91,8 @@ export const SLHAIFPage = () => {
     // Add topic nodes in a semi-circle
     topics.forEach((topic, index) => {
       const angle = (Math.PI / (topics.length - 1)) * index;
-      const x = centerX + radius * Math.cos(angle) - 100;
-      const y = centerY + radius * Math.sin(angle) - 50;
+      const x = centerX + radius * Math.cos(angle) - (isMobile ? 70 : 100);
+      const y = centerY + radius * Math.sin(angle) - (isMobile ? 25 : 50);
 
       nodes.push({
         id: topic.id,
@@ -107,6 +107,7 @@ export const SLHAIFPage = () => {
 
   // Calculate edges (connections)
   const calculateEdges = () => {
+    const isMobile = windowSize.width < 768;
     return topics.map((topic) => ({
       id: `brain-${topic.id}`,
       source: 'brain',
@@ -115,7 +116,7 @@ export const SLHAIFPage = () => {
       animated: true,
       style: { 
         stroke: 'rgba(255, 255, 255, 0.3)',
-        strokeWidth: 2,
+        strokeWidth: isMobile ? 1.5 : 2,
         strokeDasharray: '5,5',
       },
     }));
@@ -151,31 +152,31 @@ export const SLHAIFPage = () => {
       {/* Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#54366B]/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#170056]/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute top-1/4 left-1/4 w-64 md:w-96 h-64 md:h-96 bg-[#54366B]/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-64 md:w-96 h-64 md:h-96 bg-[#170056]/20 rounded-full blur-3xl animate-pulse" />
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 container mx-auto px-4 py-8">
+      <div className="relative z-10 container mx-auto px-4 py-4 md:py-8">
         {/* Back Button */}
         <Button
           onClick={() => navigate(-1)}
           variant="ghost"
-          className="absolute top-4 left-4 text-white hover:bg-white/10 z-50"
+          className="absolute top-2 md:top-4 left-2 md:left-4 text-white hover:bg-white/10 z-50 text-sm md:text-base"
         >
           ← Back
         </Button>
 
         {/* SLHAIF Title */}
-        <h1 className="text-5xl md:text-6xl font-bold text-center text-white mb-16 mt-8">
+        <h1 className="text-3xl md:text-6xl font-bold text-center text-white mb-8 md:mb-16 mt-12 md:mt-8">
           SLHAIF
-          <span className="block text-xl md:text-2xl text-white/80 mt-4">
+          <span className="block text-base md:text-2xl text-white/80 mt-2 md:mt-4">
             Sri Lanka's First Herbal Artificial Intelligence Factory
           </span>
         </h1>
 
         {/* React Flow Container */}
-        <div className="h-[700px] md:h-[800px] w-full">
+        <div className="h-[500px] md:h-[800px] w-full">
           <ReactFlow
             nodes={nodes}
             edges={edges}
@@ -186,8 +187,8 @@ export const SLHAIFPage = () => {
             fitView
             attributionPosition="bottom-right"
             className="bg-transparent"
-            minZoom={0.5}
-            maxZoom={1.5}
+            minZoom={0.3}
+            maxZoom={1.2}
             defaultViewport={{ x: 0, y: 0, zoom: 1 }}
           >
             <Background variant={BackgroundVariant.Dots} gap={12} size={1} color="rgba(255,255,255,0.1)" />
@@ -196,12 +197,12 @@ export const SLHAIFPage = () => {
         </div>
 
         {/* Chat Button */}
-        <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50">
+        <div className="fixed bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 z-50">
           <Button
             size="lg"
-            className="bg-gradient-to-r from-[#363B6B] to-[#000A33] hover:from-[#000A33] hover:to-[#363B6B] text-white text-lg px-8 py-6 rounded-full shadow-lg hover:shadow-xl transition-all transform-gpu hover:scale-105"
+            className="bg-gradient-to-r from-[#363B6B] to-[#000A33] hover:from-[#000A33] hover:to-[#363B6B] text-white text-base md:text-lg px-6 md:px-8 py-4 md:py-6 rounded-full shadow-lg hover:shadow-xl transition-all transform-gpu hover:scale-105"
           >
-            <MessageCircle className="w-6 h-6 mr-2" />
+            <MessageCircle className="w-5 h-5 md:w-6 md:h-6 mr-2" />
             <span className="hidden md:inline">Chat with our AI system</span>
             <span className="md:hidden">Chat</span>
           </Button>
