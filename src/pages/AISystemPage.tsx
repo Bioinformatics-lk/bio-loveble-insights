@@ -1,0 +1,232 @@
+import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Database, Brain, MessageCircle, Server } from "lucide-react";
+import {
+  ReactFlow,
+  Node,
+  Edge,
+  Background,
+  Controls,
+  useNodesState,
+  useEdgesState,
+  addEdge,
+  Connection,
+  NodeTypes,
+  BackgroundVariant,
+  Handle,
+  Position,
+} from '@xyflow/react';
+import '@xyflow/react/dist/style.css';
+
+// Custom Node Component for the Database
+const DatabaseNode = ({ data }: { data: any }) => (
+  <div className="relative w-32 h-32 md:w-48 md:h-48">
+    {/* Glowing circle effect */}
+    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#1a1a2e] to-[#16213e] blur-xl transform-gpu animate-pulse" />
+    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#1a1a2e]/50 to-[#16213e]/50 animate-pulse transform-gpu" />
+    {/* Pulsing ring */}
+    <div className="absolute -inset-2 md:-inset-4 rounded-full bg-gradient-to-r from-[#1a1a2e]/30 to-[#16213e]/30 animate-ping" />
+    {/* Database icon */}
+    <div className="relative z-10 w-full h-full flex items-center justify-center">
+      <Database className="w-20 h-20 md:w-32 md:h-32 text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.8)] filter brightness-150 animate-pulse" />
+    </div>
+    {/* Connection handles */}
+    <Handle type="source" position={Position.Top} className="w-2 h-2 md:w-3 md:h-3 bg-white/50" />
+    <Handle type="source" position={Position.Right} className="w-2 h-2 md:w-3 md:h-3 bg-white/50" />
+    <Handle type="source" position={Position.Bottom} className="w-2 h-2 md:w-3 md:h-3 bg-white/50" />
+    <Handle type="source" position={Position.Left} className="w-2 h-2 md:w-3 md:h-3 bg-white/50" />
+  </div>
+);
+
+// Custom Node Component for AI Components
+const AIComponentNode = ({ data }: { data: any }) => (
+  <div className="group">
+    <div className="relative bg-[#1a1a2e]/20 backdrop-blur-md px-4 md:px-6 py-3 md:py-4 rounded-2xl border border-white/20 hover:bg-[#1a1a2e]/30 transition-all duration-300 text-center min-w-[140px] md:min-w-[180px] max-w-[160px] md:max-w-[220px] transform hover:scale-105">
+      {/* Enhanced glowing effect for component boxes */}
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#1a1a2e]/40 to-[#16213e]/40 blur-xl transform-gpu animate-pulse" />
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#1a1a2e]/30 to-[#16213e]/30 blur-md transform-gpu animate-pulse" />
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#1a1a2e]/20 to-[#16213e]/20 blur-sm transform-gpu animate-pulse" />
+      {/* Content */}
+      <div className="relative z-10">
+        <p className="text-white font-medium text-sm md:text-base whitespace-normal leading-tight">
+          {data.label}
+        </p>
+      </div>
+    </div>
+    <Handle type="target" position={Position.Top} className="w-2 h-2 md:w-3 md:h-3 bg-white/50" />
+  </div>
+);
+
+const nodeTypes: NodeTypes = {
+  database: DatabaseNode,
+  component: AIComponentNode,
+};
+
+const components = [
+  { id: "data-collection", title: "Data Collection System" },
+  { id: "processing", title: "Data Processing Pipeline" },
+  { id: "analysis", title: "AI Analysis Engine" },
+  { id: "prediction", title: "Prediction Models" },
+  { id: "visualization", title: "Data Visualization" },
+  { id: "integration", title: "System Integration" },
+];
+
+export const AISystemPage = () => {
+  const navigate = useNavigate();
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  // Calculate positions for nodes
+  const calculateNodePositions = () => {
+    const isMobile = windowSize.width < 768;
+    const centerX = windowSize.width / 2;
+    const centerY = windowSize.height / 2;
+    const radius = isMobile ? 180 : 400;
+
+    const nodes: Node[] = [
+      {
+        id: 'database',
+        type: 'database',
+        position: { 
+          x: centerX - (isMobile ? 64 : 96), 
+          y: isMobile ? centerY - (isMobile ? 64 : 96) : centerY - radius * 0.4
+        },
+        data: { label: 'Database' },
+      },
+    ];
+
+    // Add component nodes in a semi-circle
+    components.forEach((component, index) => {
+      const angle = (Math.PI / (components.length - 1)) * index;
+      const x = centerX + radius * Math.cos(angle) - (isMobile ? 70 : 100);
+      const y = isMobile 
+        ? centerY + radius * Math.sin(angle) - (isMobile ? 25 : 50)
+        : centerY + radius * 0.2 + radius * Math.sin(angle) * 0.3;
+
+      nodes.push({
+        id: component.id,
+        type: 'component',
+        position: { x, y },
+        data: { label: component.title },
+      });
+    });
+
+    return nodes;
+  };
+
+  // Calculate edges (connections)
+  const calculateEdges = () => {
+    const isMobile = windowSize.width < 768;
+    return components.map((component) => ({
+      id: `database-${component.id}`,
+      source: 'database',
+      target: component.id,
+      type: 'smoothstep',
+      animated: true,
+      style: { 
+        stroke: 'rgba(255, 255, 255, 0.3)',
+        strokeWidth: isMobile ? 1.5 : 2,
+        strokeDasharray: '5,5',
+      },
+    }));
+  };
+
+  const [nodes, setNodes, onNodesChange] = useNodesState(calculateNodePositions());
+  const [edges, setEdges, onEdgesChange] = useEdgesState(calculateEdges());
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    setNodes(calculateNodePositions());
+    setEdges(calculateEdges());
+  }, [windowSize]);
+
+  const onConnect = useCallback(
+    (params: Connection) => setEdges((eds) => addEdge(params, eds)),
+    [setEdges]
+  );
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-[#0f0f1a] via-[#1a1a2e] to-[#16213e] relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" />
+        <div className="absolute top-1/4 left-1/4 w-64 md:w-96 h-64 md:h-96 bg-[#1a1a2e]/30 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-64 md:w-96 h-64 md:h-96 bg-[#16213e]/30 rounded-full blur-3xl animate-pulse" />
+      </div>
+
+      {/* Main Content */}
+      <div className="relative z-10 container mx-auto px-4 py-4 md:py-8">
+        {/* Back Button */}
+        <Button
+          onClick={() => navigate(-1)}
+          variant="ghost"
+          className="absolute top-2 md:top-4 left-2 md:left-4 text-white hover:bg-white/10 z-50 text-sm md:text-base"
+        >
+          ← Back
+        </Button>
+
+        {/* Title */}
+        <h1 className="text-3xl md:text-6xl font-bold text-center text-white mb-8 md:mb-16 mt-12 md:mt-8">
+          AI System & Database
+          <span className="block text-base md:text-2xl text-white/80 mt-2 md:mt-4">
+            Advanced Data Processing and Analysis Platform
+          </span>
+        </h1>
+
+        {/* React Flow Container */}
+        <div className="h-[500px] md:h-[800px] w-full">
+          <ReactFlow
+            nodes={nodes}
+            edges={edges}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+            nodeTypes={nodeTypes}
+            fitView
+            fitViewOptions={{ padding: 0.2 }}
+            attributionPosition="bottom-right"
+            className="bg-transparent"
+            minZoom={0.3}
+            maxZoom={1.2}
+            defaultViewport={{ x: 0, y: 0, zoom: 1 }}
+          >
+            <Background variant={BackgroundVariant.Dots} gap={12} size={1} color="rgba(255,255,255,0.1)" />
+            <Controls className="bg-white/10 backdrop-blur-sm" />
+          </ReactFlow>
+        </div>
+
+        {/* Enhanced Action Button */}
+        <div className="fixed bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 z-50">
+          <div className="relative">
+            {/* Glowing effect for button */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a2e] to-[#16213e] blur-xl rounded-full animate-pulse" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a2e]/50 to-[#16213e]/50 blur-md rounded-full animate-pulse" />
+            {/* Button */}
+            <Button
+              size="lg"
+              className="relative bg-gradient-to-r from-[#1a1a2e] to-[#16213e] hover:from-[#16213e] hover:to-[#1a1a2e] text-white text-base md:text-lg px-6 md:px-8 py-4 md:py-6 rounded-full shadow-lg hover:shadow-xl transition-all transform-gpu hover:scale-105 border border-white/20 backdrop-blur-sm"
+            >
+              <Server className="w-5 h-5 md:w-6 md:h-6 mr-2" />
+              <span className="hidden md:inline">Access System Dashboard</span>
+              <span className="md:hidden">Dashboard</span>
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}; 
