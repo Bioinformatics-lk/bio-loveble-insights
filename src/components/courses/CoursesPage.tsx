@@ -22,66 +22,73 @@ import { motion, AnimatePresence } from 'framer-motion';
 const courses = [
   {
     title: "Introduction to Bioinformatics",
-    description: "Learn the fundamentals of bioinformatics and its applications in modern biology",
+    description: "This is the inaugural gateway to bioinformatics: a friendly, foundational course covering DNA, sequence analysis, and database essentials. It's the perfect springboard before diving deeper into our specialized pipeline.",
     icon: BookOpen,
     color: "from-purple-600 to-blue-600",
     step: 1,
-    price: 199,
+    fee: 10000,
+    totalFee: 10000,
     enrollmentLink: "https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform"
   },
   {
     title: "Network Pharmacology",
-    description: "Understand drug-target interactions and biological networks in pharmaceutical research",
+    description: "As the second milestone, Network Pharmacology teaches you how to map drug–target interactions on a grand scale. Explore protein networks, uncover polypharmacology strategies, and learn to repurpose existing compounds for novel therapies—like a detective of molecular webs.",
     icon: Network,
     color: "from-blue-600 to-cyan-600",
     step: 2,
-    price: 249,
+    fee: 5000,
+    totalFee: 15000,
     enrollmentLink: "https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform"
   },
   {
     title: "Molecular Docking",
-    description: "Master computational techniques for predicting molecular interactions",
+    description: "Venture into the third course to master molecular docking: predict how small molecules snugly fit into protein pockets, evaluate binding energies, and screen virtual libraries for promising drug candidates. This is your passport to structure-based design.",
     icon: Atom,
     color: "from-cyan-600 to-teal-600",
     step: 3,
-    price: 299,
+    fee: 5000,
+    totalFee: 20000,
     enrollmentLink: "https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform"
   },
   {
     title: "Molecular Dynamics",
-    description: "Explore the simulation of atomic and molecular movements in biological systems",
+    description: "In the fourth stage, Molecular Dynamics lets you watch atoms dance: set up and run simulations on our servers, analyze trajectories, and uncover the hidden choreography of proteins. Students even get server access to run their own exploratory studies—real-time science in action!",
     icon: Boxes,
     color: "from-teal-600 to-green-600",
     step: 4,
-    price: 349,
+    fee: 10000,
+    totalFee: 30000,
     enrollmentLink: "https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform"
   },
   {
     title: "Introduction to Cheminformatics",
-    description: "Learn the basics of chemical information handling and drug design",
+    description: "Dive into cheminformatics in the fifth course: decode SMILES, compute molecular fingerprints, and mine chemical databases for trends. Whether you dream of QSAR models or AI-driven scaffold hops, this class teaches you to speak the language of molecules.",
     icon: FlaskConical,
     color: "from-green-600 to-emerald-600",
     step: 5,
-    price: 249,
+    fee: 5000,
+    totalFee: 35000,
     enrollmentLink: "https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform"
   },
   {
     title: "AI and ML in Drug Discovery",
-    description: "Apply artificial intelligence and machine learning in pharmaceutical research",
+    description: "Embark on the sixth frontier: AI and ML in Drug Discovery. Learn to train neural nets on biological data, predict ADMET properties, and design de novo compounds with generative models. It's where algorithms meet molecules to spark tomorrow's breakthroughs.",
     icon: Brain,
     color: "from-emerald-600 to-purple-600",
     step: 6,
-    price: 399,
+    fee: 5000,
+    totalFee: 40000,
     enrollmentLink: "https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform"
   },
   {
     title: "Research Project",
-    description: "Apply your knowledge in a comprehensive research project",
+    description: "Culminate your journey with a hands-on Research Project: integrate all your skills into a real-world case study—be it docking pipelines, MD thermodynamics, or AI-guided leads. This capstone synthesizes theory into practice and showcases your scientific prowess.",
     icon: GraduationCap,
     color: "from-rose-600 to-orange-600",
     step: 7,
     isSpecial: true,
-    price: 599,
+    fee: 10000,
+    totalFee: 50000,
     enrollmentLink: "https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform"
   }
 ];
@@ -238,12 +245,14 @@ export const CoursesPage = () => {
                       <motion.div
                         initial={{ opacity: 0, x: course.title === "Network Pharmacology" ||
                                                 course.title === "AI and ML in Drug Discovery" ||
-                                                course.title === "Molecular Dynamics" ? 100 : -100 }}
-                        animate={{ opacity: 1, x: 0 }}
+                                                course.title === "Molecular Dynamics" ? 100 : -100,
+                                  scaleX: 0 }}
+                        animate={{ opacity: 1, x: 0, scaleX: 1 }}
                         exit={{ opacity: 0, x: course.title === "Network Pharmacology" ||
                                               course.title === "AI and ML in Drug Discovery" ||
-                                              course.title === "Molecular Dynamics" ? 100 : -100 }}
-                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                              course.title === "Molecular Dynamics" ? 100 : -100,
+                               scaleX: 0 }}
+                        transition={{ type: "spring", stiffness: 200, damping: 20 }}
                         className={`
                           absolute top-1/2 -translate-y-1/2
                           ${course.title === "Network Pharmacology" ||
@@ -251,13 +260,13 @@ export const CoursesPage = () => {
                             course.title === "Molecular Dynamics"
                             ? 'left-full ml-8'
                             : 'right-full mr-8'}
-                          w-64 bg-white/10 backdrop-blur-md
+                          w-72 bg-white/10 backdrop-blur-md
                           border-2 border-white/20 rounded-lg shadow-xl
                           p-4 z-20
                         `}
                       >
-                        {/* Connecting Line */}
-                        <div 
+                        {/* Animated Connector */}
+                        <motion.div 
                           className={`
                             absolute top-1/2 -translate-y-1/2
                             ${course.title === "Network Pharmacology" ||
@@ -265,18 +274,24 @@ export const CoursesPage = () => {
                               course.title === "Molecular Dynamics"
                               ? 'right-full mr-2'
                               : 'left-full ml-2'}
-                            w-6 h-0.5 bg-white/20
+                            h-0.5 bg-gradient-to-r ${course.color}
                           `}
+                          initial={{ width: 0 }}
+                          animate={{ width: "2rem" }}
+                          transition={{ delay: 0.2, duration: 0.3 }}
                         />
                         
                         {/* Popup Content */}
-                        <div className="flex flex-col space-y-3">
-                          <div className="flex items-center justify-between">
-                            <span className="text-white font-semibold">Course Fee</span>
-                            <span className="text-white flex items-center">
-                              <DollarSign className="w-4 h-4 mr-1" />
-                              {course.price}
-                            </span>
+                        <div className="flex flex-col space-y-4">
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between">
+                              <span className="text-white font-semibold">Course Fee</span>
+                              <span className="text-white">{course.fee.toLocaleString()} LKR</span>
+                            </div>
+                            <div className="flex items-center justify-between">
+                              <span className="text-white font-semibold">Total up to here</span>
+                              <span className="text-white">{course.totalFee.toLocaleString()} LKR</span>
+                            </div>
                           </div>
                           <Button
                             onClick={() => handleEnrollClick(course.enrollmentLink)}
@@ -309,7 +324,14 @@ export const CoursesPage = () => {
                           <span className="text-white font-semibold">Course Fee</span>
                           <span className="text-white flex items-center">
                             <DollarSign className="w-4 h-4 mr-1" />
-                            {course.price}
+                            {course.fee.toLocaleString()} LKR
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-white font-semibold">Total up to here</span>
+                          <span className="text-white flex items-center">
+                            <DollarSign className="w-4 h-4 mr-1" />
+                            {course.totalFee.toLocaleString()} LKR
                           </span>
                         </div>
                         <Button
@@ -396,7 +418,14 @@ export const CoursesPage = () => {
                         <span className="text-white font-semibold">Course Fee</span>
                         <span className="text-white flex items-center">
                           <DollarSign className="w-4 h-4 mr-1" />
-                          {course.price}
+                          {course.fee.toLocaleString()} LKR
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-white font-semibold">Total up to here</span>
+                        <span className="text-white flex items-center">
+                          <DollarSign className="w-4 h-4 mr-1" />
+                          {course.totalFee.toLocaleString()} LKR
                         </span>
                       </div>
                       <Button
