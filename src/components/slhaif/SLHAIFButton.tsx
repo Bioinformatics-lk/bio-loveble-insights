@@ -16,13 +16,14 @@ export const SLHAIFButton = () => {
     { id: 'formulation', title: 'Formulation Development Agent', icon: Beaker }
   ];
 
-  // Calculate positions for octopus layout
+  // Calculate positions for half-circle layout
   const getAgentPosition = (index: number, total: number) => {
-    const radius = 250; // Increased radius for better spacing
-    const angle = (Math.PI / (total - 1)) * index - Math.PI / 2;
+    const radius = 300; // Increased radius for better spacing
+    // Calculate angle in the range of 0 to 180 degrees (π radians)
+    const angle = (Math.PI / (total - 1)) * index;
     return {
       x: radius * Math.cos(angle),
-      y: radius * Math.sin(angle) + radius
+      y: radius * Math.sin(angle)
     };
   };
 
@@ -31,16 +32,7 @@ export const SLHAIFButton = () => {
       {/* Main SLHAIF Button */}
       <motion.button
         onClick={() => setIsExpanded(!isExpanded)}
-        className={`
-          relative z-20 mx-auto block
-          px-8 py-4 rounded-xl
-          bg-gradient-to-r from-[#170056] to-[#410056]
-          text-[#EAE3F5] font-bold text-xl
-          border-2 border-[#54366B]
-          shadow-lg hover:shadow-xl
-          transition-all duration-300
-          group
-        `}
+        className="relative z-20 mx-auto block px-8 py-4 rounded-xl bg-gradient-to-r from-[#170056] to-[#410056] text-[#EAE3F5] font-bold text-xl border-2 border-[#54366B] shadow-lg hover:shadow-xl transition-all duration-300 group"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
@@ -81,19 +73,20 @@ export const SLHAIFButton = () => {
 
               {/* Content Container */}
               <div className="w-full h-full p-8 flex flex-col items-center justify-center">
-                {/* Brain Icon at Center */}
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  className="relative w-24 h-24 rounded-full bg-gradient-to-r from-[#54366B] to-[#363B6B] flex items-center justify-center mb-8"
-                >
-                  <Brain className="w-12 h-12 text-white animate-pulse" />
-                  {/* Pulsing Ring */}
-                  <div className="absolute inset-0 rounded-full border-2 border-purple-400/50 animate-ping" />
-                </motion.div>
-
-                {/* Agents Layout */}
+                {/* Brain Icon at Bottom Center */}
                 <div className="relative w-full h-[600px]">
+                  {/* Brain Icon */}
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    className="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-24 rounded-full bg-gradient-to-r from-[#54366B] to-[#363B6B] flex items-center justify-center"
+                  >
+                    <Brain className="w-12 h-12 text-white animate-pulse" />
+                    {/* Pulsing Ring */}
+                    <div className="absolute inset-0 rounded-full border-2 border-purple-400/50 animate-ping" />
+                  </motion.div>
+
+                  {/* Agents Layout */}
                   {agents.map((agent, index) => {
                     const position = getAgentPosition(index, agents.length);
                     return (
@@ -102,38 +95,38 @@ export const SLHAIFButton = () => {
                         initial={{ opacity: 0, scale: 0 }}
                         animate={{ 
                           opacity: 1, 
-                          scale: 1,
-                          x: position.x,
-                          y: position.y
+                          scale: 1
                         }}
                         exit={{ opacity: 0, scale: 0 }}
                         transition={{ delay: index * 0.1 }}
-                        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+                        className="absolute"
                         style={{
-                          transform: `translate(calc(-50% + ${position.x}px), calc(-50% + ${position.y}px))`
+                          left: `calc(50% + ${position.x}px)`,
+                          bottom: `${position.y + 60}px`, // Add offset for brain icon
+                          transform: 'translate(-50%, 50%)'
                         }}
                       >
                         {/* Connector Line */}
-                        <motion.div
-                          className="absolute left-1/2 top-1/2 w-px bg-gradient-to-b from-[#54366B] to-transparent"
-                          style={{
-                            height: Math.sqrt(Math.pow(position.x, 2) + Math.pow(position.y, 2)),
-                            transformOrigin: '0 0',
-                            transform: `rotate(${Math.atan2(position.y, position.x)}rad)`,
-                          }}
-                        >
+                        <div className="absolute left-1/2 bottom-0 w-px h-24 overflow-hidden">
                           <motion.div
-                            animate={{
-                              y: ["-100%", "100%"],
-                            }}
-                            transition={{
-                              repeat: Infinity,
-                              duration: 2,
-                              ease: "linear",
-                            }}
-                            className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-400 to-transparent"
-                          />
-                        </motion.div>
+                            className="w-full h-full bg-gradient-to-b from-[#54366B] to-transparent"
+                            initial={{ height: 0 }}
+                            animate={{ height: '100%' }}
+                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                          >
+                            <motion.div
+                              animate={{
+                                y: ["-100%", "100%"]
+                              }}
+                              transition={{
+                                repeat: Infinity,
+                                duration: 2,
+                                ease: "linear"
+                              }}
+                              className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-400 to-transparent"
+                            />
+                          </motion.div>
+                        </div>
 
                         {/* Agent Button */}
                         <motion.button

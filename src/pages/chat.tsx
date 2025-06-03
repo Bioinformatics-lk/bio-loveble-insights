@@ -47,16 +47,16 @@ const Chat = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#170056] via-[#410056] to-[#54366B]">
+    <div className="min-h-screen bg-gradient-to-br from-[#170056] via-[#410056] to-[#54366B] text-[#EAE3F5]">
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Left Side - Visualization Area */}
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="lg:w-[70%] bg-white/5 backdrop-blur-md rounded-xl p-6 border border-[#54366B] shadow-xl"
+            className="lg:w-[70%] bg-black/20 backdrop-blur-md rounded-xl p-6 border border-[#54366B] shadow-xl"
           >
-            <div className="aspect-video bg-[#000A33]/50 rounded-lg flex items-center justify-center">
+            <div className="aspect-video bg-black/30 rounded-lg flex items-center justify-center">
               <p className="text-[#EAE3F5] text-lg">Visualization Area</p>
             </div>
           </motion.div>
@@ -65,16 +65,16 @@ const Chat = () => {
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="lg:w-[30%] flex flex-col bg-white/5 backdrop-blur-md rounded-xl border border-[#54366B] shadow-xl"
+            className="lg:w-[30%] flex flex-col bg-black/20 backdrop-blur-md rounded-xl border border-[#54366B] shadow-xl overflow-hidden"
           >
             {/* Chat Header */}
-            <div className="bg-[#000A33]/50 rounded-t-xl p-4 flex items-center gap-3 border-b border-[#54366B]">
+            <div className="bg-black/30 p-4 flex items-center gap-3 border-b border-[#54366B]">
               <Brain className="w-6 h-6 text-[#EAE3F5]" />
               <h2 className="text-[#EAE3F5] font-bold">SLHAIF</h2>
             </div>
 
             {/* Messages Area */}
-            <div className="flex-1 p-4 overflow-y-auto max-h-[500px] space-y-4">
+            <div className="flex-1 p-4 overflow-y-auto max-h-[500px] space-y-4 bg-black/10">
               {messages.map((msg, index) => (
                 <motion.div
                   key={index}
@@ -86,7 +86,7 @@ const Chat = () => {
                     max-w-[80%] rounded-xl px-4 py-2 
                     ${msg.isUser ? 
                       'bg-[#54366B] text-[#EAE3F5]' : 
-                      'bg-white/10 text-[#EAE3F5]'
+                      'bg-black/30 text-[#EAE3F5]'
                     }
                   `}>
                     {msg.text}
@@ -96,13 +96,13 @@ const Chat = () => {
             </div>
 
             {/* Input Area */}
-            <form onSubmit={handleSubmit} className="bg-[#000A33]/50 rounded-b-xl p-4 flex gap-2">
+            <form onSubmit={handleSubmit} className="bg-black/30 p-4 flex gap-2 border-t border-[#54366B]">
               <input
                 type="text"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Type your message..."
-                className="flex-1 bg-white/10 rounded-lg px-4 py-2 text-[#EAE3F5] placeholder-[#EAE3F5]/50 focus:outline-none focus:ring-2 focus:ring-[#54366B]"
+                className="flex-1 bg-black/20 rounded-lg px-4 py-2 text-[#EAE3F5] placeholder-[#EAE3F5]/50 focus:outline-none focus:ring-2 focus:ring-[#54366B] border border-[#54366B]"
               />
               <button
                 type="submit"
@@ -130,7 +130,7 @@ const Chat = () => {
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ delay: index * 0.1, type: "spring" }}
-                  className="relative bg-white/5 backdrop-blur-md rounded-xl p-4 border border-[#54366B]"
+                  className="relative bg-black/20 backdrop-blur-md rounded-xl p-4 border border-[#54366B]"
                 >
                   <div className="w-32 h-32 mx-auto">
                     <svg className="w-full h-full" viewBox="0 0 100 100">
@@ -184,7 +184,7 @@ const Chat = () => {
                   initial={{ x: 20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ delay: index * 0.1 }}
-                  className="bg-white/5 backdrop-blur-md rounded-lg p-4 border border-[#54366B]"
+                  className="bg-black/20 backdrop-blur-md rounded-lg p-4 border border-[#54366B]"
                 >
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-[#EAE3F5]">{status.label}</span>
