@@ -29,22 +29,12 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen relative overflow-hidden"
+      className="min-h-screen bg-gradient-to-br from-[#170056] via-[#410056] to-[#54366B] relative overflow-hidden"
     >
       {/* Background Images */}
       <div className="absolute inset-0 z-0">
-        {/* Base gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#000A33] via-[#170056] to-[#54366B]"></div>
-        
-        {/* S-shaped overlay */}
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#000A33] via-[#170056] to-[#54366B] -rotate-45 translate-x-[25%] translate-y-[25%]"></div>
-          <div className="absolute inset-0 bg-gradient-to-tl from-[#000A33] via-[#170056] to-[#54366B] rotate-45 -translate-x-[25%] -translate-y-[25%]"></div>
-        </div>
-
-        {/* Additional decorative elements */}
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_50%_50%,_#54366B_1px,_transparent_1px)] bg-[length:20px_20px]"></div>
+        {/* Overlay Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#170056]/50 via-[#363B6B]/50 to-[#000A33]/50 backdrop-blur-[2px]" />
       </div>
 
       {/* Top Bar */}
@@ -52,7 +42,7 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="sticky top-0 z-50 w-full bg-[#000A33]/10 backdrop-blur-md border-b border-[#54366B]/20 shadow-lg"
+        className="sticky top-0 z-50 w-full bg-white/10 backdrop-blur-md border-b border-white/20 shadow-lg"
       >
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16 md:h-20">
@@ -69,21 +59,21 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
               </h1>
               
               {/* Divider */}
-              <div className="h-6 w-px bg-[#54366B]/20"></div>
+              <div className="h-6 w-px bg-white/20"></div>
               
               {/* User Profile */}
               <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-[#170056] to-[#410056] rounded-full flex items-center justify-center">
+                <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center">
                   <User className="h-4 w-4 md:h-5 md:w-5 text-white" />
                 </div>
                 <div className="hidden sm:block">
                   <p className="text-sm md:text-base font-medium text-white">
                     {user?.user_metadata?.username || 'User'}
                   </p>
-                  <p className="text-xs md:text-sm text-[#54366B]">
+                  <p className="text-xs md:text-sm text-white/70">
                     {user?.email}
                   </p>
-                </div>
+              </div>
               </div>
             </motion.div>
 
@@ -93,14 +83,14 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
               animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              <Button
-                onClick={handleLogout}
-                className="bg-[#170056]/10 hover:bg-[#170056]/20 text-white border border-[#54366B]/20 shadow-sm hover:shadow flex items-center space-x-2 transition-all duration-300"
+            <Button
+              onClick={handleLogout}
+                className="bg-white/10 hover:bg-white/20 text-white border border-white/20 shadow-sm hover:shadow flex items-center space-x-2 transition-all duration-300"
                 size="sm"
-              >
+            >
                 <LogOut className="h-4 w-4" />
                 <span className="hidden sm:inline">Logout</span>
-              </Button>
+            </Button>
             </motion.div>
           </div>
         </div>
@@ -121,27 +111,27 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
             transition={{ type: "spring", stiffness: 300 }}
           >
             <Card className="border-2 border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300">
-              <CardHeader className="text-center">
+            <CardHeader className="text-center">
                 <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
                   <BookOpen className="h-12 w-12 text-white" />
-                </div>
+              </div>
                 <CardTitle className="text-3xl text-white font-bold">
-                  Courses
-                </CardTitle>
+                Courses
+              </CardTitle>
                 <CardDescription className="text-white/70 text-lg mt-2">
-                  Access our comprehensive bioinformatics courses
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button 
+                Access our comprehensive bioinformatics courses
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button 
                   onClick={handleViewCourses}
                   className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-lg py-6 font-semibold shadow-lg hover:shadow-xl transition-all"
-                  size="lg"
-                >
-                  View Courses
-                </Button>
-              </CardContent>
-            </Card>
+                size="lg"
+              >
+                View Courses
+              </Button>
+            </CardContent>
+          </Card>
           </motion.div>
 
           {/* Services Card */}
@@ -151,26 +141,26 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
             transition={{ type: "spring", stiffness: 300 }}
           >
             <Card className="border-2 border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300">
-              <CardHeader className="text-center">
+            <CardHeader className="text-center">
                 <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
                   <Briefcase className="h-12 w-12 text-white" />
-                </div>
+              </div>
                 <CardTitle className="text-3xl text-white font-bold">
-                  Services
-                </CardTitle>
+                Services
+              </CardTitle>
                 <CardDescription className="text-white/70 text-lg mt-2">
-                  Professional bioinformatics and computational biology services
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button 
+                Professional bioinformatics and computational biology services
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button 
                   className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-lg py-6 font-semibold shadow-lg hover:shadow-xl transition-all"
-                  size="lg"
-                >
-                  View Services
-                </Button>
-              </CardContent>
-            </Card>
+                size="lg"
+              >
+                View Services
+              </Button>
+            </CardContent>
+          </Card>
           </motion.div>
         </motion.div>
       </main>

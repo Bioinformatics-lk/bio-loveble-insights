@@ -137,25 +137,23 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-[#000A33] via-[#170056] to-[#54366B] relative">
-      <style>
-        {`
-          .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-          }
-          
-          .animate-in {
-            opacity: 1;
-            transform: translateY(0);
-          }
-          
-          .delay-200 { transition-delay: 200ms; }
-          .delay-400 { transition-delay: 400ms; }
-          .delay-600 { transition-delay: 600ms; }
-        `}
-      </style>
+    <div className="min-h-screen bg-gradient-to-br from-[#170056] via-[#410056] to-[#54366B] relative">
+      <style jsx>{`
+        .animate-on-scroll {
+          opacity: 0;
+          transform: translateY(20px);
+          transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .animate-in {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        
+        .delay-200 { transition-delay: 200ms; }
+        .delay-400 { transition-delay: 400ms; }
+        .delay-600 { transition-delay: 600ms; }
+      `}</style>
 
       {/* Navigation Header */}
       <header className={`sticky top-0 z-50 backdrop-blur-md border-b transition-all duration-300 ${
@@ -347,7 +345,7 @@ const Index = () => {
 
       {/* Mobile Navigation Menu - Add before the Hero section */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 bg-gradient-to-r from-[#000A33]/95 via-[#170056]/95 to-[#54366B]/95 backdrop-blur-md md:hidden">
+        <div className="fixed inset-0 z-50 bg-gradient-to-br from-[#170056]/95 via-[#410056]/95 to-[#54366B]/95 backdrop-blur-md md:hidden">
           <div className="container mx-auto px-4 py-8">
             <div className="flex justify-end mb-6">
               <Button
@@ -447,20 +445,7 @@ const Index = () => {
 
       {/* Hero Section */}
       <section className="relative overflow-hidden z-10">
-        <div className="absolute inset-0">
-          {/* Base gradient background */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#000A33] via-[#170056] to-[#54366B]"></div>
-          
-          {/* S-shaped overlay */}
-          <div className="absolute inset-0">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#000A33] via-[#170056] to-[#54366B] -rotate-45 translate-x-[25%] translate-y-[25%]"></div>
-            <div className="absolute inset-0 bg-gradient-to-tl from-[#000A33] via-[#170056] to-[#54366B] rotate-45 -translate-x-[25%] -translate-y-[25%]"></div>
-          </div>
-
-          {/* Additional decorative elements */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
-          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_50%_50%,_#54366B_1px,_transparent_1px)] bg-[length:20px_20px]"></div>
-        </div>
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900"></div>
         
         <div className="relative container mx-auto px-4 py-16 lg:py-24">
           {/* Mobile Search Bar */}
@@ -663,23 +648,14 @@ const Index = () => {
       </section>
 
       {/* Our Courses Section */}
-      <section className="py-12 md:py-20 relative z-10" id="courses">
-        <div className="absolute inset-0">
-          {/* Simple gradient background */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#000A33] via-[#170056] to-[#54366B]"></div>
-          
-          {/* Additional decorative elements */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
-          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_50%_50%,_#54366B_1px,_transparent_1px)] bg-[length:20px_20px]"></div>
-        </div>
-
-        <div className="relative container mx-auto px-4">
+      <section className="py-12 md:py-20 bg-white relative z-10" id="courses">
+        <div className="container mx-auto px-4">
           <div className="text-center mb-8 lg:mb-12">
-            <div className="inline-block bg-white/10 backdrop-blur-sm px-6 py-3 rounded-lg mb-4">
-              <h2 className="text-3xl md:text-4xl font-bold text-white">Our Courses</h2>
+            <div className="inline-block bg-[#BBF7FF] px-6 py-3 rounded-lg mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Our Courses</h2>
             </div>
-            <p className="text-lg md:text-xl text-purple-100 max-w-3xl mx-auto">
-              Unlock the power of bioinformatics, cheminformatics, computational chemistry, and AI in drug discovery with our dynamic and comprehensive course offerings
+            <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+              Unlock the power of bioinformatics, cheminformatics, computational chemistry, and AI in drug discovery with our dynamic and comprehensive course offerings, designed to empower you with both foundational and advanced insights
             </p>
           </div>
           
@@ -991,23 +967,8 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 py-12 md:py-16">
-        <div className="absolute inset-0">
-          {/* Base gradient background */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#000A33] via-[#170056] to-[#54366B]"></div>
-          
-          {/* S-shaped overlay */}
-          <div className="absolute inset-0">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#000A33] via-[#170056] to-[#54366B] -rotate-45 translate-x-[25%] translate-y-[25%]"></div>
-            <div className="absolute inset-0 bg-gradient-to-tl from-[#000A33] via-[#170056] to-[#54366B] rotate-45 -translate-x-[25%] -translate-y-[25%]"></div>
-          </div>
-
-          {/* Additional decorative elements */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
-          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_50%_50%,_#54366B_1px,_transparent_1px)] bg-[length:15px_15px]"></div>
-        </div>
-
-        <div className="relative container mx-auto px-4">
+      <footer className="bg-gradient-to-br from-[#170056] via-[#363B6B] to-[#000A33] backdrop-blur-sm text-white py-12 md:py-16 relative z-10">
+        <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-6 lg:gap-8">
             <div className="space-y-4">
               <div className="flex items-center">
