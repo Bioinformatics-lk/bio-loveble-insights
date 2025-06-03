@@ -118,7 +118,7 @@ export const CoursesPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#170056] via-[#410056] to-[#54366B] relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-900 to-purple-900 relative overflow-hidden">
       {/* Background Images */}
       <div className="absolute inset-0 z-0">
         {/* Top Left Image */}
@@ -132,7 +132,7 @@ export const CoursesPage = () => {
           style={{ backgroundImage: 'url("/lovable-uploads/P2.png")' }}
         />
         {/* Overlay Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#170056]/50 via-[#363B6B]/50 to-[#000A33]/50 backdrop-blur-[2px]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/50 to-purple-900/50 backdrop-blur-[2px]" />
       </div>
 
       {/* Back Button */}
