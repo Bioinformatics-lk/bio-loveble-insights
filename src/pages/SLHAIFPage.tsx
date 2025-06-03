@@ -43,7 +43,8 @@ const BrainNode = ({ data }: { data: any }) => (
 const TopicNode = ({ data }: { data: any }) => (
   <div className="group">
     <div className="relative bg-white/10 backdrop-blur-md px-4 md:px-6 py-3 md:py-4 rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300 text-center min-w-[140px] md:min-w-[180px] max-w-[160px] md:max-w-[220px] transform hover:scale-105">
-      {/* Glowing effect for topic boxes */}
+      {/* Enhanced glowing effect for topic boxes */}
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#54366B]/30 to-[#363B6B]/30 blur-xl transform-gpu animate-pulse" />
       <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#54366B]/20 to-[#363B6B]/20 blur-md transform-gpu animate-pulse" />
       <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#54366B]/10 to-[#363B6B]/10 blur-sm transform-gpu animate-pulse" />
       {/* Content */}
@@ -89,7 +90,10 @@ export const SLHAIFPage = () => {
       {
         id: 'brain',
         type: 'brain',
-        position: { x: centerX - (isMobile ? 64 : 96), y: centerY - (isMobile ? 64 : 96) },
+        position: { 
+          x: centerX - (isMobile ? 64 : 96), 
+          y: isMobile ? centerY - (isMobile ? 64 : 96) : centerY - radius * 0.8
+        },
         data: { label: 'Brain' },
       },
     ];
@@ -98,7 +102,9 @@ export const SLHAIFPage = () => {
     topics.forEach((topic, index) => {
       const angle = (Math.PI / (topics.length - 1)) * index;
       const x = centerX + radius * Math.cos(angle) - (isMobile ? 70 : 100);
-      const y = centerY + radius * Math.sin(angle) - (isMobile ? 25 : 50);
+      const y = isMobile 
+        ? centerY + radius * Math.sin(angle) - (isMobile ? 25 : 50)
+        : centerY + radius * 0.8 + radius * Math.sin(angle) * 0.5;
 
       nodes.push({
         id: topic.id,
@@ -203,16 +209,22 @@ export const SLHAIFPage = () => {
           </ReactFlow>
         </div>
 
-        {/* Chat Button */}
+        {/* Enhanced Chat Button */}
         <div className="fixed bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 z-50">
-          <Button
-            size="lg"
-            className="bg-gradient-to-r from-[#363B6B] to-[#000A33] hover:from-[#000A33] hover:to-[#363B6B] text-white text-base md:text-lg px-6 md:px-8 py-4 md:py-6 rounded-full shadow-lg hover:shadow-xl transition-all transform-gpu hover:scale-105"
-          >
-            <MessageCircle className="w-5 h-5 md:w-6 md:h-6 mr-2" />
-            <span className="hidden md:inline">Chat with our AI system</span>
-            <span className="md:hidden">Chat</span>
-          </Button>
+          <div className="relative">
+            {/* Glowing effect for button */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#54366B] to-[#363B6B] blur-xl rounded-full animate-pulse" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#54366B]/50 to-[#363B6B]/50 blur-md rounded-full animate-pulse" />
+            {/* Button */}
+            <Button
+              size="lg"
+              className="relative bg-gradient-to-r from-[#363B6B] to-[#000A33] hover:from-[#000A33] hover:to-[#363B6B] text-white text-base md:text-lg px-6 md:px-8 py-4 md:py-6 rounded-full shadow-lg hover:shadow-xl transition-all transform-gpu hover:scale-105 border border-white/20 backdrop-blur-sm"
+            >
+              <MessageCircle className="w-5 h-5 md:w-6 md:h-6 mr-2" />
+              <span className="hidden md:inline">Chat with our AI system</span>
+              <span className="md:hidden">Chat</span>
+            </Button>
+          </div>
         </div>
       </div>
     </div>
