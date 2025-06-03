@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Brain, BookOpen, Network, Atom, FlaskConical, FileText, Beaker } from 'lucide-react';
-import { useRouter } from 'next/router';
+import { useNavigate } from 'react-router-dom';
 
 export const SLHAIFButton = () => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const router = useRouter();
+  const navigate = useNavigate();
 
   const agents = [
     { id: 'literature', title: 'Literature Search Agent', icon: BookOpen },
@@ -99,7 +99,7 @@ export const SLHAIFButton = () => {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       className="w-full px-4 py-3 rounded-lg bg-white/10 backdrop-blur-md border border-[#54366B] shadow-lg hover:shadow-xl transition-all duration-300 text-[#EAE3F5] group"
-                      onClick={() => router.push(`/ai-agents/${agent.id}`)}
+                      onClick={() => navigate(`/ai-agents/${agent.id}`)}
                     >
                       <div className="flex items-center gap-2">
                         <agent.icon className="w-5 h-5 text-purple-400 group-hover:text-purple-300 transition-colors" />
@@ -143,7 +143,7 @@ export const SLHAIFButton = () => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     className="w-full pl-8 pr-4 py-3 rounded-lg bg-white/10 backdrop-blur-md border border-[#54366B] shadow-lg hover:shadow-xl transition-all duration-300 text-[#EAE3F5] group"
-                    onClick={() => router.push(`/ai-agents/${agent.id}`)}
+                    onClick={() => navigate(`/ai-agents/${agent.id}`)}
                   >
                     <div className="flex items-center gap-2">
                       <agent.icon className="w-5 h-5 text-purple-400 group-hover:text-purple-300 transition-colors" />
@@ -159,7 +159,7 @@ export const SLHAIFButton = () => {
 
       {/* Chat Button */}
       <motion.button
-        onClick={() => router.push('/chat')}
+        onClick={() => navigate('/chat')}
         className={`
           relative z-20 mx-auto block
           px-8 py-4 rounded-xl
