@@ -14,26 +14,40 @@ import {
   Connection,
   NodeTypes,
   BackgroundVariant,
+  Handle,
+  Position,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 
 // Custom Node Component for the Brain
 const BrainNode = ({ data }: { data: any }) => (
-  <div className="relative w-40 h-40">
-    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#54366B] to-[#363B6B] blur-xl transform-gpu" />
+  <div className="relative w-48 h-48">
+    {/* Glowing circle effect */}
+    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#54366B] to-[#363B6B] blur-xl transform-gpu animate-pulse" />
     <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#54366B]/50 to-[#363B6B]/50 animate-pulse transform-gpu" />
+    {/* Pulsing ring */}
+    <div className="absolute -inset-4 rounded-full bg-gradient-to-r from-[#54366B]/30 to-[#363B6B]/30 animate-ping" />
+    {/* Brain icon */}
     <div className="relative z-10 w-full h-full flex items-center justify-center">
-      <Brain className="w-24 h-24 text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.8)] filter brightness-150" />
+      <Brain className="w-32 h-32 text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.8)] filter brightness-150 animate-pulse" />
     </div>
+    {/* Connection handles */}
+    <Handle type="source" position={Position.Top} className="w-3 h-3 bg-white/50" />
+    <Handle type="source" position={Position.Right} className="w-3 h-3 bg-white/50" />
+    <Handle type="source" position={Position.Bottom} className="w-3 h-3 bg-white/50" />
+    <Handle type="source" position={Position.Left} className="w-3 h-3 bg-white/50" />
   </div>
 );
 
 // Custom Node Component for Topics
 const TopicNode = ({ data }: { data: any }) => (
-  <div className="bg-white/10 backdrop-blur-md px-4 md:px-6 py-2 md:py-3 rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300 text-center min-w-[120px] max-w-[180px]">
-    <p className="text-white font-medium text-xs md:text-base whitespace-normal">
-      {data.label}
-    </p>
+  <div className="group">
+    <div className="bg-white/10 backdrop-blur-md px-6 py-4 rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300 text-center min-w-[180px] max-w-[220px] transform hover:scale-105">
+      <p className="text-white font-medium text-base whitespace-normal">
+        {data.label}
+      </p>
+    </div>
+    <Handle type="target" position={Position.Top} className="w-3 h-3 bg-white/50" />
   </div>
 );
 
@@ -63,13 +77,13 @@ export const SLHAIFPage = () => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
     const centerY = windowSize.height / 2;
-    const radius = isMobile ? 200 : 300;
+    const radius = isMobile ? 250 : 350;
 
     const nodes: Node[] = [
       {
         id: 'brain',
         type: 'brain',
-        position: { x: centerX - 80, y: centerY - 80 },
+        position: { x: centerX - 96, y: centerY - 96 },
         data: { label: 'Brain' },
       },
     ];
@@ -99,7 +113,11 @@ export const SLHAIFPage = () => {
       target: topic.id,
       type: 'smoothstep',
       animated: true,
-      style: { stroke: 'rgba(255, 255, 255, 0.3)' },
+      style: { 
+        stroke: 'rgba(255, 255, 255, 0.3)',
+        strokeWidth: 2,
+        strokeDasharray: '5,5',
+      },
     }));
   };
 
@@ -149,15 +167,15 @@ export const SLHAIFPage = () => {
         </Button>
 
         {/* SLHAIF Title */}
-        <h1 className="text-4xl md:text-5xl font-bold text-center text-white mb-12 mt-8">
+        <h1 className="text-5xl md:text-6xl font-bold text-center text-white mb-16 mt-8">
           SLHAIF
-          <span className="block text-lg md:text-xl text-white/80 mt-2">
+          <span className="block text-xl md:text-2xl text-white/80 mt-4">
             Sri Lanka's First Herbal Artificial Intelligence Factory
           </span>
         </h1>
 
         {/* React Flow Container */}
-        <div className="h-[600px] md:h-[800px] w-full">
+        <div className="h-[700px] md:h-[800px] w-full">
           <ReactFlow
             nodes={nodes}
             edges={edges}
@@ -168,6 +186,9 @@ export const SLHAIFPage = () => {
             fitView
             attributionPosition="bottom-right"
             className="bg-transparent"
+            minZoom={0.5}
+            maxZoom={1.5}
+            defaultViewport={{ x: 0, y: 0, zoom: 1 }}
           >
             <Background variant={BackgroundVariant.Dots} gap={12} size={1} color="rgba(255,255,255,0.1)" />
             <Controls className="bg-white/10 backdrop-blur-sm" />
