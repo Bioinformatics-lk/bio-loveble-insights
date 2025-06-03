@@ -417,7 +417,7 @@ const Index = () => {
         <div className="absolute inset-0">
           {/* Primary Background Gradient */}
           <div className="absolute inset-0 bg-gradient-to-br from-[#000A33] to-[#363B6B]"></div>
-          
+        
           {/* Geometric Shapes */}
           <div className="absolute inset-0">
             {/* Shape 1 */}
@@ -426,9 +426,9 @@ const Index = () => {
             <div className="absolute bottom-20 right-10 w-96 h-96 rounded-full bg-[#000A33]/40 blur-3xl"></div>
             {/* Shape 3 */}
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[#363B6B]/20 blur-3xl"></div>
-          </div>
-        </div>
-        
+              </div>
+            </div>
+          
         <div className="relative container mx-auto px-4 py-16 lg:py-24">
           {/* Main Hero Content - Split Layout */}
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-12">
@@ -440,26 +440,26 @@ const Index = () => {
               <div className="relative">
                 <h1 className="animate-on-scroll text-3xl md:text-4xl lg:text-6xl font-bold leading-tight text-left -mt-4">
                   Accelerating <span className="text-[#EAE3F5] text-4xl md:text-5xl lg:text-7xl">Bioinformatics</span> Innovation
-                </h1>
+              </h1>
                 <p className="animate-on-scroll delay-200 text-lg md:text-xl lg:text-2xl text-[#EAE3F5]/90 leading-relaxed text-left mt-6">
-                  Empowering researchers and students in genomics, proteomics, and computational biology through world-class education and cutting-edge research.
-                </p>
+                Empowering researchers and students in genomics, proteomics, and computational biology through world-class education and cutting-edge research.
+              </p>
                 <div className="animate-on-scroll delay-400 flex flex-col sm:flex-row gap-4 justify-start mt-6">
-                  <Button 
-                    size="lg" 
+                <Button 
+                  size="lg" 
                     className="bg-[#363B6B] hover:bg-[#000A33] text-[#EAE3F5] border border-[#EAE3F5]/20 transition-all transform hover:scale-105 shadow-lg text-base md:text-lg px-6 py-4 h-auto"
-                    onClick={() => scrollToSection('courses')}
-                  >
-                    Explore Courses
-                  </Button>
-                  <Button 
-                    size="lg" 
-                    variant="outline" 
+                  onClick={() => scrollToSection('courses')}
+                >
+                  Explore Courses
+                </Button>
+                <Button 
+                  size="lg" 
+                  variant="outline" 
                     className="border-[#EAE3F5]/30 text-[#EAE3F5] bg-[#000A33]/40 hover:bg-[#363B6B]/60 hover:text-[#EAE3F5] px-6 py-4 text-base md:text-lg transition-all transform hover:scale-105 font-semibold backdrop-blur-sm h-auto"
-                    onClick={() => scrollToSection('research')}
-                  >
-                    View Research
-                  </Button>
+                  onClick={() => scrollToSection('research')}
+                >
+                  View Research
+                </Button>
                 </div>
               </div>
             </div>

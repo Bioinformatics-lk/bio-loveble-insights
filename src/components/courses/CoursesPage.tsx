@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import '@/styles/glow.css';
 import { 
   BookOpen, 
@@ -14,10 +14,7 @@ import {
   GraduationCap,
   ChevronRight,
   ExternalLink,
-  DollarSign,
-  Clock,
-  Users,
-  Search
+  DollarSign
 } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -109,7 +106,6 @@ export const CoursesPage = () => {
   const [hoveredStep, setHoveredStep] = useState<number | null>(null);
   const [selectedCourse, setSelectedCourse] = useState<number | null>(null);
   const [showMobileModal, setShowMobileModal] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
 
   const handleEnrollClick = (enrollmentLink: string, e?: React.MouseEvent) => {
     e?.stopPropagation();
@@ -120,11 +116,6 @@ export const CoursesPage = () => {
     setShowMobileModal(false);
     setSelectedCourse(null);
   };
-
-  const filteredCourses = courses.filter(course =>
-    course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    course.description.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-900 to-purple-900 relative overflow-hidden">
@@ -455,56 +446,6 @@ export const CoursesPage = () => {
               </motion.div>
             ))}
           </div>
-        </div>
-
-        {/* Search Bar */}
-        <div className="mt-8">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50" />
-            <input
-              type="text"
-              placeholder="Search courses..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full md:w-64 pl-10 pr-4 py-2 bg-[#1a1a2e]/50 border border-white/10 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/20 transition-all-smooth"
-            />
-          </div>
-        </div>
-
-        {/* Course Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-          {filteredCourses.map((course) => (
-            <Card
-              key={course.step}
-              className="bg-[#1a1a2e]/50 border border-white/10 card-hover"
-            >
-              <CardHeader>
-                <div className="w-12 h-12 bg-[#16213e] rounded-lg flex items-center justify-center mb-4">
-                  <course.icon className="w-6 h-6 text-white" />
-                </div>
-                <CardTitle className="text-xl font-bold">{course.title}</CardTitle>
-                <CardDescription className="text-white/70">
-                  {course.description}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center space-x-4">
-                    <div className="flex items-center text-sm text-white/70">
-                      <Clock className="w-4 h-4 mr-1" />
-                      {course.detailedDescription.split(" ").slice(0, 3).join(" ")}
-                    </div>
-                  </div>
-                </div>
-                <Button
-                  className="w-full bg-[#16213e] hover:bg-[#1a1a2e] text-white transition-all-smooth"
-                >
-                  View Course
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
         </div>
       </main>
     </div>

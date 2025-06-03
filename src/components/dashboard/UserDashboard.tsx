@@ -1,9 +1,8 @@
 'use client';
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { BookOpen, Briefcase, LogOut, User, Brain, CheckCircle, Clock, Settings, Home, Book, MessageSquare, BarChart } from "lucide-react";
+import { BookOpen, Briefcase, LogOut, User, Brain } from "lucide-react";
 import { User as SupabaseUser } from '@supabase/supabase-js';
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from 'react-router-dom';
@@ -14,27 +13,6 @@ interface UserDashboardProps {
 }
 
 export const UserDashboard = ({ user }: UserDashboardProps) => {
-  const [activeSection, setActiveSection] = useState('dashboard');
-
-  const navItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: Home },
-    { id: 'courses', label: 'Courses', icon: Book },
-    { id: 'chat', label: 'Chat', icon: MessageSquare },
-    { id: 'analytics', label: 'Analytics', icon: BarChart },
-  ];
-
-  const recentActivity = [
-    { title: 'Completed Module 3 of Bioinformatics Basics', time: '2 hours ago', icon: CheckCircle },
-    { title: 'Started New Course: Molecular Docking', time: '1 day ago', icon: BookOpen },
-    { title: 'Received Certificate for Python in Bioinformatics', time: '3 days ago', icon: Book },
-  ];
-
-  const courseProgress = [
-    { title: 'Bioinformatics Basics', progress: 75 },
-    { title: 'Molecular Docking', progress: 30 },
-    { title: 'Python in Bioinformatics', progress: 100 },
-  ];
-
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -50,130 +28,256 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0f0f1a] via-[#1a1a2e] to-[#16213e] text-white animate-fade-in">
-      {/* Sidebar */}
-      <div className="fixed inset-y-0 left-0 w-64 bg-[#1a1a2e]/80 backdrop-blur-md border-r border-white/10 transition-all-smooth">
-        <div className="p-4">
-          <div className="flex items-center space-x-2 mb-8 animate-fade-in">
-            <Brain className="w-6 h-6 text-white animate-pulse-slow" />
-            <span className="text-xl font-bold">SLHAIF</span>
-          </div>
-          <nav className="space-y-2">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => setActiveSection(item.id)}
-                className={`w-full flex items-center space-x-2 p-3 rounded-lg transition-all-smooth ${
-                  activeSection === item.id
-                    ? 'bg-[#16213e] text-white'
-                    : 'text-white/70 hover:bg-[#16213e]/50'
-                }`}
-              >
-                <item.icon className="w-5 h-5" />
-                <span>{item.label}</span>
-              </button>
-            ))}
-          </nav>
-        </div>
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className="min-h-screen bg-gradient-to-br from-[#170056] via-[#410056] to-[#54366B] relative overflow-hidden"
+    >
+      {/* Background Images */}
+      <div className="absolute inset-0 z-0">
+        {/* Geometric Shapes for Visual Interest */}
+        <div className="absolute top-20 left-10 w-64 h-64 rounded-full bg-[#54366B]/20 blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 rounded-full bg-[#000A33]/40 blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[#363B6B]/20 blur-3xl"></div>
+        {/* Overlay Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#170056]/50 to-[#410056]/50 backdrop-blur-[2px]" />
       </div>
+
+      {/* Top Bar */}
+      <motion.header 
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="sticky top-0 z-50 w-full bg-white/10 backdrop-blur-md border-b border-white/20 shadow-lg"
+      >
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between h-16 md:h-20">
+            {/* Left Side - Logo and User Info */}
+            <motion.div 
+              initial={{ x: -20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="flex items-center space-x-4 md:space-x-6"
+            >
+              {/* Site Name */}
+              <h1 className="text-xl md:text-2xl font-bold text-white">
+                Bioinformatics.lk
+              </h1>
+              
+              {/* Divider */}
+              <div className="h-6 w-px bg-white/20"></div>
+              
+              {/* User Profile */}
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center">
+                  <User className="h-4 w-4 md:h-5 md:w-5 text-white" />
+                </div>
+                <div className="hidden sm:block">
+                  <p className="text-sm md:text-base font-medium text-white">
+                    {user?.user_metadata?.username || 'User'}
+                  </p>
+                  <p className="text-xs md:text-sm text-white/70">
+                    {user?.email}
+                  </p>
+              </div>
+              </div>
+            </motion.div>
+
+            {/* Right Side - Logout Button */}
+            <motion.div
+              initial={{ x: 20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+            <Button
+              onClick={handleLogout}
+                className="bg-white/10 hover:bg-white/20 text-white border border-white/20 shadow-sm hover:shadow flex items-center space-x-2 transition-all duration-300"
+                size="sm"
+            >
+                <LogOut className="h-4 w-4" />
+                <span className="hidden sm:inline">Logout</span>
+            </Button>
+            </motion.div>
+          </div>
+        </div>
+      </motion.header>
 
       {/* Main Content */}
-      <div className="ml-64 p-8">
-        <div className="max-w-7xl mx-auto">
-          {/* Header */}
-          <div className="flex justify-between items-center mb-8 animate-fade-in">
-            <h1 className="text-3xl font-bold">Dashboard</h1>
-            <div className="flex items-center space-x-4">
-              <Button
-                variant="ghost"
-                className="text-white hover:bg-white/10 transition-all-smooth"
+      <main className="container mx-auto px-4 py-16 relative z-10">
+        <motion.div 
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="grid grid-cols-1 gap-10 max-w-5xl mx-auto"
+        >
+          {/* First Row - Services and Courses */}
+          <div className="grid md:grid-cols-2 gap-10">
+            {/* Services Card */}
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <Card className="border-2 border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300 h-full flex flex-col">
+                <CardHeader className="text-center flex-1">
+                  <div className="w-24 h-24 mx-auto mb-6 bg-[#363B6B] rounded-full flex items-center justify-center shadow-lg">
+                    <Briefcase className="h-12 w-12 text-white" />
+                  </div>
+                  <CardTitle className="text-3xl text-white font-bold">
+                    Services
+                  </CardTitle>
+                  <CardDescription className="text-white/70 text-lg mt-2">
+                    Professional bioinformatics and computational biology services
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="mt-auto">
+                  <Button 
+                    className="w-full bg-[#363B6B] hover:bg-[#000A33] text-white border border-white/20 transition-all text-lg py-6 font-semibold shadow-lg hover:shadow-xl"
+                    size="lg"
+                  >
+                    View Services
+                  </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+          {/* Courses Card */}
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <Card className="border-2 border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300 h-full flex flex-col">
+                <CardHeader className="text-center flex-1">
+                  <div className="w-24 h-24 mx-auto mb-6 bg-[#363B6B] rounded-full flex items-center justify-center shadow-lg">
+                    <BookOpen className="h-12 w-12 text-white" />
+              </div>
+                  <CardTitle className="text-3xl text-white font-bold">
+                Courses
+              </CardTitle>
+                  <CardDescription className="text-white/70 text-lg mt-2">
+                Access our comprehensive bioinformatics courses
+              </CardDescription>
+            </CardHeader>
+                <CardContent className="mt-auto">
+              <Button 
+                    onClick={handleViewCourses}
+                    className="w-full bg-[#363B6B] hover:bg-[#000A33] text-white border border-white/20 transition-all text-lg py-6 font-semibold shadow-lg hover:shadow-xl"
+                size="lg"
               >
-                <Settings className="w-5 h-5 mr-2" />
-                Settings
+                View Courses
               </Button>
-              <Button
-                variant="ghost"
-                className="text-white hover:bg-white/10 transition-all-smooth"
-                onClick={handleLogout}
+            </CardContent>
+          </Card>
+            </motion.div>
+          </div>
+
+          {/* SLHAIF Card - Centered Below */}
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 300 }}
+            className="md:col-span-2 md:w-2/3 mx-auto"
+          >
+            <Card className="border-2 border-white/20 bg-transparent backdrop-blur-sm hover:bg-white/5 transition-all duration-300 relative overflow-hidden will-change-transform">
+              {/* Optimized Glowing Effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#54366B]/20 to-[#363B6B]/20">
+                <motion.div
+                  initial={{ opacity: 0.2 }}
+                  animate={{
+                    opacity: [0.2, 0.4, 0.2],
+                  }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    times: [0, 0.5, 1],
+                  }}
+                  className="w-full h-full bg-gradient-to-r from-[#54366B] to-[#363B6B] blur-2xl transform-gpu"
+                />
+              </div>
+              
+              <CardHeader className="text-center relative z-10">
+                <div className="w-28 h-28 mx-auto mb-6 bg-transparent rounded-full flex items-center justify-center relative group">
+                  {/* Optimized Glowing background effect */}
+                  <motion.div
+                    initial={{ scale: 1, opacity: 0.3 }}
+                    animate={{
+                      scale: [1, 1.1, 1],
+                      opacity: [0.3, 0.5, 0.3],
+                    }}
+                    transition={{
+                      duration: 1.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      times: [0, 0.5, 1],
+                    }}
+                    className="absolute inset-0 rounded-full bg-gradient-to-r from-[#54366B] to-[#363B6B] blur-xl transform-gpu"
+                  />
+                  
+                  {/* Optimized Pulsing ring effect */}
+                  <motion.div
+                    initial={{ scale: 1, opacity: 0.2 }}
+                    animate={{
+                      scale: [1, 1.2, 1],
+                      opacity: [0.2, 0.3, 0.2],
+                    }}
+                    transition={{
+                      duration: 1.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      times: [0, 0.5, 1],
+                    }}
+                    className="absolute -inset-3 rounded-full bg-gradient-to-r from-[#54366B] to-[#363B6B] blur-lg transform-gpu"
+                  />
+                  
+                  {/* Optimized Brain icon animation */}
+                  <motion.div
+                    initial={{ scale: 1 }}
+                    animate={{
+                      scale: [1, 1.08, 1],
+                    }}
+                    transition={{
+                      duration: 1.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      times: [0, 0.5, 1],
+                    }}
+                    className="relative z-10 transform-gpu"
+                  >
+                    <div className="relative transform-gpu">
+                      {/* Optimized layered glows */}
+                      <div className="absolute inset-0 blur-md bg-white/20 rounded-full transform-gpu"></div>
+                      <div className="absolute inset-0 blur-lg bg-white/15 rounded-full scale-110 transform-gpu"></div>
+                      <div className="absolute inset-0 blur-xl bg-white/10 rounded-full scale-125 transform-gpu"></div>
+                      <Brain 
+                        className="h-14 w-14 text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.8)] filter brightness-150 transform-gpu" 
+                      />
+                    </div>
+                  </motion.div>
+                </div>
+                <CardTitle className="text-3xl text-white font-bold drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">
+                  SLHAIF
+              </CardTitle>
+                <CardDescription className="text-white/90 text-lg mt-2 font-medium">
+                  Sri Lanka's First Herbal Artificial Intelligence Factory
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button 
+                  onClick={handleExploreSlhaif}
+                  className="w-full bg-[#363B6B] hover:bg-[#000A33] text-white border border-white/20 transition-all text-lg py-6 font-semibold shadow-lg hover:shadow-xl backdrop-blur-sm"
+                size="lg"
               >
-                <LogOut className="w-5 h-5 mr-2" />
-                Sign Out
+                  Explore SLHAIF
               </Button>
-            </div>
-          </div>
-
-          {/* Content Sections */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Stats Cards */}
-            <div className="bg-[#1a1a2e]/50 rounded-xl p-6 border border-white/10 card-hover">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold">Total Courses</h3>
-                <BookOpen className="w-5 h-5 text-white/70" />
-              </div>
-              <p className="text-3xl font-bold">12</p>
-            </div>
-
-            <div className="bg-[#1a1a2e]/50 rounded-xl p-6 border border-white/10 card-hover">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold">Completed</h3>
-                <CheckCircle className="w-5 h-5 text-white/70" />
-              </div>
-              <p className="text-3xl font-bold">4</p>
-            </div>
-
-            <div className="bg-[#1a1a2e]/50 rounded-xl p-6 border border-white/10 card-hover">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold">In Progress</h3>
-                <Clock className="w-5 h-5 text-white/70" />
-              </div>
-              <p className="text-3xl font-bold">3</p>
-            </div>
-          </div>
-
-          {/* Recent Activity */}
-          <div className="mt-8 bg-[#1a1a2e]/50 rounded-xl p-6 border border-white/10 card-hover">
-            <h2 className="text-xl font-semibold mb-4">Recent Activity</h2>
-            <div className="space-y-4">
-              {recentActivity.map((activity, index) => (
-                <div
-                  key={index}
-                  className="flex items-center space-x-4 p-3 rounded-lg bg-[#16213e]/50 transition-all-smooth hover:bg-[#16213e]"
-                >
-                  <activity.icon className="w-5 h-5 text-white/70" />
-                  <div>
-                    <p className="font-medium">{activity.title}</p>
-                    <p className="text-sm text-white/50">{activity.time}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Course Progress */}
-          <div className="mt-8 bg-[#1a1a2e]/50 rounded-xl p-6 border border-white/10 card-hover">
-            <h2 className="text-xl font-semibold mb-4">Course Progress</h2>
-            <div className="space-y-4">
-              {courseProgress.map((course, index) => (
-                <div
-                  key={index}
-                  className="p-4 rounded-lg bg-[#16213e]/50 transition-all-smooth hover:bg-[#16213e]"
-                >
-                  <div className="flex justify-between items-center mb-2">
-                    <h3 className="font-medium">{course.title}</h3>
-                    <span className="text-sm text-white/70">{course.progress}%</span>
-                  </div>
-                  <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all-smooth"
-                      style={{ width: `${course.progress}%` }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+            </CardContent>
+          </Card>
+          </motion.div>
+        </motion.div>
+      </main>
+    </motion.div>
   );
 };
