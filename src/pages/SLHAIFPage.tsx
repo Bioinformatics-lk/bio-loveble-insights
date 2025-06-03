@@ -63,20 +63,22 @@ export const SLHAIFPage = () => {
 
   const calculatePosition = (index: number) => {
     const isMobile = windowSize.width < 768;
-    const centerX = windowSize.width / 2;
-    const centerY = isMobile ? 300 : windowSize.height / 2;
-    
-    const radius = isMobile
-      ? Math.min(windowSize.width * 0.4, 150)
-      : Math.min(windowSize.width * 0.3, 400);
-
-    const totalAngle = isMobile ? Math.PI * 0.8 : Math.PI;
-    const startAngle = isMobile ? Math.PI * 0.1 : 0;
+    // Brain center coordinates
+    const containerHeight = isMobile ? 400 : 600;
+    const containerWidth = windowSize.width;
+    const brainSize = isMobile ? 120 : 160;
+    const centerX = containerWidth / 2;
+    const centerY = containerHeight / 2;
+    // Radius from the center of the brain to the topic
+    const radius = isMobile ? 120 : 200;
+    // Semi-circle angles
+    const totalAngle = Math.PI;
+    const startAngle = Math.PI;
     const angle = startAngle + (totalAngle / (topics.length - 1)) * index;
-    
+    // Position relative to the brain center
     return {
       x: centerX + radius * Math.cos(angle) - (isMobile ? 60 : 100),
-      y: centerY + radius * Math.sin(angle) * (isMobile ? 0.8 : 0.5),
+      y: centerY + radius * Math.sin(angle) - (isMobile ? 30 : 40),
     };
   };
 
@@ -112,22 +114,27 @@ export const SLHAIFPage = () => {
           </span>
         </motion.h1>
 
-        {/* Brain Symbol */}
-        <motion.div
-          className="relative w-40 h-40 mx-auto mb-16"
-          variants={brainVariants}
-          initial="initial"
-          animate="pulse"
-        >
-          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#54366B] to-[#363B6B] blur-xl transform-gpu" />
-          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#54366B]/50 to-[#363B6B]/50 animate-pulse transform-gpu" />
-          <motion.div className="relative z-10 w-full h-full flex items-center justify-center">
-            <Brain className="w-24 h-24 text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.8)] filter brightness-150" />
+        {/* Topic Boxes + Brain Symbol */}
+        <div className="relative mx-auto" style={{height: windowSize.width < 768 ? 400 : 600, maxWidth: '100%'}}>
+          {/* Brain Symbol at center */}
+          <motion.div
+            className="absolute left-1/2 top-1/2 z-10"
+            style={{
+              width: windowSize.width < 768 ? 120 : 160,
+              height: windowSize.width < 768 ? 120 : 160,
+              transform: `translate(-50%, -50%)`,
+            }}
+            variants={brainVariants}
+            initial="initial"
+            animate="pulse"
+          >
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#54366B] to-[#363B6B] blur-xl transform-gpu" />
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#54366B]/50 to-[#363B6B]/50 animate-pulse transform-gpu" />
+            <motion.div className="relative z-10 w-full h-full flex items-center justify-center">
+              <Brain className={windowSize.width < 768 ? "w-16 h-16" : "w-24 h-24"} style={{color: 'white', filter: 'brightness(1.5) drop-shadow(0 0 20px rgba(255,255,255,0.8))'}} />
+            </motion.div>
           </motion.div>
-        </motion.div>
-
-        {/* Topic Boxes */}
-        <div className="relative h-[500px] md:h-[600px]">
+          {/* Topics around the brain */}
           {topics.map((topic, index) => {
             const position = calculatePosition(index);
             return (
@@ -145,32 +152,10 @@ export const SLHAIFPage = () => {
                   delay: index * 0.1,
                 }}
                 whileHover={{ scale: 1.05 }}
+                style={{zIndex: 5}}
               >
-                {/* Connection Line */}
-                <motion.svg
-                  className="absolute top-1/2 left-1/2 w-full h-full pointer-events-none"
-                  style={{
-                    zIndex: -1,
-                    width: "100px",
-                    height: "100px",
-                  }}
-                  variants={connectionVariants}
-                  animate="animate"
-                >
-                  <motion.line
-                    x1="0"
-                    y1="0"
-                    x2="100"
-                    y2="0"
-                    stroke="rgba(255, 255, 255, 0.3)"
-                    strokeWidth="2"
-                    strokeDasharray="5,5"
-                  />
-                </motion.svg>
-
-                {/* Topic Box */}
-                <div className="bg-white/10 backdrop-blur-md px-4 md:px-6 py-2 md:py-3 rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300">
-                  <p className="text-white font-medium text-xs md:text-base whitespace-nowrap">
+                <div className="bg-white/10 backdrop-blur-md px-4 md:px-6 py-2 md:py-3 rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300 text-center min-w-[120px] max-w-[180px]">
+                  <p className="text-white font-medium text-xs md:text-base whitespace-normal">
                     {topic.title}
                   </p>
                 </div>
