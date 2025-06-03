@@ -294,10 +294,10 @@ const Index = () => {
 
             {/* Right Side - Search and Login */}
             <div className="flex items-center gap-4">
-              {/* Desktop Search Bar and Icon */}
-              <div className="hidden md:block">
+              {/* Search Bar and Icon */}
+              <div className="relative">
                 {searchOpen ? (
-                  <div className="relative">
+                  <div className="absolute right-0 top-0 w-64 md:w-80">
                     <SearchBar className={`${isScrolled ? 'text-black placeholder-gray-500' : 'text-[#EAE3F5] placeholder-[#EAE3F5]/70'}`} />
                   </div>
                 ) : (
@@ -314,22 +314,6 @@ const Index = () => {
                     <Search className="h-6 w-6" />
                   </Button>
                 )}
-              </div>
-
-              {/* Mobile Search Icon */}
-              <div className="block md:hidden">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setSearchOpen(!searchOpen)}
-                  className={`transition-all w-12 h-12 ${
-                    isScrolled 
-                      ? 'text-purple-600 hover:text-purple-700 hover:bg-purple-100' 
-                      : 'text-[#EAE3F5] hover:text-[#EAE3F5] hover:bg-[#410056]/40'
-                  }`}
-                >
-                  <Search className="h-6 w-6" />
-                </Button>
               </div>
               
               <Button
@@ -461,15 +445,6 @@ const Index = () => {
         </div>
         
         <div className="relative container mx-auto px-4 py-16 lg:py-24">
-          {/* Mobile Search Bar */}
-          {searchOpen && (
-            <div className="md:hidden w-full max-w-sm mx-auto mb-8">
-              <div className="relative">
-                <SearchBar className={`${isScrolled ? 'text-black placeholder-gray-500' : 'text-white placeholder-white/70'}`} />
-              </div>
-            </div>
-          )}
-          
           {/* Main Hero Content - Split Layout */}
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-12">
             {/* Left Side - Text Content */}
