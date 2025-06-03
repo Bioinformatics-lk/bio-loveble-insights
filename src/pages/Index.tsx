@@ -137,23 +137,25 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 relative">
-      <style jsx>{`
-        .animate-on-scroll {
-          opacity: 0;
-          transform: translateY(20px);
-          transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        
-        .animate-in {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        
-        .delay-200 { transition-delay: 200ms; }
-        .delay-400 { transition-delay: 400ms; }
-        .delay-600 { transition-delay: 600ms; }
-      `}</style>
+    <div className="min-h-screen bg-gradient-to-br from-[#170056] via-[#410056] to-[#000A33] relative">
+      <style>
+        {`
+          .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+          }
+          
+          .animate-in {
+            opacity: 1;
+            transform: translateY(0);
+          }
+          
+          .delay-200 { transition-delay: 200ms; }
+          .delay-400 { transition-delay: 400ms; }
+          .delay-600 { transition-delay: 600ms; }
+        `}
+      </style>
 
       {/* Navigation Header */}
       <header className={`sticky top-0 z-50 backdrop-blur-md border-b transition-all duration-300 ${
@@ -345,7 +347,7 @@ const Index = () => {
 
       {/* Mobile Navigation Menu - Add before the Hero section */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 bg-gradient-to-br from-purple-900/95 via-blue-900/95 to-indigo-900/95 backdrop-blur-md md:hidden">
+        <div className="fixed inset-0 z-50 bg-gradient-to-br from-[#170056]/95 via-[#410056]/95 to-[#000A33]/95 backdrop-blur-md md:hidden">
           <div className="container mx-auto px-4 py-8">
             <div className="flex justify-end mb-6">
               <Button
@@ -445,7 +447,10 @@ const Index = () => {
 
       {/* Hero Section */}
       <section className="relative overflow-hidden z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-[#170056] via-[#410056] to-[#000A33]">
+          {/* Creative pattern overlay */}
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_50%_50%,_#54366B_1px,_transparent_1px)] bg-[length:20px_20px]"></div>
+        </div>
         
         <div className="relative container mx-auto px-4 py-16 lg:py-24">
           {/* Mobile Search Bar */}
@@ -967,8 +972,10 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gradient-to-br from-purple-900/50 via-blue-900/50 to-indigo-900/50 backdrop-blur-sm text-white py-12 md:py-16 relative z-10">
+      <footer className="bg-gradient-to-br from-[#170056]/90 via-[#410056]/90 to-[#000A33]/90 backdrop-blur-sm text-white py-12 md:py-16 relative z-10">
         <div className="container mx-auto px-4">
+          {/* Add decorative pattern to footer */}
+          <div className="absolute inset-0 opacity-5 bg-[radial-gradient(circle_at_50%_50%,_#54366B_1px,_transparent_1px)] bg-[length:15px_15px]"></div>
           <div className="grid md:grid-cols-4 gap-6 lg:gap-8">
             <div className="space-y-4">
               <div className="flex items-center">

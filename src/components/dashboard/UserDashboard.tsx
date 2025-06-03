@@ -29,12 +29,14 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen bg-gradient-to-br from-indigo-900 to-purple-900 relative overflow-hidden"
+      className="min-h-screen bg-gradient-to-br from-[#170056] to-[#410056] relative overflow-hidden"
     >
       {/* Background Images */}
       <div className="absolute inset-0 z-0">
+        {/* Creative pattern overlay */}
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_50%_50%,_#54366B_1px,_transparent_1px)] bg-[length:20px_20px]"></div>
         {/* Overlay Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/50 to-purple-900/50 backdrop-blur-[2px]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#170056]/50 to-[#410056]/50 backdrop-blur-[2px]" />
       </div>
 
       {/* Top Bar */}
@@ -42,7 +44,7 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="sticky top-0 z-50 w-full bg-white/10 backdrop-blur-md border-b border-white/20 shadow-lg"
+        className="sticky top-0 z-50 w-full bg-[#170056]/10 backdrop-blur-md border-b border-[#54366B]/20 shadow-lg"
       >
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16 md:h-20">
@@ -59,18 +61,18 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
               </h1>
               
               {/* Divider */}
-              <div className="h-6 w-px bg-white/20"></div>
+              <div className="h-6 w-px bg-[#54366B]/20"></div>
               
               {/* User Profile */}
               <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center">
+                <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-[#170056] to-[#410056] rounded-full flex items-center justify-center">
                   <User className="h-4 w-4 md:h-5 md:w-5 text-white" />
                 </div>
                 <div className="hidden sm:block">
                   <p className="text-sm md:text-base font-medium text-white">
                     {user?.user_metadata?.username || 'User'}
                   </p>
-                  <p className="text-xs md:text-sm text-white/70">
+                  <p className="text-xs md:text-sm text-[#54366B]">
                     {user?.email}
                   </p>
                 </div>
@@ -85,7 +87,7 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
             >
               <Button
                 onClick={handleLogout}
-                className="bg-white/10 hover:bg-white/20 text-white border border-white/20 shadow-sm hover:shadow flex items-center space-x-2 transition-all duration-300"
+                className="bg-[#170056]/10 hover:bg-[#170056]/20 text-white border border-[#54366B]/20 shadow-sm hover:shadow flex items-center space-x-2 transition-all duration-300"
                 size="sm"
               >
                 <LogOut className="h-4 w-4" />
