@@ -473,36 +473,41 @@ const Index = () => {
           {/* Main Hero Content - Split Layout */}
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-12">
             {/* Left Side - Text Content */}
-            <div className="text-white space-y-4 lg:space-y-6">
-              <h1 className="animate-on-scroll text-3xl md:text-4xl lg:text-6xl font-bold leading-tight text-left">
-                Accelerating <span className="text-purple-300">Bioinformatics</span> Innovation
-              </h1>
-              <p className="animate-on-scroll delay-200 text-lg md:text-xl lg:text-2xl text-purple-100 leading-relaxed text-left">
-                Empowering researchers and students in genomics, proteomics, and computational biology through world-class education and cutting-edge research.
-              </p>
-              <div className="animate-on-scroll delay-400 flex flex-col sm:flex-row gap-4 justify-start">
-                <Button 
-                  size="lg" 
-                  className="bg-purple-600 hover:bg-purple-700 text-white px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg transition-all transform hover:scale-105"
-                  onClick={() => scrollToSection('courses')}
-                >
-                  Explore Courses
-                </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="border-purple-300/30 text-black bg-white/90 hover:bg-white hover:text-black px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg transition-all transform hover:scale-105 font-semibold"
-                  onClick={() => scrollToSection('research')}
-                >
-                  View Research
-                </Button>
+            <div className="text-white space-y-4 lg:space-y-6 relative">
+              {/* Dark overlay for text content */}
+              <div className="absolute inset-0 -m-8 bg-gradient-to-r from-[#000A33]/80 to-transparent rounded-3xl blur-xl"></div>
+              
+              <div className="relative">
+                <h1 className="animate-on-scroll text-3xl md:text-4xl lg:text-6xl font-bold leading-tight text-left">
+                  Accelerating <span className="text-purple-300">Bioinformatics</span> Innovation
+                </h1>
+                <p className="animate-on-scroll delay-200 text-lg md:text-xl lg:text-2xl text-purple-100 leading-relaxed text-left">
+                  Empowering researchers and students in genomics, proteomics, and computational biology through world-class education and cutting-edge research.
+                </p>
+                <div className="animate-on-scroll delay-400 flex flex-col sm:flex-row gap-4 justify-start">
+                  <Button 
+                    size="lg" 
+                    className="bg-[#54366B] hover:bg-[#410056] text-[#EAE3F5] border border-[#EAE3F5]/20 transition-all transform hover:scale-105 shadow-lg"
+                    onClick={() => scrollToSection('courses')}
+                  >
+                    Explore Courses
+                  </Button>
+                  <Button 
+                    size="lg" 
+                    variant="outline" 
+                    className="border-[#EAE3F5]/30 text-[#EAE3F5] bg-[#000A33]/40 hover:bg-[#000A33]/60 hover:text-[#EAE3F5] px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg transition-all transform hover:scale-105 font-semibold backdrop-blur-sm"
+                    onClick={() => scrollToSection('research')}
+                  >
+                    View Research
+                  </Button>
+                </div>
               </div>
             </div>
 
             {/* Right Side - Video */}
             <div className="animate-on-scroll delay-600 relative hidden lg:block">
-              <div className="relative w-full h-64 md:h-80 lg:h-96 bg-gradient-to-br from-purple-600/20 to-blue-600/20 backdrop-blur-sm rounded-2xl border-2 border-purple-300/50 overflow-hidden shadow-2xl">
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-600/10 to-blue-600/10"></div>
+              <div className="relative w-full h-64 md:h-80 lg:h-96 bg-gradient-to-br from-[#000A33]/40 to-[#54366B]/40 backdrop-blur-sm rounded-2xl border-2 border-[#EAE3F5]/20 overflow-hidden shadow-2xl">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#000A33]/20 to-[#54366B]/20"></div>
                 <iframe 
                   src="https://player.vimeo.com/video/1089037562?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1"
                   frameBorder="0" 
@@ -515,13 +520,16 @@ const Index = () => {
           </div>
 
           {/* Counters Section */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8 relative">
+            {/* Dark overlay for counters */}
+            <div className="absolute inset-0 -m-4 bg-gradient-to-b from-transparent via-[#000A33]/60 to-transparent rounded-2xl blur-lg"></div>
+            
             {Object.entries(counters).map(([key, value], index) => (
-              <div key={key} className={`animate-on-scroll delay-${index * 200} text-center`}>
+              <div key={key} className={`animate-on-scroll delay-${index * 200} text-center relative`}>
                 <div className="text-3xl md:text-4xl font-bold text-white mb-2">
                   {value.toString().padStart(2, '0')}
                 </div>
-                <div className="text-purple-200 text-sm md:text-base">
+                <div className="text-[#EAE3F5] text-sm md:text-base">
                   {key.charAt(0).toUpperCase() + key.slice(1)}
                 </div>
               </div>
