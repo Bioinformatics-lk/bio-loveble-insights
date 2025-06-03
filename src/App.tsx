@@ -28,7 +28,7 @@ function App() {
   }, []);
 
   return (
-    <Router>
+    <Router basename="/">
       <Routes>
         <Route 
           path="/" 
@@ -40,6 +40,7 @@ function App() {
         />
         <Route path="/slhaif" element={<SLHAIF />} />
         <Route path="/slhaif-chat" element={<SLHAIFChat />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
   );
