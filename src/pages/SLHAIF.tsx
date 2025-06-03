@@ -169,12 +169,12 @@ const SLHAIF = () => {
   ];
 
   const edges: Edge[] = [
-    { id: 'e1-2', source: 'slhaif', target: 'literature', type: 'animated', animated: true, markerEnd: { type: MarkerType.Arrow } },
-    { id: 'e1-3', source: 'slhaif', target: 'network', type: 'animated', animated: true, markerEnd: { type: MarkerType.Arrow } },
-    { id: 'e1-4', source: 'slhaif', target: 'docking', type: 'animated', animated: true, markerEnd: { type: MarkerType.Arrow } },
-    { id: 'e1-5', source: 'slhaif', target: 'dynamics', type: 'animated', animated: true, markerEnd: { type: MarkerType.Arrow } },
-    { id: 'e1-6', source: 'slhaif', target: 'manuscript', type: 'animated', animated: true, markerEnd: { type: MarkerType.Arrow } },
-    { id: 'e1-7', source: 'slhaif', target: 'formulation', type: 'animated', animated: true, markerEnd: { type: MarkerType.Arrow } }
+    { id: 'e1-2', source: 'slhaif', target: 'literature', type: 'smoothstep', animated: true, markerEnd: { type: MarkerType.Arrow } },
+    { id: 'e1-3', source: 'slhaif', target: 'network', type: 'smoothstep', animated: true, markerEnd: { type: MarkerType.Arrow } },
+    { id: 'e1-4', source: 'slhaif', target: 'docking', type: 'smoothstep', animated: true, markerEnd: { type: MarkerType.Arrow } },
+    { id: 'e1-5', source: 'slhaif', target: 'dynamics', type: 'smoothstep', animated: true, markerEnd: { type: MarkerType.Arrow } },
+    { id: 'e1-6', source: 'slhaif', target: 'manuscript', type: 'smoothstep', animated: true, markerEnd: { type: MarkerType.Arrow } },
+    { id: 'e1-7', source: 'slhaif', target: 'formulation', type: 'smoothstep', animated: true, markerEnd: { type: MarkerType.Arrow } }
   ];
 
   const nodeTypes = {
