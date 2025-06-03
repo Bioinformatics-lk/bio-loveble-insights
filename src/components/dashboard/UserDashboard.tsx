@@ -179,34 +179,77 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
           >
             <Card className="border-2 border-white/20 bg-transparent backdrop-blur-sm hover:bg-white/5 transition-all duration-300 relative overflow-hidden">
               {/* Enhanced Glowing Effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#54366B]/10 to-[#363B6B]/10 animate-pulse"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-[#54366B]/20 to-[#363B6B]/20">
+                <motion.div
+                  animate={{
+                    opacity: [0.2, 0.4, 0.2, 0.1, 0.2],
+                  }}
+                  transition={{
+                    duration: 1.2,
+                    repeat: Infinity,
+                    ease: [0.4, 0, 0.2, 1],
+                    times: [0, 0.14, 0.3, 0.43, 0.7],
+                  }}
+                  className="w-full h-full bg-gradient-to-r from-[#54366B] to-[#363B6B] blur-3xl"
+                />
+              </div>
               
               <CardHeader className="text-center relative z-10">
-                <div className="w-24 h-24 mx-auto mb-6 bg-transparent rounded-full flex items-center justify-center shadow-lg ring-4 ring-[#54366B]/30 relative group">
+                <div className="w-32 h-32 mx-auto mb-6 bg-transparent rounded-full flex items-center justify-center relative group">
                   {/* Enhanced Glowing background effect */}
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#54366B]/30 to-[#363B6B]/30 blur-xl group-hover:blur-2xl transition-all duration-500"></div>
-                  
-                  {/* Enhanced Pulsing ring effect */}
-                  <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-[#54366B]/20 to-[#363B6B]/20 animate-ping opacity-75"></div>
-                  
-                  {/* Brain icon with heartbeat animation */}
                   <motion.div
                     animate={{
                       scale: [1, 1.15, 1, 0.95, 1],
-                      rotate: [-1, 1, -1],
+                      opacity: [0.3, 0.6, 0.3, 0.2, 0.3],
                     }}
                     transition={{
                       duration: 1.2,
                       repeat: Infinity,
-                      ease: [0.4, 0, 0.2, 1], // Custom easing for heartbeat effect
-                      times: [0, 0.14, 0.3, 0.43, 0.7], // Timing for heartbeat phases
+                      ease: [0.4, 0, 0.2, 1],
+                      times: [0, 0.14, 0.3, 0.43, 0.7],
+                    }}
+                    className="absolute inset-0 rounded-full bg-gradient-to-r from-[#54366B] to-[#363B6B] blur-2xl"
+                  />
+                  
+                  {/* Enhanced Pulsing ring effect */}
+                  <motion.div
+                    animate={{
+                      scale: [1, 1.15, 1, 0.95, 1],
+                      opacity: [0.2, 0.4, 0.2, 0.1, 0.2],
+                    }}
+                    transition={{
+                      duration: 1.2,
+                      repeat: Infinity,
+                      ease: [0.4, 0, 0.2, 1],
+                      times: [0, 0.14, 0.3, 0.43, 0.7],
+                    }}
+                    className="absolute -inset-4 rounded-full bg-gradient-to-r from-[#54366B] to-[#363B6B] blur-xl"
+                  />
+                  
+                  {/* Brain icon with synchronized heartbeat animation */}
+                  <motion.div
+                    animate={{
+                      scale: [1, 1.15, 1, 0.95, 1],
+                      rotate: [-1, 1, -1, 0, -1],
+                    }}
+                    transition={{
+                      duration: 1.2,
+                      repeat: Infinity,
+                      ease: [0.4, 0, 0.2, 1],
+                      times: [0, 0.14, 0.3, 0.43, 0.7],
                     }}
                     className="relative z-10"
                   >
-                    <Brain className="h-12 w-12 text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.8)] filter brightness-125" />
+                    <div className="relative">
+                      {/* Multiple layered glows for enhanced effect */}
+                      <div className="absolute inset-0 blur-md bg-white/30 rounded-full"></div>
+                      <div className="absolute inset-0 blur-xl bg-white/20 rounded-full scale-110"></div>
+                      <div className="absolute inset-0 blur-2xl bg-white/10 rounded-full scale-125"></div>
+                      <Brain className="h-16 w-16 text-white drop-shadow-[0_0_25px_rgba(255,255,255,0.9)] filter brightness-150" />
+                    </div>
                   </motion.div>
                 </div>
-                <CardTitle className="text-3xl text-white font-bold">
+                <CardTitle className="text-3xl text-white font-bold drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">
                   SLHAIF
                 </CardTitle>
                 <CardDescription className="text-white/90 text-lg mt-2 font-medium">
