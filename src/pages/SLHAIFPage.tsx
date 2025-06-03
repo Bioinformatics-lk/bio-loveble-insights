@@ -53,7 +53,7 @@ const TopicNode = ({ data }: { data: any }) => (
         </p>
       </div>
     </div>
-    <Handle type="target" position={Position.Bottom} className="w-2 h-2 md:w-3 md:h-3 bg-white/50" />
+    <Handle type="target" position={Position.Top} className="w-2 h-2 md:w-3 md:h-3 bg-white/50" />
   </div>
 );
 
@@ -83,30 +83,22 @@ export const SLHAIFPage = () => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
     const centerY = windowSize.height / 2;
-    
-    // Calculate radius based on viewport size
-    const radius = Math.min(windowSize.width, windowSize.height) * (isMobile ? 0.35 : 0.4);
-    
-    // Position brain at the bottom
-    const brainY = centerY + radius * 0.6;
-    
+    const radius = isMobile ? 180 : 350;
+
     const nodes: Node[] = [
       {
         id: 'brain',
         type: 'brain',
-        position: { 
-          x: centerX - (isMobile ? 64 : 96), 
-          y: brainY - (isMobile ? 64 : 96)
-        },
+        position: { x: centerX - (isMobile ? 64 : 96), y: centerY - (isMobile ? 64 : 96) },
         data: { label: 'Brain' },
       },
     ];
 
-    // Add topic nodes in a semi-circle above the brain
+    // Add topic nodes in a semi-circle
     topics.forEach((topic, index) => {
       const angle = (Math.PI / (topics.length - 1)) * index;
       const x = centerX + radius * Math.cos(angle) - (isMobile ? 70 : 100);
-      const y = centerY - radius * 0.8 + radius * Math.sin(angle) * 0.5;
+      const y = centerY + radius * Math.sin(angle) - (isMobile ? 25 : 50);
 
       nodes.push({
         id: topic.id,
@@ -190,7 +182,7 @@ export const SLHAIFPage = () => {
         </h1>
 
         {/* React Flow Container */}
-        <div className="h-[calc(100vh-200px)] md:h-[calc(100vh-250px)] w-full">
+        <div className="h-[500px] md:h-[800px] w-full">
           <ReactFlow
             nodes={nodes}
             edges={edges}
