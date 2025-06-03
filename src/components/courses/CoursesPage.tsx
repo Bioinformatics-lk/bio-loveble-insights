@@ -107,8 +107,9 @@ export const CoursesPage = () => {
   const [selectedCourse, setSelectedCourse] = useState<number | null>(null);
   const [showMobileModal, setShowMobileModal] = useState(false);
 
-  const handleEnrollClick = (enrollmentLink: string) => {
-    window.open(enrollmentLink, '_blank');
+  const handleEnrollClick = (enrollmentLink: string, e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    window.open(enrollmentLink, '_blank', 'noopener,noreferrer');
   };
 
   const handleCloseMobileModal = () => {
@@ -165,42 +166,49 @@ export const CoursesPage = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto"
               onClick={handleCloseMobileModal}
             >
               <motion.div
-                initial={{ scale: 0.95, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.95, opacity: 0 }}
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                className="w-full max-w-md bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-lg shadow-xl p-6"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 50 }}
+                transition={{ 
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 30,
+                  duration: 0.4
+                }}
+                className="w-full max-w-md bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-lg shadow-xl p-6 relative"
                 onClick={(e) => e.stopPropagation()}
               >
                 {courses.find(c => c.step === selectedCourse) && (
                   <div className="flex flex-col space-y-4">
-                    <div className="flex justify-between items-center">
-                      <h3 className="text-xl font-bold text-white">
+                    <div className="flex justify-between items-center mb-2">
+                      <h3 className="text-2xl font-bold text-white">
                         {courses.find(c => c.step === selectedCourse)?.title}
                       </h3>
                       <button
                         onClick={handleCloseMobileModal}
-                        className="text-white/70 hover:text-white"
+                        className="text-white/70 hover:text-white transition-colors duration-200"
+                        aria-label="Close modal"
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                         </svg>
                       </button>
                     </div>
-                    <p className="text-white/90 text-sm leading-relaxed">
+                    <p className="text-white/90 text-base leading-relaxed">
                       {courses.find(c => c.step === selectedCourse)?.detailedDescription}
                     </p>
-                    <div className="flex items-center justify-between text-sm">
+                    <div className="flex items-center justify-between text-base mt-4">
                       <span className="text-white/70">Course Fee:</span>
                       <span className="text-white font-semibold">
                         {courses.find(c => c.step === selectedCourse)?.price}
                       </span>
                     </div>
-                    <div className="flex items-center justify-between text-sm">
+                    <div className="flex items-center justify-between text-base">
                       <span className="text-white/70">Total Fee to Here:</span>
                       <span className="text-white font-semibold">
                         {courses.find(c => c.step === selectedCourse)?.totalFee}
@@ -208,7 +216,7 @@ export const CoursesPage = () => {
                     </div>
                     <Button
                       onClick={() => handleEnrollClick(courses.find(c => c.step === selectedCourse)?.enrollmentLink || '')}
-                      className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white mt-4"
+                      className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white mt-6 py-3"
                     >
                       Enroll Now
                       <ExternalLink className="w-4 h-4 ml-2" />
@@ -289,11 +297,7 @@ export const CoursesPage = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className={`flex items-start mb-16 ${
-                  course.title === "Network Pharmacology" ||
-                  course.title === "AI and ML in Drug Discovery" ||
-                  course.title === "Molecular Dynamics"
-                    ? 'flex-row pl-8'
-                    : index % 2 === 0 ? 'justify-end pr-8' : 'flex-row-reverse pl-8'
+                  index % 2 === 0 ? 'justify-end pr-8' : 'flex-row-reverse pl-8'
                 } relative`}
               >
                 {/* Timeline Node */}
@@ -346,7 +350,6 @@ export const CoursesPage = () => {
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                           className="cursor-pointer"
-                          onClick={() => setSelectedCourse(selectedCourse === course.step ? null : course.step)}
                         >
                           <h3 className={`
                             text-lg font-semibold text-white
@@ -365,65 +368,81 @@ export const CoursesPage = () => {
                       </div>
                     </div>
                   </Card>
-                </motion.div>
 
-                {/* Desktop Course Details Popup */}
-                <AnimatePresence>
-                  {selectedCourse === course.step && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -20, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                      className={`
-                        absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full
-                        w-96 bg-white/10 backdrop-blur-md
-                        border-2 border-white/20 rounded-lg shadow-xl
-                        p-6 z-30 mt-4
-                      `}
-                    >
-                      <div className="flex flex-col space-y-4">
-                        <div className="flex justify-between items-center">
-                          <h3 className="text-xl font-bold text-white">
-                            {course.title}
-                          </h3>
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setSelectedCourse(null);
-                            }}
-                            className="text-white/70 hover:text-white"
+                  {/* Desktop Course Details Popup */}
+                  <AnimatePresence>
+                    {selectedCourse === course.step && (
+                      <motion.div
+                        initial={{ 
+                          opacity: 0, 
+                          x: index % 2 === 0 ? -20 : 20,
+                          scale: 0.95 
+                        }}
+                        animate={{ 
+                          opacity: 1, 
+                          x: 0,
+                          scale: 1 
+                        }}
+                        exit={{ 
+                          opacity: 0, 
+                          x: index % 2 === 0 ? -20 : 20,
+                          scale: 0.95 
+                        }}
+                        transition={{ 
+                          type: "spring",
+                          stiffness: 400,
+                          damping: 30,
+                          duration: 0.4
+                        }}
+                        className={`
+                          absolute top-1/2 -translate-y-1/2
+                          ${index % 2 === 0 ? 'right-full mr-4' : 'left-full ml-4'}
+                          w-96 bg-white/10 backdrop-blur-md
+                          border-2 border-white/20 rounded-lg shadow-xl
+                          p-6 z-30
+                        `}
+                      >
+                        <div className="flex flex-col space-y-4">
+                          <div className="flex justify-between items-center">
+                            <h3 className="text-xl font-bold text-white">
+                              {course.title}
+                            </h3>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setSelectedCourse(null);
+                              }}
+                              className="text-white/70 hover:text-white transition-colors duration-200"
+                              aria-label="Close dialog"
+                            >
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                              </svg>
+                            </button>
+                          </div>
+                          <p className="text-white/90 text-sm leading-relaxed">
+                            {course.detailedDescription}
+                          </p>
+                          <div className="flex items-center justify-between text-sm">
+                            <span className="text-white/70">Course Fee:</span>
+                            <span className="text-white font-semibold">{course.price}</span>
+                          </div>
+                          <div className="flex items-center justify-between text-sm">
+                            <span className="text-white/70">Total Fee to Here:</span>
+                            <span className="text-white font-semibold">{course.totalFee}</span>
+                          </div>
+                          <Button
+                            onClick={(e) => handleEnrollClick(course.enrollmentLink, e)}
+                            className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white mt-2"
                           >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                          </button>
+                            Enroll Now
+                            <ExternalLink className="w-4 h-4 ml-2" />
+                          </Button>
                         </div>
-                        <p className="text-white/90 text-sm leading-relaxed">
-                          {course.detailedDescription}
-                        </p>
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="text-white/70">Course Fee:</span>
-                          <span className="text-white font-semibold">{course.price}</span>
-                        </div>
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="text-white/70">Total Fee to Here:</span>
-                          <span className="text-white font-semibold">{course.totalFee}</span>
-                        </div>
-                        <Button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleEnrollClick(course.enrollmentLink);
-                          }}
-                          className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white mt-2"
-                        >
-                          Enroll Now
-                          <ExternalLink className="w-4 h-4 ml-2" />
-                        </Button>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
               </motion.div>
             ))}
           </div>
