@@ -42,12 +42,18 @@ const BrainNode = ({ data }: { data: any }) => (
 // Custom Node Component for Topics
 const TopicNode = ({ data }: { data: any }) => (
   <div className="group">
-    <div className="bg-white/10 backdrop-blur-md px-4 md:px-6 py-3 md:py-4 rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300 text-center min-w-[140px] md:min-w-[180px] max-w-[160px] md:max-w-[220px] transform hover:scale-105">
-      <p className="text-white font-medium text-sm md:text-base whitespace-normal leading-tight">
-        {data.label}
-      </p>
+    <div className="relative bg-white/10 backdrop-blur-md px-4 md:px-6 py-3 md:py-4 rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300 text-center min-w-[140px] md:min-w-[180px] max-w-[160px] md:max-w-[220px] transform hover:scale-105">
+      {/* Glowing effect for topic boxes */}
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#54366B]/20 to-[#363B6B]/20 blur-md transform-gpu animate-pulse" />
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#54366B]/10 to-[#363B6B]/10 blur-sm transform-gpu animate-pulse" />
+      {/* Content */}
+      <div className="relative z-10">
+        <p className="text-white font-medium text-sm md:text-base whitespace-normal leading-tight">
+          {data.label}
+        </p>
+      </div>
     </div>
-    <Handle type="target" position={Position.Top} className="w-2 h-2 md:w-3 md:h-3 bg-white/50" />
+    <Handle type="target" position={Position.Bottom} className="w-2 h-2 md:w-3 md:h-3 bg-white/50" />
   </div>
 );
 
@@ -77,22 +83,30 @@ export const SLHAIFPage = () => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
     const centerY = windowSize.height / 2;
-    const radius = isMobile ? 180 : 350;
-
+    
+    // Calculate radius based on viewport size
+    const radius = Math.min(windowSize.width, windowSize.height) * (isMobile ? 0.35 : 0.4);
+    
+    // Position brain at the bottom
+    const brainY = centerY + radius * 0.6;
+    
     const nodes: Node[] = [
       {
         id: 'brain',
         type: 'brain',
-        position: { x: centerX - (isMobile ? 64 : 96), y: centerY - (isMobile ? 64 : 96) },
+        position: { 
+          x: centerX - (isMobile ? 64 : 96), 
+          y: brainY - (isMobile ? 64 : 96)
+        },
         data: { label: 'Brain' },
       },
     ];
 
-    // Add topic nodes in a semi-circle
+    // Add topic nodes in a semi-circle above the brain
     topics.forEach((topic, index) => {
       const angle = (Math.PI / (topics.length - 1)) * index;
       const x = centerX + radius * Math.cos(angle) - (isMobile ? 70 : 100);
-      const y = centerY + radius * Math.sin(angle) - (isMobile ? 25 : 50);
+      const y = centerY - radius * 0.8 + radius * Math.sin(angle) * 0.5;
 
       nodes.push({
         id: topic.id,
@@ -176,7 +190,7 @@ export const SLHAIFPage = () => {
         </h1>
 
         {/* React Flow Container */}
-        <div className="h-[500px] md:h-[800px] w-full">
+        <div className="h-[calc(100vh-200px)] md:h-[calc(100vh-250px)] w-full">
           <ReactFlow
             nodes={nodes}
             edges={edges}
@@ -185,6 +199,7 @@ export const SLHAIFPage = () => {
             onConnect={onConnect}
             nodeTypes={nodeTypes}
             fitView
+            fitViewOptions={{ padding: 0.2 }}
             attributionPosition="bottom-right"
             className="bg-transparent"
             minZoom={0.3}
