@@ -3,24 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>bio-loveble-insights</title>
-    <meta name="description" content="Lovable Generated Project" />
+    <title>SLHAIF - Sri Lankan Herbal AI Framework</title>
+    <meta name="description" content="Sri Lankan Herbal AI Framework - Bioinformatics Platform" />
     <meta name="author" content="Lovable" />
 
-    <meta property="og:title" content="bio-loveble-insights" />
-    <meta property="og:description" content="Lovable Generated Project" />
+    <meta property="og:title" content="SLHAIF - Sri Lankan Herbal AI Framework" />
+    <meta property="og:description" content="Advanced bioinformatics platform for Sri Lankan herbal medicine research" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@lovable_dev" />
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    
+    <!-- Preload key assets -->
+    <link rel="modulepreload" href="/src/main.tsx" />
+    <link rel="stylesheet" href="/src/index.css" />
   </head>
 
   <body>
     <div id="root"></div>
-    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
-    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Add a loading state -->
+    <script>
+      window.addEventListener('load', function() {
+        document.body.classList.add('loaded');
+      });
+    </script>
   </body>
 </html>
