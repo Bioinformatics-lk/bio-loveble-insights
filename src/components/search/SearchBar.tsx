@@ -77,11 +77,11 @@ export const SearchBar = ({ onClose }: SearchBarProps) => {
       if (results.length > 0) {
         // Scroll to the first result
         const firstResult = document.getElementById(results[0].id);
-        if (firstResult) {
+      if (firstResult) {
           handleClose();
           setTimeout(() => {
-            firstResult.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            toast({
+        firstResult.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        toast({
               title: "Found Results",
               description: `Scrolling to "${results[0].title}"`,
             });
@@ -164,9 +164,9 @@ export const SearchBar = ({ onClose }: SearchBarProps) => {
                   </div>
                   <input
                     ref={inputRef}
-                    type="text"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
+        type="text"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
                     placeholder="Search courses, topics, or research..."
                     className="w-full h-12 pl-12 pr-12 rounded-full bg-gradient-to-r from-[#170056] to-[#410056] text-[#EAE3F5] placeholder-[#EAE3F5]/50 border border-[#54366B] focus:border-[#363B6B] focus:ring-2 focus:ring-[#54366B] focus:ring-opacity-50 shadow-lg transition-all duration-300"
                     aria-label="Search input"

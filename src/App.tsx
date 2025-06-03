@@ -5,8 +5,6 @@ import { supabase } from '@/integrations/supabase/client';
 import Index from '@/pages/Index';
 import { UserDashboard } from '@/components/dashboard/UserDashboard';
 import { CoursesPage } from '@/components/courses/CoursesPage';
-import SLHAIF from '@/pages/SLHAIF';
-import SLHAIFChat from '@/pages/SLHAIFChat';
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
@@ -28,7 +26,7 @@ function App() {
   }, []);
 
   return (
-    <Router basename="/">
+    <Router>
       <Routes>
         <Route 
           path="/" 
@@ -38,12 +36,9 @@ function App() {
           path="/courses" 
           element={user ? <CoursesPage /> : <Navigate to="/" />} 
         />
-        <Route path="/slhaif" element={<SLHAIF />} />
-        <Route path="/slhaif-chat" element={<SLHAIFChat />} />
-        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
-  );
+);
 }
 
 export default App;
