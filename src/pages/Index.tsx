@@ -159,7 +159,7 @@ const Index = () => {
       <header className={`sticky top-0 z-50 backdrop-blur-md border-b transition-all duration-300 ${
         isScrolled 
           ? 'bg-white/95 border-gray-300/30' 
-          : 'bg-white/10 border-purple-300/30'
+          : 'bg-gradient-to-r from-[#000A33]/80 to-[#363B6B]/80 border-[#EAE3F5]/20'
       }`}>
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
@@ -170,7 +170,7 @@ const Index = () => {
                   src="/lovable-uploads/76f3562a-0d90-4bbc-a1b8-640acc56da80.png" 
                   alt="Bioinformatics.lk" 
                   className={`w-8 h-8 object-contain transition-all duration-300 ${
-                    isScrolled ? 'filter hue-rotate-180' : 'filter brightness-100'
+                    isScrolled ? 'filter hue-rotate-180' : 'brightness-100'
                   }`}
                   style={{
                     filter: isScrolled ? 'invert(23%) sepia(90%) saturate(6453%) hue-rotate(265deg) brightness(89%) contrast(93%)' : 'none'
@@ -178,7 +178,7 @@ const Index = () => {
                 />
               </div>
               <span className={`text-xl font-bold transition-colors duration-300 ml-0.5 ${
-                isScrolled ? 'text-gray-800' : 'text-white'
+                isScrolled ? 'text-gray-800' : 'text-[#EAE3F5]'
               }`}>
                 ioinformatics.lk
               </span>
@@ -520,12 +520,9 @@ const Index = () => {
           </div>
 
           {/* Counters Section */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8 relative">
-            {/* Dark overlay for counters */}
-            <div className="absolute inset-0 -m-4 bg-gradient-to-b from-[#000A33]/80 via-[#363B6B]/60 to-[#000A33]/80 rounded-2xl blur-lg"></div>
-            
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
             {Object.entries(counters).map(([key, value], index) => (
-              <div key={key} className={`animate-on-scroll delay-${index * 200} text-center relative`}>
+              <div key={key} className={`animate-on-scroll delay-${index * 200} text-center`}>
                 <div className="text-3xl md:text-4xl font-bold text-[#EAE3F5] mb-2">
                   {value.toString().padStart(2, '0')}
                 </div>
