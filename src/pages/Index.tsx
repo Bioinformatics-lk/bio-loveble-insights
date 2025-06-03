@@ -447,9 +447,18 @@ const Index = () => {
 
       {/* Hero Section */}
       <section className="relative overflow-hidden z-10">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#000A33] via-[#170056] to-[#54366B]">
-          {/* Creative pattern overlay with increasing opacity from left to right */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white/5"></div>
+        <div className="absolute inset-0">
+          {/* Base gradient background */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#000A33] via-[#170056] to-[#54366B]"></div>
+          
+          {/* S-shaped overlay */}
+          <div className="absolute inset-0">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#000A33] via-[#170056] to-[#54366B] -rotate-45 translate-x-[25%] translate-y-[25%]"></div>
+            <div className="absolute inset-0 bg-gradient-to-tl from-[#000A33] via-[#170056] to-[#54366B] rotate-45 -translate-x-[25%] -translate-y-[25%]"></div>
+          </div>
+
+          {/* Additional decorative elements */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
           <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_50%_50%,_#54366B_1px,_transparent_1px)] bg-[length:20px_20px]"></div>
         </div>
         
