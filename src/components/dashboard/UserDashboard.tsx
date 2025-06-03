@@ -1,9 +1,8 @@
 'use client';
 
-import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { BookOpen, Briefcase, LogOut, User, GraduationCap, Dna } from "lucide-react";
+import { BookOpen, Briefcase, LogOut, User } from "lucide-react";
 import { User as SupabaseUser } from '@supabase/supabase-js';
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from 'react-router-dom';
@@ -25,97 +24,146 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#170056] via-[#410056] to-[#54366B]">
-      {/* Top Navigation */}
-      <header className="sticky top-0 z-50 backdrop-blur-md border-b border-[#EAE3F5]/20">
-        <div className="container mx-auto px-4">
-          <div className="h-16 flex items-center justify-between">
-            {/* Logo */}
-            <div className="flex items-center">
-              <img 
-                src="/lovable-uploads/76f3562a-0d90-4bbc-a1b8-640acc56da80.png" 
-                alt="Bioinformatics.lk" 
-                className="w-8 h-8 object-contain"
-              />
-              <span className="text-xl font-bold text-[#EAE3F5] ml-0.5">
-                ioinformatics.lk
-              </span>
-            </div>
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className="min-h-screen bg-gradient-to-br from-indigo-900 to-purple-900 relative overflow-hidden"
+    >
+      {/* Background Images */}
+      <div className="absolute inset-0 z-0">
+        {/* Overlay Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/50 to-purple-900/50 backdrop-blur-[2px]" />
+      </div>
 
-            {/* User Info */}
-            <div className="flex items-center gap-4">
-              <span className="text-[#EAE3F5]/90">
-                {user.email}
-              </span>
-            </div>
+      {/* Top Bar */}
+      <motion.header 
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="sticky top-0 z-50 w-full bg-white/10 backdrop-blur-md border-b border-white/20 shadow-lg"
+      >
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between h-16 md:h-20">
+            {/* Left Side - Logo and User Info */}
+            <motion.div 
+              initial={{ x: -20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="flex items-center space-x-4 md:space-x-6"
+            >
+              {/* Site Name */}
+              <h1 className="text-xl md:text-2xl font-bold text-white">
+                Bioinformatics.lk
+              </h1>
+              
+              {/* Divider */}
+              <div className="h-6 w-px bg-white/20"></div>
+              
+              {/* User Profile */}
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center">
+                  <User className="h-4 w-4 md:h-5 md:w-5 text-white" />
+                </div>
+                <div className="hidden sm:block">
+                  <p className="text-sm md:text-base font-medium text-white">
+                    {user?.user_metadata?.username || 'User'}
+                  </p>
+                  <p className="text-xs md:text-sm text-white/70">
+                    {user?.email}
+                  </p>
+              </div>
+              </div>
+            </motion.div>
+
+            {/* Right Side - Logout Button */}
+            <motion.div
+              initial={{ x: 20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+            <Button
+              onClick={handleLogout}
+                className="bg-white/10 hover:bg-white/20 text-white border border-white/20 shadow-sm hover:shadow flex items-center space-x-2 transition-all duration-300"
+                size="sm"
+            >
+                <LogOut className="h-4 w-4" />
+                <span className="hidden sm:inline">Logout</span>
+            </Button>
+            </motion.div>
           </div>
         </div>
-      </header>
+      </motion.header>
 
-      {/* Main Navigation Buttons */}
-      <div className="container mx-auto px-4 mt-8">
-        <div className="relative flex justify-center items-center gap-8 md:gap-16">
-          {/* Our Services Button */}
+      {/* Main Content */}
+      <main className="container mx-auto px-4 py-16 relative z-10">
+        <motion.div 
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto"
+        >
+          {/* Courses Card */}
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 300 }}
           >
-            <Button
-              variant="ghost"
-              size="lg"
-              className="bg-[#EAE3F5]/10 hover:bg-[#EAE3F5]/20 text-[#EAE3F5] border border-[#EAE3F5]/20 rounded-lg px-8 py-6 transition-all transform hover:scale-105 group"
-            >
-              <Briefcase className="w-6 h-6 mr-2 group-hover:text-[#EAE3F5]" />
-              Our Services
-            </Button>
-          </motion.div>
-
-          {/* SLHAIF Button (Centered and Slightly Below) */}
-          <motion.div
-            initial={{ opacity: 0, y: 0 }}
-            animate={{ opacity: 1, y: 8 }}
-            transition={{ duration: 0.3, delay: 0.1 }}
-            className="absolute z-10"
-          >
-            <Button
-              variant="ghost"
-              size="lg"
-              className="relative bg-gradient-to-r from-[#170056] to-[#410056] text-[#EAE3F5] font-bold rounded-lg px-12 py-8 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl border border-[#EAE3F5]/30 group"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-[#170056]/50 to-[#410056]/50 rounded-lg blur opacity-50 group-hover:opacity-75 transition-opacity" />
-              <div className="relative flex flex-col items-center">
-                <Dna className="w-8 h-8 mb-2 group-hover:text-[#EAE3F5]" />
-                <span className="text-lg">SLHAIF</span>
-                <span className="text-xs text-[#EAE3F5]/70 mt-1 max-w-[200px] text-center">
-                  Sri Lanka's First Herbal Artificial Intelligence Factory
-                </span>
+            <Card className="border-2 border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300">
+            <CardHeader className="text-center">
+                <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
+                  <BookOpen className="h-12 w-12 text-white" />
               </div>
-            </Button>
+                <CardTitle className="text-3xl text-white font-bold">
+                Courses
+              </CardTitle>
+                <CardDescription className="text-white/70 text-lg mt-2">
+                Access our comprehensive bioinformatics courses
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button 
+                  onClick={handleViewCourses}
+                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-lg py-6 font-semibold shadow-lg hover:shadow-xl transition-all"
+                size="lg"
+              >
+                View Courses
+              </Button>
+            </CardContent>
+          </Card>
           </motion.div>
 
-          {/* Courses Button */}
+          {/* Services Card */}
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.2 }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 300 }}
           >
-            <Button
-              variant="ghost"
-              size="lg"
-              className="bg-[#EAE3F5]/10 hover:bg-[#EAE3F5]/20 text-[#EAE3F5] border border-[#EAE3F5]/20 rounded-lg px-8 py-6 transition-all transform hover:scale-105 group"
-            >
-              <GraduationCap className="w-6 h-6 mr-2 group-hover:text-[#EAE3F5]" />
-              Courses
-            </Button>
+            <Card className="border-2 border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300">
+            <CardHeader className="text-center">
+                <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
+                  <Briefcase className="h-12 w-12 text-white" />
+              </div>
+                <CardTitle className="text-3xl text-white font-bold">
+                Services
+              </CardTitle>
+                <CardDescription className="text-white/70 text-lg mt-2">
+                Professional bioinformatics and computational biology services
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button 
+                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-lg py-6 font-semibold shadow-lg hover:shadow-xl transition-all"
+                size="lg"
+              >
+                View Services
+              </Button>
+            </CardContent>
+          </Card>
           </motion.div>
-        </div>
-      </div>
-
-      {/* Main Content Area */}
-      <div className="container mx-auto px-4 mt-16">
-        {/* Add your dashboard content here */}
-      </div>
-    </div>
+        </motion.div>
+      </main>
+    </motion.div>
   );
 };

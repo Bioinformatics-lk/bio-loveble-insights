@@ -70,7 +70,7 @@ export const SearchBar = ({ onClose }: SearchBarProps) => {
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!query.trim() || isSearching) return;
-
+    
     setIsSearching(true);
     try {
       const results = await performSearch(query);
@@ -84,7 +84,7 @@ export const SearchBar = ({ onClose }: SearchBarProps) => {
         toast({
               title: "Found Results",
               description: `Scrolling to "${results[0].title}"`,
-            });
+        });
           }, 100);
         }
       }
@@ -170,7 +170,7 @@ export const SearchBar = ({ onClose }: SearchBarProps) => {
                     placeholder="Search courses, topics, or research..."
                     className="w-full h-12 pl-12 pr-12 rounded-full bg-gradient-to-r from-[#170056] to-[#410056] text-[#EAE3F5] placeholder-[#EAE3F5]/50 border border-[#54366B] focus:border-[#363B6B] focus:ring-2 focus:ring-[#54366B] focus:ring-opacity-50 shadow-lg transition-all duration-300"
                     aria-label="Search input"
-                  />
+      />
                   <button
                     type="button"
                     onClick={handleClose}
@@ -203,7 +203,7 @@ export const SearchBar = ({ onClose }: SearchBarProps) => {
                           }
                         }}
                         className="w-full px-4 py-2 text-left hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition-colors duration-200"
-                      >
+      >
                         <span className="text-gray-900">{result.title}</span>
                       </button>
                     ))}
