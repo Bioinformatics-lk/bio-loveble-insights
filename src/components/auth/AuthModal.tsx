@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -60,9 +59,9 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-gradient-to-br from-purple-900/95 via-blue-900/95 to-indigo-900/95 backdrop-blur-md border border-purple-300/30 text-white">
+      <DialogContent className="bg-gradient-to-br from-[#000A33] to-[#363B6B] backdrop-blur-md border border-[#EAE3F5]/20 text-[#EAE3F5]">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-center text-purple-100">
+          <DialogTitle className="text-2xl font-bold text-center text-[#EAE3F5]">
             {isLogin ? 'Welcome Back' : 'Join Us'}
           </DialogTitle>
         </DialogHeader>
@@ -70,41 +69,41 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
         <form onSubmit={handleAuth} className="space-y-4">
           {!isLogin && (
             <div>
-              <Label htmlFor="username" className="text-purple-200">Username</Label>
+              <Label htmlFor="username" className="text-[#EAE3F5]">Username</Label>
               <Input
                 id="username"
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required={!isLogin}
-                className="bg-white/10 border-purple-300/30 text-white placeholder:text-purple-200/70"
+                className="bg-[#000A33]/40 border-[#EAE3F5]/20 text-[#EAE3F5] placeholder:text-[#EAE3F5]/70"
                 placeholder="Enter your username"
               />
             </div>
           )}
           
           <div>
-            <Label htmlFor="email" className="text-purple-200">Email</Label>
+            <Label htmlFor="email" className="text-[#EAE3F5]">Email</Label>
             <Input
               id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="bg-white/10 border-purple-300/30 text-white placeholder:text-purple-200/70"
+              className="bg-[#000A33]/40 border-[#EAE3F5]/20 text-[#EAE3F5] placeholder:text-[#EAE3F5]/70"
               placeholder="Enter your email"
             />
           </div>
           
           <div>
-            <Label htmlFor="password" className="text-purple-200">Password</Label>
+            <Label htmlFor="password" className="text-[#EAE3F5]">Password</Label>
             <Input
               id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="bg-white/10 border-purple-300/30 text-white placeholder:text-purple-200/70"
+              className="bg-[#000A33]/40 border-[#EAE3F5]/20 text-[#EAE3F5] placeholder:text-[#EAE3F5]/70"
               placeholder="Enter your password"
             />
           </div>
@@ -112,7 +111,7 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
           <Button
             type="submit"
             disabled={loading}
-            className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white"
+            className="w-full bg-[#54366B] hover:bg-[#410056] text-[#EAE3F5] border border-[#EAE3F5]/20 transition-all transform hover:scale-105"
           >
             {loading ? 'Processing...' : (isLogin ? 'Login' : 'Sign Up')}
           </Button>
@@ -121,7 +120,7 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
             type="button"
             variant="ghost"
             onClick={() => setIsLogin(!isLogin)}
-            className="w-full text-purple-200 hover:text-white hover:bg-white/10"
+            className="w-full text-[#EAE3F5]/90 hover:text-[#EAE3F5] hover:bg-[#000A33]/40"
           >
             {isLogin ? "Don't have an account? Sign up" : "Already have an account? Login"}
           </Button>

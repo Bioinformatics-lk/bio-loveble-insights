@@ -298,7 +298,7 @@ const Index = () => {
               <div className="hidden md:block">
                 {searchOpen ? (
                   <div className="relative">
-                    <SearchBar className={`${isScrolled ? 'text-black placeholder-gray-500' : 'text-white placeholder-white/70'}`} />
+                    <SearchBar className={`${isScrolled ? 'text-black placeholder-gray-500' : 'text-[#EAE3F5] placeholder-[#EAE3F5]/70'}`} />
                   </div>
                 ) : (
                   <Button
@@ -308,10 +308,10 @@ const Index = () => {
                     className={`transition-all w-12 h-12 ${
                       isScrolled 
                         ? 'text-purple-600 hover:text-purple-700 hover:bg-purple-100' 
-                        : 'text-purple-300 hover:text-purple-200 hover:bg-white/10'
+                        : 'text-[#EAE3F5] hover:text-[#EAE3F5] hover:bg-[#410056]/40'
                     }`}
                   >
-                    <Search className="h-8 w-8" />
+                    <Search className="h-6 w-6" />
                   </Button>
                 )}
               </div>
@@ -325,10 +325,10 @@ const Index = () => {
                   className={`transition-all w-12 h-12 ${
                     isScrolled 
                       ? 'text-purple-600 hover:text-purple-700 hover:bg-purple-100' 
-                      : 'text-purple-300 hover:text-purple-200 hover:bg-white/10'
+                      : 'text-[#EAE3F5] hover:text-[#EAE3F5] hover:bg-[#410056]/40'
                   }`}
                 >
-                  <Search className="h-8 w-8" />
+                  <Search className="h-6 w-6" />
                 </Button>
               </div>
               
@@ -478,16 +478,16 @@ const Index = () => {
               <div className="absolute inset-0 -m-8 bg-gradient-to-r from-[#000A33]/90 to-[#363B6B]/60 rounded-3xl blur-xl"></div>
               
               <div className="relative">
-                <h1 className="animate-on-scroll text-3xl md:text-4xl lg:text-6xl font-bold leading-tight text-left">
-                  Accelerating <span className="text-[#EAE3F5]">Bioinformatics</span> Innovation
+                <h1 className="animate-on-scroll text-3xl md:text-4xl lg:text-6xl font-bold leading-tight text-left -mt-4">
+                  Accelerating <span className="text-[#EAE3F5] text-4xl md:text-5xl lg:text-7xl">Bioinformatics</span> Innovation
                 </h1>
-                <p className="animate-on-scroll delay-200 text-lg md:text-xl lg:text-2xl text-[#EAE3F5]/90 leading-relaxed text-left">
+                <p className="animate-on-scroll delay-200 text-lg md:text-xl lg:text-2xl text-[#EAE3F5]/90 leading-relaxed text-left mt-6">
                   Empowering researchers and students in genomics, proteomics, and computational biology through world-class education and cutting-edge research.
                 </p>
-                <div className="animate-on-scroll delay-400 flex flex-col sm:flex-row gap-4 justify-start">
+                <div className="animate-on-scroll delay-400 flex flex-col sm:flex-row gap-4 justify-start mt-8">
                   <Button 
                     size="lg" 
-                    className="bg-[#363B6B] hover:bg-[#000A33] text-[#EAE3F5] border border-[#EAE3F5]/20 transition-all transform hover:scale-105 shadow-lg"
+                    className="bg-[#363B6B] hover:bg-[#000A33] text-[#EAE3F5] border border-[#EAE3F5]/20 transition-all transform hover:scale-105 shadow-lg text-lg px-8 py-6 h-auto"
                     onClick={() => scrollToSection('courses')}
                   >
                     Explore Courses
@@ -495,7 +495,7 @@ const Index = () => {
                   <Button 
                     size="lg" 
                     variant="outline" 
-                    className="border-[#EAE3F5]/30 text-[#EAE3F5] bg-[#000A33]/40 hover:bg-[#363B6B]/60 hover:text-[#EAE3F5] px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg transition-all transform hover:scale-105 font-semibold backdrop-blur-sm"
+                    className="border-[#EAE3F5]/30 text-[#EAE3F5] bg-[#000A33]/40 hover:bg-[#363B6B]/60 hover:text-[#EAE3F5] px-8 py-6 text-lg transition-all transform hover:scale-105 font-semibold backdrop-blur-sm h-auto"
                     onClick={() => scrollToSection('research')}
                   >
                     View Research
