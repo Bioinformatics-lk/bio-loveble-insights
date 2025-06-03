@@ -177,32 +177,33 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
             transition={{ type: "spring", stiffness: 300 }}
             className="md:col-span-2 md:w-2/3 mx-auto"
           >
-            <Card className="border-2 border-white/20 bg-gradient-to-r from-[#170056]/40 to-[#410056]/40 backdrop-blur-sm hover:bg-white/20 transition-all duration-300 relative overflow-hidden">
-              {/* Glowing Effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#54366B]/20 to-[#363B6B]/20 animate-pulse"></div>
+            <Card className="border-2 border-white/20 bg-transparent backdrop-blur-sm hover:bg-white/5 transition-all duration-300 relative overflow-hidden">
+              {/* Enhanced Glowing Effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#54366B]/10 to-[#363B6B]/10 animate-pulse"></div>
               
               <CardHeader className="text-center relative z-10">
-                <div className="w-24 h-24 mx-auto mb-6 bg-[#363B6B] rounded-full flex items-center justify-center shadow-lg ring-4 ring-[#54366B]/30 relative group">
-                  {/* Glowing background effect */}
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#54366B]/40 to-[#363B6B]/40 blur-lg group-hover:blur-xl transition-all duration-500"></div>
+                <div className="w-24 h-24 mx-auto mb-6 bg-transparent rounded-full flex items-center justify-center shadow-lg ring-4 ring-[#54366B]/30 relative group">
+                  {/* Enhanced Glowing background effect */}
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#54366B]/30 to-[#363B6B]/30 blur-xl group-hover:blur-2xl transition-all duration-500"></div>
                   
-                  {/* Pulsing ring effect */}
-                  <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-[#54366B]/20 to-[#363B6B]/20 animate-ping"></div>
+                  {/* Enhanced Pulsing ring effect */}
+                  <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-[#54366B]/20 to-[#363B6B]/20 animate-ping opacity-75"></div>
                   
-                  {/* Brain icon with vibrating animation */}
+                  {/* Brain icon with heartbeat animation */}
                   <motion.div
                     animate={{
-                      scale: [1, 1.05, 1],
+                      scale: [1, 1.15, 1, 0.95, 1],
                       rotate: [-1, 1, -1],
                     }}
                     transition={{
-                      duration: 2,
+                      duration: 1.2,
                       repeat: Infinity,
-                      ease: "easeInOut"
+                      ease: [0.4, 0, 0.2, 1], // Custom easing for heartbeat effect
+                      times: [0, 0.14, 0.3, 0.43, 0.7], // Timing for heartbeat phases
                     }}
                     className="relative z-10"
                   >
-                    <Brain className="h-12 w-12 text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]" />
+                    <Brain className="h-12 w-12 text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.8)] filter brightness-125" />
                   </motion.div>
                 </div>
                 <CardTitle className="text-3xl text-white font-bold">
@@ -214,7 +215,7 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
               </CardHeader>
               <CardContent>
                 <Button 
-                  className="w-full bg-[#363B6B] hover:bg-[#000A33] text-white border border-white/20 transition-all text-lg py-6 font-semibold shadow-lg hover:shadow-xl"
+                  className="w-full bg-[#363B6B] hover:bg-[#000A33] text-white border border-white/20 transition-all text-lg py-6 font-semibold shadow-lg hover:shadow-xl backdrop-blur-sm"
                   size="lg"
                 >
                   Explore SLHAIF
