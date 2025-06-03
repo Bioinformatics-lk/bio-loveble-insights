@@ -8,6 +8,7 @@ import { SearchBar } from "@/components/search/SearchBar";
 import { UserDashboard } from "@/components/dashboard/UserDashboard";
 import { supabase } from "@/integrations/supabase/client";
 import { User } from '@supabase/supabase-js';
+import { motion } from 'framer-motion';
 
 const Index = () => {
   const [authModalOpen, setAuthModalOpen] = useState(false);
@@ -164,7 +165,10 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             {/* Logo and Brand Name - Left Side */}
-            <div className="flex items-center">
+            <motion.div 
+              className="flex items-center"
+              layout
+            >
               <div className="w-8 h-8 flex items-center justify-center">
                 <img 
                   src="/lovable-uploads/76f3562a-0d90-4bbc-a1b8-640acc56da80.png" 
@@ -182,10 +186,10 @@ const Index = () => {
               }`}>
                 ioinformatics.lk
               </span>
-            </div>
+            </motion.div>
 
-            {/* Mobile Menu Button - Add after the logo section */}
-            <div className="flex items-center md:hidden">
+            {/* Mobile Menu Button */}
+            <motion.div layout className="flex items-center md:hidden">
               <Button
                 variant="ghost"
                 size="icon"
@@ -198,10 +202,10 @@ const Index = () => {
               >
                 {mobileMenuOpen ? <X className="h-8 w-8" /> : <Menu className="h-8 w-8" />}
               </Button>
-            </div>
+            </motion.div>
 
             {/* Navigation Links - Center */}
-            <nav className="hidden lg:flex items-center space-x-4">
+            <motion.nav layout className="hidden lg:flex items-center space-x-4">
               <Button
                 variant="ghost"
                 onClick={() => scrollToSection('team')}
@@ -290,20 +294,23 @@ const Index = () => {
               >
                 Success Stories
               </Button>
-            </nav>
+            </motion.nav>
 
             {/* Right Side - Search and Login */}
-            <div className="flex items-center gap-4">
+            <motion.div layout className="flex items-center gap-4">
               {/* New Expandable Search Bar */}
-              <SearchBar onClose={() => setSearchOpen(false)} />
+              <SearchBar 
+                onClose={() => setSearchOpen(false)} 
+                containerWidth={typeof window !== 'undefined' ? window.innerWidth : 0}
+              />
               
               <Button
                 onClick={() => setAuthModalOpen(true)}
-                className="bg-[#54366B] hover:bg-[#410056] text-[#EAE3F5] border border-[#EAE3F5]/20 transition-all transform hover:scale-105 shadow-lg rounded-full"
+                className="bg-[#54366B] hover:bg-[#410056] text-[#EAE3F5] border border-[#EAE3F5]/20 transition-all transform hover:scale-105 shadow-lg rounded-full whitespace-nowrap"
               >
                 Login
               </Button>
-            </div>
+            </motion.div>
           </div>
         </div>
       </header>

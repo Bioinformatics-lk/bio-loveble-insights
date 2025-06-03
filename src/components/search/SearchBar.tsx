@@ -5,14 +5,29 @@ import { useToast } from "@/hooks/use-toast";
 
 interface SearchBarProps {
   onClose?: () => void;
+  containerWidth?: number;
 }
 
-export const SearchBar = ({ onClose }: SearchBarProps) => {
+export const SearchBar = ({ onClose, containerWidth }: SearchBarProps) => {
   const [query, setQuery] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
+  const [searchWidth, setSearchWidth] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const searchBarRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+
+  // Calculate available space for expansion
+  useEffect(() => {
+    if (searchBarRef.current && containerWidth) {
+      const searchBarRect = searchBarRef.current.getBoundingClientRect();
+      const availableSpace = searchBarRect.right;
+      const maxWidth = Math.min(
+        typeof window !== 'undefined' && window.innerWidth < 768 ? window.innerWidth * 0.8 : 400,
+        availableSpace - 100 // Leave some space for other elements
+      );
+      setSearchWidth(maxWidth);
+    }
+  }, [containerWidth, isExpanded]);
 
   useEffect(() => {
     // Handle keyboard shortcuts
@@ -110,22 +125,23 @@ export const SearchBar = ({ onClose }: SearchBarProps) => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setIsExpanded(true)}
-            className="relative w-12 h-12 rounded-full bg-gradient-to-r from-[#170056] to-[#410056] flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow duration-300 group"
+            className="relative w-12 h-12 rounded-full bg-gradient-to-r from-[#170056] to-[#410056] flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow duration-300 group ml-auto"
             aria-label="Open search"
           >
             <Search className="w-5 h-5 text-[#EAE3F5] group-hover:animate-pulse" />
           </motion.button>
         ) : (
           <motion.form
-            initial={{ width: "3rem", opacity: 0 }}
+            initial={{ width: "3rem", x: "100%" }}
             animate={{ 
-              width: typeof window !== 'undefined' && window.innerWidth < 768 ? "90vw" : "18rem",
-              opacity: 1 
+              width: searchWidth,
+              x: 0
             }}
-            exit={{ width: "3rem", opacity: 0 }}
+            exit={{ width: "3rem", x: "100%" }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
             onSubmit={handleSearch}
-            className="relative"
+            className="relative ml-auto"
+            style={{ maxWidth: searchWidth }}
           >
             <div className="relative flex items-center">
               <Search className="absolute left-4 text-[#EAE3F5]/70 w-5 h-5" />
