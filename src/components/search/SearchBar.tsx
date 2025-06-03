@@ -1,62 +1,82 @@
-import React, { useState } from 'react';
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import React, { useState, useEffect, useRef } from 'react';
 import { Search, X } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import { motion, AnimatePresence } from "framer-motion";
+import { useToast } from "@/hooks/use-toast";
 
 interface SearchBarProps {
-  className?: string;
   onClose?: () => void;
 }
 
-export const SearchBar = ({ className, onClose }: SearchBarProps) => {
+export const SearchBar = ({ onClose }: SearchBarProps) => {
   const [query, setQuery] = useState('');
-  const [isSearching, setIsSearching] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const searchBarRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+
+  useEffect(() => {
+    // Handle keyboard shortcuts
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === '/' && !isExpanded) {
+        e.preventDefault();
+        setIsExpanded(true);
+      } else if (e.key === 'Escape' && isExpanded) {
+        handleClose();
+      }
+    };
+
+    // Handle clicks outside
+    const handleClickOutside = (e: MouseEvent) => {
+      if (searchBarRef.current && !searchBarRef.current.contains(e.target as Node) && isExpanded) {
+        handleClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isExpanded]);
+
+  useEffect(() => {
+    // Auto-focus input when expanded
+    if (isExpanded && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isExpanded]);
+
+  const handleClose = () => {
+    setIsExpanded(false);
+    setQuery('');
+    if (onClose) onClose();
+  };
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!query.trim()) return;
+
+    // Perform search logic here
+    const results = performSearch(query);
     
-    setIsSearching(true);
-    
-    try {
-      // Animate search icon
-      await new Promise(resolve => setTimeout(resolve, 600));
-      
-      // Perform site-wide search
-      const searchResults = performSiteSearch(query);
-      
-      if (searchResults.length > 0) {
-        // Scroll to first result
-        const firstResult = document.getElementById(searchResults[0]);
-        if (firstResult) {
-          firstResult.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          toast({
-            title: "Search Results",
-            description: `Found ${searchResults.length} result(s) for "${query}"`,
-          });
-        }
-      } else {
-        toast({
-          title: "No Results",
-          description: `No results found for "${query}"`,
-          variant: "destructive",
-        });
-      }
-    } finally {
-      setIsSearching(false);
+    if (results.length > 0) {
+      toast({
+        title: "Search Results",
+        description: `Found ${results.length} results for "${query}"`,
+      });
+      handleClose();
+    } else {
+      toast({
+        title: "No Results",
+        description: `No results found for "${query}"`,
+        variant: "destructive",
+      });
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Escape' && onClose) {
-      onClose();
-    }
-  };
-
-  const performSiteSearch = (searchTerm: string): string[] => {
+  const performSearch = (searchTerm: string): string[] => {
     const searchSections = [
       { id: 'team', keywords: ['team', 'lakmal', 'saumya', 'anuththara', 'doctor', 'researcher'] },
       { id: 'research', keywords: ['research', 'bioinformatics', 'cheminformatics', 'drug', 'discovery', 'ai', 'medicinal', 'plants'] },
@@ -80,69 +100,56 @@ export const SearchBar = ({ className, onClose }: SearchBarProps) => {
   };
 
   return (
-    <AnimatePresence>
-      <motion.form
-        initial={{ opacity: 0, scale: 0.95, y: -20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.95, y: -20 }}
-        transition={{ duration: 0.2 }}
-        onSubmit={handleSearch}
-        className="relative flex w-full max-w-md group"
-      >
-        <div className="relative flex-1">
-          <div 
-            className={`
-              absolute left-3 top-1/2 -translate-y-1/2 
-              text-[#EAE3F5]/70 transition-all duration-300
-              group-focus-within:scale-110 group-focus-within:text-[#EAE3F5]
-              ${isSearching ? 'text-[#EAE3F5]' : ''}
-            `}
-          >
-            <motion.div
-              animate={isSearching ? {
-                rotate: [0, 360],
-                scale: [1, 1.2, 1],
-              } : {}}
-              transition={{ duration: 0.6, ease: "easeInOut" }}
-            >
-              <Search className="h-5 w-5" />
-            </motion.div>
-          </div>
-          <Input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="Search courses, research..."
-            className={`
-              w-full pl-11 pr-4 py-3 rounded-full
-              bg-gradient-to-r from-[#000A33]/40 to-[#363B6B]/40
-              border border-[#EAE3F5]/20
-              text-[#EAE3F5] placeholder:text-[#EAE3F5]/50
-              backdrop-blur-lg
-              transition-all duration-300
-              focus:outline-none focus:ring-2 focus:ring-[#54366B]/50
-              hover:border-[#EAE3F5]/30 hover:shadow-lg hover:shadow-[#54366B]/20
-              focus:border-[#EAE3F5]/40 focus:shadow-lg focus:shadow-[#54366B]/20
-              group-hover:border-[#EAE3F5]/30
-              md:text-sm
-              ${className}
-            `}
-          />
-        </div>
-        {query && (
+    <div ref={searchBarRef} className="relative z-50">
+      <AnimatePresence>
+        {!isExpanded ? (
           <motion.button
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -10 }}
-            type="button"
-            onClick={() => setQuery('')}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-[#EAE3F5]/70 hover:text-[#EAE3F5] transition-colors"
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.95, opacity: 0 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setIsExpanded(true)}
+            className="relative w-12 h-12 rounded-full bg-gradient-to-r from-[#170056] to-[#410056] flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow duration-300 group"
+            aria-label="Open search"
           >
-            <X className="h-5 w-5" />
+            <Search className="w-5 h-5 text-[#EAE3F5] group-hover:animate-pulse" />
           </motion.button>
+        ) : (
+          <motion.form
+            initial={{ width: "3rem", opacity: 0 }}
+            animate={{ 
+              width: typeof window !== 'undefined' && window.innerWidth < 768 ? "90vw" : "18rem",
+              opacity: 1 
+            }}
+            exit={{ width: "3rem", opacity: 0 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            onSubmit={handleSearch}
+            className="relative"
+          >
+            <div className="relative flex items-center">
+              <Search className="absolute left-4 text-[#EAE3F5]/70 w-5 h-5" />
+              <input
+                ref={inputRef}
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search courses, topics, or research..."
+                className="w-full h-12 pl-12 pr-12 rounded-full bg-gradient-to-r from-[#170056] to-[#410056] text-[#EAE3F5] placeholder-[#EAE3F5]/50 border border-[#54366B] focus:border-[#363B6B] focus:ring-2 focus:ring-[#54366B] focus:ring-opacity-50 shadow-lg transition-all duration-300"
+                aria-label="Search input"
+              />
+              <button
+                type="button"
+                onClick={handleClose}
+                className="absolute right-4 text-[#EAE3F5]/70 hover:text-[#EAE3F5] transition-colors duration-200"
+                aria-label="Close search"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+          </motion.form>
         )}
-      </motion.form>
-    </AnimatePresence>
+      </AnimatePresence>
+    </div>
   );
 };
