@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Brain, MessageCircle } from "lucide-react";
 import {
@@ -216,15 +216,16 @@ export const SLHAIFPage = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a2e] to-[#16213e] blur-xl rounded-full animate-pulse" />
             <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a2e]/50 to-[#16213e]/50 blur-md rounded-full animate-pulse" />
             {/* Button */}
-            <Button
-              size="lg"
-              onClick={() => navigate('/account/chat')}
-              className="relative bg-gradient-to-r from-[#1a1a2e] to-[#16213e] hover:from-[#16213e] hover:to-[#1a1a2e] text-white text-base md:text-lg px-6 md:px-8 py-4 md:py-6 rounded-full shadow-lg hover:shadow-xl transition-all transform-gpu hover:scale-105 border border-white/20 backdrop-blur-sm"
-            >
-              <MessageCircle className="w-5 h-5 md:w-6 md:h-6 mr-2" />
-              <span className="hidden md:inline">Chat with our AI system</span>
-              <span className="md:hidden">Chat</span>
-            </Button>
+            <Link to="/account/chat" className="no-underline">
+              <Button
+                size="lg"
+                className="relative bg-gradient-to-r from-[#1a1a2e] to-[#16213e] hover:from-[#16213e] hover:to-[#1a1a2e] text-white text-base md:text-lg px-6 md:px-8 py-4 md:py-6 rounded-full shadow-lg hover:shadow-xl transition-all transform-gpu hover:scale-105 border border-white/20 backdrop-blur-sm"
+              >
+                <MessageCircle className="w-5 h-5 md:w-6 md:h-6 mr-2" />
+                <span className="hidden md:inline">Chat with our AI system</span>
+                <span className="md:hidden">Chat</span>
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
