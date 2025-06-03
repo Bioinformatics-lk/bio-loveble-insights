@@ -137,7 +137,7 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#170056] via-[#410056] to-[#000A33] relative">
+    <div className="min-h-screen bg-gradient-to-r from-[#000A33] via-[#170056] to-[#54366B] relative">
       <style>
         {`
           .animate-on-scroll {
@@ -347,7 +347,7 @@ const Index = () => {
 
       {/* Mobile Navigation Menu - Add before the Hero section */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 bg-gradient-to-br from-[#170056]/95 via-[#410056]/95 to-[#000A33]/95 backdrop-blur-md md:hidden">
+        <div className="fixed inset-0 z-50 bg-gradient-to-r from-[#000A33]/95 via-[#170056]/95 to-[#54366B]/95 backdrop-blur-md md:hidden">
           <div className="container mx-auto px-4 py-8">
             <div className="flex justify-end mb-6">
               <Button
@@ -447,8 +447,9 @@ const Index = () => {
 
       {/* Hero Section */}
       <section className="relative overflow-hidden z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#170056] via-[#410056] to-[#000A33]">
-          {/* Creative pattern overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#000A33] via-[#170056] to-[#54366B]">
+          {/* Creative pattern overlay with increasing opacity from left to right */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white/5"></div>
           <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_50%_50%,_#54366B_1px,_transparent_1px)] bg-[length:20px_20px]"></div>
         </div>
         
@@ -972,7 +973,7 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gradient-to-br from-[#170056]/90 via-[#410056]/90 to-[#000A33]/90 backdrop-blur-sm text-white py-12 md:py-16 relative z-10">
+      <footer className="bg-gradient-to-r from-[#000A33]/90 via-[#170056]/90 to-[#54366B]/90 backdrop-blur-sm text-white py-12 md:py-16 relative z-10">
         <div className="container mx-auto px-4">
           {/* Add decorative pattern to footer */}
           <div className="absolute inset-0 opacity-5 bg-[radial-gradient(circle_at_50%_50%,_#54366B_1px,_transparent_1px)] bg-[length:15px_15px]"></div>
