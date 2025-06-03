@@ -218,6 +218,7 @@ export const AISystemPage = () => {
             {/* Button */}
             <Button
               size="lg"
+              onClick={() => navigate('/dashboard')}
               className="relative bg-gradient-to-r from-[#1a1a2e] to-[#16213e] hover:from-[#16213e] hover:to-[#1a1a2e] text-white text-base md:text-lg px-6 md:px-8 py-4 md:py-6 rounded-full shadow-lg hover:shadow-xl transition-all transform-gpu hover:scale-105 border border-white/20 backdrop-blur-sm"
             >
               <Server className="w-5 h-5 md:w-6 md:h-6 mr-2" />
