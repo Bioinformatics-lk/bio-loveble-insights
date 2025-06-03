@@ -30,7 +30,7 @@ const courses = [
     step: 1,
     price: "10,000 LKR",
     totalFee: "10,000 LKR",
-    enrollmentLink: "https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform"
+    enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
   },
   {
     title: "Network Pharmacology",
@@ -41,7 +41,7 @@ const courses = [
     step: 2,
     price: "5,000 LKR",
     totalFee: "15,000 LKR",
-    enrollmentLink: "https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform"
+    enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
   },
   {
     title: "Molecular Docking",
@@ -52,7 +52,7 @@ const courses = [
     step: 3,
     price: "5,000 LKR",
     totalFee: "20,000 LKR",
-    enrollmentLink: "https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform"
+    enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
   },
   {
     title: "Molecular Dynamics",
@@ -63,7 +63,7 @@ const courses = [
     step: 4,
     price: "10,000 LKR",
     totalFee: "30,000 LKR",
-    enrollmentLink: "https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform"
+    enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
   },
   {
     title: "Introduction to Cheminformatics",
@@ -74,7 +74,7 @@ const courses = [
     step: 5,
     price: "5,000 LKR",
     totalFee: "35,000 LKR",
-    enrollmentLink: "https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform"
+    enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
   },
   {
     title: "AI and ML in Drug Discovery",
@@ -85,7 +85,7 @@ const courses = [
     step: 6,
     price: "5,000 LKR",
     totalFee: "40,000 LKR",
-    enrollmentLink: "https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform"
+    enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
   },
   {
     title: "Research Project",
@@ -97,7 +97,7 @@ const courses = [
     isSpecial: true,
     price: "10,000 LKR",
     totalFee: "50,000 LKR",
-    enrollmentLink: "https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform"
+    enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
   }
 ];
 
@@ -105,9 +105,15 @@ export const CoursesPage = () => {
   const navigate = useNavigate();
   const [hoveredStep, setHoveredStep] = useState<number | null>(null);
   const [selectedCourse, setSelectedCourse] = useState<number | null>(null);
+  const [showMobileModal, setShowMobileModal] = useState(false);
 
   const handleEnrollClick = (enrollmentLink: string) => {
     window.open(enrollmentLink, '_blank');
+  };
+
+  const handleCloseMobileModal = () => {
+    setShowMobileModal(false);
+    setSelectedCourse(null);
   };
 
   return (
@@ -152,6 +158,68 @@ export const CoursesPage = () => {
           </p>
         </div>
 
+        {/* Mobile Course Details Modal */}
+        <AnimatePresence>
+          {selectedCourse !== null && showMobileModal && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+              onClick={handleCloseMobileModal}
+            >
+              <motion.div
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.95, opacity: 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                className="w-full max-w-md bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-lg shadow-xl p-6"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {courses.find(c => c.step === selectedCourse) && (
+                  <div className="flex flex-col space-y-4">
+                    <div className="flex justify-between items-center">
+                      <h3 className="text-xl font-bold text-white">
+                        {courses.find(c => c.step === selectedCourse)?.title}
+                      </h3>
+                      <button
+                        onClick={handleCloseMobileModal}
+                        className="text-white/70 hover:text-white"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </div>
+                    <p className="text-white/90 text-sm leading-relaxed">
+                      {courses.find(c => c.step === selectedCourse)?.detailedDescription}
+                    </p>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-white/70">Course Fee:</span>
+                      <span className="text-white font-semibold">
+                        {courses.find(c => c.step === selectedCourse)?.price}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-white/70">Total Fee to Here:</span>
+                      <span className="text-white font-semibold">
+                        {courses.find(c => c.step === selectedCourse)?.totalFee}
+                      </span>
+                    </div>
+                    <Button
+                      onClick={() => handleEnrollClick(courses.find(c => c.step === selectedCourse)?.enrollmentLink || '')}
+                      className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white mt-4"
+                    >
+                      Enroll Now
+                      <ExternalLink className="w-4 h-4 ml-2" />
+                    </Button>
+                  </div>
+                )}
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* Course Pipeline - Mobile */}
         <div className="lg:hidden space-y-4">
           {courses.map((course, index) => (
@@ -169,7 +237,10 @@ export const CoursesPage = () => {
                   ${course.isSpecial ? 'bg-gradient-to-br from-rose-500/20 to-orange-500/20' : 'bg-white/10'}
                   backdrop-blur-sm p-4
                 `}
-                onClick={() => setSelectedCourse(selectedCourse === course.step ? null : course.step)}
+                onClick={() => {
+                  setSelectedCourse(course.step);
+                  setShowMobileModal(true);
+                }}
               >
                 <div className="flex items-start space-x-4">
                   <div className="flex flex-col items-center space-y-2">
@@ -201,46 +272,6 @@ export const CoursesPage = () => {
                   <ChevronRight className="h-5 w-5 text-white/70 mt-2" />
                 </div>
               </Card>
-
-              {/* Mobile Course Details Popup */}
-              <AnimatePresence>
-                {selectedCourse === course.step && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 20 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    className="lg:hidden absolute left-0 right-0 top-full mt-2 bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-lg shadow-xl p-4 z-20"
-                  >
-                    <div className="flex flex-col space-y-3">
-                      <p className="text-white/90 text-sm leading-relaxed">
-                        {course.detailedDescription}
-                      </p>
-                      <div className="flex items-center justify-between">
-                        <span className="text-white font-semibold">Course Fee</span>
-                        <span className="text-white flex items-center">
-                          <DollarSign className="w-4 h-4 mr-1" />
-                          {course.price}
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-white font-semibold">Total Fee to Here</span>
-                        <span className="text-white flex items-center">
-                          <DollarSign className="w-4 h-4 mr-1" />
-                          {course.totalFee}
-                        </span>
-                      </div>
-                      <Button
-                        onClick={() => handleEnrollClick(course.enrollmentLink)}
-                        className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white"
-                      >
-                        Enroll Now
-                        <ExternalLink className="w-4 h-4 ml-2" />
-                      </Button>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
             </motion.div>
           ))}
         </div>
@@ -293,7 +324,6 @@ export const CoursesPage = () => {
                     onMouseEnter={() => setHoveredStep(course.step)}
                     onMouseLeave={() => setHoveredStep(null)}
                   >
-                    {/* Card Content */}
                     <div className="p-6">
                       <div className="flex flex-col items-center text-center space-y-4">
                         {/* Step Number */}
@@ -335,63 +365,65 @@ export const CoursesPage = () => {
                       </div>
                     </div>
                   </Card>
-
-                  {/* Course Details Popup */}
-                  <AnimatePresence>
-                    {selectedCourse === course.step && (
-                      <motion.div
-                        initial={{ opacity: 0, x: course.title === "Network Pharmacology" ||
-                                                course.title === "AI and ML in Drug Discovery" ||
-                                                course.title === "Molecular Dynamics" ? -50 : 50,
-                                 scale: 0.9 }}
-                        animate={{ opacity: 1, x: 0, scale: 1 }}
-                        exit={{ opacity: 0, x: course.title === "Network Pharmacology" ||
-                                              course.title === "AI and ML in Drug Discovery" ||
-                                              course.title === "Molecular Dynamics" ? -50 : 50,
-                               scale: 0.9 }}
-                        transition={{ 
-                          type: "spring",
-                          stiffness: 400,
-                          damping: 25,
-                          mass: 1
-                        }}
-                        className={`
-                          absolute top-1/2 -translate-y-1/2
-                          ${course.title === "Network Pharmacology" ||
-                            course.title === "AI and ML in Drug Discovery" ||
-                            course.title === "Molecular Dynamics"
-                            ? 'left-full ml-8'
-                            : 'right-full mr-8'}
-                          w-80 bg-white/10 backdrop-blur-md
-                          border-2 border-white/20 rounded-lg shadow-xl
-                          p-6 z-20
-                        `}
-                      >
-                        {/* Popup Content */}
-                        <div className="flex flex-col space-y-4">
-                          <p className="text-white/90 text-sm leading-relaxed">
-                            {course.detailedDescription}
-                          </p>
-                          <div className="flex items-center justify-between text-sm">
-                            <span className="text-white/70">Course Fee:</span>
-                            <span className="text-white font-semibold">{course.price}</span>
-                          </div>
-                          <div className="flex items-center justify-between text-sm">
-                            <span className="text-white/70">Total Fee to Here:</span>
-                            <span className="text-white font-semibold">{course.totalFee}</span>
-                          </div>
-                          <Button
-                            onClick={() => handleEnrollClick(course.enrollmentLink)}
-                            className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white mt-2"
-                          >
-                            Enroll Now
-                            <ExternalLink className="w-4 h-4 ml-2" />
-                          </Button>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
                 </motion.div>
+
+                {/* Desktop Course Details Popup */}
+                <AnimatePresence>
+                  {selectedCourse === course.step && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -20, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                      className={`
+                        absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full
+                        w-96 bg-white/10 backdrop-blur-md
+                        border-2 border-white/20 rounded-lg shadow-xl
+                        p-6 z-30 mt-4
+                      `}
+                    >
+                      <div className="flex flex-col space-y-4">
+                        <div className="flex justify-between items-center">
+                          <h3 className="text-xl font-bold text-white">
+                            {course.title}
+                          </h3>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSelectedCourse(null);
+                            }}
+                            className="text-white/70 hover:text-white"
+                          >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                        </div>
+                        <p className="text-white/90 text-sm leading-relaxed">
+                          {course.detailedDescription}
+                        </p>
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="text-white/70">Course Fee:</span>
+                          <span className="text-white font-semibold">{course.price}</span>
+                        </div>
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="text-white/70">Total Fee to Here:</span>
+                          <span className="text-white font-semibold">{course.totalFee}</span>
+                        </div>
+                        <Button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleEnrollClick(course.enrollmentLink);
+                          }}
+                          className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white mt-2"
+                        >
+                          Enroll Now
+                          <ExternalLink className="w-4 h-4 ml-2" />
+                        </Button>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
             ))}
           </div>
@@ -399,4 +431,4 @@ export const CoursesPage = () => {
       </main>
     </div>
   );
-}; 
+};
