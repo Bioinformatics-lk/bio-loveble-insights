@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { BookOpen, Briefcase, LogOut, User } from "lucide-react";
+import { BookOpen, Briefcase, LogOut, User, Brain } from "lucide-react";
 import { User as SupabaseUser } from '@supabase/supabase-js';
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from 'react-router-dom';
@@ -102,65 +102,101 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto"
+          className="grid grid-cols-1 gap-10 max-w-5xl mx-auto"
         >
-          {/* Courses Card */}
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            <Card className="border-2 border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300">
-            <CardHeader className="text-center">
-                <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
-                  <BookOpen className="h-12 w-12 text-white" />
-              </div>
-                <CardTitle className="text-3xl text-white font-bold">
-                Courses
-              </CardTitle>
-                <CardDescription className="text-white/70 text-lg mt-2">
-                Access our comprehensive bioinformatics courses
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button 
-                  onClick={handleViewCourses}
-                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-lg py-6 font-semibold shadow-lg hover:shadow-xl transition-all"
-                size="lg"
-              >
-                View Courses
-              </Button>
-            </CardContent>
-          </Card>
-          </motion.div>
+          {/* First Row - Services and Courses */}
+          <div className="grid md:grid-cols-2 gap-10">
+            {/* Services Card */}
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <Card className="border-2 border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300">
+                <CardHeader className="text-center">
+                  <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
+                    <Briefcase className="h-12 w-12 text-white" />
+                  </div>
+                  <CardTitle className="text-3xl text-white font-bold">
+                    Services
+                  </CardTitle>
+                  <CardDescription className="text-white/70 text-lg mt-2">
+                    Professional bioinformatics and computational biology services
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Button 
+                    className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-lg py-6 font-semibold shadow-lg hover:shadow-xl transition-all"
+                    size="lg"
+                  >
+                    View Services
+                  </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
 
-          {/* Services Card */}
+            {/* Courses Card */}
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <Card className="border-2 border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300">
+                <CardHeader className="text-center">
+                  <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
+                    <BookOpen className="h-12 w-12 text-white" />
+                  </div>
+                  <CardTitle className="text-3xl text-white font-bold">
+                    Courses
+                  </CardTitle>
+                  <CardDescription className="text-white/70 text-lg mt-2">
+                    Access our comprehensive bioinformatics courses
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Button 
+                    onClick={handleViewCourses}
+                    className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-lg py-6 font-semibold shadow-lg hover:shadow-xl transition-all"
+                    size="lg"
+                  >
+                    View Courses
+                  </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+
+          {/* SLHAIF Card - Centered Below */}
           <motion.div
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             transition={{ type: "spring", stiffness: 300 }}
+            className="md:col-span-2 md:w-2/3 mx-auto"
           >
-            <Card className="border-2 border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300">
-            <CardHeader className="text-center">
-                <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
-                  <Briefcase className="h-12 w-12 text-white" />
-              </div>
+            <Card className="border-2 border-white/20 bg-gradient-to-r from-[#170056]/40 to-[#410056]/40 backdrop-blur-sm hover:bg-white/20 transition-all duration-300 relative overflow-hidden">
+              {/* Glowing Effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20 animate-pulse"></div>
+              
+              <CardHeader className="text-center relative z-10">
+                <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-r from-[#170056] to-[#410056] rounded-full flex items-center justify-center shadow-lg ring-4 ring-purple-500/30">
+                  <Brain className="h-12 w-12 text-white" />
+                </div>
                 <CardTitle className="text-3xl text-white font-bold">
-                Services
-              </CardTitle>
-                <CardDescription className="text-white/70 text-lg mt-2">
-                Professional bioinformatics and computational biology services
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button 
-                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-lg py-6 font-semibold shadow-lg hover:shadow-xl transition-all"
-                size="lg"
-              >
-                View Services
-              </Button>
-            </CardContent>
-          </Card>
+                  SLHAIF
+                </CardTitle>
+                <CardDescription className="text-white/90 text-lg mt-2 font-medium">
+                  Sri Lankan Herbal Artificial Intelligence Factory
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button 
+                  className="w-full bg-gradient-to-r from-[#170056] to-[#410056] hover:from-[#410056] hover:to-[#54366B] text-lg py-6 font-semibold shadow-lg hover:shadow-xl transition-all border border-purple-500/30"
+                  size="lg"
+                >
+                  Explore SLHAIF
+                </Button>
+              </CardContent>
+            </Card>
           </motion.div>
         </motion.div>
       </main>
