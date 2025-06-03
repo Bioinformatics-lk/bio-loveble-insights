@@ -445,7 +445,30 @@ const Index = () => {
 
       {/* Hero Section */}
       <section className="relative overflow-hidden z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900"></div>
+        {/* Background Pattern Layer */}
+        <div className="absolute inset-0">
+          {/* Geometric Patterns */}
+          <div className="absolute top-0 left-0 w-full h-full">
+            <div className="absolute top-0 left-0 w-1/3 h-1/3 bg-[#170056] opacity-20 rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
+            <div className="absolute top-1/2 right-0 w-1/2 h-1/2 bg-[#410056] opacity-20 rounded-full blur-3xl transform translate-x-1/3 -translate-y-1/2"></div>
+            <div className="absolute bottom-0 left-1/4 w-1/3 h-1/3 bg-[#54366B] opacity-20 rounded-full blur-3xl"></div>
+            <div className="absolute top-1/4 right-1/4 w-1/4 h-1/4 bg-[#363B6B] opacity-20 rounded-full blur-3xl"></div>
+          </div>
+          
+          {/* Main Gradient */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#170056] via-[#410056] to-[#54366B]"></div>
+          
+          {/* Overlay Pattern */}
+          <div className="absolute inset-0 opacity-50"
+            style={{
+              backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.1) 1px, transparent 0)`,
+              backgroundSize: '32px 32px'
+            }}>
+          </div>
+          
+          {/* Glass Effect Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#170056]/10 via-[#363B6B]/10 to-[#000A33]/10 backdrop-blur-[1px]"></div>
+        </div>
         
         <div className="relative container mx-auto px-4 py-16 lg:py-24">
           {/* Mobile Search Bar */}
@@ -460,17 +483,21 @@ const Index = () => {
           {/* Main Hero Content - Split Layout */}
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-12">
             {/* Left Side - Text Content */}
-            <div className="text-white space-y-4 lg:space-y-6">
-              <h1 className="animate-on-scroll text-3xl md:text-4xl lg:text-6xl font-bold leading-tight text-left">
-                Accelerating <span className="text-purple-300">Bioinformatics</span> Innovation
+            <div className="text-white space-y-4 lg:space-y-6 relative">
+              <div className="absolute -top-20 -left-20 w-40 h-40 bg-[#410056] rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+              <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-[#54366B] rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+              <div className="absolute top-1/2 left-1/2 w-40 h-40 bg-[#363B6B] rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+              
+              <h1 className="animate-on-scroll text-3xl md:text-4xl lg:text-6xl font-bold leading-tight text-left relative">
+                Accelerating <span className="text-[#AFA9FF]">Bioinformatics</span> Innovation
               </h1>
-              <p className="animate-on-scroll delay-200 text-lg md:text-xl lg:text-2xl text-purple-100 leading-relaxed text-left">
+              <p className="animate-on-scroll delay-200 text-lg md:text-xl lg:text-2xl text-purple-100 leading-relaxed text-left relative">
                 Empowering researchers and students in genomics, proteomics, and computational biology through world-class education and cutting-edge research.
               </p>
-              <div className="animate-on-scroll delay-400 flex flex-col sm:flex-row gap-4 justify-start">
+              <div className="animate-on-scroll delay-400 flex flex-col sm:flex-row gap-4 justify-start relative">
                 <Button 
                   size="lg" 
-                  className="bg-purple-600 hover:bg-purple-700 text-white px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg transition-all transform hover:scale-105"
+                  className="bg-[#410056] hover:bg-[#54366B] text-white px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg transition-all transform hover:scale-105 border border-purple-300/20"
                   onClick={() => scrollToSection('courses')}
                 >
                   Explore Courses
@@ -478,7 +505,7 @@ const Index = () => {
                 <Button 
                   size="lg" 
                   variant="outline" 
-                  className="border-purple-300/30 text-black bg-white/90 hover:bg-white hover:text-black px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg transition-all transform hover:scale-105 font-semibold"
+                  className="border-purple-300/30 text-white hover:bg-white/10 px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg transition-all transform hover:scale-105 font-semibold backdrop-blur-sm"
                   onClick={() => scrollToSection('research')}
                 >
                   View Research
@@ -488,8 +515,8 @@ const Index = () => {
 
             {/* Right Side - Video */}
             <div className="animate-on-scroll delay-600 relative hidden lg:block">
-              <div className="relative w-full h-64 md:h-80 lg:h-96 bg-gradient-to-br from-purple-600/20 to-blue-600/20 backdrop-blur-sm rounded-2xl border-2 border-purple-300/50 overflow-hidden shadow-2xl">
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-600/10 to-blue-600/10"></div>
+              <div className="relative w-full h-64 md:h-80 lg:h-96 bg-gradient-to-br from-[#170056]/20 to-[#363B6B]/20 backdrop-blur-sm rounded-2xl border-2 border-purple-300/20 overflow-hidden shadow-2xl">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#170056]/10 to-[#363B6B]/10"></div>
                 <iframe 
                   src="https://player.vimeo.com/video/1089037562?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1"
                   frameBorder="0" 
@@ -500,6 +527,25 @@ const Index = () => {
               </div>
             </div>
           </div>
+
+          {/* Add animation keyframes for the blob effect */}
+          <style jsx>{`
+            @keyframes blob {
+              0% { transform: translate(0px, 0px) scale(1); }
+              33% { transform: translate(30px, -50px) scale(1.1); }
+              66% { transform: translate(-20px, 20px) scale(0.9); }
+              100% { transform: translate(0px, 0px) scale(1); }
+            }
+            .animate-blob {
+              animation: blob 7s infinite;
+            }
+            .animation-delay-2000 {
+              animation-delay: 2s;
+            }
+            .animation-delay-4000 {
+              animation-delay: 4s;
+            }
+          `}</style>
 
           {/* Counters Section */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
