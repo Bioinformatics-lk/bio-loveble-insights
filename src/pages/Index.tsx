@@ -484,10 +484,10 @@ const Index = () => {
                 <p className="animate-on-scroll delay-200 text-lg md:text-xl lg:text-2xl text-[#EAE3F5]/90 leading-relaxed text-left mt-6">
                   Empowering researchers and students in genomics, proteomics, and computational biology through world-class education and cutting-edge research.
                 </p>
-                <div className="animate-on-scroll delay-400 flex flex-col sm:flex-row gap-4 justify-start mt-8">
+                <div className="animate-on-scroll delay-400 flex flex-col sm:flex-row gap-4 justify-start mt-6">
                   <Button 
                     size="lg" 
-                    className="bg-[#363B6B] hover:bg-[#000A33] text-[#EAE3F5] border border-[#EAE3F5]/20 transition-all transform hover:scale-105 shadow-lg text-lg px-8 py-6 h-auto"
+                    className="bg-[#363B6B] hover:bg-[#000A33] text-[#EAE3F5] border border-[#EAE3F5]/20 transition-all transform hover:scale-105 shadow-lg text-base md:text-lg px-6 py-4 h-auto"
                     onClick={() => scrollToSection('courses')}
                   >
                     Explore Courses
@@ -495,7 +495,7 @@ const Index = () => {
                   <Button 
                     size="lg" 
                     variant="outline" 
-                    className="border-[#EAE3F5]/30 text-[#EAE3F5] bg-[#000A33]/40 hover:bg-[#363B6B]/60 hover:text-[#EAE3F5] px-8 py-6 text-lg transition-all transform hover:scale-105 font-semibold backdrop-blur-sm h-auto"
+                    className="border-[#EAE3F5]/30 text-[#EAE3F5] bg-[#000A33]/40 hover:bg-[#363B6B]/60 hover:text-[#EAE3F5] px-6 py-4 text-base md:text-lg transition-all transform hover:scale-105 font-semibold backdrop-blur-sm h-auto"
                     onClick={() => scrollToSection('research')}
                   >
                     View Research
