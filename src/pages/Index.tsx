@@ -294,31 +294,46 @@ const Index = () => {
 
             {/* Right Side - Search and Login */}
             <div className="flex items-center gap-4">
-              {/* Search Bar and Icon */}
+              {/* Unified Search Bar for Mobile and Desktop */}
               <div className="relative">
                 {searchOpen ? (
-                  <div className="absolute right-0 top-0 w-64 md:w-80">
-                    <SearchBar className={`${isScrolled ? 'text-black placeholder-gray-500' : 'text-[#EAE3F5] placeholder-[#EAE3F5]/70'}`} />
+                  <div className="fixed inset-0 z-50">
+                    {/* Backdrop overlay - visible only on mobile */}
+                    <div 
+                      className="absolute inset-0 bg-[#000A33]/80 backdrop-blur-sm" 
+                      onClick={() => setSearchOpen(false)}
+                    />
+                    {/* Search bar container */}
+                    <div className="absolute left-4 right-4 top-20 md:left-auto md:right-0 md:top-0 md:w-80">
+                      <SearchBar 
+                        onClose={() => setSearchOpen(false)}
+                        className={`${
+                          isScrolled 
+                            ? 'bg-white shadow-lg !border-gray-200 !text-gray-900 !placeholder-gray-500' 
+                            : ''
+                        }`}
+                      />
+                    </div>
                   </div>
                 ) : (
                   <Button
                     variant="ghost"
                     size="icon"
                     onClick={() => setSearchOpen(true)}
-                    className={`transition-all w-12 h-12 ${
+                    className={`transition-all w-12 h-12 rounded-full hover:scale-105 ${
                       isScrolled 
                         ? 'text-purple-600 hover:text-purple-700 hover:bg-purple-100' 
                         : 'text-[#EAE3F5] hover:text-[#EAE3F5] hover:bg-[#410056]/40'
                     }`}
                   >
-                    <Search className="h-6 w-6" />
+                    <Search className="h-5 w-5" />
                   </Button>
                 )}
               </div>
               
               <Button
                 onClick={() => setAuthModalOpen(true)}
-                className="bg-[#54366B] hover:bg-[#410056] text-[#EAE3F5] border border-[#EAE3F5]/20 transition-all transform hover:scale-105 shadow-lg"
+                className="bg-[#54366B] hover:bg-[#410056] text-[#EAE3F5] border border-[#EAE3F5]/20 transition-all transform hover:scale-105 shadow-lg rounded-full"
               >
                 Login
               </Button>
