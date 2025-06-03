@@ -109,16 +109,6 @@ export const CoursesPage = () => {
           className="absolute top-0 right-0 w-1/2 h-1/2 bg-contain bg-no-repeat opacity-40"
           style={{ backgroundImage: 'url("/lovable-uploads/P2.png")' }}
         />
-        {/* Bottom Left Image */}
-        <div 
-          className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-contain bg-no-repeat opacity-40"
-          style={{ backgroundImage: 'url("/lovable-uploads/P3.png")' }}
-        />
-        {/* Bottom Right Image */}
-        <div 
-          className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-contain bg-no-repeat opacity-40"
-          style={{ backgroundImage: 'url("/lovable-uploads/P4.png")' }}
-        />
         {/* Overlay Gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/50 to-purple-900/50 backdrop-blur-[2px]" />
       </div>
