@@ -297,20 +297,17 @@ const Index = () => {
             </motion.nav>
 
             {/* Right Side - Search and Login */}
-            <motion.div layout className="flex items-center gap-4">
-              {/* New Expandable Search Bar */}
-              <SearchBar 
-                onClose={() => setSearchOpen(false)} 
-                containerWidth={typeof window !== 'undefined' ? window.innerWidth : 0}
-              />
+            <div className="flex items-center gap-4">
+              {/* New Overlay Search Bar */}
+              <SearchBar onClose={() => setSearchOpen(false)} />
               
               <Button
                 onClick={() => setAuthModalOpen(true)}
-                className="bg-[#54366B] hover:bg-[#410056] text-[#EAE3F5] border border-[#EAE3F5]/20 transition-all transform hover:scale-105 shadow-lg rounded-full whitespace-nowrap"
+                className="bg-[#54366B] hover:bg-[#410056] text-[#EAE3F5] border border-[#EAE3F5]/20 transition-all transform hover:scale-105 shadow-lg rounded-full"
               >
                 Login
               </Button>
-            </motion.div>
+            </div>
           </div>
         </div>
       </header>
