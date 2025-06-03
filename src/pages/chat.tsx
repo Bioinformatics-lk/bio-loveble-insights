@@ -54,7 +54,7 @@ const Chat = () => {
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="lg:w-[70%] bg-white/10 backdrop-blur-md rounded-xl p-6 border border-[#54366B] shadow-xl"
+            className="lg:w-[70%] bg-white/5 backdrop-blur-md rounded-xl p-6 border border-[#54366B] shadow-xl"
           >
             <div className="aspect-video bg-[#000A33]/50 rounded-lg flex items-center justify-center">
               <p className="text-[#EAE3F5] text-lg">Visualization Area</p>
@@ -65,16 +65,16 @@ const Chat = () => {
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="lg:w-[30%] flex flex-col"
+            className="lg:w-[30%] flex flex-col bg-white/5 backdrop-blur-md rounded-xl border border-[#54366B] shadow-xl"
           >
             {/* Chat Header */}
-            <div className="bg-[#000A33] rounded-t-xl p-4 flex items-center gap-3 border-b border-[#54366B]">
+            <div className="bg-[#000A33]/50 rounded-t-xl p-4 flex items-center gap-3 border-b border-[#54366B]">
               <Brain className="w-6 h-6 text-[#EAE3F5]" />
               <h2 className="text-[#EAE3F5] font-bold">SLHAIF</h2>
             </div>
 
             {/* Messages Area */}
-            <div className="flex-1 bg-white/10 backdrop-blur-md p-4 overflow-y-auto max-h-[500px] space-y-4">
+            <div className="flex-1 p-4 overflow-y-auto max-h-[500px] space-y-4">
               {messages.map((msg, index) => (
                 <motion.div
                   key={index}
@@ -86,7 +86,7 @@ const Chat = () => {
                     max-w-[80%] rounded-xl px-4 py-2 
                     ${msg.isUser ? 
                       'bg-[#54366B] text-[#EAE3F5]' : 
-                      'bg-white/20 text-[#EAE3F5]'
+                      'bg-white/10 text-[#EAE3F5]'
                     }
                   `}>
                     {msg.text}
@@ -96,7 +96,7 @@ const Chat = () => {
             </div>
 
             {/* Input Area */}
-            <form onSubmit={handleSubmit} className="bg-[#000A33] rounded-b-xl p-4 flex gap-2">
+            <form onSubmit={handleSubmit} className="bg-[#000A33]/50 rounded-b-xl p-4 flex gap-2">
               <input
                 type="text"
                 value={message}
@@ -130,7 +130,7 @@ const Chat = () => {
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ delay: index * 0.1, type: "spring" }}
-                  className="relative"
+                  className="relative bg-white/5 backdrop-blur-md rounded-xl p-4 border border-[#54366B]"
                 >
                   <div className="w-32 h-32 mx-auto">
                     <svg className="w-full h-full" viewBox="0 0 100 100">
@@ -184,7 +184,7 @@ const Chat = () => {
                   initial={{ x: 20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ delay: index * 0.1 }}
-                  className="bg-white/10 backdrop-blur-md rounded-lg p-4"
+                  className="bg-white/5 backdrop-blur-md rounded-lg p-4 border border-[#54366B]"
                 >
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-[#EAE3F5]">{status.label}</span>
@@ -192,7 +192,7 @@ const Chat = () => {
                       {status.value} / {status.total}
                     </span>
                   </div>
-                  <div className="h-2 bg-[#000A33] rounded-full overflow-hidden">
+                  <div className="h-2 bg-[#000A33]/50 rounded-full overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: `${(status.value / status.total) * 100}%` }}
