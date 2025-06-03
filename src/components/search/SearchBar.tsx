@@ -10,6 +10,8 @@ interface SearchBarProps {
 export const SearchBar = ({ onClose }: SearchBarProps) => {
   const [query, setQuery] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
+  const [searchResults, setSearchResults] = useState<Array<{id: string, title: string}>>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const searchBarRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
@@ -48,6 +50,7 @@ export const SearchBar = ({ onClose }: SearchBarProps) => {
   const handleClose = () => {
     setIsExpanded(false);
     setQuery('');
+    setSearchResults([]);
     if (onClose) onClose();
   };
 
@@ -55,40 +58,95 @@ export const SearchBar = ({ onClose }: SearchBarProps) => {
     e.preventDefault();
     if (!query.trim()) return;
 
-    const results = performSearch(query);
-    
-    if (results.length > 0) {
-      toast({
-        title: "Search Results",
-        description: `Found ${results.length} results for "${query}"`,
-      });
-      handleClose();
-    } else {
-      toast({
-        title: "No Results",
-        description: `No results found for "${query}"`,
-        variant: "destructive",
-      });
+    setIsSearching(true);
+    try {
+      const results = performSearch(query);
+      
+      if (results.length > 0) {
+        setSearchResults(results);
+        
+        // Scroll to first result
+        const firstResult = document.getElementById(results[0].id);
+        if (firstResult) {
+          handleClose();
+          setTimeout(() => {
+            firstResult.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'center' 
+            });
+          }, 100);
+
+          toast({
+            title: "Search Results",
+            description: `Found ${results.length} results for "${query}"`,
+          });
+        }
+      } else {
+        toast({
+          title: "No Results",
+          description: `No results found for "${query}"`,
+          variant: "destructive",
+        });
+      }
+    } finally {
+      setIsSearching(false);
     }
   };
 
-  const performSearch = (searchTerm: string): string[] => {
+  const performSearch = (searchTerm: string): Array<{id: string, title: string}> => {
     const searchSections = [
-      { id: 'team', keywords: ['team', 'lakmal', 'saumya', 'anuththara', 'doctor', 'researcher'] },
-      { id: 'research', keywords: ['research', 'bioinformatics', 'cheminformatics', 'drug', 'discovery', 'ai', 'medicinal', 'plants'] },
-      { id: 'courses', keywords: ['courses', 'education', 'training', 'molecular', 'docking', 'dynamics', 'machine', 'learning'] },
-      { id: 'services', keywords: ['services', 'pharmacology', 'network', 'molecular', 'simulation', 'formulation'] },
-      { id: 'partnerships', keywords: ['partnerships', 'university', 'peradeniya', 'global', 'chemistry', 'standard', 'seed'] },
-      { id: 'news', keywords: ['news', 'updates', 'genomics', 'lab', 'workshop', 'collaboration'] },
-      { id: 'success-stories', keywords: ['success', 'stories', 'testimonial', 'students', 'graduates'] }
+      { 
+        id: 'team', 
+        title: 'Our Team',
+        keywords: ['team', 'lakmal', 'saumya', 'anuththara', 'doctor', 'researcher'] 
+      },
+      { 
+        id: 'research', 
+        title: 'Research Areas',
+        keywords: ['research', 'bioinformatics', 'cheminformatics', 'drug', 'discovery', 'ai', 'medicinal', 'plants'] 
+      },
+      { 
+        id: 'courses', 
+        title: 'Our Courses',
+        keywords: ['courses', 'education', 'training', 'molecular', 'docking', 'dynamics', 'machine', 'learning'] 
+      },
+      { 
+        id: 'services', 
+        title: 'Our Services',
+        keywords: ['services', 'pharmacology', 'network', 'molecular', 'simulation', 'formulation'] 
+      },
+      { 
+        id: 'partnerships', 
+        title: 'Our Partnerships',
+        keywords: ['partnerships', 'university', 'peradeniya', 'global', 'chemistry', 'standard', 'seed'] 
+      },
+      { 
+        id: 'news', 
+        title: 'Latest News',
+        keywords: ['news', 'updates', 'genomics', 'lab', 'workshop', 'collaboration'] 
+      },
+      { 
+        id: 'success-stories', 
+        title: 'Success Stories',
+        keywords: ['success', 'stories', 'testimonial', 'students', 'graduates'] 
+      }
     ];
 
-    const results: string[] = [];
+    const results: Array<{id: string, title: string}> = [];
     const lowerQuery = searchTerm.toLowerCase();
 
     searchSections.forEach(section => {
-      if (section.keywords.some(keyword => keyword.includes(lowerQuery) || lowerQuery.includes(keyword))) {
-        results.push(section.id);
+      if (
+        section.title.toLowerCase().includes(lowerQuery) ||
+        section.keywords.some(keyword => 
+          keyword.includes(lowerQuery) || 
+          lowerQuery.includes(keyword)
+        )
+      ) {
+        results.push({
+          id: section.id,
+          title: section.title
+        });
       }
     });
 
@@ -123,59 +181,80 @@ export const SearchBar = ({ onClose }: SearchBarProps) => {
               onClick={handleClose}
             />
 
-            {/* Search Form */}
-            <motion.form
-              initial={{ 
-                opacity: 0,
-                scale: 0.95,
-                y: -10,
-                x: typeof window !== 'undefined' && window.innerWidth < 768 ? '-50%' : 0
-              }}
-              animate={{ 
-                opacity: 1,
-                scale: 1,
-                y: 0,
-                x: typeof window !== 'undefined' && window.innerWidth < 768 ? '-50%' : 0
-              }}
-              exit={{ 
-                opacity: 0,
-                scale: 0.95,
-                y: -10,
-                x: typeof window !== 'undefined' && window.innerWidth < 768 ? '-50%' : 0
-              }}
+            {/* Search Container */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              onSubmit={handleSearch}
               className={`
-                absolute right-0 top-0
-                md:right-0 md:top-0
+                fixed left-4 right-4 top-20
+                md:fixed md:left-auto md:right-4 md:top-20
                 z-50
-                ${typeof window !== 'undefined' && window.innerWidth < 768 ? 
-                  'fixed left-1/2 w-[90vw] max-w-[90vw]' : 
-                  'w-[20rem]'
-                }
+                max-w-[90vw] md:max-w-[20rem]
+                mx-auto md:mx-0
               `}
             >
-              <div className="relative flex items-center w-full">
-                <Search className="absolute left-4 text-[#EAE3F5]/70 w-5 h-5" />
-                <input
-                  ref={inputRef}
-                  type="text"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Search courses, topics, or research..."
-                  className="w-full h-12 pl-12 pr-12 rounded-full bg-gradient-to-r from-[#170056] to-[#410056] text-[#EAE3F5] placeholder-[#EAE3F5]/50 border border-[#54366B] focus:border-[#363B6B] focus:ring-2 focus:ring-[#54366B] focus:ring-opacity-50 shadow-lg transition-all duration-300"
-                  aria-label="Search input"
-                />
-                <button
-                  type="button"
-                  onClick={handleClose}
-                  className="absolute right-4 text-[#EAE3F5]/70 hover:text-[#EAE3F5] transition-colors duration-200"
-                  aria-label="Close search"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-            </motion.form>
+              {/* Search Form */}
+              <form onSubmit={handleSearch} className="relative">
+                <div className="relative flex items-center w-full">
+                  <div className={`
+                    absolute left-4 text-[#EAE3F5]/70 transition-transform duration-300
+                    ${isSearching ? 'animate-spin' : ''}
+                  `}>
+                    <Search className="w-5 h-5" />
+                  </div>
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Search courses, topics, or research..."
+                    className="w-full h-12 pl-12 pr-12 rounded-full bg-gradient-to-r from-[#170056] to-[#410056] text-[#EAE3F5] placeholder-[#EAE3F5]/50 border border-[#54366B] focus:border-[#363B6B] focus:ring-2 focus:ring-[#54366B] focus:ring-opacity-50 shadow-lg transition-all duration-300"
+                    aria-label="Search input"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleClose}
+                    className="absolute right-4 text-[#EAE3F5]/70 hover:text-[#EAE3F5] transition-colors duration-200"
+                    aria-label="Close search"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+
+                {/* Search Results */}
+                {query && searchResults.length > 0 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="absolute left-0 right-0 mt-2 py-2 bg-white rounded-lg shadow-lg border border-gray-200 max-h-[300px] overflow-y-auto"
+                  >
+                    {searchResults.map((result, index) => (
+                      <button
+                        key={result.id}
+                        type="button"
+                        onClick={() => {
+                          handleClose();
+                          setTimeout(() => {
+                            document.getElementById(result.id)?.scrollIntoView({
+                              behavior: 'smooth',
+                              block: 'center'
+                            });
+                          }, 100);
+                        }}
+                        className={`
+                          w-full px-4 py-2 text-left hover:bg-gray-100 transition-colors
+                          ${index !== searchResults.length - 1 ? 'border-b border-gray-100' : ''}
+                        `}
+                      >
+                        {result.title}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </form>
+            </motion.div>
           </>
         )}
       </AnimatePresence>
