@@ -23,6 +23,10 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
     navigate('/courses');
   };
 
+  const handleExploreSlhaif = () => {
+    navigate('/slhaif');
+  };
+
   return (
     <motion.div 
       initial={{ opacity: 0 }}
@@ -263,7 +267,8 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
               </CardHeader>
               <CardContent>
                 <Button 
-                  className="w-full bg-[#363B6B] hover:bg-[#000A33] text-white border border-white/20 transition-all text-lg py-6 font-semibold shadow-lg hover:shadow-xl backdrop-blur-sm transform-gpu"
+                  onClick={handleExploreSlhaif}
+                  className="w-full bg-[#363B6B] hover:bg-[#000A33] text-white border border-white/20 transition-all text-lg py-6 font-semibold shadow-lg hover:shadow-xl backdrop-blur-sm"
                   size="lg"
                 >
                   Explore SLHAIF
