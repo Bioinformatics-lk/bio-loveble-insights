@@ -157,17 +157,6 @@ export const CoursesPage = () => {
                     : index % 2 === 0 ? 'justify-end pr-8' : 'flex-row-reverse pl-8'
                 } relative`}
               >
-                {/* Connecting Line */}
-                <div 
-                  className={`absolute top-1/2 ${
-                    course.title === "Network Pharmacology" ||
-                    course.title === "AI and ML in Drug Discovery" ||
-                    course.title === "Molecular Dynamics"
-                      ? 'left-0 right-auto'
-                      : index % 2 === 0 ? 'right-0 left-auto' : 'left-0 right-auto'
-                  } w-8 h-0.5 bg-white/20`}
-                />
-                
                 {/* Timeline Node */}
                 <div 
                   className={`
@@ -256,19 +245,6 @@ export const CoursesPage = () => {
                           p-4 z-20
                         `}
                       >
-                        {/* Connecting Line */}
-                        <div 
-                          className={`
-                            absolute top-1/2 -translate-y-1/2
-                            ${course.title === "Network Pharmacology" ||
-                              course.title === "AI and ML in Drug Discovery" ||
-                              course.title === "Molecular Dynamics"
-                              ? 'right-full mr-2'
-                              : 'left-full ml-2'}
-                            w-6 h-0.5 bg-white/20
-                          `}
-                        />
-                        
                         {/* Popup Content */}
                         <div className="flex flex-col space-y-3">
                           <div className="flex items-center justify-between">
@@ -301,9 +277,6 @@ export const CoursesPage = () => {
                       transition={{ type: "spring", stiffness: 300, damping: 30 }}
                       className="lg:hidden absolute left-0 right-0 top-full mt-2 bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-lg shadow-xl p-4 z-20"
                     >
-                      {/* Connecting Line for Mobile */}
-                      <div className="absolute top-0 left-6 h-2 border-l-2 border-white/20 -translate-y-full" />
-                      
                       <div className="flex flex-col space-y-3">
                         <div className="flex items-center justify-between">
                           <span className="text-white font-semibold">Course Fee</span>
@@ -388,9 +361,6 @@ export const CoursesPage = () => {
                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
                     className="lg:hidden absolute left-0 right-0 top-full mt-2 bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-lg shadow-xl p-4 z-20"
                   >
-                    {/* Connecting Line for Mobile */}
-                    <div className="absolute top-0 left-6 h-2 border-l-2 border-white/20 -translate-y-full" />
-                    
                     <div className="flex flex-col space-y-3">
                       <div className="flex items-center justify-between">
                         <span className="text-white font-semibold">Course Fee</span>
@@ -410,11 +380,6 @@ export const CoursesPage = () => {
                   </motion.div>
                 )}
               </AnimatePresence>
-
-              {/* Connecting Line */}
-              {index < courses.length - 1 && (
-                <div className="absolute left-6 top-full h-4 border-l-2 border-white/20" />
-              )}
             </motion.div>
           ))}
         </div>
