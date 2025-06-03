@@ -7,23 +7,19 @@ import { useNavigate } from "react-router-dom";
 interface Topic {
   id: string;
   title: string;
-  position: { x: number; y: number };
 }
 
 const topics: Topic[] = [
-  { id: "literature", title: "Literature Search Agent", position: { x: 0, y: 0 } },
-  { id: "network", title: "Network Pharmacology Agent", position: { x: 0, y: 0 } },
-  { id: "docking", title: "Molecular Docking Agent", position: { x: 0, y: 0 } },
-  { id: "dynamics", title: "Molecular Dynamics Agent", position: { x: 0, y: 0 } },
-  { id: "manuscript", title: "Manuscript Writing Agent", position: { x: 0, y: 0 } },
-  { id: "formulation", title: "Formulation Development Agent", position: { x: 0, y: 0 } },
+  { id: "literature", title: "Literature Search Agent" },
+  { id: "network", title: "Network Pharmacology Agent" },
+  { id: "docking", title: "Molecular Docking Agent" },
+  { id: "dynamics", title: "Molecular Dynamics Agent" },
+  { id: "manuscript", title: "Manuscript Writing Agent" },
+  { id: "formulation", title: "Formulation Development Agent" },
 ];
 
 const brainVariants: Variants = {
-  initial: {
-    scale: 1,
-    opacity: 1,
-  },
+  initial: { scale: 1, opacity: 1 },
   pulse: {
     scale: [1, 1.05, 1],
     opacity: [1, 0.8, 1],
@@ -35,22 +31,9 @@ const brainVariants: Variants = {
   },
 };
 
-const topicVariants: Variants = {
-  pulse: {
-    scale: [1, 1.02, 1],
-    opacity: [0.9, 1, 0.9],
-    transition: {
-      duration: 2,
-      repeat: Infinity,
-      ease: "easeInOut",
-    },
-  },
-};
-
 const connectionVariants: Variants = {
   animate: {
     opacity: [0.3, 0.7, 0.3],
-    pathLength: [0.3, 0.6, 0.3],
     transition: {
       duration: 2,
       repeat: Infinity,
@@ -61,20 +44,16 @@ const connectionVariants: Variants = {
 
 export const SLHAIFPage = () => {
   const navigate = useNavigate();
-  const [draggedTopic, setDraggedTopic] = useState<string | null>(null);
-  const brainControls = useAnimation();
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
-    height: window.innerHeight
+    height: window.innerHeight,
   });
-  const [positions, setPositions] = useState<{ [key: string]: { x: number; y: number } }>({});
 
-  // Update window size on resize
   useEffect(() => {
     const handleResize = () => {
       setWindowSize({
         width: window.innerWidth,
-        height: window.innerHeight
+        height: window.innerHeight,
       });
     };
 
@@ -82,42 +61,23 @@ export const SLHAIFPage = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Calculate positions based on screen size
-  const getTopicPositions = () => {
+  const calculatePosition = (index: number) => {
     const isMobile = windowSize.width < 768;
-    const centerX = isMobile ? windowSize.width / 2 : windowSize.width / 2;
-    const centerY = isMobile ? 400 : 350; // Adjusted for better positioning
-    const radius = isMobile ? windowSize.width * 0.4 : Math.min(windowSize.width * 0.3, 400);
+    const centerX = windowSize.width / 2;
+    const centerY = isMobile ? 300 : windowSize.height / 2;
     
-    return topics.reduce((acc, topic, index) => {
-      const totalTopics = topics.length - 1;
-      const angle = (Math.PI / totalTopics) * index;
-      const x = centerX + radius * Math.cos(angle) - (isMobile ? 75 : 100);
-      const y = centerY + radius * Math.sin(angle) * (isMobile ? 0.8 : 0.5);
-      acc[topic.id] = { x, y };
-      return acc;
-    }, {} as { [key: string]: { x: number; y: number } });
-  };
+    const radius = isMobile
+      ? Math.min(windowSize.width * 0.4, 150)
+      : Math.min(windowSize.width * 0.3, 400);
 
-  // Update positions when window size changes
-  useEffect(() => {
-    setPositions(getTopicPositions());
-  }, [windowSize]);
-
-  const handleDragStart = (topicId: string) => {
-    setDraggedTopic(topicId);
-    brainControls.start({
-      scale: 1.1,
-      transition: { duration: 0.2 },
-    });
-  };
-
-  const handleDragEnd = () => {
-    setDraggedTopic(null);
-    brainControls.start({
-      scale: 1,
-      transition: { duration: 0.2 },
-    });
+    const totalAngle = isMobile ? Math.PI * 0.8 : Math.PI;
+    const startAngle = isMobile ? Math.PI * 0.1 : 0;
+    const angle = startAngle + (totalAngle / (topics.length - 1)) * index;
+    
+    return {
+      x: centerX + radius * Math.cos(angle) - (isMobile ? 60 : 100),
+      y: centerY + radius * Math.sin(angle) * (isMobile ? 0.8 : 0.5),
+    };
   };
 
   return (
@@ -144,7 +104,7 @@ export const SLHAIFPage = () => {
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-4xl md:text-5xl font-bold text-center text-white mb-8 mt-8"
+          className="text-4xl md:text-5xl font-bold text-center text-white mb-12 mt-8"
         >
           SLHAIF
           <span className="block text-lg md:text-xl text-white/80 mt-2">
@@ -154,85 +114,85 @@ export const SLHAIFPage = () => {
 
         {/* Brain Symbol */}
         <motion.div
-          className="relative w-32 h-32 md:w-40 md:h-40 mx-auto mb-12 md:mb-16"
+          className="relative w-40 h-40 mx-auto mb-16"
           variants={brainVariants}
           initial="initial"
           animate="pulse"
-          whileDrag={{ scale: 1.1 }}
         >
-          {/* Glowing circle behind brain */}
           <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#54366B] to-[#363B6B] blur-xl transform-gpu" />
           <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#54366B]/50 to-[#363B6B]/50 animate-pulse transform-gpu" />
-          
-          {/* Brain icon */}
           <motion.div className="relative z-10 w-full h-full flex items-center justify-center">
-            <Brain className="w-20 h-20 md:w-24 md:h-24 text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.8)] filter brightness-150" />
+            <Brain className="w-24 h-24 text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.8)] filter brightness-150" />
           </motion.div>
         </motion.div>
 
-        {/* Topic Boxes Container */}
-        <div className="relative h-[400px] md:h-[300px] mb-24">
-          {topics.map((topic) => (
-            <motion.div
-              key={topic.id}
-              className="absolute left-0 top-0"
-              initial={false}
-              animate={{
-                x: positions[topic.id]?.x || 0,
-                y: positions[topic.id]?.y || 0,
-              }}
-              drag
-              dragMomentum={false}
-              onDragStart={() => handleDragStart(topic.id)}
-              onDragEnd={handleDragEnd}
-              whileHover={{ scale: 1.05 }}
-            >
-              {/* Connection Line */}
-              <motion.svg
-                className="absolute top-1/2 left-1/2 w-full h-full pointer-events-none"
-                style={{
-                  zIndex: -1,
-                  width: "100px",
-                  height: "100px",
+        {/* Topic Boxes */}
+        <div className="relative h-[500px] md:h-[600px]">
+          {topics.map((topic, index) => {
+            const position = calculatePosition(index);
+            return (
+              <motion.div
+                key={topic.id}
+                className="absolute"
+                initial={{ opacity: 0 }}
+                animate={{
+                  opacity: 1,
+                  x: position.x,
+                  y: position.y,
                 }}
-                variants={connectionVariants}
-                animate="animate"
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.1,
+                }}
+                whileHover={{ scale: 1.05 }}
               >
-                <motion.line
-                  x1="0"
-                  y1="0"
-                  x2="100"
-                  y2="0"
-                  stroke="rgba(255, 255, 255, 0.3)"
-                  strokeWidth="2"
-                  strokeDasharray="5,5"
-                  className="animate-pulse"
-                />
-              </motion.svg>
+                {/* Connection Line */}
+                <motion.svg
+                  className="absolute top-1/2 left-1/2 w-full h-full pointer-events-none"
+                  style={{
+                    zIndex: -1,
+                    width: "100px",
+                    height: "100px",
+                  }}
+                  variants={connectionVariants}
+                  animate="animate"
+                >
+                  <motion.line
+                    x1="0"
+                    y1="0"
+                    x2="100"
+                    y2="0"
+                    stroke="rgba(255, 255, 255, 0.3)"
+                    strokeWidth="2"
+                    strokeDasharray="5,5"
+                  />
+                </motion.svg>
 
-              {/* Topic Box */}
-              <div className="bg-white/10 backdrop-blur-md px-4 md:px-6 py-2 md:py-3 rounded-2xl border border-white/20 cursor-grab active:cursor-grabbing">
-                <p className="text-white font-medium text-xs md:text-base whitespace-nowrap">
-                  {topic.title}
-                </p>
-              </div>
-            </motion.div>
-          ))}
+                {/* Topic Box */}
+                <div className="bg-white/10 backdrop-blur-md px-4 md:px-6 py-2 md:py-3 rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300">
+                  <p className="text-white font-medium text-xs md:text-base whitespace-nowrap">
+                    {topic.title}
+                  </p>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* Chat Button */}
         <motion.div
-          className="fixed bottom-8 left-1/2 transform -translate-x-1/2 w-full md:w-auto px-4 md:px-0"
+          className="fixed bottom-8 left-1/2 transform -translate-x-1/2"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
         >
           <Button
             size="lg"
-            className="w-full md:w-auto bg-gradient-to-r from-[#363B6B] to-[#000A33] hover:from-[#000A33] hover:to-[#363B6B] text-white text-base md:text-lg px-6 md:px-8 py-4 md:py-6 rounded-full shadow-lg hover:shadow-xl transition-all transform-gpu hover:scale-105"
+            className="bg-gradient-to-r from-[#363B6B] to-[#000A33] hover:from-[#000A33] hover:to-[#363B6B] text-white text-lg px-8 py-6 rounded-full shadow-lg hover:shadow-xl transition-all transform-gpu hover:scale-105"
           >
-            <MessageCircle className="w-5 h-5 md:w-6 md:h-6 mr-2" />
-            Chat with our AI system
+            <MessageCircle className="w-6 h-6 mr-2" />
+            <span className="hidden md:inline">Chat with our AI system</span>
+            <span className="md:hidden">Chat</span>
           </Button>
         </motion.div>
       </div>

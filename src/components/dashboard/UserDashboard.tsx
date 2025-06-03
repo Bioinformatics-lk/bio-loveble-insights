@@ -143,7 +143,7 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
               </Card>
             </motion.div>
 
-            {/* Courses Card */}
+          {/* Courses Card */}
             <motion.div
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -153,24 +153,24 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
                 <CardHeader className="text-center flex-1">
                   <div className="w-24 h-24 mx-auto mb-6 bg-[#363B6B] rounded-full flex items-center justify-center shadow-lg">
                     <BookOpen className="h-12 w-12 text-white" />
-                  </div>
+              </div>
                   <CardTitle className="text-3xl text-white font-bold">
-                    Courses
-                  </CardTitle>
+                Courses
+              </CardTitle>
                   <CardDescription className="text-white/70 text-lg mt-2">
-                    Access our comprehensive bioinformatics courses
-                  </CardDescription>
-                </CardHeader>
+                Access our comprehensive bioinformatics courses
+              </CardDescription>
+            </CardHeader>
                 <CardContent className="mt-auto">
-                  <Button 
+              <Button 
                     onClick={handleViewCourses}
                     className="w-full bg-[#363B6B] hover:bg-[#000A33] text-white border border-white/20 transition-all text-lg py-6 font-semibold shadow-lg hover:shadow-xl"
-                    size="lg"
-                  >
-                    View Courses
-                  </Button>
-                </CardContent>
-              </Card>
+                size="lg"
+              >
+                View Courses
+              </Button>
+            </CardContent>
+          </Card>
             </motion.div>
           </div>
 
@@ -260,21 +260,21 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
                 </div>
                 <CardTitle className="text-3xl text-white font-bold drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">
                   SLHAIF
-                </CardTitle>
+              </CardTitle>
                 <CardDescription className="text-white/90 text-lg mt-2 font-medium">
                   Sri Lanka's First Herbal Artificial Intelligence Factory
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button 
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button 
                   onClick={handleExploreSlhaif}
                   className="w-full bg-[#363B6B] hover:bg-[#000A33] text-white border border-white/20 transition-all text-lg py-6 font-semibold shadow-lg hover:shadow-xl backdrop-blur-sm"
-                  size="lg"
-                >
+                size="lg"
+              >
                   Explore SLHAIF
-                </Button>
-              </CardContent>
-            </Card>
+              </Button>
+            </CardContent>
+          </Card>
           </motion.div>
         </motion.div>
       </main>
