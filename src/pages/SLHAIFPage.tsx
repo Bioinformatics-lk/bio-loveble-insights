@@ -2,7 +2,8 @@ import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Brain, MessageCircle } from "lucide-react";
-import ReactFlow, {
+import {
+  ReactFlow,
   Node,
   Edge,
   Background,
@@ -12,6 +13,7 @@ import ReactFlow, {
   addEdge,
   Connection,
   NodeTypes,
+  BackgroundVariant,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 
@@ -167,7 +169,7 @@ export const SLHAIFPage = () => {
             attributionPosition="bottom-right"
             className="bg-transparent"
           >
-            <Background variant="dots" gap={12} size={1} color="rgba(255,255,255,0.1)" />
+            <Background variant={BackgroundVariant.Dots} gap={12} size={1} color="rgba(255,255,255,0.1)" />
             <Controls className="bg-white/10 backdrop-blur-sm" />
           </ReactFlow>
         </div>
