@@ -447,16 +447,16 @@ const Index = () => {
       <section className="relative overflow-hidden z-10">
         <div className="absolute inset-0">
           {/* Primary Background Gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#170056] via-[#410056] to-[#54366B]"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-[#000A33] to-[#363B6B]"></div>
           
           {/* Geometric Shapes */}
           <div className="absolute inset-0">
             {/* Shape 1 */}
-            <div className="absolute top-20 left-10 w-64 h-64 rounded-full bg-[#363B6B]/20 blur-3xl"></div>
+            <div className="absolute top-20 left-10 w-64 h-64 rounded-full bg-[#54366B]/20 blur-3xl"></div>
             {/* Shape 2 */}
-            <div className="absolute bottom-20 right-10 w-96 h-96 rounded-full bg-[#000A33]/20 blur-3xl"></div>
+            <div className="absolute bottom-20 right-10 w-96 h-96 rounded-full bg-[#000A33]/40 blur-3xl"></div>
             {/* Shape 3 */}
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[#54366B]/10 blur-3xl"></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[#363B6B]/20 blur-3xl"></div>
           </div>
         </div>
         
@@ -475,19 +475,19 @@ const Index = () => {
             {/* Left Side - Text Content */}
             <div className="text-white space-y-4 lg:space-y-6 relative">
               {/* Dark overlay for text content */}
-              <div className="absolute inset-0 -m-8 bg-gradient-to-r from-[#000A33]/80 to-transparent rounded-3xl blur-xl"></div>
+              <div className="absolute inset-0 -m-8 bg-gradient-to-r from-[#000A33]/90 to-[#363B6B]/60 rounded-3xl blur-xl"></div>
               
               <div className="relative">
                 <h1 className="animate-on-scroll text-3xl md:text-4xl lg:text-6xl font-bold leading-tight text-left">
-                  Accelerating <span className="text-purple-300">Bioinformatics</span> Innovation
+                  Accelerating <span className="text-[#EAE3F5]">Bioinformatics</span> Innovation
                 </h1>
-                <p className="animate-on-scroll delay-200 text-lg md:text-xl lg:text-2xl text-purple-100 leading-relaxed text-left">
+                <p className="animate-on-scroll delay-200 text-lg md:text-xl lg:text-2xl text-[#EAE3F5]/90 leading-relaxed text-left">
                   Empowering researchers and students in genomics, proteomics, and computational biology through world-class education and cutting-edge research.
                 </p>
                 <div className="animate-on-scroll delay-400 flex flex-col sm:flex-row gap-4 justify-start">
                   <Button 
                     size="lg" 
-                    className="bg-[#54366B] hover:bg-[#410056] text-[#EAE3F5] border border-[#EAE3F5]/20 transition-all transform hover:scale-105 shadow-lg"
+                    className="bg-[#363B6B] hover:bg-[#000A33] text-[#EAE3F5] border border-[#EAE3F5]/20 transition-all transform hover:scale-105 shadow-lg"
                     onClick={() => scrollToSection('courses')}
                   >
                     Explore Courses
@@ -495,7 +495,7 @@ const Index = () => {
                   <Button 
                     size="lg" 
                     variant="outline" 
-                    className="border-[#EAE3F5]/30 text-[#EAE3F5] bg-[#000A33]/40 hover:bg-[#000A33]/60 hover:text-[#EAE3F5] px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg transition-all transform hover:scale-105 font-semibold backdrop-blur-sm"
+                    className="border-[#EAE3F5]/30 text-[#EAE3F5] bg-[#000A33]/40 hover:bg-[#363B6B]/60 hover:text-[#EAE3F5] px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg transition-all transform hover:scale-105 font-semibold backdrop-blur-sm"
                     onClick={() => scrollToSection('research')}
                   >
                     View Research
@@ -506,8 +506,8 @@ const Index = () => {
 
             {/* Right Side - Video */}
             <div className="animate-on-scroll delay-600 relative hidden lg:block">
-              <div className="relative w-full h-64 md:h-80 lg:h-96 bg-gradient-to-br from-[#000A33]/40 to-[#54366B]/40 backdrop-blur-sm rounded-2xl border-2 border-[#EAE3F5]/20 overflow-hidden shadow-2xl">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#000A33]/20 to-[#54366B]/20"></div>
+              <div className="relative w-full h-64 md:h-80 lg:h-96 bg-gradient-to-br from-[#000A33]/40 to-[#363B6B]/40 backdrop-blur-sm rounded-2xl border-2 border-[#EAE3F5]/20 overflow-hidden shadow-2xl">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#000A33]/30 to-[#363B6B]/30"></div>
                 <iframe 
                   src="https://player.vimeo.com/video/1089037562?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1"
                   frameBorder="0" 
@@ -522,14 +522,14 @@ const Index = () => {
           {/* Counters Section */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8 relative">
             {/* Dark overlay for counters */}
-            <div className="absolute inset-0 -m-4 bg-gradient-to-b from-transparent via-[#000A33]/60 to-transparent rounded-2xl blur-lg"></div>
+            <div className="absolute inset-0 -m-4 bg-gradient-to-b from-[#000A33]/80 via-[#363B6B]/60 to-[#000A33]/80 rounded-2xl blur-lg"></div>
             
             {Object.entries(counters).map(([key, value], index) => (
               <div key={key} className={`animate-on-scroll delay-${index * 200} text-center relative`}>
-                <div className="text-3xl md:text-4xl font-bold text-white mb-2">
+                <div className="text-3xl md:text-4xl font-bold text-[#EAE3F5] mb-2">
                   {value.toString().padStart(2, '0')}
                 </div>
-                <div className="text-[#EAE3F5] text-sm md:text-base">
+                <div className="text-[#EAE3F5]/80 text-sm md:text-base">
                   {key.charAt(0).toUpperCase() + key.slice(1)}
                 </div>
               </div>
