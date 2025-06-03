@@ -5,7 +5,6 @@ import Index from '@/pages/Index';
 import { UserDashboard } from '@/components/dashboard/UserDashboard';
 import { CoursesPage } from '@/components/courses/CoursesPage';
 import { SLHAIFPage } from '@/pages/SLHAIFPage';
-import { SLHAAIChatPage } from "@/pages/SLHAAIChatPage";
 
 function App() {
   return (
@@ -26,10 +25,6 @@ function App() {
         <Route 
           path="/slhaif" 
           element={<SLHAIFPage />}
-        />
-        <Route 
-          path="/slhaif/chat" 
-          element={<SLHAAIChatPage />}
         />
       </Routes>
     </Router>

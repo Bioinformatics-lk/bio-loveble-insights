@@ -1,220 +1,185 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Brain, MessageCircle, Send, Database, Activity } from "lucide-react";
+import { Brain, MessageCircle, ArrowLeft, Database, Activity } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
-// Mock data for demonstration
-const mockData = {
-  plants: {
-    total: 2500,
-    identified: 1800,
-    percentage: 72
-  },
-  chemicals: {
-    total: 50000,
-    identified: 35000,
-    percentage: 70
-  },
-  proteins: {
-    total: 20000,
-    identified: 15000,
-    percentage: 75
-  },
-  jobs: {
-    submitted: 1250,
-    completed: 1180,
-    inProgress: 70
-  }
-};
-
-// Status Circle Component
-const StatusCircle = ({ title, value, total, percentage }: { title: string; value: number; total: number; percentage: number }) => (
-  <div className="relative bg-[#1a1a2e]/30 backdrop-blur-md rounded-2xl p-4 border border-white/10">
-    <div className="flex items-center justify-between mb-2">
-      <h3 className="text-white/80 text-sm font-medium">{title}</h3>
-      <span className="text-white/60 text-xs">{percentage}%</span>
-    </div>
-    <div className="relative w-32 h-32 mx-auto">
-      <svg className="w-full h-full" viewBox="0 0 100 100">
-        {/* Background circle */}
-        <circle
-          cx="50"
-          cy="50"
-          r="45"
-          fill="none"
-          stroke="#1a1a2e"
-          strokeWidth="8"
-        />
-        {/* Progress circle */}
-        <circle
-          cx="50"
-          cy="50"
-          r="45"
-          fill="none"
-          stroke="#4CAF50"
-          strokeWidth="8"
-          strokeDasharray={`${percentage * 2.83} 283`}
-          transform="rotate(-90 50 50)"
-          className="transition-all duration-1000 ease-in-out"
-        />
-      </svg>
-      <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-2xl font-bold text-white">{value.toLocaleString()}</span>
-        <span className="text-xs text-white/60">of {total.toLocaleString()}</span>
-      </div>
-    </div>
-  </div>
-);
-
-// Chat Message Component
-const ChatMessage = ({ message, isUser }: { message: string; isUser: boolean }) => (
-  <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-4`}>
-    <div className={`max-w-[80%] rounded-2xl p-4 ${
-      isUser 
-        ? 'bg-[#1a1a2e] text-white' 
-        : 'bg-[#16213e] text-white'
-    }`}>
-      <p className="text-sm">{message}</p>
-    </div>
-  </div>
-);
+interface Message {
+  role: 'user' | 'assistant';
+  content: string;
+}
 
 export const SLHAAIChatPage = () => {
   const navigate = useNavigate();
-  const [message, setMessage] = useState("");
-  const [chatHistory, setChatHistory] = useState([
-    { message: "Hello! I'm SLHAIF AI. How can I help you today?", isUser: false },
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState("");
+
+  // Mock data for database status
+  const dbStats = {
+    plants: {
+      total: 2500,
+      percentage: 85,
+      description: "Out of the total number of known plants in the world, this number has been identified from Sri Lanka."
+    },
+    chemicals: {
+      total: 15000,
+      percentage: 70,
+      description: "From the total known chemical compounds, this number has been identified so far."
+    },
+    proteins: {
+      total: 5000,
+      percentage: 65,
+      description: "From the total known protein targets, this number has been identified so far."
+    }
+  };
+
+  // Mock data for system status
+  const systemStats = {
+    jobsSubmitted: 1250,
+    jobsCompleted: 1180,
+    activeJobs: 70
+  };
 
   const handleSendMessage = () => {
-    if (!message.trim()) return;
+    if (!input.trim()) return;
     
-    setChatHistory([...chatHistory, { message, isUser: true }]);
-    setMessage("");
+    const newMessage: Message = {
+      role: 'user',
+      content: input
+    };
+    
+    setMessages([...messages, newMessage]);
+    setInput("");
     
     // Simulate AI response
     setTimeout(() => {
-      setChatHistory(prev => [...prev, { 
-        message: "I'm analyzing your request. Please wait while I process the information.", 
-        isUser: false 
-      }]);
+      const aiResponse: Message = {
+        role: 'assistant',
+        content: "I'm analyzing your request. Please wait while I process the information..."
+      };
+      setMessages(prev => [...prev, aiResponse]);
     }, 1000);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0f0f1a] via-[#1a1a2e] to-[#16213e] relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#1a1a2e]/30 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#16213e]/30 rounded-full blur-3xl animate-pulse" />
+    <div className="min-h-screen bg-gradient-to-br from-[#0f0f1a] via-[#1a1a2e] to-[#16213e] text-white">
+      {/* Header */}
+      <div className="border-b border-white/10 bg-[#1a1a2e]/50 backdrop-blur-sm">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <Button
+            variant="ghost"
+            onClick={() => navigate(-1)}
+            className="text-white hover:bg-white/10"
+          >
+            <ArrowLeft className="w-5 h-5 mr-2" />
+            Back
+          </Button>
+          <div className="flex items-center space-x-2">
+            <Brain className="w-8 h-8 text-white animate-pulse" />
+            <h1 className="text-2xl font-bold">SLHAIF Chat</h1>
+          </div>
+        </div>
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 container mx-auto px-4 py-4">
-        {/* Back Button */}
-        <Button
-          onClick={() => navigate(-1)}
-          variant="ghost"
-          className="absolute top-4 left-4 text-white hover:bg-white/10 z-50"
-        >
-          ← Back
-        </Button>
-
-        {/* Main Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-16">
+      <div className="container mx-auto px-4 py-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Left Side - Molecule Visualization */}
           <div className="space-y-6">
-            <div className="bg-[#1a1a2e]/30 backdrop-blur-md rounded-2xl border border-white/10 h-[500px] p-4">
-              <h2 className="text-white text-lg font-semibold mb-4">Molecule Visualization</h2>
-              <div className="w-full h-full bg-[#16213e]/50 rounded-xl flex items-center justify-center">
-                <span className="text-white/60">3D Molecule Viewer</span>
+            <div className="bg-[#1a1a2e]/50 rounded-lg border border-white/10 p-4 h-[500px]">
+              <div className="w-full h-full flex items-center justify-center text-white/50">
+                Molecule Visualization Window
               </div>
             </div>
 
             {/* Database Status */}
-            <div className="bg-[#1a1a2e]/30 backdrop-blur-md rounded-2xl border border-white/10 p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <Database className="w-5 h-5 text-white/80" />
-                <h2 className="text-white text-lg font-semibold">Database Status</h2>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <StatusCircle
-                  title="Sri Lankan Plants"
-                  value={mockData.plants.identified}
-                  total={mockData.plants.total}
-                  percentage={mockData.plants.percentage}
-                />
-                <StatusCircle
-                  title="Chemicals Identified"
-                  value={mockData.chemicals.identified}
-                  total={mockData.chemicals.total}
-                  percentage={mockData.chemicals.percentage}
-                />
-                <StatusCircle
-                  title="Protein Targets"
-                  value={mockData.proteins.identified}
-                  total={mockData.proteins.total}
-                  percentage={mockData.proteins.percentage}
-                />
+            <div className="bg-[#1a1a2e]/50 rounded-lg border border-white/10 p-6">
+              <h2 className="text-xl font-semibold mb-4 flex items-center">
+                <Database className="w-5 h-5 mr-2" />
+                Database Overview
+              </h2>
+              <div className="grid grid-cols-3 gap-4">
+                {Object.entries(dbStats).map(([key, stat]) => (
+                  <div key={key} className="text-center">
+                    <div className="relative w-32 h-32 mx-auto mb-2">
+                      <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#1a1a2e] to-[#16213e] blur-xl animate-pulse" />
+                      <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#1a1a2e]/50 to-[#16213e]/50 animate-pulse" />
+                      <div className="relative w-full h-full flex flex-col items-center justify-center">
+                        <span className="text-3xl font-bold">{stat.total.toLocaleString()}</span>
+                        <span className="text-sm text-white/70">{key.charAt(0).toUpperCase() + key.slice(1)}</span>
+                      </div>
+                    </div>
+                    <p className="text-sm text-white/70">{stat.description}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
 
           {/* Right Side - Chat Interface */}
           <div className="space-y-6">
-            <div className="bg-[#1a1a2e]/30 backdrop-blur-md rounded-2xl border border-white/10 h-[500px] flex flex-col">
-              {/* Chat Header */}
-              <div className="p-4 border-b border-white/10 flex items-center gap-3">
-                <div className="relative w-8 h-8">
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#1a1a2e] to-[#16213e] blur-sm animate-pulse" />
-                  <Brain className="w-8 h-8 text-white relative z-10" />
-                </div>
-                <h2 className="text-white text-lg font-semibold">SLHAIF Chat</h2>
-              </div>
-
+            <div className="bg-[#1a1a2e]/50 rounded-lg border border-white/10 p-4 h-[500px] flex flex-col">
               {/* Chat Messages */}
-              <div className="flex-1 overflow-y-auto p-4 space-y-4">
-                {chatHistory.map((chat, index) => (
-                  <ChatMessage key={index} {...chat} />
-                ))}
-              </div>
+              <ScrollArea className="flex-1 p-4">
+                <div className="space-y-4">
+                  {messages.map((message, index) => (
+                    <div
+                      key={index}
+                      className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                    >
+                      <div
+                        className={`max-w-[80%] rounded-lg p-3 ${
+                          message.role === 'user'
+                            ? 'bg-[#16213e] text-white'
+                            : 'bg-[#1a1a2e] text-white'
+                        }`}
+                      >
+                        {message.content}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </ScrollArea>
 
               {/* Chat Input */}
-              <div className="p-4 border-t border-white/10">
-                <div className="flex gap-2">
+              <div className="border-t border-white/10 p-4">
+                <div className="flex space-x-2">
                   <Input
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
                     placeholder="Type your message..."
-                    className="flex-1 bg-[#16213e] border-white/10 text-white placeholder:text-white/40"
+                    className="flex-1 bg-[#1a1a2e] border-white/10 text-white"
                   />
                   <Button
                     onClick={handleSendMessage}
-                    className="bg-[#1a1a2e] hover:bg-[#16213e] text-white"
+                    className="bg-[#16213e] hover:bg-[#1a1a2e]"
                   >
-                    <Send className="w-5 h-5" />
+                    <MessageCircle className="w-5 h-5" />
                   </Button>
                 </div>
               </div>
             </div>
 
             {/* System Status */}
-            <div className="bg-[#1a1a2e]/30 backdrop-blur-md rounded-2xl border border-white/10 p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <Activity className="w-5 h-5 text-white/80" />
-                <h2 className="text-white text-lg font-semibold">System Status</h2>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-[#16213e]/50 rounded-xl p-4">
-                  <h3 className="text-white/60 text-sm mb-2">Jobs Submitted</h3>
-                  <p className="text-2xl font-bold text-white">{mockData.jobs.submitted}</p>
+            <div className="bg-[#1a1a2e]/50 rounded-lg border border-white/10 p-6">
+              <h2 className="text-xl font-semibold mb-4 flex items-center">
+                <Activity className="w-5 h-5 mr-2" />
+                System Status
+              </h2>
+              <div className="grid grid-cols-3 gap-4">
+                <div className="text-center">
+                  <div className="text-3xl font-bold">{systemStats.jobsSubmitted}</div>
+                  <div className="text-sm text-white/70">Jobs Submitted</div>
                 </div>
-                <div className="bg-[#16213e]/50 rounded-xl p-4">
-                  <h3 className="text-white/60 text-sm mb-2">Jobs Completed</h3>
-                  <p className="text-2xl font-bold text-white">{mockData.jobs.completed}</p>
+                <div className="text-center">
+                  <div className="text-3xl font-bold">{systemStats.jobsCompleted}</div>
+                  <div className="text-sm text-white/70">Jobs Completed</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold">{systemStats.activeJobs}</div>
+                  <div className="text-sm text-white/70">Active Jobs</div>
                 </div>
               </div>
             </div>

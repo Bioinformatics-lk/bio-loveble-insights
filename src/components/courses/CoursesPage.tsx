@@ -19,63 +19,92 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 const courses = [
   {
-    id: 1,
-    title: "Network Pharmacology",
-    description: "Learn about drug-target interactions and network-based drug discovery approaches.",
-    icon: Network,
-    side: "left",
-    details: "This course covers the fundamentals of network pharmacology, including protein-protein interaction networks, drug-target networks, and their applications in drug discovery. You'll learn to analyze and interpret complex biological networks and apply this knowledge to identify novel drug targets and repurpose existing drugs."
-  },
-  {
-    id: 2,
-    title: "Molecular Dynamics",
-    description: "Explore the dynamic behavior of molecules and their interactions at atomic level.",
-    icon: Atom,
-    side: "left",
-    details: "Dive deep into molecular dynamics simulations, understanding protein-ligand interactions, and predicting binding affinities. This course provides hands-on experience with popular MD software and analysis tools, enabling you to study molecular behavior in silico."
-  },
-  {
-    id: 3,
-    title: "AI and ML in Drug Discovery",
-    description: "Master artificial intelligence and machine learning techniques for drug discovery.",
-    icon: Brain,
-    side: "left",
-    details: "Learn how to leverage artificial intelligence and machine learning in drug discovery. Topics include deep learning for molecular property prediction, generative models for drug design, and AI-driven virtual screening. Gain practical experience with state-of-the-art AI tools and frameworks."
-  },
-  {
-    id: 4,
-    title: "Bioinformatics Tools",
-    description: "Master essential bioinformatics tools and techniques for drug discovery.",
-    icon: FlaskConical,
-    side: "right",
-    details: "Comprehensive training in bioinformatics tools and databases used in drug discovery. Learn sequence analysis, structural bioinformatics, and cheminformatics approaches. Hands-on experience with popular software and databases."
-  },
-  {
-    id: 5,
-    title: "Drug Design",
-    description: "Learn principles and techniques of computer-aided drug design.",
-    icon: FlaskConical,
-    side: "right",
-    details: "Explore computer-aided drug design methods, including structure-based and ligand-based approaches. Learn about molecular docking, pharmacophore modeling, and QSAR analysis. Practical experience with industry-standard software."
-  },
-  {
-    id: 6,
-    title: "Research Project",
-    description: "Apply your knowledge in a real-world drug discovery project.",
+    title: "Introduction to Bioinformatics",
+    description: "Learn the fundamentals of bioinformatics and its applications in modern biology",
+    detailedDescription: "This is the inaugural gateway to bioinformatics: a friendly, foundational course covering DNA, sequence analysis, and database essentials. It's the perfect springboard before diving deeper into our specialized pipeline.",
     icon: BookOpen,
-    side: "right",
-    details: "Work on a real drug discovery project under expert supervision. Apply all learned techniques to identify and validate novel drug targets or repurpose existing drugs. Present your findings in a professional format."
+    color: "from-purple-600 to-blue-600",
+    step: 1,
+    price: "10,000 LKR",
+    totalFee: "10,000 LKR",
+    enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
+  },
+  {
+    title: "Network Pharmacology",
+    description: "Understand drug-target interactions and biological networks in pharmaceutical research",
+    detailedDescription: "As the second milestone, Network Pharmacology teaches you how to map drug–target interactions on a grand scale. Explore protein networks, uncover polypharmacology strategies, and learn to repurpose existing compounds for novel therapies—like a detective of molecular webs.",
+    icon: Network,
+    color: "from-blue-600 to-cyan-600",
+    step: 2,
+    price: "5,000 LKR",
+    totalFee: "15,000 LKR",
+    enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
+  },
+  {
+    title: "Molecular Docking",
+    description: "Master computational techniques for predicting molecular interactions",
+    detailedDescription: "Venture into the third course to master molecular docking: predict how small molecules snugly fit into protein pockets, evaluate binding energies, and screen virtual libraries for promising drug candidates. This is your passport to structure-based design.",
+    icon: Atom,
+    color: "from-cyan-600 to-teal-600",
+    step: 3,
+    price: "5,000 LKR",
+    totalFee: "20,000 LKR",
+    enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
+  },
+  {
+    title: "Molecular Dynamics",
+    description: "Explore the simulation of atomic and molecular movements in biological systems",
+    detailedDescription: "In the fourth stage, Molecular Dynamics lets you watch atoms dance: set up and run simulations on our servers, analyze trajectories, and uncover the hidden choreography of proteins. Students even get server access to run their own exploratory studies—real-time science in action!",
+    icon: Boxes,
+    color: "from-teal-600 to-green-600",
+    step: 4,
+    price: "10,000 LKR",
+    totalFee: "30,000 LKR",
+    enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
+  },
+  {
+    title: "Introduction to Cheminformatics",
+    description: "Learn the basics of chemical information handling and drug design",
+    detailedDescription: "Dive into cheminformatics in the fifth course: decode SMILES, compute molecular fingerprints, and mine chemical databases for trends. Whether you dream of QSAR models or AI-driven scaffold hops, this class teaches you to speak the language of molecules.",
+    icon: FlaskConical,
+    color: "from-green-600 to-emerald-600",
+    step: 5,
+    price: "5,000 LKR",
+    totalFee: "35,000 LKR",
+    enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
+  },
+  {
+    title: "AI and ML in Drug Discovery",
+    description: "Apply artificial intelligence and machine learning in pharmaceutical research",
+    detailedDescription: "Embark on the sixth frontier: AI and ML in Drug Discovery. Learn to train neural nets on biological data, predict ADMET properties, and design de novo compounds with generative models. It's where algorithms meet molecules to spark tomorrow's breakthroughs.",
+    icon: Brain,
+    color: "from-emerald-600 to-purple-600",
+    step: 6,
+    price: "5,000 LKR",
+    totalFee: "40,000 LKR",
+    enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
+  },
+  {
+    title: "Research Project",
+    description: "Apply your knowledge in a comprehensive research project",
+    detailedDescription: "Culminate your journey with a hands-on Research Project: integrate all your skills into a real-world case study—be it docking pipelines, MD thermodynamics, or AI-guided leads. This capstone synthesizes theory into practice and showcases your scientific prowess.",
+    icon: GraduationCap,
+    color: "from-rose-600 to-orange-600",
+    step: 7,
+    isSpecial: true,
+    price: "10,000 LKR",
+    totalFee: "50,000 LKR",
+    enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
   }
 ];
 
 export const CoursesPage = () => {
   const navigate = useNavigate();
   const [hoveredStep, setHoveredStep] = useState<number | null>(null);
-  const [selectedCourse, setSelectedCourse] = useState<typeof courses[0] | null>(null);
+  const [selectedCourse, setSelectedCourse] = useState<number | null>(null);
   const [showMobileModal, setShowMobileModal] = useState(false);
 
   const handleEnrollClick = (enrollmentLink: string, e?: React.MouseEvent) => {
@@ -89,107 +118,336 @@ export const CoursesPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0f0f1a] via-[#1a1a2e] to-[#16213e] relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#1a1a2e]/30 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#16213e]/30 rounded-full blur-3xl animate-pulse" />
+    <div className="min-h-screen bg-gradient-to-br from-indigo-900 to-purple-900 relative overflow-hidden">
+      {/* Background Images */}
+      <div className="absolute inset-0 z-0">
+        {/* Top Left Image */}
+        <div 
+          className="absolute top-0 left-0 w-1/2 h-1/2 bg-contain bg-no-repeat opacity-40"
+          style={{ backgroundImage: 'url("/lovable-uploads/P1.png")' }}
+        />
+        {/* Top Right Image */}
+        <div 
+          className="absolute top-0 right-0 w-1/2 h-1/2 bg-contain bg-no-repeat opacity-40"
+          style={{ backgroundImage: 'url("/lovable-uploads/P2.png")' }}
+        />
+        {/* Overlay Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/50 to-purple-900/50 backdrop-blur-[2px]" />
       </div>
 
-      {/* Main Content */}
-      <div className="relative z-10 container mx-auto px-4 py-8">
-        <h1 className="text-4xl md:text-6xl font-bold text-center text-white mb-12">
-          Our Courses
-        </h1>
+      {/* Back Button */}
+      <div className="sticky top-4 left-4 z-50 container mx-auto px-4">
+        <Button
+          onClick={() => navigate('/')}
+          variant="ghost"
+          className="bg-white/10 hover:bg-white/20 text-white border border-white/20 shadow-sm hover:shadow flex items-center space-x-2 transition-all duration-300"
+          size="sm"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          <span>Back to Dashboard</span>
+        </Button>
+      </div>
 
-        {/* Course Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Left Side Courses */}
-          <div className="space-y-8">
-            {courses.filter(course => course.side === "left").map((course) => (
-              <div key={course.id} className="relative">
-                <div className="absolute -left-16 top-1/2 -translate-y-1/2">
-                  <div className="relative">
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a2e] to-[#16213e] blur-xl rounded-full animate-pulse" />
-                    <span className="relative z-10 text-4xl font-bold text-white/90">
-                      {course.id}
-                    </span>
-                  </div>
-                </div>
-                <div 
-                  onClick={() => setSelectedCourse(course)}
-                  className="bg-[#1a1a2e]/30 backdrop-blur-md rounded-2xl border border-white/10 p-6 hover:bg-[#1a1a2e]/40 transition-all cursor-pointer group"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="relative">
-                      <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a2e] to-[#16213e] blur-sm rounded-xl animate-pulse" />
-                      <course.icon className="w-8 h-8 text-white relative z-10" />
-                    </div>
-                    <div>
-                      <h2 className="text-2xl font-semibold text-white mb-2">{course.title}</h2>
-                      <p className="text-lg text-white/80">{course.description}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+      <main className="container mx-auto px-4 py-16 relative z-10">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Course Pipeline
+          </h1>
+          <p className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto">
+            Follow our structured learning path from fundamentals to advanced research
+          </p>
+        </div>
 
-          {/* Right Side Courses */}
-          <div className="space-y-8">
-            {courses.filter(course => course.side === "right").map((course) => (
-              <div key={course.id} className="relative">
-                <div className="absolute -right-16 top-1/2 -translate-y-1/2">
-                  <div className="relative">
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a2e] to-[#16213e] blur-xl rounded-full animate-pulse" />
-                    <span className="relative z-10 text-4xl font-bold text-white/90">
-                      {course.id}
-                    </span>
+        {/* Mobile Course Details Modal */}
+        <AnimatePresence>
+          {selectedCourse !== null && showMobileModal && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto"
+              onClick={handleCloseMobileModal}
+            >
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 50 }}
+                transition={{ 
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 30,
+                  duration: 0.4
+                }}
+                className="w-full max-w-md bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-lg shadow-xl p-6 relative"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {courses.find(c => c.step === selectedCourse) && (
+                  <div className="flex flex-col space-y-4">
+                    <div className="flex justify-between items-center mb-2">
+                      <h3 className="text-2xl font-bold text-white">
+                        {courses.find(c => c.step === selectedCourse)?.title}
+                      </h3>
+                      <button
+                        onClick={handleCloseMobileModal}
+                        className="text-white/70 hover:text-white transition-colors duration-200"
+                        aria-label="Close modal"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </div>
+                    <p className="text-white/90 text-base leading-relaxed">
+                      {courses.find(c => c.step === selectedCourse)?.detailedDescription}
+                    </p>
+                    <div className="flex items-center justify-between text-base mt-4">
+                      <span className="text-white/70">Course Fee:</span>
+                      <span className="text-white font-semibold">
+                        {courses.find(c => c.step === selectedCourse)?.price}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between text-base">
+                      <span className="text-white/70">Total Fee to Here:</span>
+                      <span className="text-white font-semibold">
+                        {courses.find(c => c.step === selectedCourse)?.totalFee}
+                      </span>
+                    </div>
+                    <Button
+                      onClick={() => handleEnrollClick(courses.find(c => c.step === selectedCourse)?.enrollmentLink || '')}
+                      className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white mt-6 py-3"
+                    >
+                      Enroll Now
+                      <ExternalLink className="w-4 h-4 ml-2" />
+                    </Button>
                   </div>
+                )}
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Course Pipeline - Mobile */}
+        <div className="lg:hidden space-y-4">
+          {courses.map((course, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="relative"
+            >
+              <Card 
+                className={`
+                  transform transition-all duration-300
+                  border-2 border-white/10 hover:border-white/30
+                  ${course.isSpecial ? 'bg-gradient-to-br from-rose-500/20 to-orange-500/20' : 'bg-white/10'}
+                  backdrop-blur-sm p-4
+                `}
+                onClick={() => {
+                  setSelectedCourse(course.step);
+                  setShowMobileModal(true);
+                }}
+              >
+                <div className="flex items-start space-x-4">
+                  <div className="flex flex-col items-center space-y-2">
+                    {/* Step Number */}
+                    <div className={`
+                      w-8 h-8 rounded-full bg-gradient-to-r ${course.color}
+                      flex items-center justify-center text-white font-bold text-sm shadow-lg
+                    `}>
+                      {course.step}
+                    </div>
+                    {/* Icon */}
+                    <div className={`
+                      w-8 h-8 rounded-full bg-gradient-to-r ${course.color}
+                      flex items-center justify-center shadow-lg
+                      ${course.isSpecial ? 'animate-pulse' : ''}
+                    `}>
+                      <course.icon className="h-4 w-4 text-white" />
+                    </div>
+                  </div>
+                  {/* Text Content */}
+                  <div className="flex-1">
+                    <h3 className="text-base font-semibold text-white">
+                      {course.title}
+                    </h3>
+                    <p className="text-xs text-white/70 mt-1">
+                      {course.description}
+                    </p>
+                  </div>
+                  <ChevronRight className="h-5 w-5 text-white/70 mt-2" />
                 </div>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Desktop Course Pipeline */}
+        <div className="hidden lg:flex justify-center">
+          <div className="relative max-w-4xl w-full">
+            {/* Vertical Line */}
+            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-white/20" />
+            
+            {courses.map((course, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className={`flex items-start mb-16 ${
+                  index % 2 === 0 ? 'justify-end pr-8' : 'flex-row-reverse pl-8'
+                } relative`}
+              >
+                {/* Timeline Node */}
                 <div 
-                  onClick={() => setSelectedCourse(course)}
-                  className="bg-[#1a1a2e]/30 backdrop-blur-md rounded-2xl border border-white/10 p-6 hover:bg-[#1a1a2e]/40 transition-all cursor-pointer group"
+                  className={`
+                    absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2
+                    w-6 h-6 rounded-full bg-gradient-to-r ${course.color}
+                    ${hoveredStep === course.step ? 'scale-150' : 'scale-100'}
+                    transition-transform duration-300
+                    shadow-lg z-10
+                  `}
+                />
+
+                {/* Course Card */}
+                <motion.div
+                  className="w-[calc(50%-2rem)] relative"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                 >
-                  <div className="flex items-start gap-4">
-                    <div className="relative">
-                      <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a2e] to-[#16213e] blur-sm rounded-xl animate-pulse" />
-                      <course.icon className="w-8 h-8 text-white relative z-10" />
+                  <Card 
+                    className={`
+                      transform transition-all duration-300 cursor-pointer
+                      border-2 ${hoveredStep === course.step ? 'border-white/40' : 'border-white/10'}
+                      ${course.isSpecial ? 'bg-gradient-to-br from-rose-500/20 to-orange-500/20' : 'bg-white/10'}
+                      backdrop-blur-sm relative z-10
+                    `}
+                    onClick={() => setSelectedCourse(selectedCourse === course.step ? null : course.step)}
+                    onMouseEnter={() => setHoveredStep(course.step)}
+                    onMouseLeave={() => setHoveredStep(null)}
+                  >
+                    <div className="p-6">
+                      <div className="flex flex-col items-center text-center space-y-4">
+                        {/* Step Number */}
+                        <div className={`
+                          w-12 h-12 rounded-full bg-gradient-to-r ${course.color}
+                          flex items-center justify-center text-white font-bold text-xl
+                          shadow-lg mb-2
+                        `}>
+                          {course.step}
+                        </div>
+                        {/* Icon */}
+                        <div className={`
+                          w-16 h-16 rounded-full bg-gradient-to-r ${course.color}
+                          flex items-center justify-center shadow-lg
+                          ${course.isSpecial ? 'animate-pulse' : ''}
+                        `}>
+                          <course.icon className="h-8 w-8 text-white" />
+                        </div>
+                        <motion.div
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="cursor-pointer"
+                        >
+                          <h3 className={`
+                            text-lg font-semibold text-white
+                            ${course.isSpecial ? 'text-white' : ''}
+                            ${selectedCourse === course.step ? 'glow-highlight' : ''}
+                          `}>
+                            {course.title}
+                          </h3>
+                          <p className={`
+                            text-sm mt-2
+                            ${course.isSpecial ? 'text-white/90' : 'text-white/70'}
+                          `}>
+                            {course.description}
+                          </p>
+                        </motion.div>
+                      </div>
                     </div>
-                    <div>
-                      <h2 className="text-2xl font-semibold text-white mb-2">{course.title}</h2>
-                      <p className="text-lg text-white/80">{course.description}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                  </Card>
+
+                  {/* Desktop Course Details Popup */}
+                  <AnimatePresence>
+                    {selectedCourse === course.step && (
+                      <motion.div
+                        initial={{ 
+                          opacity: 0, 
+                          x: index % 2 === 0 ? -20 : 20,
+                          scale: 0.95 
+                        }}
+                        animate={{ 
+                          opacity: 1, 
+                          x: 0,
+                          scale: 1 
+                        }}
+                        exit={{ 
+                          opacity: 0, 
+                          x: index % 2 === 0 ? -20 : 20,
+                          scale: 0.95 
+                        }}
+                        transition={{ 
+                          type: "spring",
+                          stiffness: 400,
+                          damping: 30,
+                          duration: 0.4
+                        }}
+                        className={`
+                          absolute top-1/2 -translate-y-1/2
+                          ${index % 2 === 0 ? 'right-full mr-4' : 'left-full ml-4'}
+                          w-96 bg-white/10 backdrop-blur-md
+                          border-2 border-white/20 rounded-lg shadow-xl
+                          p-6 z-30
+                        `}
+                      >
+                        <div className="flex flex-col space-y-4">
+                          <div className="flex justify-between items-center">
+                            <h3 className="text-xl font-bold text-white">
+                              {course.title}
+                            </h3>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setSelectedCourse(null);
+                              }}
+                              className="text-white/70 hover:text-white transition-colors duration-200"
+                              aria-label="Close dialog"
+                            >
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                              </svg>
+                            </button>
+                          </div>
+                          <p className="text-white/90 text-sm leading-relaxed">
+                            {course.detailedDescription}
+                          </p>
+                          <div className="flex items-center justify-between text-sm">
+                            <span className="text-white/70">Course Fee:</span>
+                            <span className="text-white font-semibold">{course.price}</span>
+                          </div>
+                          <div className="flex items-center justify-between text-sm">
+                            <span className="text-white/70">Total Fee to Here:</span>
+                            <span className="text-white font-semibold">{course.totalFee}</span>
+                          </div>
+                          <Button
+                            onClick={(e) => handleEnrollClick(course.enrollmentLink, e)}
+                            className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white mt-2"
+                          >
+                            Enroll Now
+                            <ExternalLink className="w-4 h-4 ml-2" />
+                          </Button>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              </motion.div>
             ))}
           </div>
         </div>
-
-        {/* Course Details Dialog */}
-        <Dialog open={!!selectedCourse} onOpenChange={() => setSelectedCourse(null)}>
-          <DialogContent className="bg-[#1a1a2e] border-white/10 text-white max-w-3xl">
-            <DialogHeader>
-              <DialogTitle className="text-2xl font-bold text-white">
-                {selectedCourse?.title}
-              </DialogTitle>
-            </DialogHeader>
-            <div className="mt-4 space-y-4">
-              <p className="text-lg text-white/80">{selectedCourse?.details}</p>
-              <div className="flex justify-end">
-                <Button
-                  onClick={(e) => handleEnrollClick(selectedCourse?.enrollmentLink || '', e)}
-                  className="bg-gradient-to-r from-[#1a1a2e] to-[#16213e] hover:from-[#16213e] hover:to-[#1a1a2e] text-white"
-                >
-                  Enroll Now
-                </Button>
-              </div>
-            </div>
-          </DialogContent>
-        </Dialog>
-      </div>
+      </main>
     </div>
   );
 };
