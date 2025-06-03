@@ -1,11 +1,14 @@
-
 import React, { useState } from 'react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-export const SearchBar = () => {
+interface SearchBarProps {
+  className?: string;
+}
+
+export const SearchBar = ({ className }: SearchBarProps) => {
   const [query, setQuery] = useState('');
   const { toast } = useToast();
 
@@ -65,7 +68,7 @@ export const SearchBar = () => {
         placeholder="Search courses, research, services..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        className="bg-white/10 border-purple-300/30 text-white placeholder:text-purple-200/70 backdrop-blur-sm"
+        className={className || "bg-white/10 border-purple-300/30 text-white placeholder:text-purple-200/70 backdrop-blur-sm"}
       />
       <Button
         type="submit"

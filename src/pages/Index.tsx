@@ -137,8 +137,8 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 relative">
-      <style jsx>{`
+    <div className="min-h-screen bg-gradient-to-br from-[#170056] via-[#410056] to-[#54366B] relative">
+      <style>{`
         .animate-on-scroll {
           opacity: 0;
           transform: translateY(20px);
@@ -334,7 +334,7 @@ const Index = () => {
               
               <Button
                 onClick={() => setAuthModalOpen(true)}
-                className="bg-purple-600 hover:bg-purple-700 text-white transition-all transform hover:scale-105"
+                className="bg-[#54366B] hover:bg-[#410056] text-[#EAE3F5] border border-[#EAE3F5]/20 transition-all transform hover:scale-105 shadow-lg"
               >
                 Login
               </Button>
@@ -345,7 +345,7 @@ const Index = () => {
 
       {/* Mobile Navigation Menu - Add before the Hero section */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 bg-gradient-to-br from-purple-900/95 via-blue-900/95 to-indigo-900/95 backdrop-blur-md md:hidden">
+        <div className="fixed inset-0 z-50 bg-gradient-to-br from-[#170056]/95 via-[#410056]/95 to-[#54366B]/95 backdrop-blur-md md:hidden">
           <div className="container mx-auto px-4 py-8">
             <div className="flex justify-end mb-6">
               <Button
@@ -445,7 +445,20 @@ const Index = () => {
 
       {/* Hero Section */}
       <section className="relative overflow-hidden z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900"></div>
+        <div className="absolute inset-0">
+          {/* Primary Background Gradient */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#170056] via-[#410056] to-[#54366B]"></div>
+          
+          {/* Geometric Shapes */}
+          <div className="absolute inset-0">
+            {/* Shape 1 */}
+            <div className="absolute top-20 left-10 w-64 h-64 rounded-full bg-[#363B6B]/20 blur-3xl"></div>
+            {/* Shape 2 */}
+            <div className="absolute bottom-20 right-10 w-96 h-96 rounded-full bg-[#000A33]/20 blur-3xl"></div>
+            {/* Shape 3 */}
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[#54366B]/10 blur-3xl"></div>
+          </div>
+        </div>
         
         <div className="relative container mx-auto px-4 py-16 lg:py-24">
           {/* Mobile Search Bar */}
@@ -967,42 +980,42 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gradient-to-br from-purple-900/50 via-blue-900/50 to-indigo-900/50 backdrop-blur-sm text-white py-12 md:py-16 relative z-10">
+      <footer className="bg-gradient-to-br from-[#000A33] to-[#363B6B] text-[#EAE3F5] py-12 md:py-16 relative z-10">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-6 lg:gap-8">
             <div className="space-y-4">
               <div className="flex items-center">
-                <span className="text-xl font-bold">Bioinformatics.lk</span>
+                <span className="text-xl font-bold text-white">Bioinformatics.lk</span>
               </div>
-              <p className="text-purple-200 leading-relaxed text-sm md:text-base">
+              <p className="text-[#EAE3F5]/90 leading-relaxed text-sm md:text-base">
                 Advancing bioinformatics education and research in Sri Lanka through innovative programs and cutting-edge technology.
               </p>
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold mb-4 text-purple-300">Quick Links</h3>
+              <h3 className="text-lg font-semibold mb-4 text-white">Quick Links</h3>
               <ul className="space-y-2">
-                <li><button onClick={() => scrollToSection('team')} className="text-purple-200 hover:text-white transition-colors text-sm md:text-base">Our Team</button></li>
-                <li><button onClick={() => scrollToSection('research')} className="text-purple-200 hover:text-white transition-colors text-sm md:text-base">Research</button></li>
-                <li><button onClick={() => scrollToSection('courses')} className="text-purple-200 hover:text-white transition-colors text-sm md:text-base">Courses</button></li>
-                <li><button onClick={() => scrollToSection('services')} className="text-purple-200 hover:text-white transition-colors text-sm md:text-base">Services</button></li>
+                <li><button onClick={() => scrollToSection('team')} className="text-[#EAE3F5]/80 hover:text-white transition-colors text-sm md:text-base">Our Team</button></li>
+                <li><button onClick={() => scrollToSection('research')} className="text-[#EAE3F5]/80 hover:text-white transition-colors text-sm md:text-base">Research</button></li>
+                <li><button onClick={() => scrollToSection('courses')} className="text-[#EAE3F5]/80 hover:text-white transition-colors text-sm md:text-base">Courses</button></li>
+                <li><button onClick={() => scrollToSection('services')} className="text-[#EAE3F5]/80 hover:text-white transition-colors text-sm md:text-base">Services</button></li>
               </ul>
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold mb-4 text-purple-300">Programs</h3>
+              <h3 className="text-lg font-semibold mb-4 text-white">Programs</h3>
               <ul className="space-y-2">
-                <li><a href="#" className="text-purple-200 hover:text-white transition-colors text-sm md:text-base">Certificate Courses</a></li>
-                <li><a href="#" className="text-purple-200 hover:text-white transition-colors text-sm md:text-base">Workshops</a></li>
-                <li><a href="#" className="text-purple-200 hover:text-white transition-colors text-sm md:text-base">Research Projects</a></li>
-                <li><a href="#" className="text-purple-200 hover:text-white transition-colors text-sm md:text-base">Collaborations</a></li>
+                <li><a href="#" className="text-[#EAE3F5]/80 hover:text-white transition-colors text-sm md:text-base">Certificate Courses</a></li>
+                <li><a href="#" className="text-[#EAE3F5]/80 hover:text-white transition-colors text-sm md:text-base">Workshops</a></li>
+                <li><a href="#" className="text-[#EAE3F5]/80 hover:text-white transition-colors text-sm md:text-base">Research Projects</a></li>
+                <li><a href="#" className="text-[#EAE3F5]/80 hover:text-white transition-colors text-sm md:text-base">Collaborations</a></li>
               </ul>
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold mb-4 text-purple-300">Connect With Us</h3>
+              <h3 className="text-lg font-semibold mb-4 text-white">Connect With Us</h3>
               <div className="space-y-4">
-                <p className="text-purple-200 text-sm md:text-base">
+                <p className="text-[#EAE3F5]/80 text-sm md:text-base">
                   Email: info@bioinformatics.lk<br />
                   Phone: +94 11 234 5678
                 </p>
@@ -1021,7 +1034,7 @@ const Index = () => {
             </div>
           </div>
 
-          <div className="border-t border-purple-300/30 mt-8 lg:mt-12 pt-6 lg:pt-8 text-center text-purple-200">
+          <div className="border-t border-[#EAE3F5]/20 mt-8 lg:mt-12 pt-6 lg:pt-8 text-center text-[#EAE3F5]/80">
             <p className="text-sm md:text-base">&copy; 2024 Bioinformatics.lk. All rights reserved. | Privacy Policy | Terms of Service</p>
           </div>
         </div>
