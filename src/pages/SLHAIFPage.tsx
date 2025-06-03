@@ -23,10 +23,10 @@ import '@xyflow/react/dist/style.css';
 const BrainNode = ({ data }: { data: any }) => (
   <div className="relative w-32 h-32 md:w-48 md:h-48">
     {/* Glowing circle effect */}
-    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#54366B] to-[#363B6B] blur-xl transform-gpu animate-pulse" />
-    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#54366B]/50 to-[#363B6B]/50 animate-pulse transform-gpu" />
+    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#1a0b2e] to-[#2d1b69] blur-xl transform-gpu animate-pulse" />
+    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#1a0b2e]/50 to-[#2d1b69]/50 animate-pulse transform-gpu" />
     {/* Pulsing ring */}
-    <div className="absolute -inset-2 md:-inset-4 rounded-full bg-gradient-to-r from-[#54366B]/30 to-[#363B6B]/30 animate-ping" />
+    <div className="absolute -inset-2 md:-inset-4 rounded-full bg-gradient-to-r from-[#1a0b2e]/30 to-[#2d1b69]/30 animate-ping" />
     {/* Brain icon */}
     <div className="relative z-10 w-full h-full flex items-center justify-center">
       <Brain className="w-20 h-20 md:w-32 md:h-32 text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.8)] filter brightness-150 animate-pulse" />
@@ -42,11 +42,11 @@ const BrainNode = ({ data }: { data: any }) => (
 // Custom Node Component for Topics
 const TopicNode = ({ data }: { data: any }) => (
   <div className="group">
-    <div className="relative bg-white/10 backdrop-blur-md px-4 md:px-6 py-3 md:py-4 rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300 text-center min-w-[140px] md:min-w-[180px] max-w-[160px] md:max-w-[220px] transform hover:scale-105">
+    <div className="relative bg-[#1a0b2e]/20 backdrop-blur-md px-4 md:px-6 py-3 md:py-4 rounded-2xl border border-[#2d1b69]/30 hover:bg-[#2d1b69]/30 transition-all duration-300 text-center min-w-[140px] md:min-w-[180px] max-w-[160px] md:max-w-[220px] transform hover:scale-105">
       {/* Enhanced glowing effect for topic boxes */}
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#54366B]/30 to-[#363B6B]/30 blur-xl transform-gpu animate-pulse" />
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#54366B]/20 to-[#363B6B]/20 blur-md transform-gpu animate-pulse" />
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#54366B]/10 to-[#363B6B]/10 blur-sm transform-gpu animate-pulse" />
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#1a0b2e]/40 to-[#2d1b69]/40 blur-xl transform-gpu animate-pulse" />
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#1a0b2e]/30 to-[#2d1b69]/30 blur-md transform-gpu animate-pulse" />
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#1a0b2e]/20 to-[#2d1b69]/20 blur-sm transform-gpu animate-pulse" />
       {/* Content */}
       <div className="relative z-10">
         <p className="text-white font-medium text-sm md:text-base whitespace-normal leading-tight">
@@ -84,7 +84,7 @@ export const SLHAIFPage = () => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
     const centerY = windowSize.height / 2;
-    const radius = isMobile ? 180 : 350;
+    const radius = isMobile ? 180 : 400; // Increased radius for better horizontal spread
 
     const nodes: Node[] = [
       {
@@ -92,7 +92,7 @@ export const SLHAIFPage = () => {
         type: 'brain',
         position: { 
           x: centerX - (isMobile ? 64 : 96), 
-          y: isMobile ? centerY - (isMobile ? 64 : 96) : centerY - radius * 0.8
+          y: isMobile ? centerY - (isMobile ? 64 : 96) : centerY - radius * 0.4 // Moved brain higher
         },
         data: { label: 'Brain' },
       },
@@ -104,7 +104,7 @@ export const SLHAIFPage = () => {
       const x = centerX + radius * Math.cos(angle) - (isMobile ? 70 : 100);
       const y = isMobile 
         ? centerY + radius * Math.sin(angle) - (isMobile ? 25 : 50)
-        : centerY + radius * 0.8 + radius * Math.sin(angle) * 0.5;
+        : centerY + radius * 0.2 + radius * Math.sin(angle) * 0.3; // Adjusted vertical position
 
       nodes.push({
         id: topic.id,
@@ -127,7 +127,7 @@ export const SLHAIFPage = () => {
       type: 'smoothstep',
       animated: true,
       style: { 
-        stroke: 'rgba(255, 255, 255, 0.3)',
+        stroke: 'rgba(255, 255, 255, 0.2)',
         strokeWidth: isMobile ? 1.5 : 2,
         strokeDasharray: '5,5',
       },
@@ -160,12 +160,12 @@ export const SLHAIFPage = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#170056] via-[#410056] to-[#54366B] relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-[#0a0612] via-[#1a0b2e] to-[#2d1b69] relative overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" />
-        <div className="absolute top-1/4 left-1/4 w-64 md:w-96 h-64 md:h-96 bg-[#54366B]/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-64 md:w-96 h-64 md:h-96 bg-[#170056]/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" />
+        <div className="absolute top-1/4 left-1/4 w-64 md:w-96 h-64 md:h-96 bg-[#1a0b2e]/30 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-64 md:w-96 h-64 md:h-96 bg-[#2d1b69]/30 rounded-full blur-3xl animate-pulse" />
       </div>
 
       {/* Main Content */}
@@ -204,8 +204,8 @@ export const SLHAIFPage = () => {
             maxZoom={1.2}
             defaultViewport={{ x: 0, y: 0, zoom: 1 }}
           >
-            <Background variant={BackgroundVariant.Dots} gap={12} size={1} color="rgba(255,255,255,0.1)" />
-            <Controls className="bg-white/10 backdrop-blur-sm" />
+            <Background variant={BackgroundVariant.Dots} gap={12} size={1} color="rgba(255,255,255,0.05)" />
+            <Controls className="bg-[#1a0b2e]/20 backdrop-blur-sm" />
           </ReactFlow>
         </div>
 
@@ -213,12 +213,12 @@ export const SLHAIFPage = () => {
         <div className="fixed bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 z-50">
           <div className="relative">
             {/* Glowing effect for button */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#54366B] to-[#363B6B] blur-xl rounded-full animate-pulse" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#54366B]/50 to-[#363B6B]/50 blur-md rounded-full animate-pulse" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#1a0b2e] to-[#2d1b69] blur-xl rounded-full animate-pulse" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#1a0b2e]/50 to-[#2d1b69]/50 blur-md rounded-full animate-pulse" />
             {/* Button */}
             <Button
               size="lg"
-              className="relative bg-gradient-to-r from-[#363B6B] to-[#000A33] hover:from-[#000A33] hover:to-[#363B6B] text-white text-base md:text-lg px-6 md:px-8 py-4 md:py-6 rounded-full shadow-lg hover:shadow-xl transition-all transform-gpu hover:scale-105 border border-white/20 backdrop-blur-sm"
+              className="relative bg-gradient-to-r from-[#1a0b2e] to-[#2d1b69] hover:from-[#2d1b69] hover:to-[#1a0b2e] text-white text-base md:text-lg px-6 md:px-8 py-4 md:py-6 rounded-full shadow-lg hover:shadow-xl transition-all transform-gpu hover:scale-105 border border-white/20 backdrop-blur-sm"
             >
               <MessageCircle className="w-5 h-5 md:w-6 md:h-6 mr-2" />
               <span className="hidden md:inline">Chat with our AI system</span>
