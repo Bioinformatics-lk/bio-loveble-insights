@@ -29,12 +29,16 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen bg-gradient-to-br from-indigo-900 to-purple-900 relative overflow-hidden"
+      className="min-h-screen bg-gradient-to-br from-[#170056] via-[#410056] to-[#54366B] relative overflow-hidden"
     >
       {/* Background Images */}
       <div className="absolute inset-0 z-0">
+        {/* Geometric Shapes for Visual Interest */}
+        <div className="absolute top-20 left-10 w-64 h-64 rounded-full bg-[#54366B]/20 blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 rounded-full bg-[#000A33]/40 blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[#363B6B]/20 blur-3xl"></div>
         {/* Overlay Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/50 to-purple-900/50 backdrop-blur-[2px]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#170056]/50 to-[#410056]/50 backdrop-blur-[2px]" />
       </div>
 
       {/* Top Bar */}
@@ -112,9 +116,9 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
               whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <Card className="border-2 border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300">
-                <CardHeader className="text-center">
-                  <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
+              <Card className="border-2 border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300 h-full flex flex-col">
+                <CardHeader className="text-center flex-1">
+                  <div className="w-24 h-24 mx-auto mb-6 bg-[#363B6B] rounded-full flex items-center justify-center shadow-lg">
                     <Briefcase className="h-12 w-12 text-white" />
                   </div>
                   <CardTitle className="text-3xl text-white font-bold">
@@ -124,9 +128,9 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
                     Professional bioinformatics and computational biology services
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="mt-auto">
                   <Button 
-                    className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-lg py-6 font-semibold shadow-lg hover:shadow-xl transition-all"
+                    className="w-full bg-[#363B6B] hover:bg-[#000A33] text-white border border-white/20 transition-all text-lg py-6 font-semibold shadow-lg hover:shadow-xl"
                     size="lg"
                   >
                     View Services
@@ -141,9 +145,9 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
               whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <Card className="border-2 border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300">
-                <CardHeader className="text-center">
-                  <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
+              <Card className="border-2 border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300 h-full flex flex-col">
+                <CardHeader className="text-center flex-1">
+                  <div className="w-24 h-24 mx-auto mb-6 bg-[#363B6B] rounded-full flex items-center justify-center shadow-lg">
                     <BookOpen className="h-12 w-12 text-white" />
                   </div>
                   <CardTitle className="text-3xl text-white font-bold">
@@ -153,10 +157,10 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
                     Access our comprehensive bioinformatics courses
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="mt-auto">
                   <Button 
                     onClick={handleViewCourses}
-                    className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-lg py-6 font-semibold shadow-lg hover:shadow-xl transition-all"
+                    className="w-full bg-[#363B6B] hover:bg-[#000A33] text-white border border-white/20 transition-all text-lg py-6 font-semibold shadow-lg hover:shadow-xl"
                     size="lg"
                   >
                     View Courses
@@ -175,22 +179,42 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
           >
             <Card className="border-2 border-white/20 bg-gradient-to-r from-[#170056]/40 to-[#410056]/40 backdrop-blur-sm hover:bg-white/20 transition-all duration-300 relative overflow-hidden">
               {/* Glowing Effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20 animate-pulse"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-[#54366B]/20 to-[#363B6B]/20 animate-pulse"></div>
               
               <CardHeader className="text-center relative z-10">
-                <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-r from-[#170056] to-[#410056] rounded-full flex items-center justify-center shadow-lg ring-4 ring-purple-500/30">
-                  <Brain className="h-12 w-12 text-white" />
+                <div className="w-24 h-24 mx-auto mb-6 bg-[#363B6B] rounded-full flex items-center justify-center shadow-lg ring-4 ring-[#54366B]/30 relative group">
+                  {/* Glowing background effect */}
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#54366B]/40 to-[#363B6B]/40 blur-lg group-hover:blur-xl transition-all duration-500"></div>
+                  
+                  {/* Pulsing ring effect */}
+                  <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-[#54366B]/20 to-[#363B6B]/20 animate-ping"></div>
+                  
+                  {/* Brain icon with vibrating animation */}
+                  <motion.div
+                    animate={{
+                      scale: [1, 1.05, 1],
+                      rotate: [-1, 1, -1],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                    className="relative z-10"
+                  >
+                    <Brain className="h-12 w-12 text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]" />
+                  </motion.div>
                 </div>
                 <CardTitle className="text-3xl text-white font-bold">
                   SLHAIF
                 </CardTitle>
                 <CardDescription className="text-white/90 text-lg mt-2 font-medium">
-                  Sri Lankan Herbal Artificial Intelligence Factory
+                  Sri Lanka's First Herbal Artificial Intelligence Factory
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <Button 
-                  className="w-full bg-gradient-to-r from-[#170056] to-[#410056] hover:from-[#410056] hover:to-[#54366B] text-lg py-6 font-semibold shadow-lg hover:shadow-xl transition-all border border-purple-500/30"
+                  className="w-full bg-[#363B6B] hover:bg-[#000A33] text-white border border-white/20 transition-all text-lg py-6 font-semibold shadow-lg hover:shadow-xl"
                   size="lg"
                 >
                   Explore SLHAIF
