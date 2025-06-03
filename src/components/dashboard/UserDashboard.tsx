@@ -29,14 +29,22 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen bg-gradient-to-br from-[#170056] to-[#410056] relative overflow-hidden"
+      className="min-h-screen relative overflow-hidden"
     >
       {/* Background Images */}
       <div className="absolute inset-0 z-0">
-        {/* Creative pattern overlay */}
+        {/* Base gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#000A33] via-[#170056] to-[#54366B]"></div>
+        
+        {/* S-shaped overlay */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-[#000A33] via-[#170056] to-[#54366B] -rotate-45 translate-x-[25%] translate-y-[25%]"></div>
+          <div className="absolute inset-0 bg-gradient-to-tl from-[#000A33] via-[#170056] to-[#54366B] rotate-45 -translate-x-[25%] -translate-y-[25%]"></div>
+        </div>
+
+        {/* Additional decorative elements */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_50%_50%,_#54366B_1px,_transparent_1px)] bg-[length:20px_20px]"></div>
-        {/* Overlay Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#170056]/50 to-[#410056]/50 backdrop-blur-[2px]" />
       </div>
 
       {/* Top Bar */}
@@ -44,7 +52,7 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="sticky top-0 z-50 w-full bg-[#170056]/10 backdrop-blur-md border-b border-[#54366B]/20 shadow-lg"
+        className="sticky top-0 z-50 w-full bg-[#000A33]/10 backdrop-blur-md border-b border-[#54366B]/20 shadow-lg"
       >
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16 md:h-20">

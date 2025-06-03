@@ -663,14 +663,23 @@ const Index = () => {
       </section>
 
       {/* Our Courses Section */}
-      <section className="py-12 md:py-20 bg-white relative z-10" id="courses">
-        <div className="container mx-auto px-4">
+      <section className="py-12 md:py-20 relative z-10" id="courses">
+        <div className="absolute inset-0">
+          {/* Simple gradient background */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#000A33] via-[#170056] to-[#54366B]"></div>
+          
+          {/* Additional decorative elements */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_50%_50%,_#54366B_1px,_transparent_1px)] bg-[length:20px_20px]"></div>
+        </div>
+
+        <div className="relative container mx-auto px-4">
           <div className="text-center mb-8 lg:mb-12">
-            <div className="inline-block bg-[#BBF7FF] px-6 py-3 rounded-lg mb-4">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Our Courses</h2>
+            <div className="inline-block bg-white/10 backdrop-blur-sm px-6 py-3 rounded-lg mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-white">Our Courses</h2>
             </div>
-            <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-              Unlock the power of bioinformatics, cheminformatics, computational chemistry, and AI in drug discovery with our dynamic and comprehensive course offerings, designed to empower you with both foundational and advanced insights
+            <p className="text-lg md:text-xl text-purple-100 max-w-3xl mx-auto">
+              Unlock the power of bioinformatics, cheminformatics, computational chemistry, and AI in drug discovery with our dynamic and comprehensive course offerings
             </p>
           </div>
           
@@ -982,10 +991,23 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gradient-to-r from-[#000A33]/90 via-[#170056]/90 to-[#54366B]/90 backdrop-blur-sm text-white py-12 md:py-16 relative z-10">
-        <div className="container mx-auto px-4">
-          {/* Add decorative pattern to footer */}
-          <div className="absolute inset-0 opacity-5 bg-[radial-gradient(circle_at_50%_50%,_#54366B_1px,_transparent_1px)] bg-[length:15px_15px]"></div>
+      <footer className="relative z-10 py-12 md:py-16">
+        <div className="absolute inset-0">
+          {/* Base gradient background */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#000A33] via-[#170056] to-[#54366B]"></div>
+          
+          {/* S-shaped overlay */}
+          <div className="absolute inset-0">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#000A33] via-[#170056] to-[#54366B] -rotate-45 translate-x-[25%] translate-y-[25%]"></div>
+            <div className="absolute inset-0 bg-gradient-to-tl from-[#000A33] via-[#170056] to-[#54366B] rotate-45 -translate-x-[25%] -translate-y-[25%]"></div>
+          </div>
+
+          {/* Additional decorative elements */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_50%_50%,_#54366B_1px,_transparent_1px)] bg-[length:15px_15px]"></div>
+        </div>
+
+        <div className="relative container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-6 lg:gap-8">
             <div className="space-y-4">
               <div className="flex items-center">
