@@ -1,13 +1,14 @@
-import { Toaster as Sonner } from "sonner"
+import { useTheme } from "next-themes"
+import { Toaster as Sonner, toast } from "sonner"
 
-interface ToasterProps {
-  theme?: "light" | "dark" | "system"
-}
+type ToasterProps = React.ComponentProps<typeof Sonner>
 
-export function Toaster({ theme = "system", ...props }: ToasterProps) {
+const Toaster = ({ ...props }: ToasterProps) => {
+  const { theme = "system" } = useTheme()
+
   return (
     <Sonner
-      theme={theme}
+      theme={theme as ToasterProps["theme"]}
       className="toaster group"
       toastOptions={{
         classNames: {
@@ -24,3 +25,5 @@ export function Toaster({ theme = "system", ...props }: ToasterProps) {
     />
   )
 }
+
+export { Toaster, toast }

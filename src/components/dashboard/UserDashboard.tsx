@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { BookOpen, Briefcase, LogOut, User } from "lucide-react";
@@ -8,7 +7,6 @@ import { User as SupabaseUser } from '@supabase/supabase-js';
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from "framer-motion";
-import { SLHAIFButton } from '../slhaif/SLHAIFButton';
 
 interface UserDashboardProps {
   user: SupabaseUser;
@@ -165,11 +163,6 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
           </Card>
           </motion.div>
         </motion.div>
-
-        {/* SLHAIF Section */}
-        <div className="mt-12">
-          <SLHAIFButton />
-        </div>
       </main>
     </motion.div>
   );
