@@ -31,6 +31,7 @@ const courses = [
     price: "10,000 LKR",
     totalFee: "10,000 LKR",
     position: "right",
+    popupPosition: "right",
     enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
   },
   {
@@ -43,6 +44,7 @@ const courses = [
     price: "5,000 LKR",
     totalFee: "15,000 LKR",
     position: "left",
+    popupPosition: "left",
     enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
   },
   {
@@ -55,6 +57,7 @@ const courses = [
     price: "5,000 LKR",
     totalFee: "20,000 LKR",
     position: "right",
+    popupPosition: "left",
     enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
   },
   {
@@ -67,6 +70,7 @@ const courses = [
     price: "10,000 LKR",
     totalFee: "30,000 LKR",
     position: "left",
+    popupPosition: "left",
     enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
   },
   {
@@ -79,6 +83,7 @@ const courses = [
     price: "5,000 LKR",
     totalFee: "35,000 LKR",
     position: "right",
+    popupPosition: "left",
     enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
   },
   {
@@ -91,6 +96,7 @@ const courses = [
     price: "5,000 LKR",
     totalFee: "40,000 LKR",
     position: "left",
+    popupPosition: "left",
     enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
   },
   {
@@ -104,6 +110,7 @@ const courses = [
     price: "10,000 LKR",
     totalFee: "50,000 LKR",
     position: "right",
+    popupPosition: "left",
     enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
   }
 ];
@@ -389,7 +396,7 @@ export const CoursesPage = () => {
                       <motion.div
                         initial={{ 
                           opacity: 0, 
-                          x: -20,
+                          x: course.popupPosition === 'left' ? -20 : 20,
                           scale: 0.95 
                         }}
                         animate={{ 
@@ -399,7 +406,7 @@ export const CoursesPage = () => {
                         }}
                         exit={{ 
                           opacity: 0, 
-                          x: -20,
+                          x: course.popupPosition === 'left' ? -20 : 20,
                           scale: 0.95 
                         }}
                         transition={{ 
@@ -410,11 +417,11 @@ export const CoursesPage = () => {
                         }}
                         className={`
                           absolute top-1/2 -translate-y-1/2
-                          left-0 -translate-x-full
+                          ${course.popupPosition === 'left' ? 'left-0 -translate-x-full' : 'right-0 translate-x-full'}
                           w-96 bg-white/10 backdrop-blur-md
                           border-2 border-white/20 rounded-lg shadow-xl
                           p-6 z-30
-                          ml-4
+                          ${course.popupPosition === 'left' ? 'ml-4' : 'mr-4'}
                         `}
                       >
                         <div className="flex flex-col space-y-4">
