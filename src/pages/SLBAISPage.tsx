@@ -98,7 +98,7 @@ const topics = [
   { id: "formulation", title: "Formulation Development Agent" },
 ];
 
-export const SLHAIFPage = () => {
+export const SLBAISPage = () => {
   const navigate = useNavigate();
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,

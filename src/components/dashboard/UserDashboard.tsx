@@ -24,7 +24,7 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
   };
 
   const handleExploreSlhaif = () => {
-    navigate('/slhaif');
+    navigate('/slbais');
   };
 
   return (
@@ -174,7 +174,7 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
             </motion.div>
           </div>
 
-          {/* SLHAIF Card - Centered Below */}
+          {/* SLBAIS Card - Centered Below */}
           <motion.div
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -259,11 +259,11 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
                   </motion.div>
                 </div>
                 <CardTitle className="text-3xl text-white font-bold drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">
-                  SLHAIF
-              </CardTitle>
+                  SLBAIS
+                </CardTitle>
                 <CardDescription className="text-white/90 text-lg mt-2 font-medium">
-                  Sri Lanka's First Herbal Artificial Intelligence Factory
-              </CardDescription>
+                  Sri Lanka's Botanical Artificial Intelligence Factory
+                </CardDescription>
             </CardHeader>
             <CardContent>
               <Button 
@@ -271,7 +271,7 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
                   className="w-full bg-[#363B6B] hover:bg-[#000A33] text-white border border-white/20 transition-all text-lg py-6 font-semibold shadow-lg hover:shadow-xl backdrop-blur-sm"
                 size="lg"
               >
-                  Explore SLHAIF
+                  Explore SLBAIS
               </Button>
             </CardContent>
           </Card>
