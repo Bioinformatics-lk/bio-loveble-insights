@@ -128,7 +128,7 @@ export const SLHAIFPage = () => {
         id: 'slbais',
         type: 'slbais',
         position: {
-          x: centerX - (isMobile ? 150 : 300),
+          x: centerX - (isMobile ? 75 : 150), // Centered horizontally
           y: centerY - verticalSpacing * (isMobile ? 3.5 : 4.5)
         },
         data: { label: 'SLBAIS' },
