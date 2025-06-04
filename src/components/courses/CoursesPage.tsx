@@ -30,6 +30,7 @@ const courses = [
     step: 1,
     price: "10,000 LKR",
     totalFee: "10,000 LKR",
+    position: "right",
     enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
   },
   {
@@ -41,6 +42,7 @@ const courses = [
     step: 2,
     price: "5,000 LKR",
     totalFee: "15,000 LKR",
+    position: "left",
     enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
   },
   {
@@ -52,6 +54,7 @@ const courses = [
     step: 3,
     price: "5,000 LKR",
     totalFee: "20,000 LKR",
+    position: "right",
     enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
   },
   {
@@ -63,6 +66,7 @@ const courses = [
     step: 4,
     price: "10,000 LKR",
     totalFee: "30,000 LKR",
+    position: "left",
     enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
   },
   {
@@ -74,6 +78,7 @@ const courses = [
     step: 5,
     price: "5,000 LKR",
     totalFee: "35,000 LKR",
+    position: "right",
     enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
   },
   {
@@ -85,6 +90,7 @@ const courses = [
     step: 6,
     price: "5,000 LKR",
     totalFee: "40,000 LKR",
+    position: "left",
     enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
   },
   {
@@ -97,6 +103,7 @@ const courses = [
     isSpecial: true,
     price: "10,000 LKR",
     totalFee: "50,000 LKR",
+    position: "right",
     enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
   }
 ];
@@ -293,11 +300,11 @@ export const CoursesPage = () => {
             {courses.map((course, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
+                initial={{ opacity: 0, x: course.position === 'left' ? -20 : 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className={`flex items-start mb-16 ${
-                  index % 2 === 0 ? 'justify-end pr-8' : 'flex-row-reverse pl-8'
+                  course.position === 'left' ? 'justify-end pr-8' : 'flex-row-reverse pl-8'
                 } relative`}
               >
                 {/* Timeline Node */}
@@ -375,7 +382,7 @@ export const CoursesPage = () => {
                       <motion.div
                         initial={{ 
                           opacity: 0, 
-                          x: index % 2 === 0 ? -20 : 20,
+                          x: course.position === 'left' ? -20 : 20,
                           scale: 0.95 
                         }}
                         animate={{ 
@@ -385,7 +392,7 @@ export const CoursesPage = () => {
                         }}
                         exit={{ 
                           opacity: 0, 
-                          x: index % 2 === 0 ? -20 : 20,
+                          x: course.position === 'left' ? -20 : 20,
                           scale: 0.95 
                         }}
                         transition={{ 
@@ -396,7 +403,7 @@ export const CoursesPage = () => {
                         }}
                         className={`
                           absolute top-1/2 -translate-y-1/2
-                          ${index % 2 === 0 ? 'right-full mr-4' : 'left-full ml-4'}
+                          ${course.position === 'left' ? 'right-full mr-4' : 'left-full ml-4'}
                           w-96 bg-white/10 backdrop-blur-md
                           border-2 border-white/20 rounded-lg shadow-xl
                           p-6 z-30
