@@ -128,8 +128,8 @@ export const SLHAIFPage = () => {
         id: 'slbais',
         type: 'slbais',
         position: {
-          x: centerX - (isMobile ? 75 : 150), // Centered horizontally
-          y: centerY - verticalSpacing * (isMobile ? 3.5 : 4.5)
+          x: centerX - (isMobile ? 75 : 150),
+          y: centerY - verticalSpacing * (isMobile ? 1.5 : 2) // Aligned with brain's upper node
         },
         data: { label: 'SLBAIS' },
       }
@@ -205,26 +205,12 @@ export const SLHAIFPage = () => {
       },
     }));
 
-    // Add SLBAIS connection with enhanced styling
+    // Add vertical connection between SLBAIS and brain
     edges.push({
       id: 'slbais-brain',
       source: 'slbais',
       target: 'brain',
-      type: 'smoothstep',
-      animated: true,
-      style: { 
-        stroke: 'rgba(255, 255, 255, 0.35)',
-        strokeWidth: isMobile ? 1.5 : 2.5,
-        strokeDasharray: isMobile ? '6,6' : '8,8',
-      },
-    });
-
-    // Add center line connection to SLBAIS
-    edges.push({
-      id: 'center-slbais',
-      source: 'center-top',
-      target: 'slbais',
-      type: 'smoothstep',
+      type: 'straight', // Changed to straight for vertical line
       animated: true,
       style: { 
         stroke: 'rgba(255, 255, 255, 0.35)',
