@@ -73,7 +73,7 @@ const SLBAISNode = () => (
   <div className="relative bg-[#1a0b2e]/20 backdrop-blur-md px-6 py-4 rounded-2xl border border-[#2d1b69] text-center min-w-[200px] md:min-w-[300px] max-w-[300px] md:max-w-[400px]">
     <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#1a0b2e]/20 via-[#2d1b69]/20 to-[#1a0b2e]/20 blur-sm animate-gradient-x" />
     <div className="relative z-10">
-      <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">SLBAIS</h2>
+      <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 tracking-wider">S L B A I S</h2>
       <p className="text-white/80 text-sm md:text-base">
         Sri Lanka's First Botanical Artificial Intelligence System
       </p>
@@ -109,7 +109,7 @@ export const SLHAIFPage = () => {
   const calculateNodePositions = () => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
-    const centerY = windowSize.height * (isMobile ? 0.6 : 0.55);
+    const centerY = windowSize.height * (isMobile ? 0.5 : 0.45);
     const verticalSpacing = isMobile ? 100 : 200;
     const horizontalSpacing = isMobile ? 100 : 240;
 
@@ -132,8 +132,8 @@ export const SLHAIFPage = () => {
         id: 'slbais',
         type: 'slbais',
         position: {
-          x: centerX - (isMobile ? 100 : 200), // Center SLBAIS with brain
-          y: centerY + brainHeight + (isMobile ? 60 : 120) // Position below brain with proper spacing
+          x: centerX - (isMobile ? 100 : 200),
+          y: centerY + brainHeight + (isMobile ? 60 : 120)
         },
         data: { label: 'SLBAIS' },
       }
@@ -303,12 +303,12 @@ export const SLHAIFPage = () => {
             nodeTypes={nodeTypes}
             fitView
             fitViewOptions={{ 
-              padding: 0.4,
-              maxZoom: 0.7
+              padding: 0.2,
+              maxZoom: 0.9
             }}
-            minZoom={0.3}
-            maxZoom={0.7}
-            defaultViewport={{ x: 0, y: 0, zoom: 0.7 }}
+            minZoom={0.4}
+            maxZoom={0.9}
+            defaultViewport={{ x: 0, y: 0, zoom: 0.9 }}
             attributionPosition="bottom-right"
             className="bg-transparent"
           >
