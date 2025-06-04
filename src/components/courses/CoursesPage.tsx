@@ -410,10 +410,11 @@ export const CoursesPage = () => {
                         }}
                         className={`
                           absolute top-1/2 -translate-y-1/2
-                          right-full mr-4
+                          left-0 -translate-x-full
                           w-96 bg-white/10 backdrop-blur-md
                           border-2 border-white/20 rounded-lg shadow-xl
                           p-6 z-30
+                          ml-4
                         `}
                       >
                         <div className="flex flex-col space-y-4">
