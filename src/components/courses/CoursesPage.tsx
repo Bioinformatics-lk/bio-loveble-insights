@@ -416,7 +416,7 @@ export const CoursesPage = () => {
                           duration: 0.4
                         }}
                         className={`
-                          absolute top-1/2 -translate-y-1/2
+                          absolute top-0
                           ${course.popupPosition === 'left' ? 'left-0 -translate-x-full' : 'right-0 translate-x-full'}
                           w-96 bg-white/10 backdrop-blur-md
                           border-2 border-white/20 rounded-lg shadow-xl
