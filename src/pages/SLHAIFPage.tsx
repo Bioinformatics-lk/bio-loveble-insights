@@ -128,8 +128,8 @@ export const SLHAIFPage = () => {
         id: 'slbais',
         type: 'slbais',
         position: {
-          x: centerX - (isMobile ? 75 : 150),
-          y: centerY - verticalSpacing * (isMobile ? 1.5 : 2) // Aligned with brain's upper node
+          x: centerX - (isMobile ? 32 : 96), // Exactly aligned with brain
+          y: centerY - (isMobile ? 120 : 240) // Fixed distance above brain
         },
         data: { label: 'SLBAIS' },
       }
@@ -205,17 +205,17 @@ export const SLHAIFPage = () => {
       },
     }));
 
-    // Add vertical connection between SLBAIS and brain
+    // Vertical connection from SLBAIS to brain
     edges.push({
       id: 'slbais-brain',
       source: 'slbais',
       target: 'brain',
-      type: 'straight', // Changed to straight for vertical line
+      type: 'default', // Simple straight line
       animated: true,
       style: { 
-        stroke: 'rgba(255, 255, 255, 0.35)',
-        strokeWidth: isMobile ? 1.5 : 2.5,
-        strokeDasharray: isMobile ? '6,6' : '8,8',
+        stroke: 'rgba(255, 255, 255, 0.5)', // Brighter line
+        strokeWidth: isMobile ? 2 : 3, // Thicker line
+        strokeDasharray: '8,8', // Consistent dashes
       },
     });
 
@@ -242,26 +242,11 @@ export const SLHAIFPage = () => {
     setEdges(calculateEdges());
   }, [windowSize]);
 
-  // Add center top node and chat button node
+  // Remove the center-top node since we don't need it anymore
   useEffect(() => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
     const topY = windowSize.height * (isMobile ? 0.85 : 0.8);
-    const verticalSpacing = isMobile ? 80 : 180;
-
-    // Add center top node (invisible, just for connection)
-    setNodes(prev => [
-      ...prev,
-      {
-        id: 'center-top',
-        type: 'chat', // Using chat type as it's invisible
-        position: { 
-          x: centerX - (isMobile ? 35 : 100),
-          y: topY - verticalSpacing * (isMobile ? 3.5 : 4.5)
-        },
-        data: { label: 'Center Top' },
-      }
-    ]);
 
     // Add chat button node (invisible, just for connection)
     setNodes(prev => [
@@ -276,7 +261,7 @@ export const SLHAIFPage = () => {
         data: { label: 'Chat' },
       }
     ]);
-  }, [windowSize, setEdges, setNodes]);
+  }, [windowSize, setNodes]);
 
   const onConnect = useCallback(
     (params: Connection) => setEdges((eds) => addEdge(params, eds)),
