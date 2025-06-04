@@ -261,6 +261,7 @@ export const SLHAIFPage = () => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
     const centerY = windowSize.height * (isMobile ? 0.9 : 0.85);
+    const verticalSpacing = isMobile ? 80 : 180;
 
     // Add center top node (invisible, just for connection)
     setNodes(prev => [
