@@ -422,6 +422,7 @@ export const CoursesPage = () => {
                           border-2 border-white/20 rounded-lg shadow-xl
                           p-6 z-30
                           ${course.popupPosition === 'left' ? 'ml-4' : 'mr-4'}
+                          ${course.title === "Introduction to Bioinformatics" ? 'left-0 -translate-x-full' : ''}
                         `}
                       >
                         <div className="flex flex-col space-y-4">
