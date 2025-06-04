@@ -29,7 +29,7 @@ const BrainNode = ({ data }: { data: any }) => (
     <div className="absolute -inset-2 md:-inset-4 rounded-full bg-gradient-to-r from-[#1a0b2e]/30 to-[#2d1b69]/30 animate-ping" />
     {/* Brain icon */}
     <div className="relative z-10 w-full h-full flex items-center justify-center">
-      <Brain className="w-20 h-20 md:w-32 md:h-32 text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.8)] filter brightness-150 animate-pulse" />
+      <Brain className="w-20 h-20 md:w-32 md:h-32 text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.8)] filter brightness-150 animate-pulse transform rotate-180" />
     </div>
     {/* Connection handles */}
     <Handle type="source" position={Position.Top} className="w-2 h-2 md:w-3 md:h-3 bg-white/50" />
@@ -43,6 +43,8 @@ const BrainNode = ({ data }: { data: any }) => (
 const TopicNode = ({ data }: { data: any }) => (
   <div className="group">
     <div className="relative bg-[#1a0b2e]/20 backdrop-blur-md px-4 md:px-6 py-3 md:py-4 rounded-2xl border border-[#2d1b69]/30 hover:bg-[#2d1b69]/30 transition-all duration-300 text-center min-w-[140px] md:min-w-[180px] max-w-[160px] md:max-w-[220px] transform hover:scale-105">
+      {/* Outline effect */}
+      <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-[#1a0b2e] to-[#2d1b69] blur-sm opacity-50" />
       {/* Enhanced glowing effect for topic boxes */}
       <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#1a0b2e]/40 to-[#2d1b69]/40 blur-xl transform-gpu animate-pulse" />
       <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#1a0b2e]/30 to-[#2d1b69]/30 blur-md transform-gpu animate-pulse" />
