@@ -22,22 +22,23 @@ import '@xyflow/react/dist/style.css';
 // Custom Node Component for the Brain
 const BrainNode = ({ data }: { data: any }) => (
   <div className="relative w-32 h-32 md:w-48 md:h-48">
-    {/* Glowing circle effect */}
-    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#1a0b2e] to-[#2d1b69] blur-lg transform-gpu" />
-    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#1a0b2e]/50 to-[#2d1b69]/50 transform-gpu" />
-    {/* Pulsing ring */}
-    <div className="absolute -inset-2 md:-inset-4 rounded-full bg-gradient-to-r from-[#1a0b2e]/30 to-[#2d1b69]/30" />
-    {/* Brain icon */}
-    <div className="relative z-10 w-full h-full flex items-center justify-center">
+    {/* Multi-layered glowing effect */}
+    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#1a0b2e] to-[#2d1b69] blur-xl transform-gpu animate-pulse" />
+    <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-[#1a0b2e]/50 to-[#2d1b69]/50 blur-lg transform-gpu animate-pulse" style={{ animationDelay: '0.5s' }} />
+    <div className="absolute -inset-4 rounded-full bg-gradient-to-r from-[#1a0b2e]/30 to-[#2d1b69]/30 blur-md transform-gpu animate-pulse" style={{ animationDelay: '1s' }} />
+    
+    {/* Brain icon with floating animation */}
+    <div className="relative z-10 w-full h-full flex items-center justify-center animate-float">
       <div style={{ transform: 'rotate(180deg) translateY(-10px)' }}>
-        <Brain className="w-20 h-20 md:w-32 md:h-32 text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.6)] filter brightness-125" />
+        <Brain className="w-20 h-20 md:w-32 md:h-32 text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.8)] filter brightness-150" />
       </div>
     </div>
-    {/* Connection handles */}
-    <Handle type="source" position={Position.Top} className="w-5 h-2 md:w-3 md:h-3 bg-white/50" />
-    <Handle type="source" position={Position.Right} className="w-2 h-2 md:w-3 md:h-3 bg-white/50" />
-    <Handle type="source" position={Position.Bottom} className="w-2 h-2 md:w-3 md:h-3 bg-white/50" />
-    <Handle type="source" position={Position.Left} className="w-2 h-2 md:w-3 md:h-3 bg-white/50" />
+    
+    {/* Enhanced connection handles */}
+    <Handle type="source" position={Position.Top} className="w-5 h-2 md:w-3 md:h-3 bg-white/50 shadow-glow" />
+    <Handle type="source" position={Position.Right} className="w-2 h-2 md:w-3 md:h-3 bg-white/50 shadow-glow" />
+    <Handle type="source" position={Position.Bottom} className="w-2 h-2 md:w-3 md:h-3 bg-white/50 shadow-glow" />
+    <Handle type="source" position={Position.Left} className="w-2 h-2 md:w-3 md:h-3 bg-white/50 shadow-glow" />
   </div>
 );
 
@@ -45,22 +46,32 @@ const BrainNode = ({ data }: { data: any }) => (
 const TopicNode = ({ data }: { data: any }) => (
   <div className="group">
     <div className="relative bg-[#1a0b2e]/20 backdrop-blur-md px-4 md:px-6 py-3 md:py-4 rounded-2xl border border-[#2d1b69] hover:bg-[#2d1b69]/30 transition-all duration-300 text-center min-w-[140px] md:min-w-[180px] max-w-[160px] md:max-w-[220px] transform hover:scale-105">
-      {/* Subtle glow effect */}
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#1a0b2e]/20 to-[#2d1b69]/20 blur-sm" />
+      {/* Enhanced glow effect */}
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#1a0b2e]/20 via-[#2d1b69]/20 to-[#1a0b2e]/20 blur-sm animate-gradient-x" />
+      <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-blue-500/20 via-green-400/20 to-violet-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
+      
       {/* Content */}
       <div className="relative z-10">
-        <p className="text-white font-medium text-sm md:text-base whitespace-normal leading-tight">
+        <p className="text-white font-medium text-sm md:text-base whitespace-normal leading-tight group-hover:text-blue-100 transition-colors">
           {data.label}
         </p>
       </div>
     </div>
-    <Handle type="target" position={Position.Top} className="w-2 h-2 md:w-3 md:h-3 bg-white/50" />
+    <Handle type="target" position={Position.Top} className="w-2 h-2 md:w-3 md:h-3 bg-white/50 shadow-glow" />
+  </div>
+);
+
+// Add chat node type
+const ChatNode = () => (
+  <div className="w-2 h-2 opacity-0">
+    <Handle type="target" position={Position.Top} className="w-2 h-2 bg-white/50" />
   </div>
 );
 
 const nodeTypes: NodeTypes = {
   brain: BrainNode,
   topic: TopicNode,
+  chat: ChatNode,
 };
 
 const topics = [
@@ -83,33 +94,55 @@ export const SLHAIFPage = () => {
   const calculateNodePositions = () => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
-    const centerY = windowSize.height / 2;
-    const radius = isMobile ? 180 : 400; // Increased radius for better horizontal spread
+    const centerY = windowSize.height * 0.75; // Move brain lower
+    const verticalSpacing = isMobile ? 100 : 160;
+    const horizontalSpacing = isMobile ? 140 : 220;
 
+    // Brain node at the bottom center
     const nodes: Node[] = [
       {
         id: 'brain',
         type: 'brain',
         position: { 
-          x: centerX - (isMobile ? 64 : 96), 
-          y: isMobile ? centerY - 120 : centerY - 200 // Moved brain higher up
+          x: centerX - (isMobile ? 64 : 96),
+          y: centerY // Brain at bottom
         },
         data: { label: 'Brain' },
       },
     ];
 
-    // Add topic nodes in a semi-circle
-    topics.forEach((topic, index) => {
-      const angle = (Math.PI / (topics.length - 1)) * index;
-      const x = centerX + radius * Math.cos(angle) - (isMobile ? 70 : 100);
-      const y = isMobile 
-        ? centerY + radius * Math.sin(angle) - (isMobile ? 25 : 50)
-        : centerY + radius * 0.2 + radius * Math.sin(angle) * 0.3;
+    // Calculate positions for different levels
+    topics.forEach((topic) => {
+      let x = centerX;
+      let y = centerY;
+      let offset = 0;
+      
+      // Level 1 - Top level (Molecular Docking and Molecular Dynamics)
+      if (topic.id === 'docking' || topic.id === 'dynamics') {
+        offset = topic.id === 'docking' ? -horizontalSpacing : horizontalSpacing;
+        x = centerX + offset;
+        y = centerY - verticalSpacing * 3; // Topmost level
+      }
+      // Level 2 - Second level (Network Pharmacology and Manuscript Writing)
+      else if (topic.id === 'network' || topic.id === 'manuscript') {
+        offset = topic.id === 'network' ? -horizontalSpacing : horizontalSpacing;
+        x = centerX + offset * 0.8; // Slightly closer to center
+        y = centerY - verticalSpacing * 2; // Second level
+      }
+      // Middle Level - Fixed Position (Literature and Formulation)
+      else if (topic.id === 'literature' || topic.id === 'formulation') {
+        offset = topic.id === 'literature' ? -horizontalSpacing : horizontalSpacing;
+        x = centerX + offset * 0.6; // Even closer to center
+        y = centerY - verticalSpacing; // Bottom level
+      }
 
       nodes.push({
         id: topic.id,
         type: 'topic',
-        position: { x, y },
+        position: { 
+          x: x - (isMobile ? 70 : 100),
+          y 
+        },
         data: { label: topic.title },
       });
     });
@@ -153,6 +186,44 @@ export const SLHAIFPage = () => {
     setNodes(calculateNodePositions());
     setEdges(calculateEdges());
   }, [windowSize]);
+
+  // Add chat button node and its connection
+  useEffect(() => {
+    const isMobile = windowSize.width < 768;
+    const centerX = windowSize.width / 2;
+    const centerY = windowSize.height * 0.75;
+
+    // Add chat button connection
+    setEdges(prev => [
+      ...prev,
+      {
+        id: 'chat-brain',
+        source: 'brain',
+        target: 'chat-button',
+        type: 'smoothstep',
+        animated: true,
+        style: { 
+          stroke: 'rgba(255, 255, 255, 0.25)',
+          strokeWidth: isMobile ? 1.5 : 2,
+          strokeDasharray: '6,6',
+        },
+      }
+    ]);
+
+    // Add chat button node (invisible, just for connection)
+    setNodes(prev => [
+      ...prev,
+      {
+        id: 'chat-button',
+        type: 'chat',
+        position: { 
+          x: centerX - (isMobile ? 70 : 100),
+          y: centerY + (isMobile ? 150 : 250)
+        },
+        data: { label: 'Chat' },
+      }
+    ]);
+  }, [windowSize, setEdges, setNodes]);
 
   const onConnect = useCallback(
     (params: Connection) => setEdges((eds) => addEdge(params, eds)),
@@ -209,22 +280,19 @@ export const SLHAIFPage = () => {
           </ReactFlow>
         </div>
 
-        {/* Enhanced Chat Button */}
+        {/* Enhanced Chat Button with Glow */}
         <div className="fixed bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 z-50">
-          <div className="relative">
-            {/* Subtle glow effect for button */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#1a0b2e] to-[#2d1b69] blur-lg rounded-full" />
-            {/* Button */}
+          <div className="relative chat-button-glow">
             <Button
               size="lg"
-              className="relative bg-gradient-to-r from-[#1a0b2e] to-[#2d1b69] hover:from-[#2d1b69] hover:to-[#1a0b2e] text-white text-sm md:text-lg px-4 md:px-8 py-3 md:py-6 rounded-full shadow-lg hover:shadow-xl transition-all transform-gpu hover:scale-105 border border-white/20 backdrop-blur-sm"
+              className="relative bg-gradient-to-r from-[#1a0b2e] to-[#2d1b69] hover:from-[#2d1b69] hover:to-[#1a0b2e] text-white text-sm md:text-lg px-4 md:px-8 py-3 md:py-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-500 transform-gpu hover:scale-105 border border-white/20 backdrop-blur-sm group"
             >
-              <MessageCircle className="w-4 h-4 md:w-6 md:h-6 mr-2" />
-              <span>Chat with our AI system</span>
+              <MessageCircle className="w-4 h-4 md:w-6 md:h-6 mr-2 group-hover:text-blue-300 transition-colors" />
+              <span className="group-hover:text-blue-100 transition-colors">Chat with our AI system</span>
             </Button>
           </div>
         </div>
       </div>
     </div>
   );
-}; 
+};
