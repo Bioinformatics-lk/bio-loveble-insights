@@ -84,51 +84,78 @@ export const SLHAIFPage = () => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
     const centerY = windowSize.height / 2;
-    
-    // Define offsets for different levels
-    const topLevelOffset = isMobile ? 120 : 200;
-    const middleLevelOffset = isMobile ? 60 : 100;
-    const bottomLevelOffset = isMobile ? 0 : 0;
-    const brainOffsetY = isMobile ? 180 : 250;
+    const horizontalSpacing = isMobile ? 120 : 200;
+    const verticalSpacing = isMobile ? 100 : 150;
 
-    // Position brain at the bottom
     const nodes: Node[] = [
+      // Brain node at bottom center
       {
         id: 'brain',
         type: 'brain',
         position: { 
-          x: centerX - (isMobile ? 64 : 96),
-          y: centerY + brainOffsetY
+          x: centerX - (isMobile ? 64 : 96), 
+          y: centerY + (isMobile ? 100 : 150)
         },
         data: { label: 'Brain' },
       },
-    ];
-
-    // Define positions for each topic in a distributed tree pattern
-    const topicPositions = {
-      // Top level - Molecular Docking and Dynamics
-      docking: { x: centerX - (isMobile ? 80 : 150), y: centerY - topLevelOffset },
-      dynamics: { x: centerX + (isMobile ? 80 : 150), y: centerY - topLevelOffset },
-      
-      // Middle level - Network Pharmacology and Manuscript Writing
-      network: { x: centerX - (isMobile ? 100 : 200), y: centerY - middleLevelOffset },
-      manuscript: { x: centerX + (isMobile ? 100 : 200), y: centerY - middleLevelOffset },
-      
-      // Bottom level - Literature and Formulation
-      literature: { x: centerX - (isMobile ? 120 : 250), y: centerY + bottomLevelOffset },
-      formulation: { x: centerX + (isMobile ? 120 : 250), y: centerY + bottomLevelOffset },
-    };
-
-    // Add topic nodes
-    topics.forEach((topic) => {
-      const position = topicPositions[topic.id as keyof typeof topicPositions];
-      nodes.push({
-        id: topic.id,
+      // Top level agents
+      {
+        id: 'docking',
         type: 'topic',
-        position,
-        data: { label: topic.title },
-      });
-    });
+        position: { 
+          x: centerX - horizontalSpacing,
+          y: centerY - verticalSpacing * 2
+        },
+        data: { label: 'Molecular Docking Agent' },
+      },
+      {
+        id: 'dynamics',
+        type: 'topic',
+        position: { 
+          x: centerX + horizontalSpacing,
+          y: centerY - verticalSpacing * 2
+        },
+        data: { label: 'Molecular Dynamics Agent' },
+      },
+      // Second level agents
+      {
+        id: 'network',
+        type: 'topic',
+        position: { 
+          x: centerX - horizontalSpacing,
+          y: centerY - verticalSpacing
+        },
+        data: { label: 'Network Pharmacology Agent' },
+      },
+      {
+        id: 'manuscript',
+        type: 'topic',
+        position: { 
+          x: centerX + horizontalSpacing,
+          y: centerY - verticalSpacing
+        },
+        data: { label: 'Manuscript Writing Agent' },
+      },
+      // Middle level agents
+      {
+        id: 'literature',
+        type: 'topic',
+        position: { 
+          x: centerX - horizontalSpacing,
+          y: centerY
+        },
+        data: { label: 'Literature Search Agent' },
+      },
+      {
+        id: 'formulation',
+        type: 'topic',
+        position: { 
+          x: centerX + horizontalSpacing,
+          y: centerY
+        },
+        data: { label: 'Formulation Development Agent' },
+      },
+    ];
 
     return nodes;
   };
@@ -136,7 +163,7 @@ export const SLHAIFPage = () => {
   // Calculate edges (connections)
   const calculateEdges = () => {
     const isMobile = windowSize.width < 768;
-    return topics.map((topic) => ({
+    const edges = topics.map((topic) => ({
       id: `brain-${topic.id}`,
       source: 'brain',
       target: topic.id,
@@ -146,9 +173,24 @@ export const SLHAIFPage = () => {
         stroke: 'rgba(255, 255, 255, 0.25)',
         strokeWidth: isMobile ? 1.5 : 2,
         strokeDasharray: '6,6',
-        animation: 'flowingLines 30s linear infinite',
       },
     }));
+
+    // Add connection from chat button to brain
+    edges.push({
+      id: 'chat-brain',
+      source: 'chat',
+      target: 'brain',
+      type: 'smoothstep',
+      animated: true,
+      style: { 
+        stroke: 'rgba(255, 255, 255, 0.25)',
+        strokeWidth: isMobile ? 1.5 : 2,
+        strokeDasharray: '6,6',
+      },
+    });
+
+    return edges;
   };
 
   const [nodes, setNodes, onNodesChange] = useNodesState(calculateNodePositions());
@@ -181,9 +223,8 @@ export const SLHAIFPage = () => {
       {/* Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" />
-        {/* Adjusted glow positions to match new brain position */}
-        <div className="absolute bottom-1/4 left-1/4 w-64 md:w-96 h-64 md:h-96 bg-[#1a0b2e]/30 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/3 right-1/4 w-64 md:w-96 h-64 md:h-96 bg-[#2d1b69]/30 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute top-1/4 left-1/4 w-64 md:w-96 h-64 md:h-96 bg-[#1a0b2e]/30 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-64 md:w-96 h-64 md:h-96 bg-[#2d1b69]/30 rounded-full blur-3xl animate-pulse" />
       </div>
 
       {/* Main Content */}
@@ -198,7 +239,7 @@ export const SLHAIFPage = () => {
         </Button>
 
         {/* SLHAIF Title */}
-        <h1 className="text-3xl md:text-6xl font-bold text-center text-white mb-4 md:mb-8 mt-12 md:mt-8">
+        <h1 className="text-3xl md:text-6xl font-bold text-center text-white mb-8 md:mb-16 mt-12 md:mt-8">
           SLHAIF
           <span className="block text-base md:text-2xl text-white/80 mt-2 md:mt-4">
             Sri Lanka's First Herbal Artificial Intelligence Factory
@@ -206,19 +247,7 @@ export const SLHAIFPage = () => {
         </h1>
 
         {/* React Flow Container */}
-        <div className="h-[500px] md:h-[700px] w-full mb-16 md:mb-24"> {/* Added bottom margin for chat button */}
-          <style>
-            {`
-              @keyframes flowingLines {
-                from {
-                  stroke-dashoffset: 60;
-                }
-                to {
-                  stroke-dashoffset: 0;
-                }
-              }
-            `}
-          </style>
+        <div className="h-[600px] md:h-[900px] w-full">
           <ReactFlow
             nodes={nodes}
             edges={edges}
@@ -227,7 +256,7 @@ export const SLHAIFPage = () => {
             onConnect={onConnect}
             nodeTypes={nodeTypes}
             fitView
-            fitViewOptions={{ padding: 0.2 }}
+            fitViewOptions={{ padding: 0.3 }}
             attributionPosition="bottom-right"
             className="bg-transparent"
             minZoom={0.3}
@@ -239,20 +268,12 @@ export const SLHAIFPage = () => {
           </ReactFlow>
         </div>
 
-        {/* Enhanced Chat Button with Connection Line */}
+        {/* Enhanced Chat Button */}
         <div className="fixed bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 z-50">
           <div className="relative">
-            {/* Connection line to brain */}
-            <div className="absolute bottom-full left-1/2 w-0.5 h-16 md:h-24 bg-gradient-to-t from-[#1a0b2e] to-[#2d1b69] animate-pulse" />
-            
-            {/* Animated border effects */}
-            <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-[#1a0b2e] to-[#2d1b69] blur-sm animate-pulse" />
-            <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-[#2d1b69] to-[#1a0b2e] blur-sm animate-pulse" style={{ animationDelay: '1s' }} />
-            <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-[#1a0b2e] to-[#2d1b69] blur-sm animate-pulse" style={{ animationDelay: '2s' }} />
-            
-            {/* Subtle glow effect for button */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#1a0b2e] to-[#2d1b69] blur-lg rounded-full" />
-            
+            {/* Glowing effect for button */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#1a0b2e] to-[#2d1b69] blur-lg rounded-full animate-pulse" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#1a0b2e]/50 to-[#2d1b69]/50 blur-md rounded-full animate-pulse" />
             {/* Button */}
             <Button
               size="lg"
