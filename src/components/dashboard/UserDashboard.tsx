@@ -262,7 +262,7 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
                   SLBAIS
                 </CardTitle>
                 <CardDescription className="text-white/90 text-lg mt-2 font-medium">
-                  Sri Lanka's Botanical Artificial Intelligence Factory
+                  Sri Lanka's First Botanical Artificial Intelligence Factory
                 </CardDescription>
             </CardHeader>
             <CardContent>
