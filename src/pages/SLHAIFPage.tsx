@@ -127,9 +127,9 @@ export const SLHAIFPage = () => {
       type: 'smoothstep',
       animated: true,
       style: { 
-        stroke: 'rgba(255, 255, 255, 0.4)',
-        strokeWidth: isMobile ? 2 : 3,
-        strokeDasharray: '8,8',
+        stroke: 'rgba(255, 255, 255, 0.25)',
+        strokeWidth: isMobile ? 1.5 : 2,
+        strokeDasharray: '6,6',
       },
     }));
   };
