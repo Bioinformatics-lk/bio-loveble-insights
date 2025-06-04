@@ -109,9 +109,9 @@ export const SLHAIFPage = () => {
   const calculateNodePositions = () => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
-    const centerY = windowSize.height * (isMobile ? 0.6 : 0.55); // Move diagram higher
-    const verticalSpacing = isMobile ? 100 : 220; // Increased spacing
-    const horizontalSpacing = isMobile ? 100 : 240;
+    const centerY = windowSize.height * (isMobile ? 0.6 : 0.55);
+    const verticalSpacing = isMobile ? 100 : 200; // Slightly reduced spacing
+    const horizontalSpacing = isMobile ? 100 : 240; // Added back
 
     // Brain node at the center
     const nodes: Node[] = [
@@ -128,8 +128,8 @@ export const SLHAIFPage = () => {
         id: 'slbais',
         type: 'slbais',
         position: {
-          x: centerX - (isMobile ? 32 : 96), // Exact same x as brain for perfect alignment
-          y: centerY + verticalSpacing // Use verticalSpacing for consistent distance
+          x: centerX - (isMobile ? 75 : 150), // Centered with brain (accounting for SLBAIS width)
+          y: centerY + verticalSpacing + (isMobile ? 40 : 80) // Added offset for brain icon height
         },
         data: { label: 'SLBAIS' },
       }
@@ -213,9 +213,9 @@ export const SLHAIFPage = () => {
       type: 'straight',
       animated: true,
       style: { 
-        stroke: 'rgba(255, 255, 255, 0.6)', // Even brighter line
-        strokeWidth: isMobile ? 2.5 : 3.5, // Thicker line
-        strokeDasharray: '10,10', // Larger dashes
+        stroke: 'rgba(255, 255, 255, 0.6)',
+        strokeWidth: isMobile ? 2.5 : 3.5,
+        strokeDasharray: '10,10',
       },
     });
 
