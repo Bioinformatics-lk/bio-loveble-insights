@@ -95,23 +95,20 @@ const TopicNode = ({ data }: { data: any }) => {
 
       {/* Description Modal */}
       {showDescription && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-[100] flex items-center justify-center p-4">
-          <div className="bg-gradient-to-br from-[#1a0b2e] to-[#2d1b69] border border-white/20 rounded-2xl p-6 max-w-lg w-full relative shadow-2xl">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-[#1a0b2e] border border-[#2d1b69] rounded-2xl p-6 max-w-lg w-full relative">
             <button 
               onClick={() => setShowDescription(false)}
-              className="absolute top-4 right-4 text-white/60 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-full"
+              className="absolute top-4 right-4 text-white/60 hover:text-white transition-colors"
             >
               <X className="w-6 h-6" />
             </button>
-            <div className="space-y-4">
-              <h3 className="text-2xl md:text-3xl font-bold text-white pr-8">
-                {agentDescriptions[data.id as keyof typeof agentDescriptions].title}
-              </h3>
-              <div className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-              <p className="text-white/90 text-base md:text-lg leading-relaxed">
-                {agentDescriptions[data.id as keyof typeof agentDescriptions].description}
-              </p>
-            </div>
+            <h3 className="text-xl md:text-2xl font-bold text-white mb-4">
+              {agentDescriptions[data.id as keyof typeof agentDescriptions]?.title}
+            </h3>
+            <p className="text-white/80 text-base md:text-lg leading-relaxed">
+              {agentDescriptions[data.id as keyof typeof agentDescriptions]?.description}
+            </p>
           </div>
         </div>
       )}
