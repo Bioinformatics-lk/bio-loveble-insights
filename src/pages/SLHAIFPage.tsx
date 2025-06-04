@@ -29,11 +29,9 @@ const BrainNode = ({ data }: { data: any }) => (
     <div className="absolute -inset-2 md:-inset-4 rounded-full bg-gradient-to-r from-[#1a0b2e]/30 to-[#2d1b69]/30" />
     {/* Brain icon */}
     <div className="relative z-10 w-full h-full flex items-center justify-center">
-      <svg width="100%" height="100%" viewBox="0 0 24 24" className="w-20 h-20 md:w-32 md:h-32">
-        <g transform="rotate(180 12 12)">
-          <Brain className="text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.6)] filter brightness-125" />
-        </g>
-      </svg>
+      <div style={{ transform: 'rotate(180deg) translateY(-10px)' }}>
+        <Brain className="w-20 h-20 md:w-32 md:h-32 text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.6)] filter brightness-125" />
+      </div>
     </div>
     {/* Connection handles */}
     <Handle type="source" position={Position.Top} className="w-2 h-2 md:w-3 md:h-3 bg-white/50" />
@@ -86,27 +84,28 @@ export const SLHAIFPage = () => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
     const centerY = windowSize.height / 2;
-    const radius = isMobile ? 180 : 400; // Increased radius for better horizontal spread
+    const radius = isMobile ? 160 : 300;
+    const brainOffsetY = isMobile ? 180 : 250; // Distance of brain from bottom agents
 
+    // Position brain at the bottom
     const nodes: Node[] = [
       {
         id: 'brain',
         type: 'brain',
         position: { 
-          x: centerX - (isMobile ? 64 : 96), 
-          y: isMobile ? centerY - 120 : centerY - 200 // Moved brain higher up
+          x: centerX - (isMobile ? 64 : 96),
+          y: centerY + brainOffsetY // Position brain below
         },
         data: { label: 'Brain' },
       },
     ];
 
-    // Add topic nodes in a semi-circle
+    // Position topics in an arc above the brain
     topics.forEach((topic, index) => {
-      const angle = (Math.PI / (topics.length - 1)) * index;
-      const x = centerX + radius * Math.cos(angle) - (isMobile ? 70 : 100);
-      const y = isMobile 
-        ? centerY + radius * Math.sin(angle) - (isMobile ? 25 : 50)
-        : centerY + radius * 0.2 + radius * Math.sin(angle) * 0.3;
+      const totalWidth = isMobile ? windowSize.width - 40 : windowSize.width - 200;
+      const segment = totalWidth / (topics.length - 1);
+      const x = (isMobile ? 20 : 100) + segment * index - (isMobile ? 70 : 100);
+      const y = centerY - (isMobile ? 50 : 100); // Position topics above
 
       nodes.push({
         id: topic.id,
@@ -131,7 +130,8 @@ export const SLHAIFPage = () => {
       style: { 
         stroke: 'rgba(255, 255, 255, 0.25)',
         strokeWidth: isMobile ? 1.5 : 2,
-        strokeDasharray: '5,5',
+        strokeDasharray: '6,6',
+        animation: 'flowingLines 30s linear infinite',
       },
     }));
   };
@@ -166,8 +166,9 @@ export const SLHAIFPage = () => {
       {/* Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" />
-        <div className="absolute top-1/4 left-1/4 w-64 md:w-96 h-64 md:h-96 bg-[#1a0b2e]/30 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-64 md:w-96 h-64 md:h-96 bg-[#2d1b69]/30 rounded-full blur-3xl animate-pulse" />
+        {/* Adjusted glow positions to match new brain position */}
+        <div className="absolute bottom-1/4 left-1/4 w-64 md:w-96 h-64 md:h-96 bg-[#1a0b2e]/30 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/3 right-1/4 w-64 md:w-96 h-64 md:h-96 bg-[#2d1b69]/30 rounded-full blur-3xl animate-pulse" />
       </div>
 
       {/* Main Content */}
@@ -182,7 +183,7 @@ export const SLHAIFPage = () => {
         </Button>
 
         {/* SLHAIF Title */}
-        <h1 className="text-3xl md:text-6xl font-bold text-center text-white mb-8 md:mb-16 mt-12 md:mt-8">
+        <h1 className="text-3xl md:text-6xl font-bold text-center text-white mb-4 md:mb-8 mt-12 md:mt-8">
           SLHAIF
           <span className="block text-base md:text-2xl text-white/80 mt-2 md:mt-4">
             Sri Lanka's First Herbal Artificial Intelligence Factory
@@ -190,7 +191,19 @@ export const SLHAIFPage = () => {
         </h1>
 
         {/* React Flow Container */}
-        <div className="h-[600px] md:h-[900px] w-full">
+        <div className="h-[500px] md:h-[700px] w-full mb-16 md:mb-24"> {/* Added bottom margin for chat button */}
+          <style>
+            {`
+              @keyframes flowingLines {
+                from {
+                  stroke-dashoffset: 60;
+                }
+                to {
+                  stroke-dashoffset: 0;
+                }
+              }
+            `}
+          </style>
           <ReactFlow
             nodes={nodes}
             edges={edges}
@@ -199,7 +212,7 @@ export const SLHAIFPage = () => {
             onConnect={onConnect}
             nodeTypes={nodeTypes}
             fitView
-            fitViewOptions={{ padding: 0.3 }}
+            fitViewOptions={{ padding: 0.2 }}
             attributionPosition="bottom-right"
             className="bg-transparent"
             minZoom={0.3}
