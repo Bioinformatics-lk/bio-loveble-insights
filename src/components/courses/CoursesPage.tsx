@@ -337,12 +337,18 @@ export const CoursesPage = () => {
                   <Card 
                     className={`
                       transform transition-all duration-300 cursor-pointer
-                      border-2 ${hoveredStep === course.step ? 'border-white/40' : 'border-white/10'}
+                      border-2 ${selectedCourse === course.step ? 'border-white/40' : hoveredStep === course.step ? 'border-white/30' : 'border-white/10'}
                       ${course.isSpecial ? 'bg-gradient-to-br from-rose-500/20 to-orange-500/20' : 'bg-white/10'}
                       backdrop-blur-sm relative z-10
                       ${course.position === 'left' ? 'mr-auto' : 'ml-auto'}
+                      ${selectedCourse === course.step ? 'ring-2 ring-white/30' : ''}
                     `}
-                    onClick={() => setSelectedCourse(selectedCourse === course.step ? null : course.step)}
+                    onClick={() => {
+                      setSelectedCourse(selectedCourse === course.step ? null : course.step);
+                      if (window.innerWidth < 1024) { // lg breakpoint
+                        setShowMobileModal(true);
+                      }
+                    }}
                     onMouseEnter={() => setHoveredStep(course.step)}
                     onMouseLeave={() => setHoveredStep(null)}
                   >
@@ -373,8 +379,9 @@ export const CoursesPage = () => {
                         >
                           <h3 className={`
                             text-lg font-semibold
-                            ${selectedCourse === course.step ? 'text-white' : course.isSpecial ? 'text-black' : 'text-white/70'}
-                            transition-colors duration-300
+                            ${selectedCourse === course.step ? 'text-white !important' : course.isSpecial ? 'text-black' : 'text-white/70'}
+                            transition-all duration-300
+                            ${selectedCourse === course.step ? 'scale-110' : ''}
                           `}>
                             {course.title}
                           </h3>
@@ -395,15 +402,15 @@ export const CoursesPage = () => {
           </div>
         </div>
 
-        {/* Desktop Course Details Modal */}
+        {/* Desktop Course Details Modal - Only show on desktop */}
         <AnimatePresence>
-          {selectedCourse !== null && (
+          {selectedCourse !== null && !showMobileModal && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto"
+              className="hidden lg:flex fixed inset-0 bg-black/60 backdrop-blur-sm z-50 items-center justify-center p-4 overflow-y-auto"
               onClick={() => setSelectedCourse(null)}
             >
               <motion.div
