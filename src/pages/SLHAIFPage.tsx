@@ -35,10 +35,7 @@ const BrainNode = ({ data }: { data: any }) => (
     </div>
     
     {/* Enhanced connection handles */}
-    <Handle type="source" position={Position.Top} className="w-5 h-2 md:w-3 md:h-3 bg-white/50 shadow-glow" />
-    <Handle type="source" position={Position.Right} className="w-2 h-2 md:w-3 md:h-3 bg-white/50 shadow-glow" />
-    <Handle type="source" position={Position.Bottom} className="w-2 h-2 md:w-3 md:h-3 bg-white/50 shadow-glow" />
-    <Handle type="source" position={Position.Left} className="w-2 h-2 md:w-3 md:h-3 bg-white/50 shadow-glow" />
+    <Handle type="source" position={Position.Bottom} id="bottom" className="w-4 h-4 md:w-5 md:h-5 bg-white/50 shadow-glow" />
   </div>
 );
 
@@ -78,7 +75,7 @@ const SLBAISNode = () => (
         Sri Lanka's First Botanical Artificial Intelligence System
       </p>
     </div>
-    <Handle type="target" position={Position.Top} className="w-3 h-3 md:w-4 md:h-4 bg-white/50 shadow-glow" />
+    <Handle type="target" position={Position.Top} id="top" className="w-4 h-4 md:w-5 md:h-5 bg-white/50 shadow-glow" />
   </div>
 );
 
@@ -109,8 +106,8 @@ export const SLHAIFPage = () => {
   const calculateNodePositions = () => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
-    const centerY = windowSize.height * (isMobile ? 0.6 : 0.55); // Move diagram higher
-    const verticalSpacing = isMobile ? 100 : 220; // Increased spacing
+    const centerY = windowSize.height * (isMobile ? 0.6 : 0.55);
+    const verticalSpacing = isMobile ? 100 : 220;
     const horizontalSpacing = isMobile ? 100 : 240;
 
     // Brain node at the center
@@ -129,7 +126,7 @@ export const SLHAIFPage = () => {
         type: 'slbais',
         position: {
           x: centerX - (isMobile ? 32 : 96), // Exact same x as brain for perfect alignment
-          y: centerY + verticalSpacing // Use verticalSpacing for consistent distance
+          y: centerY + verticalSpacing // Fixed distance below brain
         },
         data: { label: 'SLBAIS' },
       }
@@ -210,12 +207,12 @@ export const SLHAIFPage = () => {
       id: 'brain-slbais',
       source: 'brain',
       target: 'slbais',
-      type: 'straight',
+      type: 'smoothstep',
       animated: true,
       style: { 
-        stroke: 'rgba(255, 255, 255, 0.6)', // Even brighter line
-        strokeWidth: isMobile ? 2.5 : 3.5, // Thicker line
-        strokeDasharray: '10,10', // Larger dashes
+        stroke: 'rgba(255, 255, 255, 0.7)', // Brighter line
+        strokeWidth: isMobile ? 3 : 4, // Thicker line
+        strokeDasharray: '12,12', // Larger dashes
       },
     });
 
@@ -299,10 +296,12 @@ export const SLHAIFPage = () => {
             nodeTypes={nodeTypes}
             fitView
             fitViewOptions={{ 
-              padding: 0.3
+              padding: 0.4,
+              maxZoom: 0.7
             }}
-            minZoom={1}
-            maxZoom={1}
+            minZoom={0.3}
+            maxZoom={0.7}
+            defaultViewport={{ x: 0, y: 0, zoom: 0.7 }}
             attributionPosition="bottom-right"
             className="bg-transparent"
           >
