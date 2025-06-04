@@ -29,7 +29,7 @@ const BrainNode = ({ data }: { data: any }) => (
     <div className="absolute -inset-2 md:-inset-4 rounded-full bg-gradient-to-r from-[#1a0b2e]/30 to-[#2d1b69]/30" />
     {/* Brain icon */}
     <div className="relative z-10 w-full h-full flex items-center justify-center">
-      <div style={{ transform: 'rotate(180deg) translateY(-10px)' }}>
+      <div style={{ transform: 'rotate(0deg) translateY(-10px)' }}>
         <Brain className="w-20 h-20 md:w-32 md:h-32 text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.6)] filter brightness-125" />
       </div>
     </div>
@@ -127,9 +127,9 @@ export const SLHAIFPage = () => {
       type: 'smoothstep',
       animated: true,
       style: { 
-        stroke: 'rgba(255, 255, 255, 0.4)',
-        strokeWidth: isMobile ? 2 : 3,
-        strokeDasharray: '8,8',
+        stroke: 'rgba(255, 255, 255, 0.25)',
+        strokeWidth: isMobile ? 1.5 : 2,
+        strokeDasharray: '5,5',
       },
     }));
   };
