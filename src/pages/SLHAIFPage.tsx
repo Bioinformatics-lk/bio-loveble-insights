@@ -109,9 +109,9 @@ export const SLHAIFPage = () => {
   const calculateNodePositions = () => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
-    const centerY = windowSize.height * (isMobile ? 0.9 : 0.85); // Adjusted for mobile
-    const verticalSpacing = isMobile ? 80 : 180; // Reduced for mobile
-    const horizontalSpacing = isMobile ? 100 : 240; // Reduced for mobile
+    const centerY = windowSize.height * (isMobile ? 0.9 : 0.85);
+    const verticalSpacing = isMobile ? 80 : 180;
+    const horizontalSpacing = isMobile ? 100 : 240;
 
     // Brain node at the bottom center
     const nodes: Node[] = [
@@ -119,7 +119,7 @@ export const SLHAIFPage = () => {
         id: 'brain',
         type: 'brain',
         position: { 
-          x: centerX - (isMobile ? 32 : 96), // Smaller offset for mobile
+          x: centerX - (isMobile ? 32 : 96),
           y: centerY
         },
         data: { label: 'Brain' },
@@ -128,8 +128,8 @@ export const SLHAIFPage = () => {
         id: 'slbais',
         type: 'slbais',
         position: {
-          x: centerX - (isMobile ? 75 : 150),
-          y: centerY - verticalSpacing * (isMobile ? 3.5 : 4.5) // Adjusted for mobile
+          x: centerX - (isMobile ? 150 : 300), // Moved to the left
+          y: centerY - verticalSpacing * (isMobile ? 3.5 : 4.5)
         },
         data: { label: 'SLBAIS' },
       }
@@ -143,7 +143,7 @@ export const SLHAIFPage = () => {
       
       // Level 1 - Top level (Molecular Docking and Molecular Dynamics)
       if (topic.id === 'docking') {
-        offset = -horizontalSpacing * (isMobile ? 1.5 : 3); // Reduced for mobile
+        offset = -horizontalSpacing * (isMobile ? 1.5 : 3);
         x = centerX + offset;
         y = centerY - verticalSpacing * (isMobile ? 2.8 : 3.2);
       }
@@ -179,7 +179,7 @@ export const SLHAIFPage = () => {
         id: topic.id,
         type: 'topic',
         position: { 
-          x: x - (isMobile ? 35 : 100), // Reduced offset for mobile
+          x: x - (isMobile ? 35 : 100),
           y 
         },
         data: { label: topic.title },
@@ -200,8 +200,8 @@ export const SLHAIFPage = () => {
       animated: true,
       style: { 
         stroke: 'rgba(255, 255, 255, 0.25)',
-        strokeWidth: isMobile ? 1 : 2, // Thinner lines for mobile
-        strokeDasharray: isMobile ? '4,4' : '6,6', // Smaller dashes for mobile
+        strokeWidth: isMobile ? 1 : 2,
+        strokeDasharray: isMobile ? '4,4' : '6,6',
       },
     }));
 
@@ -210,6 +210,20 @@ export const SLHAIFPage = () => {
       id: 'slbais-brain',
       source: 'slbais',
       target: 'brain',
+      type: 'smoothstep',
+      animated: true,
+      style: { 
+        stroke: 'rgba(255, 255, 255, 0.35)',
+        strokeWidth: isMobile ? 1.5 : 2.5,
+        strokeDasharray: isMobile ? '6,6' : '8,8',
+      },
+    });
+
+    // Add center line connection to SLBAIS
+    edges.push({
+      id: 'center-slbais',
+      source: 'center-top',
+      target: 'slbais',
       type: 'smoothstep',
       animated: true,
       style: { 
@@ -242,11 +256,25 @@ export const SLHAIFPage = () => {
     setEdges(calculateEdges());
   }, [windowSize]);
 
-  // Add chat button node and its connection
+  // Add center top node and chat button node
   useEffect(() => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
     const centerY = windowSize.height * (isMobile ? 0.9 : 0.85);
+
+    // Add center top node (invisible, just for connection)
+    setNodes(prev => [
+      ...prev,
+      {
+        id: 'center-top',
+        type: 'chat', // Using chat type as it's invisible
+        position: { 
+          x: centerX - (isMobile ? 35 : 100),
+          y: centerY - verticalSpacing * (isMobile ? 3.5 : 4.5)
+        },
+        data: { label: 'Center Top' },
+      }
+    ]);
 
     // Add chat button connection
     setEdges(prev => [
@@ -273,7 +301,7 @@ export const SLHAIFPage = () => {
         type: 'chat',
         position: { 
           x: centerX - (isMobile ? 35 : 100),
-          y: centerY + (isMobile ? 100 : 250) // Reduced spacing for mobile
+          y: centerY + (isMobile ? 100 : 250)
         },
         data: { label: 'Chat' },
       }
