@@ -389,7 +389,7 @@ export const CoursesPage = () => {
                       <motion.div
                         initial={{ 
                           opacity: 0, 
-                          x: course.position === 'left' ? -20 : 20,
+                          x: -20,
                           scale: 0.95 
                         }}
                         animate={{ 
@@ -399,7 +399,7 @@ export const CoursesPage = () => {
                         }}
                         exit={{ 
                           opacity: 0, 
-                          x: course.position === 'left' ? -20 : 20,
+                          x: -20,
                           scale: 0.95 
                         }}
                         transition={{ 
@@ -410,7 +410,7 @@ export const CoursesPage = () => {
                         }}
                         className={`
                           absolute top-1/2 -translate-y-1/2
-                          ${course.position === 'left' ? 'right-full mr-4' : 'left-full ml-4'}
+                          right-full mr-4
                           w-96 bg-white/10 backdrop-blur-md
                           border-2 border-white/20 rounded-lg shadow-xl
                           p-6 z-30
