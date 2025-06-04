@@ -84,10 +84,12 @@ export const SLHAIFPage = () => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
     const centerY = windowSize.height / 2;
+    
+    // Define offsets for different levels
+    const topLevelOffset = isMobile ? 120 : 200;
+    const middleLevelOffset = isMobile ? 60 : 100;
+    const bottomLevelOffset = isMobile ? 0 : 0;
     const brainOffsetY = isMobile ? 180 : 250;
-    const topOffset = isMobile ? 80 : 150;
-    const middleOffset = isMobile ? 40 : 80;
-    const bottomOffset = isMobile ? 20 : 40;
 
     // Position brain at the bottom
     const nodes: Node[] = [
@@ -102,14 +104,19 @@ export const SLHAIFPage = () => {
       },
     ];
 
-    // Define positions for each topic
+    // Define positions for each topic in a distributed tree pattern
     const topicPositions = {
-      literature: { x: centerX - (isMobile ? 200 : 400), y: centerY - topOffset },
-      network: { x: centerX - (isMobile ? 100 : 200), y: centerY + middleOffset },
-      docking: { x: centerX - (isMobile ? 50 : 100), y: centerY - topOffset },
-      dynamics: { x: centerX + (isMobile ? 50 : 100), y: centerY - topOffset },
-      manuscript: { x: centerX + (isMobile ? 100 : 200), y: centerY + middleOffset },
-      formulation: { x: centerX + (isMobile ? 200 : 400), y: centerY - topOffset },
+      // Top level - Molecular Docking and Dynamics
+      docking: { x: centerX - (isMobile ? 80 : 150), y: centerY - topLevelOffset },
+      dynamics: { x: centerX + (isMobile ? 80 : 150), y: centerY - topLevelOffset },
+      
+      // Middle level - Network Pharmacology and Manuscript Writing
+      network: { x: centerX - (isMobile ? 100 : 200), y: centerY - middleLevelOffset },
+      manuscript: { x: centerX + (isMobile ? 100 : 200), y: centerY - middleLevelOffset },
+      
+      // Bottom level - Literature and Formulation
+      literature: { x: centerX - (isMobile ? 120 : 250), y: centerY + bottomLevelOffset },
+      formulation: { x: centerX + (isMobile ? 120 : 250), y: centerY + bottomLevelOffset },
     };
 
     // Add topic nodes
@@ -232,14 +239,20 @@ export const SLHAIFPage = () => {
           </ReactFlow>
         </div>
 
-        {/* Enhanced Chat Button */}
+        {/* Enhanced Chat Button with Connection Line */}
         <div className="fixed bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 z-50">
           <div className="relative">
-            {/* Animated border effect */}
+            {/* Connection line to brain */}
+            <div className="absolute bottom-full left-1/2 w-0.5 h-16 md:h-24 bg-gradient-to-t from-[#1a0b2e] to-[#2d1b69] animate-pulse" />
+            
+            {/* Animated border effects */}
             <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-[#1a0b2e] to-[#2d1b69] blur-sm animate-pulse" />
             <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-[#2d1b69] to-[#1a0b2e] blur-sm animate-pulse" style={{ animationDelay: '1s' }} />
+            <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-[#1a0b2e] to-[#2d1b69] blur-sm animate-pulse" style={{ animationDelay: '2s' }} />
+            
             {/* Subtle glow effect for button */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#1a0b2e] to-[#2d1b69] blur-lg rounded-full" />
+            
             {/* Button */}
             <Button
               size="lg"
