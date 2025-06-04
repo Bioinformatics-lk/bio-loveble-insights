@@ -19,6 +19,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
 
 const courses = [
   {
@@ -389,95 +390,100 @@ export const CoursesPage = () => {
                       </div>
                     </div>
                   </Card>
-
-                  {/* Desktop Course Details Popup */}
-                  <AnimatePresence>
-                    {selectedCourse === course.step && (
-                      <motion.div
-                        initial={{ 
-                          opacity: 0, 
-                          x: course.popupPosition === 'left' ? -20 : 20,
-                          scale: 0.95 
-                        }}
-                        animate={{ 
-                          opacity: 1, 
-                          x: 0,
-                          scale: 1 
-                        }}
-                        exit={{ 
-                          opacity: 0, 
-                          x: course.popupPosition === 'left' ? -20 : 20,
-                          scale: 0.95 
-                        }}
-                        transition={{ 
-                          type: "spring",
-                          stiffness: 400,
-                          damping: 30,
-                          duration: 0.4
-                        }}
-                        className={`
-                          absolute top-0
-                          ${course.popupPosition === 'left' ? 'left-0 -translate-x-full' : 'right-0 translate-x-full'}
-                          w-96 bg-white/10 backdrop-blur-md
-                          border-2 border-white/20 rounded-lg shadow-xl
-                          p-6 z-30
-                          ${course.popupPosition === 'left' ? 'ml-4' : 'mr-4'}
-                          ${course.title === "Introduction to Bioinformatics" ? 'left-0 -translate-x-full' : ''}
-                        `}
-                      >
-                        <div className="flex flex-col space-y-4">
-                          <div className="flex justify-between items-center">
-                            <h3 className={`text-xl font-bold ${
-                              course.isSpecial ? 'text-black' : 'text-white'
-                            }`}>
-                              {course.title}
-                            </h3>
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setSelectedCourse(null);
-                              }}
-                              className="text-white/70 hover:text-white transition-colors duration-200"
-                              aria-label="Close dialog"
-                            >
-                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                              </svg>
-                            </button>
-                          </div>
-                          <p className={`text-sm leading-relaxed ${
-                            course.isSpecial ? 'text-black/90' : 'text-white/90'
-                          }`}>
-                            {course.detailedDescription}
-                          </p>
-                          <div className="flex items-center justify-between text-sm">
-                            <span className={course.isSpecial ? 'text-black/70' : 'text-white/70'}>Course Fee:</span>
-                            <span className={course.isSpecial ? 'text-black font-semibold' : 'text-white font-semibold'}>{course.price}</span>
-                          </div>
-                          <div className="flex items-center justify-between text-sm">
-                            <span className={course.isSpecial ? 'text-black/70' : 'text-white/70'}>Total Fee to Here:</span>
-                            <span className={course.isSpecial ? 'text-black font-semibold' : 'text-white font-semibold'}>{course.totalFee}</span>
-                          </div>
-                          <Button
-                            onClick={(e) => handleEnrollClick(course.enrollmentLink, e)}
-                            className={`w-full mt-2 ${
-                              course.isSpecial 
-                                ? 'bg-gradient-to-r from-rose-600 to-orange-600 hover:from-rose-700 hover:to-orange-700 text-white' 
-                                : 'bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white'
-                            }`}
-                          >
-                            Enroll Now
-                            <ExternalLink className="w-4 h-4 ml-2" />
-                          </Button>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
                 </motion.div>
               </motion.div>
             ))}
           </div>
         </div>
+
+        {/* Desktop Course Details Modal */}
+        <AnimatePresence>
+          {selectedCourse !== null && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto"
+              onClick={() => setSelectedCourse(null)}
+            >
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 50 }}
+                transition={{ 
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 30,
+                  duration: 0.4
+                }}
+                className="w-full max-w-2xl bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-lg shadow-xl p-8 relative"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {courses.find(c => c.step === selectedCourse) && (
+                  <div className="flex flex-col space-y-6">
+                    <div className="flex justify-between items-center mb-4">
+                      <div className="flex items-center space-x-4">
+                        <div className={`
+                          w-16 h-16 rounded-full bg-gradient-to-r ${courses.find(c => c.step === selectedCourse)?.color}
+                          flex items-center justify-center shadow-lg
+                          ${courses.find(c => c.step === selectedCourse)?.isSpecial ? 'animate-pulse' : ''}
+                        `}>
+                          {(() => {
+                            const Icon = courses.find(c => c.step === selectedCourse)?.icon;
+                            return Icon ? <Icon className="h-8 w-8 text-white" /> : null;
+                          })()}
+                        </div>
+                        <h3 className={`text-2xl font-bold ${
+                          courses.find(c => c.step === selectedCourse)?.isSpecial ? 'text-black' : 'text-white'
+                        }`}>
+                          {courses.find(c => c.step === selectedCourse)?.title}
+                        </h3>
+                      </div>
+                      <button
+                        onClick={() => setSelectedCourse(null)}
+                        className="text-white/70 hover:text-white transition-colors duration-200"
+                        aria-label="Close modal"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </div>
+                    <p className={`text-lg leading-relaxed ${
+                      courses.find(c => c.step === selectedCourse)?.isSpecial ? 'text-black/90' : 'text-white/90'
+                    }`}>
+                      {courses.find(c => c.step === selectedCourse)?.detailedDescription}
+                    </p>
+                    <div className="flex items-center justify-between text-lg">
+                      <span className={courses.find(c => c.step === selectedCourse)?.isSpecial ? 'text-black/70' : 'text-white/70'}>Course Fee:</span>
+                      <span className={courses.find(c => c.step === selectedCourse)?.isSpecial ? 'text-black font-semibold' : 'text-white font-semibold'}>
+                        {courses.find(c => c.step === selectedCourse)?.price}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between text-lg">
+                      <span className={courses.find(c => c.step === selectedCourse)?.isSpecial ? 'text-black/70' : 'text-white/70'}>Total Fee to Here:</span>
+                      <span className={courses.find(c => c.step === selectedCourse)?.isSpecial ? 'text-black font-semibold' : 'text-white font-semibold'}>
+                        {courses.find(c => c.step === selectedCourse)?.totalFee}
+                      </span>
+                    </div>
+                    <Button
+                      onClick={(e) => handleEnrollClick(courses.find(c => c.step === selectedCourse)?.enrollmentLink || '', e)}
+                      className={`w-full mt-4 py-6 text-lg ${
+                        courses.find(c => c.step === selectedCourse)?.isSpecial 
+                          ? 'bg-gradient-to-r from-rose-600 to-orange-600 hover:from-rose-700 hover:to-orange-700 text-white' 
+                          : 'bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white'
+                      }`}
+                    >
+                      Enroll Now
+                      <ExternalLink className="w-5 h-5 ml-2" />
+                    </Button>
+                  </div>
+                )}
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </main>
     </div>
   );
