@@ -19,20 +19,8 @@ import {
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 
-type AgentId = 'literature' | 'network' | 'docking' | 'dynamics' | 'manuscript' | 'formulation';
-
-interface AgentDescription {
-  title: string;
-  description: string;
-}
-
-interface TopicNodeData {
-  label: string;
-  id: AgentId;
-}
-
 // Agent descriptions
-const agentDescriptions: Record<AgentId, AgentDescription> = {
+const agentDescriptions = {
   literature: {
     title: "Literature Search Agent",
     description: "An AI tool that quickly scans and summarizes scientific literature, helping researchers stay updated and gather relevant references for their studies."
@@ -59,6 +47,29 @@ const agentDescriptions: Record<AgentId, AgentDescription> = {
   }
 };
 
+// Description Modal Component
+const DescriptionModal = ({ isOpen, onClose, title, description }: { isOpen: boolean; onClose: () => void; title: string; description: string }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
+      <div className="relative bg-gradient-to-br from-[#1a0b2e] to-[#2d1b69] rounded-xl p-6 max-w-md w-full shadow-xl border border-white/10">
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-white/60 hover:text-white transition-colors"
+        >
+          <X size={20} />
+        </button>
+        <h3 className="text-xl md:text-2xl font-bold text-white mb-4">{title}</h3>
+        <p className="text-white/80 text-sm md:text-base leading-relaxed">
+          {description}
+        </p>
+      </div>
+    </div>
+  );
+};
+
 // Custom Node Component for the Brain
 const BrainNode = ({ data }: { data: any }) => (
   <div className="relative w-32 h-32 md:w-48 md:h-48">
@@ -82,47 +93,34 @@ const BrainNode = ({ data }: { data: any }) => (
   </div>
 );
 
-// Custom Node Component for Topics
-const TopicNode = ({ data }: { data: TopicNodeData }) => {
-  const [showDescription, setShowDescription] = useState(false);
+// Custom Node Component for Topics with Click Handler
+const TopicNode = ({ data }: { data: any }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const description = agentDescriptions[data.id as keyof typeof agentDescriptions];
 
   return (
-    <div className="group">
-      <div 
-        className="relative bg-[#1a0b2e]/20 backdrop-blur-md px-4 md:px-6 py-3 md:py-4 rounded-2xl border border-[#2d1b69] hover:bg-[#2d1b69]/30 transition-all duration-300 text-center min-w-[140px] md:min-w-[180px] max-w-[160px] md:max-w-[220px] transform hover:scale-105 cursor-pointer"
-        onClick={() => setShowDescription(true)}
-      >
-        {/* Enhanced glow effect */}
-        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#1a0b2e]/20 via-[#2d1b69]/20 to-[#1a0b2e]/20 blur-sm animate-gradient-x" />
-        <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-blue-500/20 via-green-400/20 to-violet-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
-        
-        {/* Content */}
-        <div className="relative z-10">
-          <p className="text-white font-medium text-sm md:text-base whitespace-normal leading-tight group-hover:text-blue-100 transition-colors">
-            {data.label}
-          </p>
-        </div>
-      </div>
-      <Handle type="target" position={Position.Top} className="w-2 h-2 md:w-3 md:h-3 bg-white/50 shadow-glow" />
-
-      {/* Description Modal */}
-      {showDescription && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-[#1a0b2e] border border-[#2d1b69] rounded-2xl p-6 max-w-lg w-full relative">
-            <button 
-              onClick={() => setShowDescription(false)}
-              className="absolute top-4 right-4 text-white/60 hover:text-white transition-colors"
-            >
-              <X className="w-6 h-6" />
-            </button>
-            <h3 className="text-2xl font-bold text-white mb-4">{agentDescriptions[data.id].title}</h3>
-            <p className="text-white/80 text-lg leading-relaxed">
-              {agentDescriptions[data.id].description}
+    <>
+      <div className="group cursor-pointer" onClick={() => setIsModalOpen(true)}>
+        <div className="relative bg-[#1a0b2e]/20 backdrop-blur-md px-4 md:px-6 py-3 md:py-4 rounded-2xl border border-[#2d1b69] hover:bg-[#2d1b69]/30 transition-all duration-300 text-center min-w-[140px] md:min-w-[180px] max-w-[160px] md:max-w-[220px] transform hover:scale-105">
+          <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#1a0b2e]/20 via-[#2d1b69]/20 to-[#1a0b2e]/20 blur-sm animate-gradient-x" />
+          <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-blue-500/20 via-green-400/20 to-violet-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
+          
+          <div className="relative z-10">
+            <p className="text-white font-medium text-sm md:text-base whitespace-normal leading-tight group-hover:text-blue-100 transition-colors">
+              {data.label}
             </p>
           </div>
         </div>
-      )}
-    </div>
+        <Handle type="target" position={Position.Top} className="w-2 h-2 md:w-3 md:h-3 bg-white/50 shadow-glow" />
+      </div>
+      
+      <DescriptionModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title={description.title}
+        description={description.description}
+      />
+    </>
   );
 };
 
