@@ -304,7 +304,7 @@ export const CoursesPage = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className={`flex items-start mb-16 ${
-                  course.position === 'left' ? 'justify-end pr-8' : 'flex-row-reverse pl-8'
+                  course.position === 'left' ? 'justify-start pl-8' : 'flex-row-reverse pl-8'
                 } relative`}
               >
                 {/* Timeline Node */}
@@ -321,7 +321,7 @@ export const CoursesPage = () => {
                 {/* Course Card */}
                 <motion.div
                   className={`w-[calc(50%-2rem)] relative ${
-                    course.position === 'left' ? 'text-right' : 'text-left'
+                    course.position === 'left' ? 'text-left' : 'text-left'
                   }`}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -332,7 +332,7 @@ export const CoursesPage = () => {
                       border-2 ${hoveredStep === course.step ? 'border-white/40' : 'border-white/10'}
                       ${course.isSpecial ? 'bg-gradient-to-br from-rose-500/20 to-orange-500/20' : 'bg-white/10'}
                       backdrop-blur-sm relative z-10
-                      ${course.position === 'left' ? 'ml-auto' : 'mr-auto'}
+                      ${course.position === 'left' ? 'mr-auto' : 'ml-auto'}
                     `}
                     onClick={() => setSelectedCourse(selectedCourse === course.step ? null : course.step)}
                     onMouseEnter={() => setHoveredStep(course.step)}
@@ -340,7 +340,7 @@ export const CoursesPage = () => {
                   >
                     <div className="p-6">
                       <div className={`flex flex-col items-center text-center space-y-4 ${
-                        course.position === 'left' ? 'items-end' : 'items-start'
+                        course.position === 'left' ? 'items-start' : 'items-start'
                       }`}>
                         {/* Step Number */}
                         <div className={`
