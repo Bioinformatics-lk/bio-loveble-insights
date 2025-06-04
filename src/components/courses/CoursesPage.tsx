@@ -364,15 +364,17 @@ export const CoursesPage = () => {
                           className="cursor-pointer"
                         >
                           <h3 className={`
-                            text-lg font-semibold text-white
-                            ${course.isSpecial ? 'text-white' : ''}
-                            ${selectedCourse === course.step ? 'glow-highlight' : ''}
+                            text-lg font-semibold
+                            ${course.isSpecial ? 'text-black' : 'text-white'}
+                            ${selectedCourse === course.step ? 'text-white' : ''}
+                            transition-colors duration-300
                           `}>
                             {course.title}
                           </h3>
                           <p className={`
                             text-sm mt-2
-                            ${course.isSpecial ? 'text-white/90' : 'text-white/70'}
+                            ${course.isSpecial ? 'text-black/90' : 'text-white/70'}
+                            transition-colors duration-300
                           `}>
                             {course.description}
                           </p>
@@ -416,7 +418,9 @@ export const CoursesPage = () => {
                       >
                         <div className="flex flex-col space-y-4">
                           <div className="flex justify-between items-center">
-                            <h3 className="text-xl font-bold text-white">
+                            <h3 className={`text-xl font-bold ${
+                              course.isSpecial ? 'text-black' : 'text-white'
+                            }`}>
                               {course.title}
                             </h3>
                             <button
@@ -432,20 +436,26 @@ export const CoursesPage = () => {
                               </svg>
                             </button>
                           </div>
-                          <p className="text-white/90 text-sm leading-relaxed">
+                          <p className={`text-sm leading-relaxed ${
+                            course.isSpecial ? 'text-black/90' : 'text-white/90'
+                          }`}>
                             {course.detailedDescription}
                           </p>
                           <div className="flex items-center justify-between text-sm">
-                            <span className="text-white/70">Course Fee:</span>
-                            <span className="text-white font-semibold">{course.price}</span>
+                            <span className={course.isSpecial ? 'text-black/70' : 'text-white/70'}>Course Fee:</span>
+                            <span className={course.isSpecial ? 'text-black font-semibold' : 'text-white font-semibold'}>{course.price}</span>
                           </div>
                           <div className="flex items-center justify-between text-sm">
-                            <span className="text-white/70">Total Fee to Here:</span>
-                            <span className="text-white font-semibold">{course.totalFee}</span>
+                            <span className={course.isSpecial ? 'text-black/70' : 'text-white/70'}>Total Fee to Here:</span>
+                            <span className={course.isSpecial ? 'text-black font-semibold' : 'text-white font-semibold'}>{course.totalFee}</span>
                           </div>
                           <Button
                             onClick={(e) => handleEnrollClick(course.enrollmentLink, e)}
-                            className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white mt-2"
+                            className={`w-full mt-2 ${
+                              course.isSpecial 
+                                ? 'bg-gradient-to-r from-rose-600 to-orange-600 hover:from-rose-700 hover:to-orange-700 text-white' 
+                                : 'bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white'
+                            }`}
                           >
                             Enroll Now
                             <ExternalLink className="w-4 h-4 ml-2" />
