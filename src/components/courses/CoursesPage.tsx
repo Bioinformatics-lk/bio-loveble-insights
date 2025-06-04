@@ -320,7 +320,9 @@ export const CoursesPage = () => {
 
                 {/* Course Card */}
                 <motion.div
-                  className="w-[calc(50%-2rem)] relative"
+                  className={`w-[calc(50%-2rem)] relative ${
+                    course.position === 'left' ? 'text-right' : 'text-left'
+                  }`}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -330,13 +332,16 @@ export const CoursesPage = () => {
                       border-2 ${hoveredStep === course.step ? 'border-white/40' : 'border-white/10'}
                       ${course.isSpecial ? 'bg-gradient-to-br from-rose-500/20 to-orange-500/20' : 'bg-white/10'}
                       backdrop-blur-sm relative z-10
+                      ${course.position === 'left' ? 'ml-auto' : 'mr-auto'}
                     `}
                     onClick={() => setSelectedCourse(selectedCourse === course.step ? null : course.step)}
                     onMouseEnter={() => setHoveredStep(course.step)}
                     onMouseLeave={() => setHoveredStep(null)}
                   >
                     <div className="p-6">
-                      <div className="flex flex-col items-center text-center space-y-4">
+                      <div className={`flex flex-col items-center text-center space-y-4 ${
+                        course.position === 'left' ? 'items-end' : 'items-start'
+                      }`}>
                         {/* Step Number */}
                         <div className={`
                           w-12 h-12 rounded-full bg-gradient-to-r ${course.color}
