@@ -21,17 +21,14 @@ import '@xyflow/react/dist/style.css';
 
 // Custom Node Component for the Brain
 const BrainNode = ({ data }: { data: any }) => (
-  <div className="relative w-32 h-32 md:w-48 md:h-48">
-    {/* Glowing circle effect */}
-    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#1a0b2e] to-[#2d1b69] blur-lg transform-gpu" />
-    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#1a0b2e]/50 to-[#2d1b69]/50 transform-gpu" />
-    {/* Pulsing ring */}
-    <div className="absolute -inset-2 md:-inset-4 rounded-full bg-gradient-to-r from-[#1a0b2e]/30 to-[#2d1b69]/30" />
+  <div className="relative w-32 h-32 md:w-44 md:h-44 flex items-center justify-center">
+    {/* Soft static glow */}
+    <div className="absolute inset-0 rounded-full bg-white opacity-10 blur-2xl" />
+    {/* Bold white outline */}
+    <div className="absolute inset-0 rounded-full border-4 border-white" />
     {/* Brain icon */}
     <div className="relative z-10 w-full h-full flex items-center justify-center">
-      <div style={{ transform: 'rotate(180deg) translateY(-10px)' }}>
-        <Brain className="w-20 h-20 md:w-32 md:h-32 text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.6)] filter brightness-125" />
-      </div>
+      <Brain className="w-16 h-16 md:w-28 md:h-28 text-white" />
     </div>
     {/* Connection handles */}
     <Handle type="source" position={Position.Top} className="w-2 h-2 md:w-3 md:h-3 bg-white/50" />
@@ -44,9 +41,7 @@ const BrainNode = ({ data }: { data: any }) => (
 // Custom Node Component for Topics
 const TopicNode = ({ data }: { data: any }) => (
   <div className="group">
-    <div className="relative bg-[#1a0b2e]/20 backdrop-blur-md px-4 md:px-6 py-3 md:py-4 rounded-2xl border border-[#2d1b69] hover:bg-[#2d1b69]/30 transition-all duration-300 text-center min-w-[140px] md:min-w-[180px] max-w-[160px] md:max-w-[220px] transform hover:scale-105">
-      {/* Subtle glow effect */}
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#1a0b2e]/20 to-[#2d1b69]/20 blur-sm" />
+    <div className="relative bg-[#18132a] px-4 md:px-6 py-3 md:py-4 rounded-2xl border border-white/15 text-center min-w-[160px] md:min-w-[200px] max-w-[200px] md:max-w-[260px] shadow-sm">
       {/* Content */}
       <div className="relative z-10">
         <p className="text-white font-medium text-sm md:text-base whitespace-normal leading-tight">
@@ -170,9 +165,9 @@ export const SLHAIFPage = () => {
       type: 'smoothstep',
       animated: true,
       style: { 
-        stroke: 'rgba(255, 255, 255, 0.25)',
-        strokeWidth: isMobile ? 1.5 : 2,
-        strokeDasharray: '6,6',
+        stroke: 'rgba(255, 255, 255, 0.32)',
+        strokeWidth: isMobile ? 1.7 : 2.2,
+        strokeDasharray: '7,7',
       },
     }));
 
@@ -184,9 +179,9 @@ export const SLHAIFPage = () => {
       type: 'smoothstep',
       animated: true,
       style: { 
-        stroke: 'rgba(255, 255, 255, 0.25)',
-        strokeWidth: isMobile ? 1.5 : 2,
-        strokeDasharray: '6,6',
+        stroke: 'rgba(255, 255, 255, 0.32)',
+        strokeWidth: isMobile ? 1.7 : 2.2,
+        strokeDasharray: '7,7',
       },
     });
 
@@ -271,15 +266,14 @@ export const SLHAIFPage = () => {
         {/* Enhanced Chat Button */}
         <div className="fixed bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 z-50">
           <div className="relative">
-            {/* Glowing effect for button */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#1a0b2e] to-[#2d1b69] blur-lg rounded-full animate-pulse" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#1a0b2e]/50 to-[#2d1b69]/50 blur-md rounded-full animate-pulse" />
+            {/* Subtle pulse effect for button */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#1a0b2e] to-[#2d1b69] blur-lg rounded-full animate-pulse opacity-40" style={{ animationDuration: '2.5s' }} />
             {/* Button */}
             <Button
               size="lg"
-              className="relative bg-gradient-to-r from-[#1a0b2e] to-[#2d1b69] hover:from-[#2d1b69] hover:to-[#1a0b2e] text-white text-sm md:text-lg px-4 md:px-8 py-3 md:py-6 rounded-full shadow-lg hover:shadow-xl transition-all transform-gpu hover:scale-105 border border-white/20 backdrop-blur-sm"
+              className="relative bg-[#18132a] border border-white/15 text-white text-sm md:text-lg px-4 md:px-8 py-3 md:py-6 rounded-2xl shadow-md flex items-center gap-2"
             >
-              <MessageCircle className="w-4 h-4 md:w-6 md:h-6 mr-2" />
+              <MessageCircle className="w-4 h-4 md:w-6 md:h-6" />
               <span>Chat with our AI system</span>
             </Button>
           </div>
