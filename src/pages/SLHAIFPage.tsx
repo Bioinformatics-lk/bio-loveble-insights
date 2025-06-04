@@ -110,8 +110,12 @@ export const SLHAIFPage = () => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
     const centerY = windowSize.height * (isMobile ? 0.6 : 0.55);
-    const verticalSpacing = isMobile ? 100 : 200; // Slightly reduced spacing
-    const horizontalSpacing = isMobile ? 100 : 240; // Added back
+    const verticalSpacing = isMobile ? 100 : 200;
+    const horizontalSpacing = isMobile ? 100 : 240;
+
+    // Calculate brain dimensions
+    const brainWidth = isMobile ? 32 : 96;
+    const brainHeight = isMobile ? 32 : 96;
 
     // Brain node at the center
     const nodes: Node[] = [
@@ -119,7 +123,7 @@ export const SLHAIFPage = () => {
         id: 'brain',
         type: 'brain',
         position: { 
-          x: centerX - (isMobile ? 32 : 96),
+          x: centerX - brainWidth,
           y: centerY
         },
         data: { label: 'Brain' },
@@ -128,8 +132,8 @@ export const SLHAIFPage = () => {
         id: 'slbais',
         type: 'slbais',
         position: {
-          x: centerX - (isMobile ? 75 : 150), // Centered with brain (accounting for SLBAIS width)
-          y: centerY + verticalSpacing + (isMobile ? 40 : 80) // Added offset for brain icon height
+          x: centerX - (isMobile ? 100 : 200), // Center SLBAIS with brain
+          y: centerY + brainHeight + (isMobile ? 60 : 120) // Position below brain with proper spacing
         },
         data: { label: 'SLBAIS' },
       }
