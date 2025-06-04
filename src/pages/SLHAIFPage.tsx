@@ -34,7 +34,7 @@ const BrainNode = ({ data }: { data: any }) => (
       </div>
     </div>
     {/* Connection handles */}
-    <Handle type="source" position={Position.Top} className="w-5 h-2 md:w-3 md:h-3 bg-white/50" />
+    <Handle type="source" position={Position.Top} className="w-5 h-2 md:w-10 md:h-6 bg-white/50" />
     <Handle type="source" position={Position.Right} className="w-2 h-2 md:w-3 md:h-3 bg-white/50" />
     <Handle type="source" position={Position.Bottom} className="w-2 h-2 md:w-3 md:h-3 bg-white/50" />
     <Handle type="source" position={Position.Left} className="w-2 h-2 md:w-3 md:h-3 bg-white/50" />
