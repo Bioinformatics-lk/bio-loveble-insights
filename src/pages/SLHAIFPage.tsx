@@ -291,7 +291,7 @@ export const SLHAIFPage = () => {
         </Button>
 
         {/* React Flow Container */}
-        <div className="h-[calc(100vh-1rem)]"> {/* Reduced top spacing */}
+        <div className="h-[calc(100vh-1rem)]">
           <ReactFlow
             nodes={nodes}
             edges={edges}
@@ -300,7 +300,7 @@ export const SLHAIFPage = () => {
             onConnect={onConnect}
             nodeTypes={nodeTypes}
             fitView
-            fitViewOptions={{ padding: 0.2 }} {/* Reduced padding for better fit */}
+            fitViewOptions={{ padding: 0.2 }}
             attributionPosition="bottom-right"
             className="bg-transparent"
             minZoom={0.3}
