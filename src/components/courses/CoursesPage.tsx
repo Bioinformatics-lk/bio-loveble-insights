@@ -31,7 +31,7 @@ const courses = [
     price: "10,000 LKR",
     totalFee: "10,000 LKR",
     position: "right",
-    popupPosition: "right",
+    popupPosition: "left",
     enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
   },
   {
@@ -44,7 +44,7 @@ const courses = [
     price: "5,000 LKR",
     totalFee: "15,000 LKR",
     position: "left",
-    popupPosition: "left",
+    popupPosition: "right",
     enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
   },
   {
@@ -70,7 +70,7 @@ const courses = [
     price: "10,000 LKR",
     totalFee: "30,000 LKR",
     position: "left",
-    popupPosition: "left",
+    popupPosition: "right",
     enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
   },
   {
@@ -96,7 +96,7 @@ const courses = [
     price: "5,000 LKR",
     totalFee: "40,000 LKR",
     position: "left",
-    popupPosition: "left",
+    popupPosition: "right",
     enrollmentLink: "https://docs.google.com/forms/d/e/1FAIpQLSekt3YZxcZ-oFb0MNkIzAaAUYs1GC2RcVe72EQ4Jhe1MvM-Gw/viewform?usp=header"
   },
   {
