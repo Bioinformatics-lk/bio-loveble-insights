@@ -109,8 +109,8 @@ export const SLHAIFPage = () => {
   const calculateNodePositions = () => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
-    const centerY = windowSize.height * (isMobile ? 0.6 : 0.55);
-    const verticalSpacing = isMobile ? 100 : 200;
+    const centerY = windowSize.height * (isMobile ? 0.5 : 0.45);
+    const verticalSpacing = isMobile ? 80 : 160;
     const horizontalSpacing = isMobile ? 100 : 240;
 
     // Calculate brain dimensions
@@ -132,8 +132,8 @@ export const SLHAIFPage = () => {
         id: 'slbais',
         type: 'slbais',
         position: {
-          x: centerX - (isMobile ? 100 : 200), // Center SLBAIS with brain
-          y: centerY + brainHeight + (isMobile ? 60 : 120) // Position below brain with proper spacing
+          x: centerX - (isMobile ? 100 : 200),
+          y: centerY + brainHeight + (isMobile ? 40 : 80)
         },
         data: { label: 'SLBAIS' },
       }
@@ -303,12 +303,12 @@ export const SLHAIFPage = () => {
             nodeTypes={nodeTypes}
             fitView
             fitViewOptions={{ 
-              padding: 0.4,
-              maxZoom: 0.7
+              padding: 0.2,
+              maxZoom: 0.9
             }}
-            minZoom={0.3}
-            maxZoom={0.7}
-            defaultViewport={{ x: 0, y: 0, zoom: 0.7 }}
+            minZoom={0.5}
+            maxZoom={0.9}
+            defaultViewport={{ x: 0, y: 0, zoom: 0.9 }}
             attributionPosition="bottom-right"
             className="bg-transparent"
           >
