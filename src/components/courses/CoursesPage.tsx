@@ -285,10 +285,14 @@ export const CoursesPage = () => {
                   </div>
                   {/* Text Content */}
                   <div className="flex-1">
-                    <h3 className="text-base font-semibold text-white">
+                    <h3 className={`text-base font-semibold ${
+                      course.isSpecial ? 'text-black' : 'text-white'
+                    }`}>
                       {course.title}
                     </h3>
-                    <p className="text-xs text-white/70 mt-1">
+                    <p className={`text-xs mt-1 ${
+                      course.isSpecial ? 'text-black/90' : 'text-white/70'
+                    }`}>
                       {course.description}
                     </p>
                   </div>
@@ -402,7 +406,7 @@ export const CoursesPage = () => {
           </div>
         </div>
 
-        {/* Desktop Course Details Modal - Only show on desktop */}
+        {/* Desktop Course Details Modal */}
         <AnimatePresence>
           {selectedCourse !== null && !showMobileModal && (
             <motion.div
@@ -440,9 +444,7 @@ export const CoursesPage = () => {
                             return Icon ? <Icon className="h-8 w-8 text-white" /> : null;
                           })()}
                         </div>
-                        <h3 className={`text-2xl font-bold ${
-                          courses.find(c => c.step === selectedCourse)?.isSpecial ? 'text-black' : 'text-white'
-                        }`}>
+                        <h3 className="text-2xl font-bold text-white">
                           {courses.find(c => c.step === selectedCourse)?.title}
                         </h3>
                       </div>
@@ -456,20 +458,18 @@ export const CoursesPage = () => {
                         </svg>
                       </button>
                     </div>
-                    <p className={`text-lg leading-relaxed ${
-                      courses.find(c => c.step === selectedCourse)?.isSpecial ? 'text-black/90' : 'text-white/90'
-                    }`}>
+                    <p className="text-lg leading-relaxed text-white/90">
                       {courses.find(c => c.step === selectedCourse)?.detailedDescription}
                     </p>
                     <div className="flex items-center justify-between text-lg">
-                      <span className={courses.find(c => c.step === selectedCourse)?.isSpecial ? 'text-black/70' : 'text-white/70'}>Course Fee:</span>
-                      <span className={courses.find(c => c.step === selectedCourse)?.isSpecial ? 'text-black font-semibold' : 'text-white font-semibold'}>
+                      <span className="text-white/70">Course Fee:</span>
+                      <span className="text-white font-semibold">
                         {courses.find(c => c.step === selectedCourse)?.price}
                       </span>
                     </div>
                     <div className="flex items-center justify-between text-lg">
-                      <span className={courses.find(c => c.step === selectedCourse)?.isSpecial ? 'text-black/70' : 'text-white/70'}>Total Fee to Here:</span>
-                      <span className={courses.find(c => c.step === selectedCourse)?.isSpecial ? 'text-black font-semibold' : 'text-white font-semibold'}>
+                      <span className="text-white/70">Total Fee to Here:</span>
+                      <span className="text-white font-semibold">
                         {courses.find(c => c.step === selectedCourse)?.totalFee}
                       </span>
                     </div>
