@@ -90,7 +90,7 @@ export const SLHAIFPage = () => {
         type: 'brain',
         position: { 
           x: centerX - (isMobile ? 64 : 96), 
-          y: isMobile ? centerY - (isMobile ? 64 : 96) : centerY - radius * 0.4 // Moved brain higher
+          y: isMobile ? centerY - 120 : centerY - 200 // Moved brain higher up
         },
         data: { label: 'Brain' },
       },
@@ -102,7 +102,7 @@ export const SLHAIFPage = () => {
       const x = centerX + radius * Math.cos(angle) - (isMobile ? 70 : 100);
       const y = isMobile 
         ? centerY + radius * Math.sin(angle) - (isMobile ? 25 : 50)
-        : centerY + radius * 0.2 + radius * Math.sin(angle) * 0.3; // Adjusted vertical position
+        : centerY + radius * 0.2 + radius * Math.sin(angle) * 0.3;
 
       nodes.push({
         id: topic.id,
@@ -186,7 +186,7 @@ export const SLHAIFPage = () => {
         </h1>
 
         {/* React Flow Container */}
-        <div className="h-[500px] md:h-[800px] w-full">
+        <div className="h-[600px] md:h-[900px] w-full">
           <ReactFlow
             nodes={nodes}
             edges={edges}
@@ -195,7 +195,7 @@ export const SLHAIFPage = () => {
             onConnect={onConnect}
             nodeTypes={nodeTypes}
             fitView
-            fitViewOptions={{ padding: 0.2 }}
+            fitViewOptions={{ padding: 0.3 }}
             attributionPosition="bottom-right"
             className="bg-transparent"
             minZoom={0.3}
