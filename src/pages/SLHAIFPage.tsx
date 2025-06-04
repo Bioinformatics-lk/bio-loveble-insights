@@ -78,7 +78,7 @@ const SLBAISNode = () => (
         Sri Lanka's First Botanical Artificial Intelligence System
       </p>
     </div>
-    <Handle type="target" position={Position.Top} className="w-2 h-2 md:w-3 md:h-3 bg-white/50 shadow-glow" />
+    <Handle type="target" position={Position.Top} className="w-3 h-3 md:w-4 md:h-4 bg-white/50 shadow-glow" />
   </div>
 );
 
@@ -109,8 +109,8 @@ export const SLHAIFPage = () => {
   const calculateNodePositions = () => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
-    const centerY = windowSize.height * (isMobile ? 0.7 : 0.65); // Moved everything up
-    const verticalSpacing = isMobile ? 80 : 180;
+    const centerY = windowSize.height * (isMobile ? 0.6 : 0.55); // Move diagram higher
+    const verticalSpacing = isMobile ? 100 : 220; // Increased spacing
     const horizontalSpacing = isMobile ? 100 : 240;
 
     // Brain node at the center
@@ -128,8 +128,8 @@ export const SLHAIFPage = () => {
         id: 'slbais',
         type: 'slbais',
         position: {
-          x: centerX - (isMobile ? 32 : 96), // Aligned with brain
-          y: centerY + (isMobile ? 120 : 240) // Below brain
+          x: centerX - (isMobile ? 32 : 96), // Exact same x as brain for perfect alignment
+          y: centerY + verticalSpacing // Use verticalSpacing for consistent distance
         },
         data: { label: 'SLBAIS' },
       }
@@ -210,12 +210,12 @@ export const SLHAIFPage = () => {
       id: 'brain-slbais',
       source: 'brain',
       target: 'slbais',
-      type: 'default', // Simple straight line
+      type: 'straight',
       animated: true,
       style: { 
-        stroke: 'rgba(255, 255, 255, 0.5)', // Brighter line
-        strokeWidth: isMobile ? 2 : 3, // Thicker line
-        strokeDasharray: '8,8', // Consistent dashes
+        stroke: 'rgba(255, 255, 255, 0.6)', // Even brighter line
+        strokeWidth: isMobile ? 2.5 : 3.5, // Thicker line
+        strokeDasharray: '10,10', // Larger dashes
       },
     });
 
@@ -298,12 +298,13 @@ export const SLHAIFPage = () => {
             onConnect={onConnect}
             nodeTypes={nodeTypes}
             fitView
-            fitViewOptions={{ padding: 0.2 }}
+            fitViewOptions={{ 
+              padding: 0.3
+            }}
+            minZoom={1}
+            maxZoom={1}
             attributionPosition="bottom-right"
             className="bg-transparent"
-            minZoom={0.3}
-            maxZoom={1.2}
-            defaultViewport={{ x: 0, y: 0, zoom: 1 }}
           >
             <Background variant={BackgroundVariant.Dots} gap={12} size={1} color="rgba(255,255,255,0.05)" />
             <Controls className="bg-[#1a0b2e]/20 backdrop-blur-sm" />
