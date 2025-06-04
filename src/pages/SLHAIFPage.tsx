@@ -78,7 +78,7 @@ const SLBAISNode = () => (
         Sri Lanka's First Botanical Artificial Intelligence System
       </p>
     </div>
-    <Handle type="source" position={Position.Bottom} className="w-2 h-2 md:w-3 md:h-3 bg-white/50 shadow-glow" />
+    <Handle type="target" position={Position.Top} className="w-2 h-2 md:w-3 md:h-3 bg-white/50 shadow-glow" />
   </div>
 );
 
@@ -109,11 +109,11 @@ export const SLHAIFPage = () => {
   const calculateNodePositions = () => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
-    const centerY = windowSize.height * (isMobile ? 0.85 : 0.8);
+    const centerY = windowSize.height * (isMobile ? 0.7 : 0.65); // Moved everything up
     const verticalSpacing = isMobile ? 80 : 180;
     const horizontalSpacing = isMobile ? 100 : 240;
 
-    // Brain node at the bottom center
+    // Brain node at the center
     const nodes: Node[] = [
       {
         id: 'brain',
@@ -128,8 +128,8 @@ export const SLHAIFPage = () => {
         id: 'slbais',
         type: 'slbais',
         position: {
-          x: centerX - (isMobile ? 32 : 96), // Exactly aligned with brain
-          y: centerY - (isMobile ? 120 : 240) // Fixed distance above brain
+          x: centerX - (isMobile ? 32 : 96), // Aligned with brain
+          y: centerY + (isMobile ? 120 : 240) // Below brain
         },
         data: { label: 'SLBAIS' },
       }
@@ -205,11 +205,11 @@ export const SLHAIFPage = () => {
       },
     }));
 
-    // Vertical connection from SLBAIS to brain
+    // Vertical connection from Brain to SLBAIS
     edges.push({
-      id: 'slbais-brain',
-      source: 'slbais',
-      target: 'brain',
+      id: 'brain-slbais',
+      source: 'brain',
+      target: 'slbais',
       type: 'default', // Simple straight line
       animated: true,
       style: { 
