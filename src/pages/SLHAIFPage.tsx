@@ -68,10 +68,25 @@ const ChatNode = () => (
   </div>
 );
 
+// Custom Node Component for SLBAIS
+const SLBAISNode = () => (
+  <div className="relative bg-[#1a0b2e]/20 backdrop-blur-md px-6 py-4 rounded-2xl border border-[#2d1b69] text-center min-w-[200px] md:min-w-[300px] max-w-[300px] md:max-w-[400px]">
+    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#1a0b2e]/20 via-[#2d1b69]/20 to-[#1a0b2e]/20 blur-sm animate-gradient-x" />
+    <div className="relative z-10">
+      <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">SLBAIS</h2>
+      <p className="text-white/80 text-sm md:text-base">
+        Sri Lanka's First Botanical Artificial Intelligence System
+      </p>
+    </div>
+    <Handle type="source" position={Position.Bottom} className="w-2 h-2 md:w-3 md:h-3 bg-white/50 shadow-glow" />
+  </div>
+);
+
 const nodeTypes: NodeTypes = {
   brain: BrainNode,
   topic: TopicNode,
   chat: ChatNode,
+  slbais: SLBAISNode,
 };
 
 const topics = [
@@ -94,9 +109,9 @@ export const SLHAIFPage = () => {
   const calculateNodePositions = () => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
-    const centerY = windowSize.height * 0.75; // Move brain lower
-    const verticalSpacing = isMobile ? 100 : 160;
-    const horizontalSpacing = isMobile ? 140 : 220;
+    const centerY = windowSize.height * 0.85; // Move brain even lower
+    const verticalSpacing = isMobile ? 120 : 180; // Increased spacing
+    const horizontalSpacing = isMobile ? 160 : 240; // Increased spacing
 
     // Brain node at the bottom center
     const nodes: Node[] = [
@@ -109,6 +124,15 @@ export const SLHAIFPage = () => {
         },
         data: { label: 'Brain' },
       },
+      {
+        id: 'slbais',
+        type: 'slbais',
+        position: {
+          x: centerX - (isMobile ? 100 : 150),
+          y: centerY - verticalSpacing * 4.5 // Position higher above all other nodes
+        },
+        data: { label: 'SLBAIS' },
+      }
     ];
 
     // Calculate positions for different levels
@@ -121,19 +145,19 @@ export const SLHAIFPage = () => {
       if (topic.id === 'docking' || topic.id === 'dynamics') {
         offset = topic.id === 'docking' ? -horizontalSpacing : horizontalSpacing;
         x = centerX + offset;
-        y = centerY - verticalSpacing * 3; // Topmost level
+        y = centerY - verticalSpacing * 3.5; // Adjusted for better spacing
       }
       // Level 2 - Second level (Network Pharmacology and Manuscript Writing)
       else if (topic.id === 'network' || topic.id === 'manuscript') {
         offset = topic.id === 'network' ? -horizontalSpacing : horizontalSpacing;
-        x = centerX + offset * 0.8; // Slightly closer to center
-        y = centerY - verticalSpacing * 2; // Second level
+        x = centerX + offset * 0.85; // Slightly adjusted spacing
+        y = centerY - verticalSpacing * 2.5; // Adjusted for better spacing
       }
       // Middle Level - Fixed Position (Literature and Formulation)
       else if (topic.id === 'literature' || topic.id === 'formulation') {
         offset = topic.id === 'literature' ? -horizontalSpacing : horizontalSpacing;
-        x = centerX + offset * 0.6; // Even closer to center
-        y = centerY - verticalSpacing; // Bottom level
+        x = centerX + offset * 0.7; // Adjusted for better spacing
+        y = centerY - verticalSpacing * 1.5; // Adjusted for better spacing
       }
 
       nodes.push({
@@ -153,7 +177,7 @@ export const SLHAIFPage = () => {
   // Calculate edges (connections)
   const calculateEdges = () => {
     const isMobile = windowSize.width < 768;
-    return topics.map((topic) => ({
+    const edges = topics.map((topic) => ({
       id: `brain-${topic.id}`,
       source: 'brain',
       target: topic.id,
@@ -165,6 +189,22 @@ export const SLHAIFPage = () => {
         strokeDasharray: '6,6',
       },
     }));
+
+    // Add SLBAIS connection with enhanced styling
+    edges.push({
+      id: 'slbais-brain',
+      source: 'slbais',
+      target: 'brain',
+      type: 'smoothstep',
+      animated: true,
+      style: { 
+        stroke: 'rgba(255, 255, 255, 0.35)', // Slightly brighter
+        strokeWidth: isMobile ? 2 : 2.5, // Slightly thicker
+        strokeDasharray: '8,8', // Larger dashes
+      },
+    });
+
+    return edges;
   };
 
   const [nodes, setNodes, onNodesChange] = useNodesState(calculateNodePositions());
@@ -250,16 +290,8 @@ export const SLHAIFPage = () => {
           ← Back
         </Button>
 
-        {/* SLHAIF Title */}
-        <h1 className="text-3xl md:text-6xl font-bold text-center text-white mb-8 md:mb-16 mt-12 md:mt-8">
-          SLHAIF
-          <span className="block text-base md:text-2xl text-white/80 mt-2 md:mt-4">
-            Sri Lanka's First Herbal Artificial Intelligence Factory
-          </span>
-        </h1>
-
         {/* React Flow Container */}
-        <div className="h-[600px] md:h-[900px] w-full">
+        <div className="h-[calc(100vh-1rem)]"> {/* Reduced top spacing */}
           <ReactFlow
             nodes={nodes}
             edges={edges}
@@ -268,7 +300,7 @@ export const SLHAIFPage = () => {
             onConnect={onConnect}
             nodeTypes={nodeTypes}
             fitView
-            fitViewOptions={{ padding: 0.3 }}
+            fitViewOptions={{ padding: 0.2 }} {/* Reduced padding for better fit */}
             attributionPosition="bottom-right"
             className="bg-transparent"
             minZoom={0.3}
