@@ -109,9 +109,9 @@ export const SLHAIFPage = () => {
   const calculateNodePositions = () => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
-    const centerY = windowSize.height * 0.85; // Move brain even lower
-    const verticalSpacing = isMobile ? 120 : 180; // Increased spacing
-    const horizontalSpacing = isMobile ? 160 : 240; // Increased spacing
+    const centerY = windowSize.height * (isMobile ? 0.9 : 0.85); // Adjusted for mobile
+    const verticalSpacing = isMobile ? 80 : 180; // Reduced for mobile
+    const horizontalSpacing = isMobile ? 100 : 240; // Reduced for mobile
 
     // Brain node at the bottom center
     const nodes: Node[] = [
@@ -119,8 +119,8 @@ export const SLHAIFPage = () => {
         id: 'brain',
         type: 'brain',
         position: { 
-          x: centerX - (isMobile ? 64 : 96),
-          y: centerY // Brain at bottom
+          x: centerX - (isMobile ? 32 : 96), // Smaller offset for mobile
+          y: centerY
         },
         data: { label: 'Brain' },
       },
@@ -128,8 +128,8 @@ export const SLHAIFPage = () => {
         id: 'slbais',
         type: 'slbais',
         position: {
-          x: centerX - (isMobile ? 100 : 150),
-          y: centerY - verticalSpacing * 4.5 // Position higher above all other nodes
+          x: centerX - (isMobile ? 75 : 150),
+          y: centerY - verticalSpacing * (isMobile ? 3.5 : 4.5) // Adjusted for mobile
         },
         data: { label: 'SLBAIS' },
       }
@@ -142,29 +142,44 @@ export const SLHAIFPage = () => {
       let offset = 0;
       
       // Level 1 - Top level (Molecular Docking and Molecular Dynamics)
-      if (topic.id === 'docking' || topic.id === 'dynamics') {
-        offset = topic.id === 'docking' ? -horizontalSpacing : horizontalSpacing;
+      if (topic.id === 'docking') {
+        offset = -horizontalSpacing * (isMobile ? 1.5 : 3); // Reduced for mobile
         x = centerX + offset;
-        y = centerY - verticalSpacing * 3.5; // Adjusted for better spacing
+        y = centerY - verticalSpacing * (isMobile ? 2.8 : 3.2);
+      }
+      else if (topic.id === 'dynamics') {
+        offset = horizontalSpacing * (isMobile ? 1.5 : 3);
+        x = centerX + offset;
+        y = centerY - verticalSpacing * (isMobile ? 2.4 : 2.8);
       }
       // Level 2 - Second level (Network Pharmacology and Manuscript Writing)
-      else if (topic.id === 'network' || topic.id === 'manuscript') {
-        offset = topic.id === 'network' ? -horizontalSpacing : horizontalSpacing;
-        x = centerX + offset * 0.85; // Slightly adjusted spacing
-        y = centerY - verticalSpacing * 2.5; // Adjusted for better spacing
+      else if (topic.id === 'network') {
+        offset = -horizontalSpacing * (isMobile ? 2 : 4);
+        x = centerX + offset;
+        y = centerY - verticalSpacing * (isMobile ? 2 : 2.5);
+      }
+      else if (topic.id === 'manuscript') {
+        offset = horizontalSpacing * (isMobile ? 2 : 4);
+        x = centerX + offset;
+        y = centerY - verticalSpacing * (isMobile ? 1.8 : 2.2);
       }
       // Middle Level - Fixed Position (Literature and Formulation)
-      else if (topic.id === 'literature' || topic.id === 'formulation') {
-        offset = topic.id === 'literature' ? -horizontalSpacing : horizontalSpacing;
-        x = centerX + offset * 0.7; // Adjusted for better spacing
-        y = centerY - verticalSpacing * 1.5; // Adjusted for better spacing
+      else if (topic.id === 'literature') {
+        offset = -horizontalSpacing * (isMobile ? 1.5 : 3);
+        x = centerX + offset;
+        y = centerY - verticalSpacing * (isMobile ? 1.4 : 1.8);
+      }
+      else if (topic.id === 'formulation') {
+        offset = horizontalSpacing * (isMobile ? 1.5 : 3);
+        x = centerX + offset;
+        y = centerY - verticalSpacing * (isMobile ? 1.2 : 1.5);
       }
 
       nodes.push({
         id: topic.id,
         type: 'topic',
         position: { 
-          x: x - (isMobile ? 70 : 100),
+          x: x - (isMobile ? 35 : 100), // Reduced offset for mobile
           y 
         },
         data: { label: topic.title },
@@ -185,8 +200,8 @@ export const SLHAIFPage = () => {
       animated: true,
       style: { 
         stroke: 'rgba(255, 255, 255, 0.25)',
-        strokeWidth: isMobile ? 1.5 : 2,
-        strokeDasharray: '6,6',
+        strokeWidth: isMobile ? 1 : 2, // Thinner lines for mobile
+        strokeDasharray: isMobile ? '4,4' : '6,6', // Smaller dashes for mobile
       },
     }));
 
@@ -198,9 +213,9 @@ export const SLHAIFPage = () => {
       type: 'smoothstep',
       animated: true,
       style: { 
-        stroke: 'rgba(255, 255, 255, 0.35)', // Slightly brighter
-        strokeWidth: isMobile ? 2 : 2.5, // Slightly thicker
-        strokeDasharray: '8,8', // Larger dashes
+        stroke: 'rgba(255, 255, 255, 0.35)',
+        strokeWidth: isMobile ? 1.5 : 2.5,
+        strokeDasharray: isMobile ? '6,6' : '8,8',
       },
     });
 
@@ -231,7 +246,7 @@ export const SLHAIFPage = () => {
   useEffect(() => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
-    const centerY = windowSize.height * 0.75;
+    const centerY = windowSize.height * (isMobile ? 0.9 : 0.85);
 
     // Add chat button connection
     setEdges(prev => [
@@ -244,8 +259,8 @@ export const SLHAIFPage = () => {
         animated: true,
         style: { 
           stroke: 'rgba(255, 255, 255, 0.25)',
-          strokeWidth: isMobile ? 1.5 : 2,
-          strokeDasharray: '6,6',
+          strokeWidth: isMobile ? 1 : 2,
+          strokeDasharray: isMobile ? '4,4' : '6,6',
         },
       }
     ]);
@@ -257,8 +272,8 @@ export const SLHAIFPage = () => {
         id: 'chat-button',
         type: 'chat',
         position: { 
-          x: centerX - (isMobile ? 70 : 100),
-          y: centerY + (isMobile ? 150 : 250)
+          x: centerX - (isMobile ? 35 : 100),
+          y: centerY + (isMobile ? 100 : 250) // Reduced spacing for mobile
         },
         data: { label: 'Chat' },
       }
