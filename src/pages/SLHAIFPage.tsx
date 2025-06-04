@@ -84,8 +84,10 @@ export const SLHAIFPage = () => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
     const centerY = windowSize.height / 2;
-    const radius = isMobile ? 160 : 300;
-    const brainOffsetY = isMobile ? 180 : 250; // Distance of brain from bottom agents
+    const brainOffsetY = isMobile ? 180 : 250;
+    const topOffset = isMobile ? 80 : 150;
+    const middleOffset = isMobile ? 40 : 80;
+    const bottomOffset = isMobile ? 20 : 40;
 
     // Position brain at the bottom
     const nodes: Node[] = [
@@ -94,23 +96,29 @@ export const SLHAIFPage = () => {
         type: 'brain',
         position: { 
           x: centerX - (isMobile ? 64 : 96),
-          y: centerY + brainOffsetY // Position brain below
+          y: centerY + brainOffsetY
         },
         data: { label: 'Brain' },
       },
     ];
 
-    // Position topics in an arc above the brain
-    topics.forEach((topic, index) => {
-      const totalWidth = isMobile ? windowSize.width - 40 : windowSize.width - 200;
-      const segment = totalWidth / (topics.length - 1);
-      const x = (isMobile ? 20 : 100) + segment * index - (isMobile ? 70 : 100);
-      const y = centerY - (isMobile ? 50 : 100); // Position topics above
+    // Define positions for each topic
+    const topicPositions = {
+      literature: { x: centerX - (isMobile ? 200 : 400), y: centerY - topOffset },
+      network: { x: centerX - (isMobile ? 100 : 200), y: centerY + middleOffset },
+      docking: { x: centerX - (isMobile ? 50 : 100), y: centerY - topOffset },
+      dynamics: { x: centerX + (isMobile ? 50 : 100), y: centerY - topOffset },
+      manuscript: { x: centerX + (isMobile ? 100 : 200), y: centerY + middleOffset },
+      formulation: { x: centerX + (isMobile ? 200 : 400), y: centerY - topOffset },
+    };
 
+    // Add topic nodes
+    topics.forEach((topic) => {
+      const position = topicPositions[topic.id as keyof typeof topicPositions];
       nodes.push({
         id: topic.id,
         type: 'topic',
-        position: { x, y },
+        position,
         data: { label: topic.title },
       });
     });
@@ -227,6 +235,9 @@ export const SLHAIFPage = () => {
         {/* Enhanced Chat Button */}
         <div className="fixed bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 z-50">
           <div className="relative">
+            {/* Animated border effect */}
+            <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-[#1a0b2e] to-[#2d1b69] blur-sm animate-pulse" />
+            <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-[#2d1b69] to-[#1a0b2e] blur-sm animate-pulse" style={{ animationDelay: '1s' }} />
             {/* Subtle glow effect for button */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#1a0b2e] to-[#2d1b69] blur-lg rounded-full" />
             {/* Button */}
