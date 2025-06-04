@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { MessageCircle } from "lucide-react";
+import { Brain, MessageCircle } from "lucide-react";
 import {
   ReactFlow,
   Node,
@@ -19,27 +19,6 @@ import {
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 
-// Custom Brain SVG Component
-const BrainIcon = () => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="w-20 h-20 md:w-32 md:h-32"
-  >
-    <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z" />
-    <path d="M12 6a6 6 0 1 0 0 12 6 6 0 0 0 0-12z" />
-    <path d="M12 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" />
-    <path d="M8 12h8" />
-    <path d="M12 8v8" />
-    <path d="M7 7l10 10" />
-    <path d="M17 7l-10 10" />
-  </svg>
-);
-
 // Custom Node Component for the Brain
 const BrainNode = ({ data }: { data: any }) => (
   <div className="relative w-32 h-32 md:w-48 md:h-48">
@@ -50,7 +29,7 @@ const BrainNode = ({ data }: { data: any }) => (
     <div className="absolute -inset-2 md:-inset-4 rounded-full bg-gradient-to-r from-[#1a0b2e]/30 to-[#2d1b69]/30" />
     {/* Brain icon */}
     <div className="relative z-10 w-full h-full flex items-center justify-center">
-      <BrainIcon />
+      <Brain className="w-20 h-20 md:w-32 md:h-32 text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.6)] filter brightness-125" style={{ transform: 'rotate(0deg)' }} />
     </div>
     {/* Connection handles */}
     <Handle type="source" position={Position.Top} className="w-2 h-2 md:w-3 md:h-3 bg-white/50" />
