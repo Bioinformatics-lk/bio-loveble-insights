@@ -109,7 +109,7 @@ export const SLHAIFPage = () => {
   const calculateNodePositions = () => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
-    const centerY = windowSize.height * (isMobile ? 0.9 : 0.85);
+    const centerY = windowSize.height * (isMobile ? 0.85 : 0.8);
     const verticalSpacing = isMobile ? 80 : 180;
     const horizontalSpacing = isMobile ? 100 : 240;
 
@@ -128,7 +128,7 @@ export const SLHAIFPage = () => {
         id: 'slbais',
         type: 'slbais',
         position: {
-          x: centerX - (isMobile ? 150 : 300), // Moved to the left
+          x: centerX - (isMobile ? 150 : 300),
           y: centerY - verticalSpacing * (isMobile ? 3.5 : 4.5)
         },
         data: { label: 'SLBAIS' },
@@ -260,7 +260,7 @@ export const SLHAIFPage = () => {
   useEffect(() => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
-    const centerY = windowSize.height * (isMobile ? 0.9 : 0.85);
+    const topY = windowSize.height * (isMobile ? 0.85 : 0.8);
     const verticalSpacing = isMobile ? 80 : 180;
 
     // Add center top node (invisible, just for connection)
@@ -271,26 +271,9 @@ export const SLHAIFPage = () => {
         type: 'chat', // Using chat type as it's invisible
         position: { 
           x: centerX - (isMobile ? 35 : 100),
-          y: centerY - verticalSpacing * (isMobile ? 3.5 : 4.5)
+          y: topY - verticalSpacing * (isMobile ? 3.5 : 4.5)
         },
         data: { label: 'Center Top' },
-      }
-    ]);
-
-    // Add chat button connection
-    setEdges(prev => [
-      ...prev,
-      {
-        id: 'chat-brain',
-        source: 'brain',
-        target: 'chat-button',
-        type: 'smoothstep',
-        animated: true,
-        style: { 
-          stroke: 'rgba(255, 255, 255, 0.25)',
-          strokeWidth: isMobile ? 1 : 2,
-          strokeDasharray: isMobile ? '4,4' : '6,6',
-        },
       }
     ]);
 
@@ -302,7 +285,7 @@ export const SLHAIFPage = () => {
         type: 'chat',
         position: { 
           x: centerX - (isMobile ? 35 : 100),
-          y: centerY + (isMobile ? 100 : 250)
+          y: topY + (isMobile ? 100 : 250)
         },
         data: { label: 'Chat' },
       }
