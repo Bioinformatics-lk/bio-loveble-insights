@@ -28,8 +28,8 @@ const BrainNode = ({ data }: { data: any }) => (
     {/* Pulsing ring */}
     <div className="absolute -inset-2 md:-inset-4 rounded-full bg-gradient-to-r from-[#1a0b2e]/30 to-[#2d1b69]/30" />
     {/* Brain icon */}
-    <div className="relative z-10 w-full h-full flex items-center justify-center">
-      <Brain className="w-20 h-20 md:w-32 md:h-32 text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.6)] filter brightness-125" style={{ transform: 'rotate(0deg)' }} />
+    <div className="relative z-10 w-full h-full flex items-center justify-center" style={{ transform: 'rotate(180deg)' }}>
+      <Brain className="w-20 h-20 md:w-32 md:h-32 text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.6)] filter brightness-125" />
     </div>
     {/* Connection handles */}
     <Handle type="source" position={Position.Top} className="w-2 h-2 md:w-3 md:h-3 bg-white/50" />
