@@ -315,17 +315,6 @@ export const CoursesPage = () => {
                   course.position === 'left' ? 'justify-start pl-8' : 'flex-row-reverse pl-8'
                 } relative`}
               >
-                {/* Step Number - Moved outside the card */}
-                <div className={`
-                  absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2
-                  w-12 h-12 rounded-full bg-gradient-to-r ${course.color}
-                  flex items-center justify-center text-white font-bold text-xl
-                  shadow-lg z-20
-                  ${course.position === 'left' ? '-translate-x-[calc(100%+1rem)]' : 'translate-x-[calc(100%+1rem)]'}
-                `}>
-                  {course.step}
-                </div>
-
                 {/* Timeline Node */}
                 <div 
                   className={`
@@ -361,6 +350,14 @@ export const CoursesPage = () => {
                       <div className={`flex flex-col items-center text-center space-y-4 ${
                         course.position === 'left' ? 'items-start' : 'items-start'
                       }`}>
+                        {/* Step Number */}
+                        <div className={`
+                          w-12 h-12 rounded-full bg-gradient-to-r ${course.color}
+                          flex items-center justify-center text-white font-bold text-xl
+                          shadow-lg mb-2
+                        `}>
+                          {course.step}
+                        </div>
                         {/* Icon */}
                         <div className={`
                           w-16 h-16 rounded-full bg-gradient-to-r ${course.color}
@@ -376,8 +373,7 @@ export const CoursesPage = () => {
                         >
                           <h3 className={`
                             text-lg font-semibold
-                            ${course.isSpecial ? 'text-black' : 'text-white'}
-                            ${selectedCourse === course.step ? 'text-white' : ''}
+                            ${selectedCourse === course.step ? 'text-white' : course.isSpecial ? 'text-black' : 'text-white/70'}
                             transition-colors duration-300
                           `}>
                             {course.title}
