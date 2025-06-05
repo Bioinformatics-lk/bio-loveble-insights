@@ -16,7 +16,6 @@ const Index = () => {
   const [contactModalOpen, setContactModalOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
 
   // Counter animation states
@@ -139,7 +138,7 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#170056] via-[#410056] to-[#54366B] relative">
+    <div className="min-h-screen bg-gradient-to-br from-[#000A33] to-[#363B6B] relative">
       <style>{`
         .animate-on-scroll {
           opacity: 0;
