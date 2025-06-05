@@ -6,7 +6,7 @@ import { BookOpen, Briefcase, LogOut, User, Brain } from "lucide-react";
 import { User as SupabaseUser } from '@supabase/supabase-js';
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 interface UserDashboardProps {
   user: SupabaseUser;
@@ -17,6 +17,7 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
+    navigate('/');
   };
 
   const handleViewCourses = () => {
@@ -32,13 +33,7 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
   };
 
   return (
-    <motion.div 
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-      className="min-h-screen bg-gradient-to-br from-[#170056] via-[#410056] to-[#54366B] relative overflow-hidden"
-    >
+    <div className="min-h-screen bg-gradient-to-br from-[#170056] via-[#410056] to-[#54366B] relative overflow-hidden">
       {/* Background Images */}
       <div className="absolute inset-0 z-0">
         {/* Geometric Shapes for Visual Interest */}
@@ -50,21 +45,11 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
       </div>
 
       {/* Top Bar */}
-      <motion.header
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="sticky top-0 z-50 w-full bg-white/10 backdrop-blur-md border-b border-white/20 shadow-lg"
-      >
+      <header className="sticky top-0 z-50 w-full bg-white/10 backdrop-blur-md border-b border-white/20 shadow-lg">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Left Side - Logo and User Info */}
-            <motion.div 
-              initial={{ x: -20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex items-center space-x-4 md:space-x-6"
-            >
+            <div className="flex items-center space-x-4 md:space-x-6">
               {/* Site Name */}
               <h1 className="text-xl md:text-2xl font-bold text-white">
                 Bioinformatics.lk
@@ -87,14 +72,10 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </div>
 
             {/* Right Side - Logout Button */}
-            <motion.div
-              initial={{ x: 20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
+            <div>
               <Button
                 onClick={handleLogout}
                 className="bg-white/10 hover:bg-white/20 text-white border border-white/20 shadow-sm hover:shadow flex items-center space-x-2 transition-all duration-300"
@@ -103,25 +84,16 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
                 <LogOut className="h-4 w-4" />
                 <span className="hidden sm:inline">Logout</span>
               </Button>
-            </motion.div>
+            </div>
           </div>
         </div>
-      </motion.header>
+      </header>
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-16 relative z-10">
-        <motion.div 
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
           {/* First Row - Services and Courses */}
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
+          <div>
             <Card className="border-2 border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300 h-full flex flex-col">
               <CardHeader className="text-center flex-1">
                 <div className="w-24 h-24 mx-auto mb-6 bg-[#363B6B] rounded-full flex items-center justify-center shadow-lg">
@@ -144,14 +116,10 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
                 </Button>
               </CardContent>
             </Card>
-          </motion.div>
+          </div>
 
           {/* Courses Card */}
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
+          <div>
             <Card className="border-2 border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300 h-full flex flex-col">
               <CardHeader className="text-center flex-1">
                 <div className="w-24 h-24 mx-auto mb-6 bg-[#363B6B] rounded-full flex items-center justify-center shadow-lg">
@@ -174,94 +142,17 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
                 </Button>
               </CardContent>
             </Card>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
         {/* SLBAIS Card - Centered Below */}
-        <motion.div
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          transition={{ type: "spring", stiffness: 300 }}
-          className="md:w-2/3 mx-auto mt-10"
-        >
-          <Card className="border-2 border-white/20 bg-transparent backdrop-blur-sm hover:bg-white/5 transition-all duration-300 relative overflow-hidden will-change-transform">
-            {/* Optimized Glowing Effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#54366B]/20 to-[#363B6B]/20">
-              <motion.div
-                initial={{ opacity: 0.2 }}
-                animate={{
-                  opacity: [0.2, 0.4, 0.2],
-                }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  times: [0, 0.5, 1],
-                }}
-                className="w-full h-full bg-gradient-to-r from-[#54366B] to-[#363B6B] blur-2xl transform-gpu"
-              />
-            </div>
-            
+        <div className="md:w-2/3 mx-auto mt-10">
+          <Card className="border-2 border-white/20 bg-transparent backdrop-blur-sm hover:bg-white/5 transition-all duration-300 relative overflow-hidden">
             <CardHeader className="text-center relative z-10">
-              <div className="w-28 h-28 mx-auto mb-6 bg-transparent rounded-full flex items-center justify-center relative group">
-                {/* Optimized Glowing background effect */}
-                <motion.div
-                  initial={{ scale: 1, opacity: 0.3 }}
-                  animate={{
-                    scale: [1, 1.1, 1],
-                    opacity: [0.3, 0.5, 0.3],
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    times: [0, 0.5, 1],
-                  }}
-                  className="absolute inset-0 rounded-full bg-gradient-to-r from-[#54366B] to-[#363B6B] blur-xl transform-gpu"
-                />
-                
-                {/* Optimized Pulsing ring effect */}
-                <motion.div
-                  initial={{ scale: 1, opacity: 0.2 }}
-                  animate={{
-                    scale: [1, 1.2, 1],
-                    opacity: [0.2, 0.3, 0.2],
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    times: [0, 0.5, 1],
-                  }}
-                  className="absolute -inset-3 rounded-full bg-gradient-to-r from-[#54366B] to-[#363B6B] blur-lg transform-gpu"
-                />
-                
-                {/* Optimized Brain icon animation */}
-                <motion.div
-                  initial={{ scale: 1 }}
-                  animate={{
-                    scale: [1, 1.08, 1],
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    times: [0, 0.5, 1],
-                  }}
-                  className="relative z-10 transform-gpu"
-                >
-                  <div className="relative transform-gpu">
-                    {/* Optimized layered glows */}
-                    <div className="absolute inset-0 blur-md bg-white/20 rounded-full transform-gpu"></div>
-                    <div className="absolute inset-0 blur-lg bg-white/15 rounded-full scale-110 transform-gpu"></div>
-                    <div className="absolute inset-0 blur-xl bg-white/10 rounded-full scale-125 transform-gpu"></div>
-                    <Brain 
-                      className="h-14 w-14 text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.8)] filter brightness-150 transform-gpu" 
-                    />
-                  </div>
-                </motion.div>
+              <div className="w-28 h-28 mx-auto mb-6 bg-transparent rounded-full flex items-center justify-center relative">
+                <Brain className="h-14 w-14 text-white" />
               </div>
-              <CardTitle className="text-3xl text-white font-bold drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">
+              <CardTitle className="text-3xl text-white font-bold">
                 SLBAIS
               </CardTitle>
               <CardDescription className="text-white/90 text-lg mt-2 font-medium">
@@ -278,8 +169,8 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
               </Button>
             </CardContent>
           </Card>
-        </motion.div>
+        </div>
       </main>
-    </motion.div>
+    </div>
   );
 };
