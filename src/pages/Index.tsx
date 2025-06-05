@@ -9,7 +9,7 @@ import { UserDashboard } from "@/components/dashboard/UserDashboard";
 import { supabase } from "@/integrations/supabase/client";
 import { User } from '@supabase/supabase-js';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Index = () => {
   const [authModalOpen, setAuthModalOpen] = useState(false);
@@ -18,6 +18,7 @@ const Index = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const navigate = useNavigate();
 
   // Counter animation states
   const [counters, setCounters] = useState({
@@ -55,17 +56,23 @@ const Index = () => {
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
+      if (session?.user) {
+        navigate('/dashboard');
+      }
     });
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
         setUser(session?.user ?? null);
+        if (session?.user) {
+          navigate('/dashboard');
+        }
       }
     );
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [navigate]);
 
   // Handle scroll for header color change
   useEffect(() => {
