@@ -552,7 +552,27 @@ const Index = () => {
             <AnimatePresence mode="wait">
               {(() => {
                 const [currentSlide, setCurrentSlide] = useState(0);
-                const photos = [
+                const [isMobile, setIsMobile] = useState(false);
+
+                // Check if mobile on mount and window resize
+                useEffect(() => {
+                  const checkMobile = () => {
+                    setIsMobile(window.innerWidth < 768);
+                  };
+                  checkMobile();
+                  window.addEventListener('resize', checkMobile);
+                  return () => window.removeEventListener('resize', checkMobile);
+                }, []);
+
+                const webPhotos = [
+                  '/lovable-uploads/Photo 01.jpg',
+                  '/lovable-uploads/Photo 03.jpg',
+                  '/lovable-uploads/Photo 04.jpg',
+                  '/lovable-uploads/Photo 06.jpg',
+                  '/lovable-uploads/Photo 09.jpg',
+                ];
+
+                const mobilePhotos = [
                   '/lovable-uploads/Photo 01.jpg',
                   '/lovable-uploads/Photo 02.jpg',
                   '/lovable-uploads/Photo 03.jpg',
@@ -560,14 +580,18 @@ const Index = () => {
                   '/lovable-uploads/Photo 05.jpg',
                   '/lovable-uploads/Photo 06.jpg',
                   '/lovable-uploads/Photo 07.jpg',
+                  '/lovable-uploads/Photo 08.jpg',
+                  '/lovable-uploads/Photo 09.jpg',
                 ];
+
+                const photos = isMobile ? mobilePhotos : webPhotos;
 
                 useEffect(() => {
                   const timer = setInterval(() => {
                     setCurrentSlide((prev) => (prev + 1) % photos.length);
                   }, 5000);
                   return () => clearInterval(timer);
-                }, []);
+                }, [photos.length]);
 
                 return (
                   <>
@@ -585,7 +609,7 @@ const Index = () => {
                           alt={`Slide ${currentSlide + 1}`}
                           className="absolute inset-0 w-full h-full object-contain md:object-cover md:object-center"
                           style={{
-                            objectPosition: 'center 20%'
+                            objectPosition: isMobile ? 'center' : 'center 10%'
                           }}
                         />
                       </div>
