@@ -511,11 +511,11 @@ const Index = () => {
               <h3 className="text-xl font-semibold text-[#170056] mb-4">
                 Powered by Researchers, Alumni & Ecosystem
               </h3>
-              <div className="w-full h-48 bg-[#170056]/5 rounded-lg overflow-hidden">
+              <div className="w-full h-[300px] md:h-[400px] bg-[#170056]/5 rounded-lg overflow-hidden">
                 <img 
-                  src="/lovable-uploads/ecosystem.jpg" 
-                  alt="Bioinformatics Ecosystem" 
-                  className="w-full h-full object-cover"
+                  src="/lovable-uploads/Partners.jpg" 
+                  alt="Bioinformatics Partners" 
+                  className="w-full h-full object-cover object-center"
                 />
               </div>
             </div>
