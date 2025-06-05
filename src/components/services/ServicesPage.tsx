@@ -87,7 +87,8 @@ export const ServicesPage = () => {
     setSelectedService(null);
   };
 
-  const handleRequestService = () => {
+  const handleRequestService = (e: React.MouseEvent) => {
+    e.stopPropagation();
     window.open('https://docs.google.com/forms/d/e/1FAIpQLSejWIeW3ETbj5Ogf1lxElT1_4JhQm_JNRVCV2W8-S2Svl5Cmw/viewform?usp=header', '_blank');
   };
 
@@ -176,7 +177,8 @@ export const ServicesPage = () => {
                     <p className="text-white/90 text-base leading-relaxed">
                       {services.find(s => s.step === selectedService)?.description}
                     </p>
-                    <Button
+                    <Button 
+                      onClick={handleRequestService}
                       className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white mt-6 py-3"
                     >
                       Request Service
@@ -394,7 +396,8 @@ export const ServicesPage = () => {
                     <p className="text-lg leading-relaxed text-white/90">
                       {services.find(s => s.step === selectedService)?.description}
                     </p>
-                    <Button
+                    <Button 
+                      onClick={handleRequestService}
                       className="w-full mt-4 py-6 text-lg bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white"
                     >
                       Request Service
@@ -411,7 +414,7 @@ export const ServicesPage = () => {
         <div className="mt-16 text-center">
           <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md rounded-full px-6 py-3 border border-white/20">
             <img 
-              src="/images/fiverr-logo.png" 
+              src="/pngwing.com.png" 
               alt="Fiverr" 
               className="w-6 h-6"
             />
