@@ -573,17 +573,22 @@ const Index = () => {
                   <>
                     <motion.div
                       key={currentSlide}
-                      className="absolute inset-0"
+                      className="absolute inset-0 flex items-center justify-center"
                       initial={{ opacity: 0, scale: 1.1 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.9 }}
                       transition={{ duration: 0.7, ease: "easeInOut" }}
                     >
-                      <img
-                        src={photos[currentSlide]}
-                        alt={`Slide ${currentSlide + 1}`}
-                        className="w-full h-full object-cover object-center"
-                      />
+                      <div className="relative w-full h-full">
+                        <img
+                          src={photos[currentSlide]}
+                          alt={`Slide ${currentSlide + 1}`}
+                          className="absolute inset-0 w-full h-full object-contain md:object-cover md:object-center"
+                          style={{
+                            objectPosition: 'center 30%'
+                          }}
+                        />
+                      </div>
                     </motion.div>
 
                     {/* Slide Navigation */}
