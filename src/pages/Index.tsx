@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChevronDown, BookOpen, Search, FileText, Youtube, Linkedin, Twitter, Users, FlaskConical, GraduationCap, Newspaper, Briefcase, MessageCircle, Handshake, Trophy, ExternalLink, Dna, Atom, Brain, Network, Computer, Menu, X } from "lucide-react";
 import { AuthModal } from "@/components/auth/AuthModal";
 import { ContactModal } from "@/components/contact/ContactModal";
 import { SearchBar } from "@/components/search/SearchBar";
-import { motion } from 'framer-motion';
 
 const Index = () => {
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [contactModalOpen, setContactModalOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Counter animation states
   const [counters, setCounters] = useState({
@@ -21,8 +23,18 @@ const Index = () => {
     partnerships: 0
   });
 
+  // Check if mobile on mount and window resize
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   // Animate counters with 3x slower speed
-  React.useEffect(() => {
+  useEffect(() => {
     const targets = { courses: 6, students: 10, projects: 5, partnerships: 5 };
     const duration = 9000;
     const increment = 225;
@@ -71,6 +83,35 @@ const Index = () => {
   const handlePartnershipClick = (url: string) => {
     window.open(url, '_blank', 'noopener,noreferrer');
   };
+
+  const webPhotos = [
+    '/lovable-uploads/Photo 01.jpg',
+    '/lovable-uploads/Photo 03.jpg',
+    '/lovable-uploads/Photo 04.jpg',
+    '/lovable-uploads/Photo 06.jpg',
+    '/lovable-uploads/Photo 09.jpg',
+  ];
+
+  const mobilePhotos = [
+    '/lovable-uploads/Photo 01.jpg',
+    '/lovable-uploads/Photo 02.jpg',
+    '/lovable-uploads/Photo 03.jpg',
+    '/lovable-uploads/Photo 04.jpg',
+    '/lovable-uploads/Photo 05.jpg',
+    '/lovable-uploads/Photo 06.jpg',
+    '/lovable-uploads/Photo 07.jpg',
+    '/lovable-uploads/Photo 08.jpg',
+    '/lovable-uploads/Photo 09.jpg',
+  ];
+
+  const photos = isMobile ? mobilePhotos : webPhotos;
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % photos.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [photos.length]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#170056] via-[#410056] to-[#54366B] relative">
@@ -150,7 +191,7 @@ const Index = () => {
                   />
                 </div>
                 <span className="text-xl font-bold transition-colors duration-300 ml-0.5">
-                  ioinformatics.lk
+                  Bioinformatics.lk
                 </span>
               </div>
 
@@ -343,21 +384,133 @@ const Index = () => {
         )}
 
         {/* Team Section */}
-        <section id="team" className="py-20">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">Our Team</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* Team Member Cards */}
-              <Card className="bg-[#1a0b2e]/20 backdrop-blur-md border-[#2d1b69] hover:bg-[#2d1b69]/30 transition-all duration-300">
-                <CardHeader>
-                  <CardTitle className="text-white">Dr. John Doe</CardTitle>
-                  <CardDescription className="text-purple-200">Lead Scientist</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-purple-100">Expert in bioinformatics and computational biology.</p>
-                </CardContent>
-              </Card>
-              {/* Add more team member cards */}
+        <section id="team" className="relative py-20 bg-gradient-to-br from-[#000A33] to-[#363B6B] overflow-hidden">
+          {/* Background Shapes */}
+          <div className="absolute inset-0">
+            <div className="absolute top-20 left-10 w-64 h-64 rounded-full bg-[#54366B]/20 blur-3xl"></div>
+            <div className="absolute bottom-20 right-10 w-96 h-96 rounded-full bg-[#000A33]/40 blur-3xl"></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[#363B6B]/20 blur-3xl"></div>
+          </div>
+
+          <div className="container mx-auto px-4 relative z-10">
+            {/* Topic Section */}
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+                Be a Part of the Future
+              </h2>
+              <p className="text-xl text-purple-100 mb-8">
+                Are you interested in joining a team where innovation happens?
+              </p>
+            </div>
+
+            {/* Photo Slideshow */}
+            <div className="relative h-[500px] md:h-[600px] mb-16 overflow-hidden rounded-3xl shadow-2xl">
+              <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-transparent z-10"></div>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentSlide}
+                  className="absolute inset-0 flex items-center justify-center"
+                  initial={{ opacity: 0, scale: 1.1 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.7, ease: "easeInOut" }}
+                >
+                  <div className="relative w-full h-full">
+                    <img
+                      src={photos[currentSlide]}
+                      alt={`Slide ${currentSlide + 1}`}
+                      className="absolute inset-0 w-full h-full object-contain md:object-cover md:object-center"
+                      style={{
+                        objectPosition: isMobile ? 'center' : 'center 10%'
+                      }}
+                    />
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Slide Navigation */}
+              <div className="absolute bottom-0 left-0 right-0 z-20 p-6">
+                <div className="flex items-center justify-between">
+                  {/* Slide Indicators */}
+                  <div className="flex space-x-3">
+                    {photos.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentSlide(index)}
+                        className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                          currentSlide === index 
+                            ? 'bg-white scale-125' 
+                            : 'bg-white/50 hover:bg-white/75'
+                        }`}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Slide Controls */}
+                  <div className="flex space-x-4">
+                    <button
+                      onClick={() => setCurrentSlide((prev) => (prev - 1 + photos.length) % photos.length)}
+                      className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-all"
+                    >
+                      <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                      </svg>
+                    </button>
+                    <button
+                      onClick={() => setCurrentSlide((prev) => (prev + 1) % photos.length)}
+                      className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-all"
+                    >
+                      <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Slide Counter */}
+              <div className="absolute top-6 right-6 z-20 bg-black/30 backdrop-blur-sm px-4 py-2 rounded-full">
+                <span className="text-white text-sm font-medium">
+                  {currentSlide + 1} / {photos.length}
+                </span>
+              </div>
+            </div>
+
+            {/* Team Introduction */}
+            <div className="text-center mb-12">
+              <h3 className="text-2xl md:text-3xl font-semibold text-white mb-4">
+                Meet our expert team of researchers and educators
+              </h3>
+            </div>
+
+            {/* Team Cards */}
+            <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+              {[
+                {
+                  name: "Dr. Lakmal Ranathunga",
+                  qualification: "PhD in Veterinary Medicine",
+                  image: "/lovable-uploads/99dec8fe-51c3-46ea-af63-6bd557692e29.png",
+                  url: "https://agri.pdn.ac.lk/ansc/staff/academic_staff_detail/35"
+                }
+              ].map((member, index) => (
+                <Card
+                  key={index}
+                  className="bg-white/10 backdrop-blur-md border-purple-200/20 hover:bg-white/20 transition-all duration-300 cursor-pointer"
+                  onClick={() => handleTeamMemberClick(member.url)}
+                >
+                  <CardHeader>
+                    <div className="relative w-full h-48 mb-4 overflow-hidden rounded-lg">
+                      <img
+                        src={member.image}
+                        alt={member.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <CardTitle className="text-white">{member.name}</CardTitle>
+                    <CardDescription className="text-purple-200">{member.qualification}</CardDescription>
+                  </CardHeader>
+                </Card>
+              ))}
             </div>
           </div>
         </section>
