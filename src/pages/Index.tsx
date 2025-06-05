@@ -511,7 +511,7 @@ const Index = () => {
               <h3 className="text-xl font-semibold text-[#170056] mb-4">
                 Powered by Researchers, Alumni & Ecosystem
               </h3>
-              <div className="w-full h-[300px] md:h-[400px] bg-[#170056]/5 rounded-lg overflow-hidden mx-0">
+              <div className="w-full h-[300px] md:h-[400px] rounded-lg overflow-hidden mx-0">
                 <img 
                   src="/lovable-uploads/Partners.jpg" 
                   alt="Bioinformatics Partners" 
