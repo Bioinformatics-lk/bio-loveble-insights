@@ -524,7 +524,7 @@ const Index = () => {
       </section>
 
       {/* Team Section */}
-      <section id="team" className="relative py-20 bg-gradient-to-br from-[#170056] via-[#410056] to-[#54366B]">
+      <section id="team" className="relative py-20 bg-[#170056]">
         {/* Background Shapes */}
         <div className="absolute inset-0">
           <div className="absolute top-20 left-10 w-64 h-64 rounded-full bg-[#54366B]/20 blur-3xl"></div>
@@ -549,26 +549,52 @@ const Index = () => {
           {/* Photo Slideshow */}
           <div className="relative h-[400px] md:h-[500px] mb-16 overflow-hidden rounded-2xl">
             <AnimatePresence mode="wait">
-              {[
-                '/lovable-uploads/Photo 01.jpg',
-                '/lovable-uploads/Photo 02.jpg',
-                '/lovable-uploads/Photo 03.jpg',
-                '/lovable-uploads/Photo 04.jpg',
-                '/lovable-uploads/Photo 05.jpg',
-                '/lovable-uploads/Photo 06.jpg',
-                '/lovable-uploads/Photo 07.jpg',
-              ].map((photo, index) => (
-                <motion.img
-                  key={photo}
-                  src={photo}
-                  alt={`Slide ${index + 1}`}
-                  className="absolute inset-0 w-full h-full object-cover"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
-                />
-              ))}
+              {(() => {
+                const [currentSlide, setCurrentSlide] = useState(0);
+                const photos = [
+                  '/lovable-uploads/Photo 01.jpg',
+                  '/lovable-uploads/Photo 02.jpg',
+                  '/lovable-uploads/Photo 03.jpg',
+                  '/lovable-uploads/Photo 04.jpg',
+                  '/lovable-uploads/Photo 05.jpg',
+                  '/lovable-uploads/Photo 06.jpg',
+                  '/lovable-uploads/Photo 07.jpg',
+                ];
+
+                useEffect(() => {
+                  const timer = setInterval(() => {
+                    setCurrentSlide((prev) => (prev + 1) % photos.length);
+                  }, 5000);
+                  return () => clearInterval(timer);
+                }, []);
+
+                return (
+                  <>
+                    <motion.img
+                      key={currentSlide}
+                      src={photos[currentSlide]}
+                      alt={`Slide ${currentSlide + 1}`}
+                      className="absolute inset-0 w-full h-full object-cover"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.5 }}
+                    />
+                    {/* Slide Indicators */}
+                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                      {photos.map((_, index) => (
+                        <button
+                          key={index}
+                          className={`w-3 h-3 rounded-full transition-all ${
+                            currentSlide === index ? 'bg-white scale-125' : 'bg-white/50'
+                          }`}
+                          onClick={() => setCurrentSlide(index)}
+                        />
+                      ))}
+                    </div>
+                  </>
+                );
+              })()}
             </AnimatePresence>
           </div>
 
