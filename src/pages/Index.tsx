@@ -421,7 +421,7 @@ const Index = () => {
                       alt={`Slide ${currentSlide + 1}`}
                       className="absolute inset-0 w-full h-full object-contain md:object-cover md:object-center"
                       style={{
-                        objectPosition: isMobile ? 'center' : 'center 10%'
+                        objectPosition: isMobile ? 'center' : 'center 20%'
                       }}
                     />
                   </div>
@@ -491,24 +491,41 @@ const Index = () => {
                   qualification: "PhD in Veterinary Medicine",
                   image: "/lovable-uploads/99dec8fe-51c3-46ea-af63-6bd557692e29.png",
                   url: "https://agri.pdn.ac.lk/ansc/staff/academic_staff_detail/35"
+                },
+                {
+                  name: "Mrs. Saumya Poorni",
+                  qualification: "PhD in Aquaculture (Reading)",
+                  image: "/lovable-uploads/a0ce1ac5-e01f-4cc3-a67a-42a5bc885eda.png",
+                  url: "https://www.linkedin.com/in/saumya-poorni-73009a314/"
+                },
+                {
+                  name: "Mr. Anuththara Gamage",
+                  qualification: "B.Sc Honours, Research Scientist at Standard Seed Corporation",
+                  image: "/lovable-uploads/b42b66f6-f7c5-4932-af71-ccf28ed41fbf.png",
+                  url: "https://www.linkedin.com/in/anu-gamage-62192b201/"
                 }
               ].map((member, index) => (
-                <Card
-                  key={index}
-                  className="bg-white/10 backdrop-blur-md border-purple-200/20 hover:bg-white/20 transition-all duration-300 cursor-pointer"
-                  onClick={() => handleTeamMemberClick(member.url)}
-                >
-                  <CardHeader>
-                    <div className="relative w-full h-48 mb-4 overflow-hidden rounded-lg">
-                      <img
-                        src={member.image}
+                <Card key={index} className="bg-white/10 backdrop-blur-md border-2 border-white/20 hover:border-white/40 transition-all transform hover:scale-105">
+                  <CardHeader className="text-center">
+                    <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-white/20">
+                      <img 
+                        src={member.image} 
                         alt={member.name}
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <CardTitle className="text-white">{member.name}</CardTitle>
-                    <CardDescription className="text-purple-200">{member.qualification}</CardDescription>
+                    <CardTitle 
+                      className="text-white cursor-pointer hover:text-[#4ECDC4] transition-all flex items-center justify-center gap-2"
+                      onClick={() => handleTeamMemberClick(member.url)}
+                    >
+                      {member.name}
+                      <ExternalLink className="h-4 w-4" />
+                    </CardTitle>
+                    <CardDescription className="text-purple-100">{member.qualification}</CardDescription>
                   </CardHeader>
+                  <CardContent>
+                    <p className="text-purple-100">Expert in bioinformatics and computational biology.</p>
+                  </CardContent>
                 </Card>
               ))}
             </div>
