@@ -9,6 +9,7 @@ import { UserDashboard } from "@/components/dashboard/UserDashboard";
 import { supabase } from "@/integrations/supabase/client";
 import { User } from '@supabase/supabase-js';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const Index = () => {
   const [authModalOpen, setAuthModalOpen] = useState(false);
@@ -542,8 +543,29 @@ const Index = () => {
               </span>
             </h2>
             <p className="text-xl text-purple-100 mb-8">
-              Are you interested in joining a team where innovation happens?
+              Are you interested in joining our team?
             </p>
+          </div>
+
+          {/* Are you interested in joining our team? */}
+          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-8 md:p-12 mb-16">
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                Are you interested in joining our team?
+              </h2>
+              <p className="text-lg text-gray-600 mb-8">
+                We're always looking for passionate individuals who share our vision of making bioinformatics accessible to everyone.
+              </p>
+              <Link
+                to="/careers"
+                className="inline-flex items-center px-6 py-3 rounded-full bg-blue-600 text-white font-medium hover:bg-blue-700 transition-colors"
+              >
+                View Open Positions
+                <svg className="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
           </div>
 
           {/* Photo Slideshow */}
@@ -667,55 +689,60 @@ const Index = () => {
             </AnimatePresence>
           </div>
 
-          {/* Team Introduction */}
-          <div className="text-center mb-12">
-            <h3 className="text-2xl md:text-3xl font-semibold text-white mb-4">
-              Meet our expert team of researchers and educators
-            </h3>
-          </div>
+          {/* Our Team Section */}
+          <div className="mb-16">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                Our Team
+              </h2>
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                Meet the passionate individuals behind our mission to make bioinformatics accessible to everyone.
+              </p>
+            </div>
 
-          {/* Team Cards */}
-          <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-            {[
-              {
-                name: "Dr. Lakmal Ranathunga",
-                qualification: "PhD in Veterinary Medicine",
-                image: "/lovable-uploads/99dec8fe-51c3-46ea-af63-6bd557692e29.png",
-                url: "https://agri.pdn.ac.lk/ansc/staff/academic_staff_detail/35"
-              },
-              {
-                name: "Mrs. Saumya Poorni",
-                qualification: "PhD in Aquaculture (Reading)",
-                image: "/lovable-uploads/a0ce1ac5-e01f-4cc3-a67a-42a5bc885eda.png",
-                url: "https://www.linkedin.com/in/saumya-poorni-73009a314/"
-              },
-              {
-                name: "Mr. Anuththara Gamage",
-                qualification: "B.Sc Honours, Research Scientist at Standard Seed Corporation",
-                image: "/lovable-uploads/b42b66f6-f7c5-4932-af71-ccf28ed41fbf.png",
-                url: "https://www.linkedin.com/in/anu-gamage-62192b201/"
-              }
-            ].map((member, index) => (
-              <Card key={index} className="bg-white/10 backdrop-blur-md border-2 border-white/20 hover:border-white/40 transition-all transform hover:scale-105">
-                <CardHeader className="text-center">
-                  <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-white/20">
-                    <img 
-                      src={member.image} 
-                      alt={member.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <CardTitle 
-                    className="text-white cursor-pointer hover:text-[#4ECDC4] transition-all flex items-center justify-center gap-2"
-                    onClick={() => handleTeamMemberClick(member.url)}
-                  >
-                    {member.name}
-                    <ExternalLink className="h-4 w-4" />
-                  </CardTitle>
-                  <CardDescription className="text-purple-100">{member.qualification}</CardDescription>
-                </CardHeader>
-              </Card>
-            ))}
+            {/* Team Members Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[
+                {
+                  name: "Dr. Lakmal Ranathunga",
+                  qualification: "PhD in Veterinary Medicine",
+                  image: "/lovable-uploads/99dec8fe-51c3-46ea-af63-6bd557692e29.png",
+                  url: "https://agri.pdn.ac.lk/ansc/staff/academic_staff_detail/35"
+                },
+                {
+                  name: "Mrs. Saumya Poorni",
+                  qualification: "PhD in Aquaculture (Reading)",
+                  image: "/lovable-uploads/a0ce1ac5-e01f-4cc3-a67a-42a5bc885eda.png",
+                  url: "https://www.linkedin.com/in/saumya-poorni-73009a314/"
+                },
+                {
+                  name: "Mr. Anuththara Gamage",
+                  qualification: "B.Sc Honours, Research Scientist at Standard Seed Corporation",
+                  image: "/lovable-uploads/b42b66f6-f7c5-4932-af71-ccf28ed41fbf.png",
+                  url: "https://www.linkedin.com/in/anu-gamage-62192b201/"
+                }
+              ].map((member, index) => (
+                <Card key={index} className="bg-white/10 backdrop-blur-md border-2 border-white/20 hover:border-white/40 transition-all transform hover:scale-105">
+                  <CardHeader className="text-center">
+                    <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-white/20">
+                      <img 
+                        src={member.image} 
+                        alt={member.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <CardTitle 
+                      className="text-white cursor-pointer hover:text-[#4ECDC4] transition-all flex items-center justify-center gap-2"
+                      onClick={() => handleTeamMemberClick(member.url)}
+                    >
+                      {member.name}
+                      <ExternalLink className="h-4 w-4" />
+                    </CardTitle>
+                    <CardDescription className="text-purple-100">{member.qualification}</CardDescription>
+                  </CardHeader>
+                </Card>
+              ))}
+            </div>
           </div>
         </div>
       </section>
