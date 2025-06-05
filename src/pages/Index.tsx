@@ -507,11 +507,11 @@ const Index = () => {
               Let's shape the future of Bioinformatics and Computational Biology together! At Bioinformatics.lk, we are building a vibrant scientific community that empowers future innovators in genomics, molecular modeling, data science, and more. With free learning resources, collaborative discussions, and the latest breakthroughs, we're here to support your journey to grow, explore, and lead in this rapidly evolving field.
             </p>
 
-            <div className="mt-8">
+            <div className="mt-6">
               <h3 className="text-xl font-semibold text-[#170056] mb-3">
                 Powered by Researchers, Alumni & Ecosystem
               </h3>
-              <div className="w-full h-[250px] md:h-[350px] rounded-lg overflow-hidden mx-0">
+              <div className="w-full h-[150px] md:h-[350px] rounded-lg overflow-hidden mx-0">
                 <img 
                   src="/lovable-uploads/Partners.jpg" 
                   alt="Bioinformatics Partners" 
