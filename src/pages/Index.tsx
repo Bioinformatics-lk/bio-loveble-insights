@@ -524,7 +524,7 @@ const Index = () => {
       </section>
 
       {/* Team Section */}
-      <section id="team" className="relative py-20 bg-[#170056]">
+      <section id="team" className="relative py-20 bg-[#170056] overflow-hidden">
         {/* Background Shapes */}
         <div className="absolute inset-0">
           <div className="absolute top-20 left-10 w-64 h-64 rounded-full bg-[#54366B]/20 blur-3xl"></div>
