@@ -585,7 +585,7 @@ const Index = () => {
                           alt={`Slide ${currentSlide + 1}`}
                           className="absolute inset-0 w-full h-full object-contain md:object-cover md:object-center"
                           style={{
-                            objectPosition: 'center 30%'
+                            objectPosition: 'center 20%'
                           }}
                         />
                       </div>
