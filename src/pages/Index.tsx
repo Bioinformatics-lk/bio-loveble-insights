@@ -496,22 +496,22 @@ const Index = () => {
       </section>
 
       {/* Explore Section */}
-      <section className="relative py-20 px-4 bg-gradient-to-b from-[#54366B] to-[#170056]">
+      <section className="relative py-20 px-4 bg-white">
         <div className="container mx-auto max-w-4xl">
           <div className="text-center space-y-8">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold text-[#170056] mb-6">
               Explore. Discover. Advance.
             </h2>
             
-            <p className="text-lg md:text-xl text-purple-100 leading-relaxed">
+            <p className="text-lg md:text-xl text-[#54366B] leading-relaxed">
               Let's shape the future of Bioinformatics and Computational Biology together! At Bioinformatics.lk, we are building a vibrant scientific community that empowers future innovators in genomics, molecular modeling, data science, and more. With free learning resources, collaborative discussions, and the latest breakthroughs, we're here to support your journey to grow, explore, and lead in this rapidly evolving field.
             </p>
 
             <div className="mt-12">
-              <h3 className="text-xl font-semibold text-white mb-4">
+              <h3 className="text-xl font-semibold text-[#170056] mb-4">
                 Powered by Researchers, Alumni & Ecosystem
               </h3>
-              <div className="w-full h-48 bg-white/10 rounded-lg overflow-hidden">
+              <div className="w-full h-48 bg-[#170056]/5 rounded-lg overflow-hidden">
                 <img 
                   src="/lovable-uploads/ecosystem.jpg" 
                   alt="Bioinformatics Ecosystem" 
