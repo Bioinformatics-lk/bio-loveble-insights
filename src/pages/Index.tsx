@@ -495,8 +495,36 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Our Team Section */}
-      <section className="py-12 md:py-20 bg-white relative z-10" id="team">
+      {/* Explore Section */}
+      <section className="relative py-20 px-4 bg-gradient-to-b from-[#54366B] to-[#170056]">
+        <div className="container mx-auto max-w-4xl">
+          <div className="text-center space-y-8">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Explore. Discover. Advance.
+            </h2>
+            
+            <p className="text-lg md:text-xl text-purple-100 leading-relaxed">
+              Let's shape the future of Bioinformatics and Computational Biology together! At Bioinformatics.lk, we are building a vibrant scientific community that empowers future innovators in genomics, molecular modeling, data science, and more. With free learning resources, collaborative discussions, and the latest breakthroughs, we're here to support your journey to grow, explore, and lead in this rapidly evolving field.
+            </p>
+
+            <div className="mt-12">
+              <h3 className="text-xl font-semibold text-white mb-4">
+                Powered by Researchers, Alumni & Ecosystem
+              </h3>
+              <div className="w-full h-48 bg-white/10 rounded-lg overflow-hidden">
+                <img 
+                  src="/lovable-uploads/ecosystem.jpg" 
+                  alt="Bioinformatics Ecosystem" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section id="team" className="py-20 px-4 bg-[#170056]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 lg:mb-12">
             <div className="inline-block bg-[#AFA9FF] px-6 py-3 rounded-lg mb-4">
