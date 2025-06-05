@@ -544,35 +544,8 @@ const Index = () => {
           {/* Topic Section */}
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Be a Part of the Future with{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B6B] to-[#4ECDC4] text-5xl md:text-6xl">
-                Bioinformatics.lk
-              </span>
+              Be a Part of the Future
             </h2>
-            <p className="text-xl text-purple-100 mb-8">
-              Are you interested in joining our team?
-            </p>
-          </div>
-
-          {/* Are you interested in joining our team? */}
-          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-8 md:p-12 mb-16">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Are you interested in joining our team?
-              </h2>
-              <p className="text-lg text-gray-600 mb-8">
-                We're always looking for passionate individuals who share our vision of making bioinformatics accessible to everyone.
-              </p>
-              <Link
-                to="/careers"
-                className="inline-flex items-center px-6 py-3 rounded-full bg-blue-600 text-white font-medium hover:bg-blue-700 transition-colors"
-              >
-                View Open Positions
-                <svg className="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
-            </div>
           </div>
 
           {/* Photo Slideshow */}
@@ -696,18 +669,17 @@ const Index = () => {
             </AnimatePresence>
           </div>
 
-          {/* Our Team Section */}
-          <div className="mb-16">
+          {/* Team Members Grid */}
+          <div className="mt-16">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                 Our Team
               </h2>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              <p className="text-lg text-white/90 max-w-3xl mx-auto">
                 Meet the passionate individuals behind our mission to make bioinformatics accessible to everyone.
               </p>
             </div>
 
-            {/* Team Members Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[
                 {
@@ -739,13 +711,13 @@ const Index = () => {
                       />
                     </div>
                     <CardTitle 
-                      className="text-white cursor-pointer hover:text-[#4ECDC4] transition-all flex items-center justify-center gap-2"
+                      className="text-[#000A33] font-bold cursor-pointer hover:text-[#170056] transition-all flex items-center justify-center gap-2"
                       onClick={() => handleTeamMemberClick(member.url)}
                     >
                       {member.name}
                       <ExternalLink className="h-4 w-4" />
                     </CardTitle>
-                    <CardDescription className="text-purple-100">{member.qualification}</CardDescription>
+                    <CardDescription className="text-[#000A33]/80">{member.qualification}</CardDescription>
                   </CardHeader>
                 </Card>
               ))}
