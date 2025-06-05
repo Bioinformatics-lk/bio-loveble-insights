@@ -249,6 +249,17 @@ const Index = () => {
               </Button>
               <Button
                 variant="ghost"
+                onClick={() => scrollToSection('slbail')}
+                className={`transition-all transform hover:scale-105 text-sm ${
+                  isScrolled 
+                    ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                    : 'text-purple-100 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                SLBAIL
+              </Button>
+              <Button
+                variant="ghost"
                 onClick={() => scrollToSection('news')}
                 className={`transition-all transform hover:scale-105 text-sm ${
                   isScrolled 
@@ -364,6 +375,16 @@ const Index = () => {
                 className="text-white hover:bg-white/10 text-lg justify-start"
               >
                 Our Courses
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => {
+                  scrollToSection('slbail');
+                  setMobileMenuOpen(false);
+                }}
+                className="text-white hover:bg-white/10 text-lg justify-start"
+              >
+                SLBAIL
               </Button>
               <Button
                 variant="ghost"
@@ -863,6 +884,104 @@ const Index = () => {
                 </CardHeader>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SLBAIL Section */}
+      <section className="py-12 md:py-20 bg-gradient-to-br from-[#f0f9ff] to-[#e0f2fe] relative z-10" id="slbail">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8 lg:mb-12">
+            <div className="inline-block bg-[#dbeafe] px-6 py-3 rounded-lg mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800">SLBAIL</h2>
+            </div>
+            <h3 className="text-xl md:text-2xl font-semibold text-gray-700 mb-4">
+              Sri Lankan Bioinformatics and Artificial Intelligence Lab
+            </h3>
+            <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto">
+              Sri Lanka's First Botanical Artificial Intelligence System (SLBAIS) that revolutionizes drug discovery through advanced AI agents. Our system integrates cutting-edge artificial intelligence with traditional botanical knowledge to accelerate and enhance the drug discovery pipeline.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div className="space-y-6">
+              <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-lg border border-blue-100">
+                <h4 className="text-xl font-semibold text-gray-800 mb-4">Key Features:</h4>
+                <ul className="space-y-3 text-gray-600">
+                  <li className="flex items-start">
+                    <span className="text-blue-500 mr-2">•</span>
+                    <span>Advanced AI agents specialized in botanical compound analysis</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-blue-500 mr-2">•</span>
+                    <span>Integration with traditional Sri Lankan medicinal knowledge</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-blue-500 mr-2">•</span>
+                    <span>Automated screening and prediction of drug candidates</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-blue-500 mr-2">•</span>
+                    <span>Machine learning models for bioactivity prediction</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-lg border border-blue-100">
+                <h4 className="text-xl font-semibold text-gray-800 mb-4">Applications:</h4>
+                <ul className="space-y-3 text-gray-600">
+                  <li className="flex items-start">
+                    <span className="text-blue-500 mr-2">•</span>
+                    <span>Drug candidate identification from botanical sources</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-blue-500 mr-2">•</span>
+                    <span>Molecular property prediction and optimization</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-blue-500 mr-2">•</span>
+                    <span>Virtual screening of natural compounds</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-blue-500 mr-2">•</span>
+                    <span>Automated research pipeline management</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-100/50 to-purple-100/50 rounded-lg transform rotate-3"></div>
+              <div className="relative bg-white/90 backdrop-blur-sm rounded-lg p-6 shadow-lg border border-blue-100">
+                <h4 className="text-xl font-semibold text-gray-800 mb-4">Impact on Drug Discovery:</h4>
+                <div className="space-y-4 text-gray-600">
+                  <p>
+                    SLBAIS represents a groundbreaking approach to drug discovery by combining artificial intelligence with Sri Lanka's rich botanical heritage. Our system accelerates the identification and development of potential drug candidates through:
+                  </p>
+                  <ul className="space-y-3">
+                    <li className="flex items-start">
+                      <span className="text-blue-500 mr-2">•</span>
+                      <span>Rapid screening of thousands of botanical compounds</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-blue-500 mr-2">•</span>
+                      <span>AI-powered prediction of drug-like properties</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-blue-500 mr-2">•</span>
+                      <span>Automated analysis of structure-activity relationships</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-blue-500 mr-2">•</span>
+                      <span>Integration with modern drug discovery pipelines</span>
+                    </li>
+                  </ul>
+                  <p className="mt-4">
+                    By leveraging advanced AI technologies, SLBAIS significantly reduces the time and cost associated with traditional drug discovery methods while maximizing the potential of Sri Lanka's unique botanical resources.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
