@@ -539,6 +539,9 @@ const Index = () => {
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
               Be a Part of the Future
             </h2>
+            <p className="text-xl text-white/90 mb-8">
+              Interested in joining a team where innovation happens?
+            </p>
           </div>
 
           {/* Photo Slideshow */}
@@ -694,7 +697,7 @@ const Index = () => {
                   url: "https://www.linkedin.com/in/anu-gamage-62192b201/"
                 }
               ].map((member, index) => (
-                <Card key={index} className="bg-white/10 backdrop-blur-md border-2 border-white/20 hover:border-white/40 transition-all transform hover:scale-105">
+                <Card key={index} className="bg-white/10 backdrop-blur-md border-2 border-white/20 hover:border-white/40 transition-all transform hover:scale-105 group">
                   <CardHeader className="text-center">
                     <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-white/20">
                       <img 
@@ -704,13 +707,15 @@ const Index = () => {
                       />
                     </div>
                     <CardTitle 
-                      className="text-[#000A33] font-bold cursor-pointer hover:text-[#170056] transition-all flex items-center justify-center gap-2"
+                      className="text-white group-hover:text-[#170056] cursor-pointer transition-all flex items-center justify-center gap-2"
                       onClick={() => handleTeamMemberClick(member.url)}
                     >
                       {member.name}
                       <ExternalLink className="h-4 w-4" />
                     </CardTitle>
-                    <CardDescription className="text-[#000A33]/80">{member.qualification}</CardDescription>
+                    <CardDescription className="text-white/90 group-hover:text-[#170056]/90 transition-all">
+                      {member.qualification}
+                    </CardDescription>
                   </CardHeader>
                 </Card>
               ))}
