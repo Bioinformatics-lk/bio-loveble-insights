@@ -87,6 +87,10 @@ export const ServicesPage = () => {
     setSelectedService(null);
   };
 
+  const handleRequestService = () => {
+    window.open('https://forms.gle/your-google-form-link', '_blank');
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-900 to-purple-900 relative overflow-hidden">
       {/* Background Images */}
@@ -173,10 +177,19 @@ export const ServicesPage = () => {
                       {services.find(s => s.step === selectedService)?.description}
                     </p>
                     <Button
-                      className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white mt-6 py-3"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleRequestService();
+                      }}
+                      className="w-full bg-gradient-to-r from-[#FF6B6B] to-[#4ECDC4] hover:from-[#FF5252] hover:to-[#45B7D1] text-white mt-6 py-3 flex items-center justify-center gap-2"
                     >
                       Request Service
-                      <ExternalLink className="w-4 h-4 ml-2" />
+                      <ExternalLink className="w-4 h-4" />
+                      <img 
+                        src="/images/fiverr-logo.png" 
+                        alt="Fiverr" 
+                        className="w-4 h-4 ml-2"
+                      />
                     </Button>
                   </div>
                 )}
@@ -391,10 +404,19 @@ export const ServicesPage = () => {
                       {services.find(s => s.step === selectedService)?.description}
                     </p>
                     <Button
-                      className="w-full mt-4 py-6 text-lg bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleRequestService();
+                      }}
+                      className="w-full bg-gradient-to-r from-[#FF6B6B] to-[#4ECDC4] hover:from-[#FF5252] hover:to-[#45B7D1] text-white mt-4 py-3 flex items-center justify-center gap-2"
                     >
                       Request Service
-                      <ExternalLink className="w-5 h-5 ml-2" />
+                      <ExternalLink className="w-4 h-4" />
+                      <img 
+                        src="/images/fiverr-logo.png" 
+                        alt="Fiverr" 
+                        className="w-4 h-4 ml-2"
+                      />
                     </Button>
                   </div>
                 )}
