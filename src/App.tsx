@@ -3,8 +3,9 @@ import { User } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 import Index from '@/pages/Index';
 import { UserDashboard } from '@/components/dashboard/UserDashboard';
-import { CoursesPage } from '@/components/courses/CoursesPage';
+import { CoursesPage } from '@/pages/CoursesPage';
 import { SLBAISPage } from '@/pages/SLBAISPage';
+import { ServicesPage } from '@/components/services/ServicesPage';
 
 function App() {
   return (
@@ -25,6 +26,10 @@ function App() {
         <Route 
           path="/slbais" 
           element={<SLBAISPage />}
+        />
+        <Route 
+          path="/services" 
+          element={<ServicesPage />}
         />
       </Routes>
     </Router>

@@ -23,6 +23,10 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
     navigate('/courses');
   };
 
+  const handleViewServices = () => {
+    navigate('/services');
+  };
+
   const handleExploreSlhaif = () => {
     navigate('/slbais');
   };
@@ -134,6 +138,7 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
                 </CardHeader>
                 <CardContent className="mt-auto">
                   <Button 
+                    onClick={handleViewServices}
                     className="w-full bg-[#363B6B] hover:bg-[#000A33] text-white border border-white/20 transition-all text-lg py-6 font-semibold shadow-lg hover:shadow-xl"
                     size="lg"
                   >
