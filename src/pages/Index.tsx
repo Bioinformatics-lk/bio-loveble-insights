@@ -8,7 +8,7 @@ import { SearchBar } from "@/components/search/SearchBar";
 import { UserDashboard } from "@/components/dashboard/UserDashboard";
 import { supabase } from "@/integrations/supabase/client";
 import { User } from '@supabase/supabase-js';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Index = () => {
   const [authModalOpen, setAuthModalOpen] = useState(false);
@@ -524,17 +524,62 @@ const Index = () => {
       </section>
 
       {/* Team Section */}
-      <section id="team" className="py-20 px-4 bg-[#170056]">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-8 lg:mb-12">
-            <div className="inline-block bg-[#AFA9FF] px-6 py-3 rounded-lg mb-4">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Our Team</h2>
-            </div>
-            <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-              Meet our expert team of researchers and educators
+      <section id="team" className="relative py-20 bg-gradient-to-br from-[#170056] via-[#410056] to-[#54366B]">
+        {/* Background Shapes */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-10 w-64 h-64 rounded-full bg-[#54366B]/20 blur-3xl"></div>
+          <div className="absolute bottom-20 right-10 w-96 h-96 rounded-full bg-[#000A33]/40 blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[#363B6B]/20 blur-3xl"></div>
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          {/* Topic Section */}
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Be a Part of the Future with{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B6B] to-[#4ECDC4] text-5xl md:text-6xl">
+                Bioinformatics.lk
+              </span>
+            </h2>
+            <p className="text-xl text-purple-100 mb-8">
+              Are you interested in joining a team where innovation happens?
             </p>
           </div>
-          
+
+          {/* Photo Slideshow */}
+          <div className="relative h-[400px] md:h-[500px] mb-16 overflow-hidden rounded-2xl">
+            <AnimatePresence mode="wait">
+              {[
+                '/lovable-uploads/Photo 01.jpg',
+                '/lovable-uploads/Photo 02.jpg',
+                '/lovable-uploads/Photo 03.jpg',
+                '/lovable-uploads/Photo 04.jpg',
+                '/lovable-uploads/Photo 05.jpg',
+                '/lovable-uploads/Photo 06.jpg',
+                '/lovable-uploads/Photo 07.jpg',
+              ].map((photo, index) => (
+                <motion.img
+                  key={photo}
+                  src={photo}
+                  alt={`Slide ${index + 1}`}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                />
+              ))}
+            </AnimatePresence>
+          </div>
+
+          {/* Team Introduction */}
+          <div className="text-center mb-12">
+            <h3 className="text-2xl md:text-3xl font-semibold text-white mb-4">
+              Meet our expert team of researchers and educators
+            </h3>
+          </div>
+
+          {/* Team Cards */}
           <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
             {[
               {
@@ -556,9 +601,9 @@ const Index = () => {
                 url: "https://www.linkedin.com/in/anu-gamage-62192b201/"
               }
             ].map((member, index) => (
-              <Card key={index} className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/20 to-purple-600/20 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
+              <Card key={index} className="bg-white/10 backdrop-blur-md border-2 border-white/20 hover:border-white/40 transition-all transform hover:scale-105">
                 <CardHeader className="text-center">
-                  <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-gradient-to-r from-blue-600 to-purple-600">
+                  <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-white/20">
                     <img 
                       src={member.image} 
                       alt={member.name}
@@ -566,13 +611,13 @@ const Index = () => {
                     />
                   </div>
                   <CardTitle 
-                    className="text-black cursor-pointer hover:text-[#190EA8] hover:font-bold hover:underline transition-all flex items-center justify-center gap-2"
+                    className="text-white cursor-pointer hover:text-[#4ECDC4] transition-all flex items-center justify-center gap-2"
                     onClick={() => handleTeamMemberClick(member.url)}
                   >
                     {member.name}
                     <ExternalLink className="h-4 w-4" />
                   </CardTitle>
-                  <CardDescription className="text-gray-700">{member.qualification}</CardDescription>
+                  <CardDescription className="text-purple-100">{member.qualification}</CardDescription>
                 </CardHeader>
               </Card>
             ))}
