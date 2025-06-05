@@ -9,7 +9,6 @@ import { UserDashboard } from "@/components/dashboard/UserDashboard";
 import { supabase } from "@/integrations/supabase/client";
 import { User } from '@supabase/supabase-js';
 import { motion } from 'framer-motion';
-import FooterSection from '@/components/footer/FooterSection';
 
 const Index = () => {
   const [authModalOpen, setAuthModalOpen] = useState(false);
@@ -973,8 +972,66 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Add Footer Section */}
-      <FooterSection />
+      {/* Footer */}
+      <footer className="bg-gradient-to-br from-[#000A33] to-[#363B6B] text-[#EAE3F5] py-12 md:py-16 relative z-10">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-4 gap-6 lg:gap-8">
+            <div className="space-y-4">
+              <div className="flex items-center">
+                <span className="text-xl font-bold text-white">Bioinformatics.lk</span>
+              </div>
+              <p className="text-[#EAE3F5]/90 leading-relaxed text-sm md:text-base">
+                Advancing bioinformatics education and research in Sri Lanka through innovative programs and cutting-edge technology.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold mb-4 text-white">Quick Links</h3>
+              <ul className="space-y-2">
+                <li><button onClick={() => scrollToSection('team')} className="text-[#EAE3F5]/80 hover:text-white transition-colors text-sm md:text-base">Our Team</button></li>
+                <li><button onClick={() => scrollToSection('research')} className="text-[#EAE3F5]/80 hover:text-white transition-colors text-sm md:text-base">Research</button></li>
+                <li><button onClick={() => scrollToSection('courses')} className="text-[#EAE3F5]/80 hover:text-white transition-colors text-sm md:text-base">Courses</button></li>
+                <li><button onClick={() => scrollToSection('services')} className="text-[#EAE3F5]/80 hover:text-white transition-colors text-sm md:text-base">Services</button></li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold mb-4 text-white">Programs</h3>
+              <ul className="space-y-2">
+                <li><a href="#" className="text-[#EAE3F5]/80 hover:text-white transition-colors text-sm md:text-base">Certificate Courses</a></li>
+                <li><a href="#" className="text-[#EAE3F5]/80 hover:text-white transition-colors text-sm md:text-base">Workshops</a></li>
+                <li><a href="#" className="text-[#EAE3F5]/80 hover:text-white transition-colors text-sm md:text-base">Research Projects</a></li>
+                <li><a href="#" className="text-[#EAE3F5]/80 hover:text-white transition-colors text-sm md:text-base">Collaborations</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold mb-4 text-white">Connect With Us</h3>
+              <div className="space-y-4">
+                <p className="text-[#EAE3F5]/80 text-sm md:text-base">
+                  Email: info@bioinformatics.lk<br />
+                  Phone: +94 11 234 5678
+                </p>
+                <div className="flex space-x-4">
+                  <a href="#" className="w-10 h-10 bg-purple-600/30 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-purple-600/50 transition-colors border border-purple-300/30">
+                    <Linkedin className="h-5 w-5" />
+                  </a>
+                  <a href="#" className="w-10 h-10 bg-purple-600/30 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-purple-600/50 transition-colors border border-purple-300/30">
+                    <Twitter className="h-5 w-5" />
+                  </a>
+                  <a href="#" className="w-10 h-10 bg-purple-600/30 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-purple-600/50 transition-colors border border-purple-300/30">
+                    <Youtube className="h-5 w-5" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-[#EAE3F5]/20 mt-8 lg:mt-12 pt-6 lg:pt-8 text-center text-[#EAE3F5]/80">
+            <p className="text-sm md:text-base">&copy; 2024 Bioinformatics.lk. All rights reserved. | Privacy Policy | Terms of Service</p>
+          </div>
+        </div>
+      </footer>
 
       {/* Modals */}
       <AuthModal isOpen={authModalOpen} onClose={() => setAuthModalOpen(false)} />
