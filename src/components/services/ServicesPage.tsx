@@ -414,9 +414,13 @@ export const ServicesPage = () => {
         <div className="mt-16 text-center">
           <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md rounded-full px-6 py-3 border border-white/20">
             <img 
-              src="/pngwing.com.png" 
+              src="/lovable-uploads/pngwing.com.png" 
               alt="Fiverr" 
-              className="w-6 h-6"
+              className="w-8 h-8 object-contain"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.style.display = 'none';
+              }}
             />
             <span className="text-white text-lg font-medium">
               We are available on Fiverr
