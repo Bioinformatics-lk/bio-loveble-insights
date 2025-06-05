@@ -536,10 +536,7 @@ const Index = () => {
           {/* Topic Section */}
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Be a Part of the Future with{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B6B] to-[#4ECDC4] text-5xl md:text-6xl">
-                Bioinformatics.lk
-              </span>
+              Be a Part of the Future
             </h2>
             <p className="text-xl text-purple-100 mb-8">
               Are you interested in joining a team where innovation happens?
