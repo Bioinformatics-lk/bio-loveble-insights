@@ -134,7 +134,11 @@ const Index = () => {
 
   // If user is logged in, show dashboard
   if (user) {
-    return <UserDashboard user={user} />;
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-[#170056] via-[#410056] to-[#54366B] relative">
+        <UserDashboard user={user} />
+      </div>
+    );
   }
 
   return (
