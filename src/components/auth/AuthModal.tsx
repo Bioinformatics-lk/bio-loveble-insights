@@ -33,7 +33,6 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
         });
         if (error) throw error;
         toast({ title: "Successfully logged in!" });
-        onClose();
         navigate('/dashboard');
       } else {
         const { error } = await supabase.auth.signUp({
@@ -48,8 +47,8 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
         });
         if (error) throw error;
         toast({ title: "Account created successfully!" });
-        onClose();
       }
+      onClose();
     } catch (error: any) {
       toast({
         title: "Error",
