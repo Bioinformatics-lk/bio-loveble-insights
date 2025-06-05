@@ -341,6 +341,146 @@ const Index = () => {
             </div>
           </div>
         )}
+
+        {/* Team Section */}
+        <section id="team" className="py-20">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">Our Team</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {/* Team Member Cards */}
+              <Card className="bg-[#1a0b2e]/20 backdrop-blur-md border-[#2d1b69] hover:bg-[#2d1b69]/30 transition-all duration-300">
+                <CardHeader>
+                  <CardTitle className="text-white">Dr. John Doe</CardTitle>
+                  <CardDescription className="text-purple-200">Lead Scientist</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-purple-100">Expert in bioinformatics and computational biology.</p>
+                </CardContent>
+              </Card>
+              {/* Add more team member cards */}
+            </div>
+          </div>
+        </section>
+
+        {/* Research Section */}
+        <section id="research" className="py-20 bg-[#1a0b2e]/20">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">Our Research</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {/* Research Cards */}
+              <Card className="bg-[#1a0b2e]/20 backdrop-blur-md border-[#2d1b69] hover:bg-[#2d1b69]/30 transition-all duration-300">
+                <CardHeader>
+                  <CardTitle className="text-white">AI in Drug Discovery</CardTitle>
+                  <CardDescription className="text-purple-200">Machine Learning</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-purple-100">Exploring the applications of AI in pharmaceutical research.</p>
+                </CardContent>
+              </Card>
+              {/* Add more research cards */}
+            </div>
+          </div>
+        </section>
+
+        {/* Courses Section */}
+        <section id="courses" className="py-20">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">Our Courses</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {/* Course Cards */}
+              <Card className="bg-[#1a0b2e]/20 backdrop-blur-md border-[#2d1b69] hover:bg-[#2d1b69]/30 transition-all duration-300">
+                <CardHeader>
+                  <CardTitle className="text-white">Bioinformatics Fundamentals</CardTitle>
+                  <CardDescription className="text-purple-200">Beginner Level</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-purple-100">Learn the basics of bioinformatics and computational biology.</p>
+                </CardContent>
+              </Card>
+              {/* Add more course cards */}
+            </div>
+          </div>
+        </section>
+
+        {/* News Section */}
+        <section id="news" className="py-20 bg-[#1a0b2e]/20">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">Latest News</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {/* News Cards */}
+              <Card className="bg-[#1a0b2e]/20 backdrop-blur-md border-[#2d1b69] hover:bg-[#2d1b69]/30 transition-all duration-300">
+                <CardHeader>
+                  <CardTitle className="text-white">New Research Grant</CardTitle>
+                  <CardDescription className="text-purple-200">Funding</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-purple-100">We've received a major grant for our AI research project.</p>
+                </CardContent>
+              </Card>
+              {/* Add more news cards */}
+            </div>
+          </div>
+        </section>
+
+        {/* Services Section */}
+        <section id="services" className="py-20">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">Our Services</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {/* Service Cards */}
+              <Card className="bg-[#1a0b2e]/20 backdrop-blur-md border-[#2d1b69] hover:bg-[#2d1b69]/30 transition-all duration-300">
+                <CardHeader>
+                  <CardTitle className="text-white">Data Analysis</CardTitle>
+                  <CardDescription className="text-purple-200">Bioinformatics</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-purple-100">Professional bioinformatics data analysis services.</p>
+                </CardContent>
+              </Card>
+              {/* Add more service cards */}
+            </div>
+          </div>
+        </section>
+
+        {/* Partnerships Section */}
+        <section id="partnerships" className="py-20 bg-[#1a0b2e]/20">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">Our Partnerships</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {/* Partnership Cards */}
+              <Card className="bg-[#1a0b2e]/20 backdrop-blur-md border-[#2d1b69] hover:bg-[#2d1b69]/30 transition-all duration-300">
+                <CardHeader>
+                  <CardTitle className="text-white">University of Colombo</CardTitle>
+                  <CardDescription className="text-purple-200">Academic Partner</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-purple-100">Collaborating on research and education initiatives.</p>
+                </CardContent>
+              </Card>
+              {/* Add more partnership cards */}
+            </div>
+          </div>
+        </section>
+
+        {/* Success Stories Section */}
+        <section id="success-stories" className="py-20">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">Success Stories</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {/* Success Story Cards */}
+              <Card className="bg-[#1a0b2e]/20 backdrop-blur-md border-[#2d1b69] hover:bg-[#2d1b69]/30 transition-all duration-300">
+                <CardHeader>
+                  <CardTitle className="text-white">Student Success</CardTitle>
+                  <CardDescription className="text-purple-200">Graduate Story</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-purple-100">How our courses helped launch a successful career in bioinformatics.</p>
+                </CardContent>
+              </Card>
+              {/* Add more success story cards */}
+            </div>
+          </div>
+        </section>
       </div>
 
       {/* Modals */}
