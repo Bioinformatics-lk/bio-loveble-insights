@@ -3,7 +3,7 @@ import { User } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 import Index from '@/pages/Index';
 import { UserDashboard } from '@/components/dashboard/UserDashboard';
-import { CoursesPage } from '@/pages/CoursesPage';
+import { CoursesPage } from '@/components/courses/CoursesPage';
 import { SLBAISPage } from '@/pages/SLBAISPage';
 import { ServicesPage } from '@/components/services/ServicesPage';
 
