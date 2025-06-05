@@ -87,8 +87,12 @@ export const ServicesPage = () => {
     setSelectedService(null);
   };
 
+  const handleRequestService = () => {
+    window.open('https://docs.google.com/forms/d/e/1FAIpQLSejWIeW3ETbj5Ogf1lxElT1_4JhQm_JNRVCV2W8-S2Svl5Cmw/viewform?usp=header', '_blank');
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 to-purple-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-[#363B6B] to-[#000A33] relative overflow-hidden">
       {/* Background Images */}
       <div className="absolute inset-0 z-0">
         {/* Top Left Image */}
@@ -402,6 +406,20 @@ export const ServicesPage = () => {
             </motion.div>
           )}
         </AnimatePresence>
+
+        {/* Fiverr Section */}
+        <div className="mt-16 text-center">
+          <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md rounded-full px-6 py-3 border border-white/20">
+            <img 
+              src="/images/fiverr-logo.png" 
+              alt="Fiverr" 
+              className="w-6 h-6"
+            />
+            <span className="text-white text-lg font-medium">
+              We are available on Fiverr
+            </span>
+          </div>
+        </div>
       </main>
     </div>
   );
