@@ -758,57 +758,42 @@ const Index = () => {
           
           <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
             <Card className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg">
-              <div className="relative overflow-hidden">
-                <img 
-                  src="/lovable-uploads/7f777ef7-1b68-4be2-8518-94fbe3d1c86e.png" 
-                  alt="Bioinformatics Research"
-                  className="w-full h-48 object-cover"
-                />
-              </div>
-              <CardHeader>
-                <CardTitle className="text-xl text-gray-800 flex items-center gap-2 hover:text-[#A00098] transition-colors cursor-pointer">
-                  <Dna className="h-6 w-6 text-purple-600" />
+              <CardHeader className="text-center">
+                <div className="flex justify-center mb-4">
+                  <Dna className="h-16 w-16 text-purple-600" />
+                </div>
+                <CardTitle className="text-xl text-gray-800 text-center hover:text-[#A00098] transition-colors cursor-pointer">
                   Bioinformatics
                 </CardTitle>
-                <CardDescription className="text-gray-600">
+                <CardDescription className="text-gray-600 text-center mt-2">
                   Identification of Active Compounds in Sri Lankan Medicinal Plants as Antivirals Against African Swine Fever
                 </CardDescription>
               </CardHeader>
             </Card>
 
             <Card className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg">
-              <div className="relative overflow-hidden">
-                <img 
-                  src="/lovable-uploads/9b130339-4a9e-4910-8516-0d16b6a30c73.png" 
-                  alt="Cheminformatics Research"
-                  className="w-full h-48 object-cover"
-                />
-              </div>
-              <CardHeader>
-                <CardTitle className="text-xl text-gray-800 flex items-center gap-2 hover:text-[#A00098] transition-colors cursor-pointer">
-                  <Atom className="h-6 w-6 text-purple-600" />
+              <CardHeader className="text-center">
+                <div className="flex justify-center mb-4">
+                  <Atom className="h-16 w-16 text-purple-600" />
+                </div>
+                <CardTitle className="text-xl text-gray-800 text-center hover:text-[#A00098] transition-colors cursor-pointer">
                   Cheminformatics
                 </CardTitle>
-                <CardDescription className="text-gray-600">
+                <CardDescription className="text-gray-600 text-center mt-2">
                   Development of globally accessible comprehensive database with an AI-integrated web platform cataloging endemic medicinal plants with detailed information.
                 </CardDescription>
               </CardHeader>
             </Card>
 
             <Card className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg">
-              <div className="relative overflow-hidden">
-                <img 
-                  src="/lovable-uploads/b285632b-3423-4b61-b1e2-20607153ff98.png" 
-                  alt="AI-driven Drug Discovery Research"
-                  className="w-full h-48 object-cover"
-                />
-              </div>
-              <CardHeader>
-                <CardTitle className="text-xl text-gray-800 flex items-center gap-2 hover:text-[#A00098] transition-colors cursor-pointer">
-                  <Brain className="h-6 w-6 text-purple-600" />
+              <CardHeader className="text-center">
+                <div className="flex justify-center mb-4">
+                  <Brain className="h-16 w-16 text-purple-600" />
+                </div>
+                <CardTitle className="text-xl text-gray-800 text-center hover:text-[#A00098] transition-colors cursor-pointer">
                   AI-driven Drug Discovery
                 </CardTitle>
-                <CardDescription className="text-gray-600">
+                <CardDescription className="text-gray-600 text-center mt-2">
                   Discovery of Antiviral Compounds from Sri Lankan Medicinal Plants and Deep Learning Based De Novo Design and Bioactivity Prediction of Natural-Product-Inspired Inhibitors Against Livestock and Aquaculture Viral Diseases.
                 </CardDescription>
               </CardHeader>
