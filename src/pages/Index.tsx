@@ -977,7 +977,7 @@ const Index = () => {
       </section>
 
       {/* SLBAIL Section */}
-      <section className="py-4 md:py-8 bg-[#000A33] relative z-10" id="slbail">
+      <section className="py-4 md:py-8 bg-[#000A33] relative" id="slbail">
         <div className="container mx-auto px-4">
           <div className="text-center mb-2 lg:mb-3">
             <div className="inline-block bg-[#000A33]/80 backdrop-blur-sm px-6 py-3 rounded-lg mb-4 border border-[#EAE3F5]">
@@ -992,7 +992,7 @@ const Index = () => {
           </div>
 
           <div className="relative">
-            <div className="relative z-20">
+            <div className="relative">
               <div className="relative">
                 <SplineContainer scene="https://prod.spline.design/USMDn0jW6GUQEWn1/scene.splinecode" />
                 <div className="absolute bottom-0 right-0 w-1/2 h-16 bg-[#000A33] z-10"></div>
