@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense, memo } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChevronDown, BookOpen, Search, FileText, Youtube, Linkedin, Twitter, Users, FlaskConical, GraduationCap, Newspaper, Briefcase, MessageCircle, Handshake, Trophy, ExternalLink, Dna, Atom, Brain, Network, Computer, Menu, X } from "lucide-react";
@@ -10,7 +10,155 @@ import { supabase } from "@/integrations/supabase/client";
 import { User } from '@supabase/supabase-js';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
-import Spline from '@splinetool/react-spline';
+
+// Lazy load the Spline component
+const Spline = lazy(() => import('@splinetool/react-spline'));
+
+// Memoize the Spline container component
+const SplineContainer = memo(({ scene }: { scene: string }) => (
+  <div className="w-full h-[300px] sm:h-[400px] md:h-[600px] lg:h-[800px] rounded-lg overflow-hidden">
+    <Suspense fallback={
+      <div className="w-full h-full flex items-center justify-center bg-[#0a192f]/30">
+        <div className="text-[#64ffda]">Loading 3D Model...</div>
+      </div>
+    }>
+      <Spline 
+        scene={scene}
+        style={{
+          width: '100%',
+          height: '100%',
+        }}
+      />
+    </Suspense>
+  </div>
+));
+
+// Memoize the mobile menu component
+const MobileMenu = memo(({ 
+  isOpen, 
+  onClose, 
+  onSectionClick 
+}: { 
+  isOpen: boolean; 
+  onClose: () => void; 
+  onSectionClick: (sectionId: string) => void;
+}) => (
+  <AnimatePresence>
+    {isOpen && (
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.2 }}
+        className="fixed inset-0 z-50 bg-gradient-to-br from-[#170056]/95 via-[#410056]/95 to-[#54366B]/95 backdrop-blur-md md:hidden"
+      >
+        <div className="container mx-auto px-4 py-8">
+          <div className="flex justify-end mb-6">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={onClose}
+              className="text-white hover:bg-white/10 w-12 h-12"
+            >
+              <X className="h-8 w-8" />
+            </Button>
+          </div>
+          <nav className="flex flex-col space-y-4">
+            <Button
+              variant="ghost"
+              onClick={() => {
+                onSectionClick('team');
+                onClose();
+              }}
+              className="text-white hover:bg-white/10 text-lg justify-start"
+            >
+              Our Team
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => {
+                onSectionClick('research');
+                onClose();
+              }}
+              className="text-white hover:bg-white/10 text-lg justify-start"
+            >
+              Research Areas
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => {
+                onSectionClick('courses');
+                onClose();
+              }}
+              className="text-white hover:bg-white/10 text-lg justify-start"
+            >
+              Our Courses
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => {
+                onSectionClick('slbail');
+                onClose();
+              }}
+              className="text-white hover:bg-white/10 text-lg justify-start"
+            >
+              SLBAIL
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => {
+                onSectionClick('news');
+                onClose();
+              }}
+              className="text-white hover:bg-white/10 text-lg justify-start"
+            >
+              Latest News & Updates
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => {
+                onSectionClick('services');
+                onClose();
+              }}
+              className="text-white hover:bg-white/10 text-lg justify-start"
+            >
+              Our Services
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => {
+                onClose();
+              }}
+              className="text-white hover:bg-white/10 text-lg justify-start"
+            >
+              Contact Us
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => {
+                onSectionClick('partnerships');
+                onClose();
+              }}
+              className="text-white hover:bg-white/10 text-lg justify-start"
+            >
+              Our Partnerships
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => {
+                onSectionClick('success-stories');
+                onClose();
+              }}
+              className="text-white hover:bg-white/10 text-lg justify-start"
+            >
+              Success Stories
+            </Button>
+          </nav>
+        </div>
+      </motion.div>
+    )}
+  </AnimatePresence>
+));
 
 const Index = () => {
   const [authModalOpen, setAuthModalOpen] = useState(false);
@@ -75,15 +223,22 @@ const Index = () => {
     return () => subscription.unsubscribe();
   }, [navigate]);
 
-  // Handle scroll for header color change
+  // Optimize scroll handler with debounce
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
     const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      setIsScrolled(scrollPosition > 100);
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        const scrollPosition = window.scrollY;
+        setIsScrolled(scrollPosition > 100);
+      }, 10);
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   // Animate counters with 3x slower speed
@@ -332,123 +487,11 @@ const Index = () => {
         </div>
       </header>
 
-      {/* Mobile Navigation Menu */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 bg-gradient-to-br from-[#170056]/95 via-[#410056]/95 to-[#54366B]/95 backdrop-blur-md md:hidden"
-          >
-            <div className="container mx-auto px-4 py-8">
-              <div className="flex justify-end mb-6">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-white hover:bg-white/10 w-12 h-12"
-                >
-                  <X className="h-8 w-8" />
-                </Button>
-              </div>
-              <nav className="flex flex-col space-y-4">
-                <Button
-                  variant="ghost"
-                  onClick={() => {
-                    scrollToSection('team');
-                    setMobileMenuOpen(false);
-                  }}
-                  className="text-white hover:bg-white/10 text-lg justify-start"
-                >
-                  Our Team
-                </Button>
-                <Button
-                  variant="ghost"
-                  onClick={() => {
-                    scrollToSection('research');
-                    setMobileMenuOpen(false);
-                  }}
-                  className="text-white hover:bg-white/10 text-lg justify-start"
-                >
-                  Research Areas
-                </Button>
-                <Button
-                  variant="ghost"
-                  onClick={() => {
-                    scrollToSection('courses');
-                    setMobileMenuOpen(false);
-                  }}
-                  className="text-white hover:bg-white/10 text-lg justify-start"
-                >
-                  Our Courses
-                </Button>
-                <Button
-                  variant="ghost"
-                  onClick={() => {
-                    scrollToSection('slbail');
-                    setMobileMenuOpen(false);
-                  }}
-                  className="text-white hover:bg-white/10 text-lg justify-start"
-                >
-                  SLBAIL
-                </Button>
-                <Button
-                  variant="ghost"
-                  onClick={() => {
-                    scrollToSection('news');
-                    setMobileMenuOpen(false);
-                  }}
-                  className="text-white hover:bg-white/10 text-lg justify-start"
-                >
-                  Latest News & Updates
-                </Button>
-                <Button
-                  variant="ghost"
-                  onClick={() => {
-                    scrollToSection('services');
-                    setMobileMenuOpen(false);
-                  }}
-                  className="text-white hover:bg-white/10 text-lg justify-start"
-                >
-                  Our Services
-                </Button>
-                <Button
-                  variant="ghost"
-                  onClick={() => {
-                    setContactModalOpen(true);
-                    setMobileMenuOpen(false);
-                  }}
-                  className="text-white hover:bg-white/10 text-lg justify-start"
-                >
-                  Contact Us
-                </Button>
-                <Button
-                  variant="ghost"
-                  onClick={() => {
-                    scrollToSection('partnerships');
-                    setMobileMenuOpen(false);
-                  }}
-                  className="text-white hover:bg-white/10 text-lg justify-start"
-                >
-                  Our Partnerships
-                </Button>
-                <Button
-                  variant="ghost"
-                  onClick={() => {
-                    scrollToSection('success-stories');
-                    setMobileMenuOpen(false);
-                  }}
-                  className="text-white hover:bg-white/10 text-lg justify-start"
-                >
-                  Success Stories
-                </Button>
-              </nav>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <MobileMenu 
+        isOpen={mobileMenuOpen}
+        onClose={() => setMobileMenuOpen(false)}
+        onSectionClick={scrollToSection}
+      />
 
       {/* Hero Section */}
       <section className="relative overflow-hidden z-10">
@@ -897,15 +940,7 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="w-full h-[300px] sm:h-[400px] md:h-[600px] lg:h-[800px] rounded-lg overflow-hidden">
-            <Spline 
-              scene="https://prod.spline.design/USMDn0jW6GUQEWn1/scene.splinecode"
-              style={{
-                width: '100%',
-                height: '100%',
-              }}
-            />
-          </div>
+          <SplineContainer scene="https://prod.spline.design/USMDn0jW6GUQEWn1/scene.splinecode" />
         </div>
       </section>
 
@@ -1225,4 +1260,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default memo(Index);
