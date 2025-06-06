@@ -34,35 +34,72 @@ const nodeTypes = {
   course: CourseNode,
 };
 
-const courses = [
+const initialNodes = [
   {
     id: '1',
-    title: 'Introduction to Bioinformatics',
+    position: { x: 250, y: 50 },
+    data: { label: 'Core Foundations' },
+    draggable: false,
   },
   {
     id: '2',
-    title: 'Network Pharmacology',
+    position: { x: 250, y: 150 },
+    data: { label: 'Bioinformatics' },
+    draggable: false,
   },
   {
     id: '3',
-    title: 'Molecular Docking',
+    position: { x: 250, y: 250 },
+    data: { label: 'Cheminformatics' },
+    draggable: false,
   },
   {
     id: '4',
-    title: 'Molecular Dynamics',
+    position: { x: 250, y: 350 },
+    data: { label: 'Computational Biology' },
+    draggable: false,
   },
   {
     id: '5',
-    title: 'Introduction to Cheminformatics',
+    position: { x: 250, y: 450 },
+    data: { label: 'AI in Life Sciences' },
+    draggable: false,
+  }
+];
+
+const initialEdges = [
+  {
+    id: 'e1-2',
+    source: '1',
+    target: '2',
+    type: 'smoothstep',
+    animated: true,
+    style: { stroke: '#4d2884', strokeWidth: 2, strokeDasharray: '5,5' },
   },
   {
-    id: '6',
-    title: 'AI and ML in Drug Discovery',
+    id: 'e2-3',
+    source: '2',
+    target: '3',
+    type: 'smoothstep',
+    animated: true,
+    style: { stroke: '#4d2884', strokeWidth: 2, strokeDasharray: '5,5' },
   },
   {
-    id: '7',
-    title: 'Research Project',
+    id: 'e3-4',
+    source: '3',
+    target: '4',
+    type: 'smoothstep',
+    animated: true,
+    style: { stroke: '#4d2884', strokeWidth: 2, strokeDasharray: '5,5' },
   },
+  {
+    id: 'e4-5',
+    source: '4',
+    target: '5',
+    type: 'smoothstep',
+    animated: true,
+    style: { stroke: '#4d2884', strokeWidth: 2, strokeDasharray: '5,5' },
+  }
 ];
 
 export const CoursePipeline = () => {
@@ -78,29 +115,29 @@ export const CoursePipeline = () => {
     const startY = 20;
     const verticalSpacing = isMobile ? 120 : 150;
 
-    return courses.map((course, index) => ({
-      id: course.id,
+    return initialNodes.map((node, index) => ({
+      id: node.id,
       type: 'course',
       position: { 
         x: centerX - (isMobile ? 150 : 200),
         y: startY + (index * verticalSpacing)
       },
-      data: { label: course.title, id: course.id },
+      data: { label: node.data.label, id: node.id },
     }));
   };
 
   // Calculate edges (connections)
   const calculateEdges = () => {
-    return courses.slice(0, -1).map((course, index) => ({
-      id: `e${course.id}-${courses[index + 1].id}`,
-      source: course.id,
-      target: courses[index + 1].id,
-      type: 'straight',
-      animated: true,
+    return initialEdges.map((edge, index) => ({
+      id: edge.id,
+      source: edge.source,
+      target: edge.target,
+      type: edge.type,
+      animated: edge.animated,
       style: { 
-        stroke: 'rgba(255, 255, 255, 0.8)',
-        strokeWidth: 2,
-        strokeDasharray: '5,5',
+        stroke: edge.style.stroke,
+        strokeWidth: edge.style.strokeWidth,
+        strokeDasharray: edge.style.strokeDasharray,
       },
     }));
   };

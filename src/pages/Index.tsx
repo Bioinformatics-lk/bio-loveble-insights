@@ -928,7 +928,7 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <div className="inline-block border-2 border-white/30 rounded-xl px-8 py-4 backdrop-blur-sm">
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Our Academy</h2>
+              <h2 className="text-4xl md:text-5xl font-bold text-white text-center">Our Academy</h2>
             </div>
             <p className="text-lg text-gray-300 max-w-4xl mx-auto mt-8">
               At Bioinformatics.lk Academy, we're revolutionizing science education through our innovative journey-based learning approach! Our passionate mentors guide learners through engaging, self-paced projects aligned with the Sustainable Development Goals (SDGs) from core foundations to cutting-edge paths in Bioinformatics, Cheminformatics, Computational Biology, and AI in Life Sciences. Regular team challenges ignite curiosity, foster collaboration, and build essential skills for the future of healthcare, agriculture, and environmental science.
@@ -944,14 +944,14 @@ const Index = () => {
                 <div className="slideshow-container h-full">
                   <div className="slide fade">
                     <img 
-                      src="/lovable-uploads/Photo11.jpg" 
+                      src="/lovable-uploads/Photo 11.jpg" 
                       alt="Bioinformatics Research" 
                       className="w-full h-full object-cover"
                     />
                   </div>
                   <div className="slide fade">
                     <img 
-                      src="/lovable-uploads/Photo10.jpg" 
+                      src="/lovable-uploads/Photo 10.jpg" 
                       alt="Drug Discovery Process" 
                       className="w-full h-full object-cover"
                     />
