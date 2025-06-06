@@ -947,15 +947,15 @@ const Index = () => {
                       src="/lovable-uploads/Photo 11.jpg" 
                       alt="Bioinformatics Research" 
                       className="w-full h-full object-cover"
-                    />
-                  </div>
+                  />
+                </div>
                   <div className="slide fade">
                     <img 
                       src="/lovable-uploads/Photo 10.jpg" 
                       alt="Drug Discovery Process" 
                       className="w-full h-full object-cover"
                     />
-                  </div>
+          </div>
                   {/* Navigation dots */}
                   <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2">
                     <span 
@@ -966,7 +966,7 @@ const Index = () => {
                       className={`dot ${currentSlideIndex === 1 ? 'active' : ''}`} 
                       onClick={() => currentSlide(2)}
                     ></span>
-                  </div>
+        </div>
                 </div>
               </div>
             </div>
@@ -975,7 +975,7 @@ const Index = () => {
             <div className="lg:col-span-1">
               <div className="h-[600px] rounded-2xl overflow-hidden shadow-xl">
                 <CoursePipeline />
-              </div>
+            </div>
             </div>
           </div>
 
@@ -1117,7 +1117,7 @@ const Index = () => {
             <div className="relative">
               <div className="relative">
                 <SplineContainer scene="https://prod.spline.design/USMDn0jW6GUQEWn1/scene.splinecode" />
-                <div className="absolute top-0 left-0 w-1/2 h-16 bg-[#000A33] z-10"></div>
+                <div className="absolute bottom-0 right-0 w-1/2 h-16 bg-[#000A33] z-10"></div>
               </div>
               <div className="text-center mt-12">
                 <button 
