@@ -992,15 +992,17 @@ const Index = () => {
           </div>
 
           <div className="relative">
-            <div className="absolute inset-0 bg-[#000A33] z-10"></div>
-            <SplineContainer scene="https://prod.spline.design/USMDn0jW6GUQEWn1/scene.splinecode" />
-            <div className="flex justify-center mt-4">
-              <Button 
-                className="bg-[#000A33] hover:bg-[#000A33]/90 text-[#EAE3F5] font-semibold px-6 py-4 text-base rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl border border-[#EAE3F5]/20"
-                size="lg"
-              >
-                Join Our Lab
-              </Button>
+            <div className="absolute inset-0 bg-[#000A33] z-0"></div>
+            <div className="relative z-20">
+              <SplineContainer scene="https://prod.spline.design/USMDn0jW6GUQEWn1/scene.splinecode" />
+              <div className="flex justify-center mt-4">
+                <Button 
+                  className="bg-[#000A33] hover:bg-[#000A33]/90 text-[#EAE3F5] font-semibold px-6 py-4 text-base rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl border border-[#EAE3F5]/20"
+                  size="lg"
+                >
+                  Join Our Lab
+                </Button>
+              </div>
             </div>
           </div>
         </div>
