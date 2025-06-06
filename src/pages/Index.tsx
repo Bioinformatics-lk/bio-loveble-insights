@@ -995,7 +995,7 @@ const Index = () => {
             <div className="relative z-20">
               <div className="relative">
                 <SplineContainer scene="https://prod.spline.design/USMDn0jW6GUQEWn1/scene.splinecode" />
-                <div className="absolute inset-0 bg-[#000A33] z-10"></div>
+                <div className="absolute bottom-0 left-0 right-0 h-16 bg-[#000A33] z-10"></div>
               </div>
               <div className="flex justify-center mt-4">
                 <Button 
