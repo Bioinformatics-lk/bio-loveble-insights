@@ -875,21 +875,21 @@ const Index = () => {
       </section>
 
       {/* SLBAIL Section */}
-      <section className="py-12 md:py-20 bg-gradient-to-br from-[#f0f9ff] to-[#e0f2fe] relative z-10" id="slbail">
+      <section className="py-12 md:py-20 bg-gradient-to-br from-[#0a192f] via-[#000000] to-[#0a192f] relative z-10" id="slbail">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 lg:mb-12">
-            <div className="inline-block bg-[#dbeafe] px-6 py-3 rounded-lg mb-4">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-800">SLBAIL</h2>
+            <div className="inline-block bg-[#112240]/50 backdrop-blur-sm px-6 py-3 rounded-lg mb-4 border border-[#233554]">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#64ffda]">SLBAIL</h2>
             </div>
-            <h3 className="text-xl md:text-2xl font-semibold text-gray-700 mb-4">
+            <h3 className="text-xl md:text-2xl font-semibold text-[#ccd6f6] mb-4">
               Sri Lankan Bioinformatics and Artificial Intelligence Lab
             </h3>
-            <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto">
+            <p className="text-lg md:text-xl text-[#8892b0] max-w-4xl mx-auto">
               Sri Lanka's First Botanical Artificial Intelligence System (SLBAIS) that revolutionizes drug discovery through advanced AI agents. Our system integrates cutting-edge artificial intelligence with traditional botanical knowledge to accelerate and enhance the drug discovery pipeline.
             </p>
           </div>
 
-          <div className="w-full h-[600px] md:h-[800px] rounded-lg overflow-hidden shadow-2xl border border-blue-100">
+          <div className="w-full h-[600px] md:h-[800px] rounded-lg overflow-hidden shadow-2xl border border-[#233554] bg-[#0a192f]/30 backdrop-blur-sm">
             <Spline scene="https://prod.spline.design/yw8LifYSzhfwYbQl/scene.splinecode" />
           </div>
         </div>
