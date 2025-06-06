@@ -36,8 +36,8 @@ const SplineContainer = memo(({ scene }: { scene: string }) => (
           position: absolute;
           bottom: 0;
           right: 0;
-          width: 200px;
-          height: 60px;
+          width: 100px;
+          height: 30px;
           background: linear-gradient(to top right, #000A33, black);
           z-index: 10;
           backdrop-filter: blur(8px);
