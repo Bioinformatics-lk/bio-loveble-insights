@@ -42,7 +42,12 @@ const SplineContainer = memo(({ scene }: { scene: string }) => (
           z-index: 10;
           backdrop-filter: blur(8px);
           border-top-left-radius: 8px;
-          opacity: 0.95;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-weight: 500;
+          font-size: 0.875rem;
         }
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(10px); }
@@ -71,7 +76,9 @@ const SplineContainer = memo(({ scene }: { scene: string }) => (
             transform: 'translateY(-50%)',
           }}
         />
-        <div className="branding-overlay" />
+        <div className="branding-overlay">
+          Hi I am SLBAIS
+        </div>
       </div>
     </Suspense>
   </div>
