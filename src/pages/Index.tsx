@@ -1099,7 +1099,7 @@ const Index = () => {
       </section>
 
       {/* SLBAIL Section */}
-      <section className="py-20 bg-gradient-to-br from-[#000A33] via-[#000A33] via-75% to-white">
+      <section className="py-20 bg-gradient-to-br from-[#000A33] via-[#000A33] via-75% to-black">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <div className="inline-block border-2 border-white/30 rounded-xl px-8 py-4 backdrop-blur-sm">
@@ -1117,7 +1117,7 @@ const Index = () => {
             <div className="relative">
               <div className="relative">
                 <SplineContainer scene="https://prod.spline.design/USMDn0jW6GUQEWn1/scene.splinecode" />
-                <div className="absolute top-0 left-0 w-1/2 h-16 bg-[#000A33] z-10"></div>
+                <div className="absolute bottom-0 right-0 w-1/2 h-16 bg-[#000A33] z-10"></div>
               </div>
               <div className="text-center mt-12">
                 <button 
