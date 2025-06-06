@@ -45,24 +45,25 @@ const SplineContainer = memo(({ scene }: { scene: string }) => (
         }
         .robot-dialog {
           position: absolute;
-          bottom: 20%;
-          right: 15%;
+          top: 5%;
+          left: 5%;
           background: rgba(0, 0, 0, 0.95);
           border: 2px solid #64ffda;
           border-radius: 15px;
-          padding: 1.5rem;
-          max-width: 300px;
+          padding: 0.75rem;
+          max-width: 250px;
           color: #ccd6f6;
           z-index: 20;
           box-shadow: 0 0 20px rgba(100, 255, 218, 0.2);
           backdrop-filter: blur(5px);
           animation: fadeIn 0.5s ease-out;
+          transform: translateX(0);
         }
         .robot-dialog::after {
           content: '';
           position: absolute;
           bottom: -10px;
-          right: 30px;
+          left: 30px;
           width: 0;
           height: 0;
           border-left: 10px solid transparent;
@@ -71,14 +72,26 @@ const SplineContainer = memo(({ scene }: { scene: string }) => (
         }
         .robot-dialog h3 {
           color: #64ffda;
-          font-size: 1.25rem;
+          font-size: 1rem;
           font-weight: bold;
           margin-bottom: 0.5rem;
         }
         .robot-dialog p {
-          font-size: 0.9rem;
+          font-size: 0.875rem;
           line-height: 1.4;
           margin: 0;
+        }
+        @media (min-width: 768px) {
+          .robot-dialog {
+            padding: 1.5rem;
+            max-width: 300px;
+          }
+          .robot-dialog h3 {
+            font-size: 1.25rem;
+          }
+          .robot-dialog p {
+            font-size: 0.9rem;
+          }
         }
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(10px); }
@@ -1029,9 +1042,17 @@ const Index = () => {
 
           <div className="relative">
             <SplineContainer scene="https://prod.spline.design/USMDn0jW6GUQEWn1/scene.splinecode" />
-            <div className="robot-dialog" style={{ top: '20%', left: '15%', bottom: 'auto', right: 'auto' }}>
-              <h3>Hi, I am SLBAIS!</h3>
-              <p>Sri Lanka's First Botanical Artificial Intelligence System</p>
+            <div className="robot-dialog" style={{ 
+              top: '5%', 
+              left: '5%', 
+              bottom: 'auto', 
+              right: 'auto',
+              maxWidth: '250px',
+              padding: '0.75rem',
+              transform: 'translateX(0)'
+            }}>
+              <h3 className="text-lg md:text-xl">Hi, I am SLBAIS!</h3>
+              <p className="text-sm md:text-base">Sri Lanka's First Botanical Artificial Intelligence System</p>
             </div>
             <div className="flex justify-center mt-8">
               <Button 
