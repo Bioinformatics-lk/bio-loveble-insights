@@ -1033,41 +1033,6 @@ const Index = () => {
         }
       `}</style>
 
-      {/* SLBAIL Section */}
-      <section className="py-4 md:py-8 bg-[#000A33] relative" id="slbail">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-2 lg:mb-3">
-            <div className="inline-block bg-[#000A33]/80 backdrop-blur-sm px-6 py-3 rounded-lg mb-4 border border-[#EAE3F5]">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#EAE3F5]">SLBAIL</h2>
-            </div>
-            <h3 className="text-xl md:text-2xl font-semibold text-[#EAE3F5] mb-4">
-              Sri Lankan Bioinformatics and Artificial Intelligence Lab
-            </h3>
-            <p className="text-lg md:text-xl text-[#EAE3F5]/80 max-w-4xl mx-auto">
-              Sri Lanka's First Botanical Artificial Intelligence System (SLBAIS) that revolutionizes drug discovery through advanced AI agents. Our system integrates cutting-edge artificial intelligence with traditional botanical knowledge to accelerate and enhance the drug discovery pipeline.
-            </p>
-          </div>
-
-          <div className="relative">
-            <div className="relative">
-          <div className="relative">
-            <SplineContainer scene="https://prod.spline.design/USMDn0jW6GUQEWn1/scene.splinecode" />
-                <div className="absolute bottom-0 right-0 w-1/2 h-16 bg-[#000A33] z-10"></div>
-              </div>
-              <div className="flex justify-center mt-4">
-              <Button 
-                  onClick={() => setAuthModalOpen(true)}
-                  className="bg-[#000A33] hover:bg-[#000A33]/90 text-[#EAE3F5] font-semibold px-8 py-5 text-lg rounded-lg transition-all duration-300 border border-[#EAE3F5]/20"
-                size="lg"
-              >
-                Join Our Lab
-              </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Our Services Section */}
       <section className="py-12 md:py-20 bg-white relative z-10" id="services">
         <div className="container mx-auto px-4">
@@ -1129,6 +1094,41 @@ const Index = () => {
                 </CardHeader>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SLBAIL Section */}
+      <section className="py-4 md:py-8 bg-[#000A33] relative" id="slbail">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-2 lg:mb-3">
+            <div className="inline-block bg-[#000A33]/80 backdrop-blur-sm px-6 py-3 rounded-lg mb-4 border border-[#EAE3F5]">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#EAE3F5]">SLBAIL</h2>
+            </div>
+            <h3 className="text-xl md:text-2xl font-semibold text-[#EAE3F5] mb-4">
+              Sri Lankan Bioinformatics and Artificial Intelligence Lab
+            </h3>
+            <p className="text-lg md:text-xl text-[#EAE3F5]/80 max-w-4xl mx-auto">
+              Sri Lanka's First Botanical Artificial Intelligence System (SLBAIS) that revolutionizes drug discovery through advanced AI agents. Our system integrates cutting-edge artificial intelligence with traditional botanical knowledge to accelerate and enhance the drug discovery pipeline.
+            </p>
+          </div>
+
+          <div className="relative">
+            <div className="relative">
+              <div className="relative">
+                <SplineContainer scene="https://prod.spline.design/USMDn0jW6GUQEWn1/scene.splinecode" />
+                <div className="absolute bottom-0 right-0 w-1/2 h-16 bg-[#000A33] z-10"></div>
+              </div>
+              <div className="flex justify-center mt-4">
+                <Button 
+                  onClick={() => setAuthModalOpen(true)}
+                  className="bg-[#000A33] hover:bg-[#000A33]/90 text-[#EAE3F5] font-semibold px-8 py-5 text-lg rounded-lg transition-all duration-300 border border-[#EAE3F5]/20"
+                  size="lg"
+                >
+                  Join Our Lab
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
