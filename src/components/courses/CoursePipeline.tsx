@@ -13,24 +13,38 @@ import ReactFlow, {
 import 'reactflow/dist/style.css';
 
 // Custom Node Component for Course Topics
-const CourseNode = ({ data }: { data: any }) => (
-  <div className="group">
-    <div className="relative bg-white/20 backdrop-blur-md px-6 py-4 rounded-2xl border-2 border-[#000A33] hover:border-sky-500 transition-all duration-300 text-center min-w-[200px] md:min-w-[300px] max-w-[300px] md:max-w-[400px]">
-      {/* Enhanced glow effect */}
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#000A33]/20 via-sky-500/20 to-[#000A33]/20 blur-sm animate-gradient-x" />
-      <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-blue-500/20 via-sky-400/20 to-violet-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
-      
-      {/* Content */}
-      <div className="relative z-10">
-        <h3 className="text-[#000A33] font-semibold text-lg md:text-xl whitespace-normal leading-tight group-hover:text-sky-500 transition-colors">
-          {data.label}
-        </h3>
+const CourseNode = ({ data }: { data: any }) => {
+  const getGlowColor = (id: string) => {
+    switch (id) {
+      case '1': return 'from-purple-500 via-purple-400 to-purple-500'; // Introduction to Bioinformatics
+      case '2': return 'from-blue-500 via-blue-400 to-blue-500'; // Network Pharmacology
+      case '3': return 'from-sky-500 via-sky-400 to-sky-500'; // Molecular Docking
+      case '4': return 'from-green-500 via-green-400 to-green-500'; // Molecular Dynamics
+      case '5': return 'from-emerald-700 via-emerald-600 to-emerald-700'; // Introduction to Cheminformatics
+      case '6': return 'from-fuchsia-500 via-fuchsia-400 to-fuchsia-500'; // AI and ML in Drug Discovery
+      case '7': return 'from-orange-500 via-red-500 to-orange-500'; // Research Project
+      default: return 'from-[#000A33] via-[#000A33] to-[#000A33]';
+    }
+  };
+
+  return (
+    <div className="group">
+      <div className="relative bg-white px-6 py-4 rounded-2xl border-2 border-[#000A33] transition-all duration-300 text-center min-w-[200px] md:min-w-[300px] max-w-[300px] md:max-w-[400px]">
+        {/* Outer glow effect */}
+        <div className={`absolute -inset-1 rounded-2xl bg-gradient-to-r ${getGlowColor(data.id)} opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-md`} />
+        
+        {/* Content */}
+        <div className="relative z-10">
+          <h3 className="text-[#000A33] font-semibold text-lg md:text-xl whitespace-normal leading-tight group-hover:text-sky-500 transition-colors">
+            {data.label}
+          </h3>
+        </div>
       </div>
+      <Handle type="target" position={Position.Top} className="w-3 h-3 bg-[#000A33]/50" />
+      <Handle type="source" position={Position.Bottom} className="w-3 h-3 bg-[#000A33]/50" />
     </div>
-    <Handle type="target" position={Position.Top} className="w-3 h-3 bg-[#000A33]/50" />
-    <Handle type="source" position={Position.Bottom} className="w-3 h-3 bg-[#000A33]/50" />
-  </div>
-);
+  );
+};
 
 const nodeTypes = {
   course: CourseNode,
@@ -51,7 +65,7 @@ const courses = [
   },
   {
     id: '4',
-    title: 'AI and ML in Drug Discovery',
+    title: 'Molecular Dynamics',
   },
   {
     id: '5',
@@ -59,7 +73,7 @@ const courses = [
   },
   {
     id: '6',
-    title: 'Molecular Dynamics',
+    title: 'AI and ML in Drug Discovery',
   },
   {
     id: '7',
@@ -87,7 +101,7 @@ export const CoursePipeline = () => {
         x: centerX - (isMobile ? 100 : 150),
         y: startY + (index * verticalSpacing)
       },
-      data: { label: course.title },
+      data: { label: course.title, id: course.id },
     }));
   };
 
