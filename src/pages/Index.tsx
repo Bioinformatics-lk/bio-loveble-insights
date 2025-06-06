@@ -996,6 +996,7 @@ const Index = () => {
               </div>
               <div className="flex justify-center mt-4">
                 <Button 
+                  onClick={() => setAuthModalOpen(true)}
                   className="bg-[#000A33] hover:bg-[#000A33]/90 text-[#EAE3F5] font-semibold px-8 py-5 text-lg rounded-lg transition-all duration-300 border border-[#EAE3F5]/20"
                   size="lg"
                 >
