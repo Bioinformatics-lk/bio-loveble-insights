@@ -6,6 +6,7 @@ import ReactFlow, {
   Controls,
   useNodesState,
   useEdgesState,
+  Position,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 
@@ -16,6 +17,8 @@ const initialNodes: Node[] = [
     data: { label: 'Introduction to Bioinformatics' },
     type: 'courseNode',
     draggable: false,
+    sourcePosition: Position.Bottom,
+    targetPosition: Position.Top,
   },
   {
     id: '2',
@@ -23,6 +26,8 @@ const initialNodes: Node[] = [
     data: { label: 'Network Pharmacology' },
     type: 'courseNode',
     draggable: false,
+    sourcePosition: Position.Bottom,
+    targetPosition: Position.Top,
   },
   {
     id: '3',
@@ -30,6 +35,8 @@ const initialNodes: Node[] = [
     data: { label: 'Molecular Docking' },
     type: 'courseNode',
     draggable: false,
+    sourcePosition: Position.Bottom,
+    targetPosition: Position.Top,
   },
   {
     id: '4',
@@ -37,6 +44,8 @@ const initialNodes: Node[] = [
     data: { label: 'AI and ML in Drug Discovery' },
     type: 'courseNode',
     draggable: false,
+    sourcePosition: Position.Bottom,
+    targetPosition: Position.Top,
   },
   {
     id: '5',
@@ -44,6 +53,8 @@ const initialNodes: Node[] = [
     data: { label: 'Introduction to Cheminformatics' },
     type: 'courseNode',
     draggable: false,
+    sourcePosition: Position.Bottom,
+    targetPosition: Position.Top,
   },
   {
     id: '6',
@@ -51,6 +62,8 @@ const initialNodes: Node[] = [
     data: { label: 'Molecular Dynamics' },
     type: 'courseNode',
     draggable: false,
+    sourcePosition: Position.Bottom,
+    targetPosition: Position.Top,
   },
   {
     id: '7',
@@ -58,6 +71,8 @@ const initialNodes: Node[] = [
     data: { label: 'Research Project' },
     type: 'courseNode',
     draggable: false,
+    sourcePosition: Position.Bottom,
+    targetPosition: Position.Top,
   },
 ];
 
@@ -66,7 +81,8 @@ const initialEdges: Edge[] = [
     id: 'e1-2', 
     source: '1', 
     target: '2', 
-    animated: true, 
+    animated: true,
+    type: 'smoothstep',
     style: { 
       strokeDasharray: '5,5',
       stroke: '#000A33',
@@ -77,7 +93,8 @@ const initialEdges: Edge[] = [
     id: 'e2-3', 
     source: '2', 
     target: '3', 
-    animated: true, 
+    animated: true,
+    type: 'smoothstep',
     style: { 
       strokeDasharray: '5,5',
       stroke: '#000A33',
@@ -88,7 +105,8 @@ const initialEdges: Edge[] = [
     id: 'e3-4', 
     source: '3', 
     target: '4', 
-    animated: true, 
+    animated: true,
+    type: 'smoothstep',
     style: { 
       strokeDasharray: '5,5',
       stroke: '#000A33',
@@ -99,7 +117,8 @@ const initialEdges: Edge[] = [
     id: 'e4-5', 
     source: '4', 
     target: '5', 
-    animated: true, 
+    animated: true,
+    type: 'smoothstep',
     style: { 
       strokeDasharray: '5,5',
       stroke: '#000A33',
@@ -110,7 +129,8 @@ const initialEdges: Edge[] = [
     id: 'e5-6', 
     source: '5', 
     target: '6', 
-    animated: true, 
+    animated: true,
+    type: 'smoothstep',
     style: { 
       strokeDasharray: '5,5',
       stroke: '#000A33',
@@ -121,7 +141,8 @@ const initialEdges: Edge[] = [
     id: 'e6-7', 
     source: '6', 
     target: '7', 
-    animated: true, 
+    animated: true,
+    type: 'smoothstep',
     style: { 
       strokeDasharray: '5,5',
       stroke: '#000A33',
@@ -161,6 +182,9 @@ export const CoursePipeline = () => {
         minZoom={0.5}
         maxZoom={1.5}
         defaultViewport={{ x: 0, y: 0, zoom: 1 }}
+        nodesDraggable={false}
+        nodesConnectable={false}
+        elementsSelectable={false}
       >
         <Background color="#f0f0f0" gap={16} />
         <Controls showInteractive={false} />
