@@ -969,9 +969,9 @@ const Index = () => {
       </section>
 
       {/* SLBAIL Section */}
-      <section className="py-8 md:py-12 bg-gradient-to-br from-black via-[#000A33] to-[#000A33] relative z-10" id="slbail">
+      <section className="py-4 md:py-8 bg-gradient-to-br from-black via-[#000A33] to-[#000A33] relative z-10" id="slbail">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-4 lg:mb-6">
+          <div className="text-center mb-2 lg:mb-3">
             <div className="inline-block bg-[#000A33]/80 backdrop-blur-sm px-6 py-3 rounded-lg mb-4 border border-[#EAE3F5]">
               <h2 className="text-3xl md:text-4xl font-bold text-[#EAE3F5]">SLBAIL</h2>
             </div>
