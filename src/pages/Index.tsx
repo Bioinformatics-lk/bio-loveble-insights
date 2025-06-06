@@ -972,7 +972,7 @@ const Index = () => {
             </p>
           </div>
 
-          <SplineContainer scene="https://prod.spline.design/KnxQVtGLyVIEYEaP/scene.splinecode" />
+          <SplineContainer scene="https://prod.spline.design/USMDn0jW6GUQEWn1/scene.splinecode" />
         </div>
       </section>
 
