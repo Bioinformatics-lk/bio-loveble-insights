@@ -34,7 +34,7 @@ const initialNodes: Node[] = [
   {
     id: '4',
     position: { x: 400, y: 350 },
-    data: { label: 'Molecular Dynamics' },
+    data: { label: 'AI and ML in Drug Discovery' },
     type: 'courseNode',
     draggable: false,
   },
@@ -48,7 +48,7 @@ const initialNodes: Node[] = [
   {
     id: '6',
     position: { x: 400, y: 550 },
-    data: { label: 'AI and ML in Drug Discovery' },
+    data: { label: 'Molecular Dynamics' },
     type: 'courseNode',
     draggable: false,
   },
