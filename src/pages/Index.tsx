@@ -10,6 +10,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { User } from '@supabase/supabase-js';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
+import Spline from '@splinetool/react-spline';
 
 const Index = () => {
   const [authModalOpen, setAuthModalOpen] = useState(false);
@@ -888,85 +889,8 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div className="space-y-6">
-              <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-lg border border-blue-100">
-                <h4 className="text-xl font-semibold text-gray-800 mb-4">Key Features:</h4>
-                <ul className="space-y-3 text-gray-600">
-                  <li className="flex items-start">
-                    <span className="text-blue-500 mr-2">•</span>
-                    <span>Advanced AI agents specialized in botanical compound analysis</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-blue-500 mr-2">•</span>
-                    <span>Integration with traditional Sri Lankan medicinal knowledge</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-blue-500 mr-2">•</span>
-                    <span>Automated screening and prediction of drug candidates</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-blue-500 mr-2">•</span>
-                    <span>Machine learning models for bioactivity prediction</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-lg border border-blue-100">
-                <h4 className="text-xl font-semibold text-gray-800 mb-4">Applications:</h4>
-                <ul className="space-y-3 text-gray-600">
-                  <li className="flex items-start">
-                    <span className="text-blue-500 mr-2">•</span>
-                    <span>Drug candidate identification from botanical sources</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-blue-500 mr-2">•</span>
-                    <span>Molecular property prediction and optimization</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-blue-500 mr-2">•</span>
-                    <span>Virtual screening of natural compounds</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-blue-500 mr-2">•</span>
-                    <span>Automated research pipeline management</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-100/50 to-purple-100/50 rounded-lg transform rotate-3"></div>
-              <div className="relative bg-white/90 backdrop-blur-sm rounded-lg p-6 shadow-lg border border-blue-100">
-                <h4 className="text-xl font-semibold text-gray-800 mb-4">Impact on Drug Discovery:</h4>
-                <div className="space-y-4 text-gray-600">
-                  <p>
-                    SLBAIS represents a groundbreaking approach to drug discovery by combining artificial intelligence with Sri Lanka's rich botanical heritage. Our system accelerates the identification and development of potential drug candidates through:
-                  </p>
-                  <ul className="space-y-3">
-                    <li className="flex items-start">
-                      <span className="text-blue-500 mr-2">•</span>
-                      <span>Rapid screening of thousands of botanical compounds</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-blue-500 mr-2">•</span>
-                      <span>AI-powered prediction of drug-like properties</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-blue-500 mr-2">•</span>
-                      <span>Automated analysis of structure-activity relationships</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-blue-500 mr-2">•</span>
-                      <span>Integration with modern drug discovery pipelines</span>
-                    </li>
-                  </ul>
-                  <p className="mt-4">
-                    By leveraging advanced AI technologies, SLBAIS significantly reduces the time and cost associated with traditional drug discovery methods while maximizing the potential of Sri Lanka's unique botanical resources.
-                  </p>
-                </div>
-              </div>
-            </div>
+          <div className="w-full h-[600px] md:h-[800px] rounded-lg overflow-hidden shadow-2xl border border-blue-100">
+            <Spline scene="https://prod.spline.design/yw8LifYSzhfwYbQl/scene.splinecode" />
           </div>
         </div>
       </section>
