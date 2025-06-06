@@ -1107,7 +1107,7 @@ const Index = () => {
             alt="SLBAIL Background" 
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-[#000A33]/90 via-[#000A33]/80 to-black/90"></div>
+          <div className="absolute inset-0 bg-black/50"></div>
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
