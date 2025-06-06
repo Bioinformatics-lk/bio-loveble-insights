@@ -25,12 +25,21 @@ const SplineContainer = memo(({ scene }: { scene: string }) => (
           display: none !important;
         }
         .spline-container :global(canvas) {
-          transform: translateX(10%) !important;
+          transform: translateX(25%) !important;
         }
         @media (max-width: 768px) {
           .spline-container :global(canvas) {
-            transform: translateX(5%) !important;
+            transform: translateX(15%) !important;
           }
+        }
+        .branding-overlay {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          width: 200px;
+          height: 60px;
+          background: linear-gradient(to bottom right, #0a192f, #000000);
+          z-index: 10;
         }
       `}
     </style>
@@ -39,7 +48,7 @@ const SplineContainer = memo(({ scene }: { scene: string }) => (
         <div className="text-[#64ffda]">Loading 3D Model...</div>
       </div>
     }>
-      <div className="spline-container w-full h-full flex items-center justify-center">
+      <div className="spline-container w-full h-full flex items-center justify-center relative">
         <Spline 
           scene={scene}
           style={{
@@ -50,6 +59,7 @@ const SplineContainer = memo(({ scene }: { scene: string }) => (
             transform: 'translateY(-50%)',
           }}
         />
+        <div className="branding-overlay" />
       </div>
     </Suspense>
   </div>
