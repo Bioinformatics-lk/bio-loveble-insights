@@ -43,67 +43,13 @@ const SplineContainer = memo(({ scene }: { scene: string }) => (
           backdrop-filter: blur(8px);
           border-top-left-radius: 8px;
         }
-        .robot-dialog {
-          position: absolute;
-          top: 5%;
-          right: 5%;
-          left: auto;
-          bottom: auto;
-          background: rgba(0, 0, 0, 0.95);
-          border: 2px solid #64ffda;
-          border-radius: 15px;
-          padding: 0.5rem;
-          max-width: 150px;
-          color: #ccd6f6;
-          z-index: 20;
-          box-shadow: 0 0 20px rgba(100, 255, 218, 0.2);
-          backdrop-filter: blur(5px);
-          animation: fadeIn 0.5s ease-out;
-        }
-        .robot-dialog::after {
-          content: '';
-          position: absolute;
-          bottom: -10px;
-          right: 30px;
-          width: 0;
-          height: 0;
-          border-left: 10px solid transparent;
-          border-right: 10px solid transparent;
-          border-top: 10px solid #64ffda;
-        }
-        .robot-dialog h3 {
-          color: #64ffda;
-          font-size: 0.875rem;
-          font-weight: bold;
-          margin-bottom: 0.25rem;
-        }
-        .robot-dialog p {
-          font-size: 0.75rem;
-          line-height: 1.2;
-          margin: 0;
-        }
-        @media (min-width: 768px) {
-          .robot-dialog {
-            padding: 1rem;
-            max-width: 200px;
-          }
-          .robot-dialog h3 {
-            font-size: 1rem;
-          }
-          .robot-dialog p {
-            font-size: 0.875rem;
-          }
-        }
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(10px); }
           to { opacity: 1; transform: translateY(0); }
         }
         @media (max-width: 768px) {
-          .robot-dialog {
-            bottom: 15%;
-            right: 10%;
-            max-width: 250px;
-            padding: 1rem;
+          .spline-container :global(canvas) {
+            transform: translateX(15%) !important;
           }
         }
       `}
@@ -125,10 +71,6 @@ const SplineContainer = memo(({ scene }: { scene: string }) => (
           }}
         />
         <div className="branding-overlay" />
-        <div className="robot-dialog">
-          <h3>Hi, I am SLBAIS!</h3>
-          <p>Sri Lanka's First Botanical Artificial Intelligence System</p>
-        </div>
       </div>
     </Suspense>
   </div>
@@ -1043,10 +985,6 @@ const Index = () => {
 
           <div className="relative">
             <SplineContainer scene="https://prod.spline.design/USMDn0jW6GUQEWn1/scene.splinecode" />
-            <div className="robot-dialog">
-              <h3 className="text-sm md:text-base">Hi, I am SLBAIS!</h3>
-              <p className="text-xs md:text-sm">Sri Lanka's First Botanical Artificial Intelligence System</p>
-            </div>
             <div className="flex justify-center mt-8">
               <Button 
                 className="bg-[#64ffda] hover:bg-[#64ffda]/90 text-[#000000] font-semibold px-8 py-6 text-lg rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
