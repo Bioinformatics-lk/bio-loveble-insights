@@ -969,25 +969,32 @@ const Index = () => {
       </section>
 
       {/* SLBAIL Section */}
-      <section className="py-12 md:py-20 bg-[#000000] relative z-10" id="slbail">
+      <section className="py-12 md:py-20 bg-gradient-to-br from-[#170056] to-[#410056] relative z-10" id="slbail">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 lg:mb-12">
-            <div className="inline-block bg-[#000000]/50 backdrop-blur-sm px-6 py-3 rounded-lg mb-4 border border-[#233554]">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#64ffda]">SLBAIL</h2>
+            <div className="inline-block bg-[#000000]/50 backdrop-blur-sm px-6 py-3 rounded-lg mb-4 border border-[#EAE3F5]">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#EAE3F5]">SLBAIL</h2>
             </div>
-            <h3 className="text-xl md:text-2xl font-semibold text-[#ccd6f6] mb-4">
+            <h3 className="text-xl md:text-2xl font-semibold text-[#EAE3F5] mb-4">
               Sri Lankan Bioinformatics and Artificial Intelligence Lab
             </h3>
-            <p className="text-lg md:text-xl text-[#8892b0] max-w-4xl mx-auto">
+            <p className="text-lg md:text-xl text-[#EAE3F5]/80 max-w-4xl mx-auto">
               Sri Lanka's First Botanical Artificial Intelligence System (SLBAIS) that revolutionizes drug discovery through advanced AI agents. Our system integrates cutting-edge artificial intelligence with traditional botanical knowledge to accelerate and enhance the drug discovery pipeline.
             </p>
           </div>
 
           <div className="relative">
             <SplineContainer scene="https://prod.spline.design/USMDn0jW6GUQEWn1/scene.splinecode" />
+            {/* Transparent Dialog Box */}
+            <div className="absolute top-1/2 right-8 transform -translate-y-1/2 bg-white/10 backdrop-blur-md p-6 rounded-lg border border-[#EAE3F5]/20 max-w-md">
+              <h4 className="text-2xl font-bold text-[#EAE3F5] mb-4">Hi I am SLBAIS!</h4>
+              <p className="text-[#EAE3F5]/90 text-lg">
+                Sri Lanka's First Botanical Artificial Intelligence System
+              </p>
+            </div>
             <div className="flex justify-center mt-8">
               <Button 
-                className="bg-[#64ffda] hover:bg-[#64ffda]/90 text-[#000000] font-semibold px-8 py-6 text-lg rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                className="bg-[#EAE3F5] hover:bg-[#EAE3F5]/90 text-[#170056] font-semibold px-8 py-6 text-lg rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
                 size="lg"
               >
                 Join Our Lab
