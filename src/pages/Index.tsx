@@ -924,7 +924,7 @@ const Index = () => {
       </section>
 
       {/* Our Academy Section */}
-      <section className="py-20 relative" id="courses">
+      <section className="py-20 relative">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img 
@@ -957,15 +957,15 @@ const Index = () => {
                       src="/lovable-uploads/Photo 11.jpg" 
                       alt="Bioinformatics Research" 
                       className="w-full h-full object-cover"
-                  />
-                </div>
+                    />
+                  </div>
                   <div className="slide fade">
                     <img 
                       src="/lovable-uploads/Photo 10.jpg" 
                       alt="Drug Discovery Process" 
                       className="w-full h-full object-cover"
                     />
-          </div>
+                  </div>
                   {/* Navigation dots */}
                   <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2">
                     <span 
@@ -976,7 +976,7 @@ const Index = () => {
                       className={`dot ${currentSlideIndex === 1 ? 'active' : ''}`} 
                       onClick={() => currentSlide(2)}
                     ></span>
-        </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -985,7 +985,7 @@ const Index = () => {
             <div className="lg:col-span-1">
               <div className="h-[600px] rounded-2xl overflow-hidden shadow-xl">
                 <CoursePipeline />
-            </div>
+              </div>
             </div>
           </div>
 
