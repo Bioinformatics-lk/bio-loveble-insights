@@ -889,8 +889,21 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="w-full h-[600px] md:h-[800px] rounded-lg overflow-hidden">
-            <Spline scene="https://prod.spline.design/USMDn0jW6GUQEWn1/scene.splinecode" />
+          <div className="w-full h-[400px] md:h-[800px] rounded-lg overflow-hidden">
+            <Spline 
+              scene="https://prod.spline.design/USMDn0jW6GUQEWn1/scene.splinecode"
+              style={{
+                width: '100%',
+                height: '100%',
+              }}
+              onLoad={(spline) => {
+                // Optimize performance for mobile
+                if (window.innerWidth < 768) {
+                  spline.setQuality('low');
+                  spline.setPixelRatio(1);
+                }
+              }}
+            />
           </div>
         </div>
       </section>
