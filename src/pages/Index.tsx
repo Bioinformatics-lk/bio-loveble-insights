@@ -933,8 +933,8 @@ const Index = () => {
             </p>
           </div>
 
-          {/* Three-column layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+          {/* Two-column layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
             {/* Left Column - Slideshow */}
             <div className="lg:col-span-1">
               <div className="relative h-[600px] rounded-2xl overflow-hidden shadow-xl">
@@ -969,44 +969,7 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Middle Column - Course Details */}
-            <div className="lg:col-span-1">
-              <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 h-[600px] overflow-y-auto">
-                <h3 className="text-2xl font-semibold text-white mb-6">Course Overview</h3>
-                <div className="space-y-6">
-                  <div className="bg-white/10 rounded-xl p-4">
-                    <h4 className="text-xl font-medium text-white mb-2">Introduction to Bioinformatics</h4>
-                    <p className="text-gray-300">Foundation in computational biology and data analysis.</p>
-                  </div>
-                  <div className="bg-white/10 rounded-xl p-4">
-                    <h4 className="text-xl font-medium text-white mb-2">Network Pharmacology</h4>
-                    <p className="text-gray-300">Understanding drug-target interactions and network analysis.</p>
-                  </div>
-                  <div className="bg-white/10 rounded-xl p-4">
-                    <h4 className="text-xl font-medium text-white mb-2">Molecular Docking</h4>
-                    <p className="text-gray-300">Advanced techniques in molecular modeling and simulation.</p>
-                  </div>
-                  <div className="bg-white/10 rounded-xl p-4">
-                    <h4 className="text-xl font-medium text-white mb-2">Molecular Dynamics</h4>
-                    <p className="text-gray-300">Study of molecular motion and interactions over time.</p>
-                  </div>
-                  <div className="bg-white/10 rounded-xl p-4">
-                    <h4 className="text-xl font-medium text-white mb-2">Introduction to Cheminformatics</h4>
-                    <p className="text-gray-300">Computational methods in chemical data analysis.</p>
-                  </div>
-                  <div className="bg-white/10 rounded-xl p-4">
-                    <h4 className="text-xl font-medium text-white mb-2">AI and ML in Drug Discovery</h4>
-                    <p className="text-gray-300">Modern approaches to drug development using AI.</p>
-                  </div>
-                  <div className="bg-white/10 rounded-xl p-4">
-                    <h4 className="text-xl font-medium text-white mb-2">Research Project</h4>
-                    <p className="text-gray-300">Hands-on experience in bioinformatics research.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Column - Minimized React Flow */}
+            {/* Right Column - React Flow */}
             <div className="lg:col-span-1">
               <div className="h-[600px] rounded-2xl overflow-hidden shadow-xl">
                 <CoursePipeline />

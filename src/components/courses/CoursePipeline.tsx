@@ -16,10 +16,10 @@ import 'reactflow/dist/style.css';
 const CourseNode = ({ data }: { data: any }) => {
   return (
     <div>
-      <div className="bg-[#4d2884]/90 backdrop-blur-md px-6 py-4 rounded-xl border-2 border-white/30 text-center min-w-[200px] md:min-w-[250px] max-w-[250px] md:max-w-[300px] shadow-lg shadow-[#2e0669]/20">
+      <div className="bg-[#4d2884]/90 backdrop-blur-md px-8 py-6 rounded-xl border-2 border-white/30 text-center min-w-[300px] md:min-w-[400px] max-w-[400px] md:max-w-[500px] shadow-lg shadow-[#2e0669]/20">
         {/* Content */}
         <div>
-          <h3 className="text-white font-semibold text-lg md:text-xl whitespace-normal leading-tight">
+          <h3 className="text-white font-semibold text-xl md:text-2xl whitespace-normal leading-tight">
             {data.label}
           </h3>
         </div>
@@ -76,13 +76,13 @@ export const CoursePipeline = () => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
     const startY = 20;
-    const verticalSpacing = isMobile ? 100 : 120;
+    const verticalSpacing = isMobile ? 120 : 150;
 
     return courses.map((course, index) => ({
       id: course.id,
       type: 'course',
       position: { 
-        x: centerX - (isMobile ? 100 : 125),
+        x: centerX - (isMobile ? 150 : 200),
         y: startY + (index * verticalSpacing)
       },
       data: { label: course.title, id: course.id },
@@ -99,8 +99,8 @@ export const CoursePipeline = () => {
       animated: true,
       style: { 
         stroke: 'rgba(255, 255, 255, 0.8)',
-        strokeWidth: 1.5,
-        strokeDasharray: '4,4',
+        strokeWidth: 2,
+        strokeDasharray: '5,5',
       },
     }));
   };
@@ -141,19 +141,19 @@ export const CoursePipeline = () => {
         nodeTypes={nodeTypes}
         fitView
         fitViewOptions={{ 
-          padding: 0.1,
-          maxZoom: 0.8
+          padding: 0.2,
+          maxZoom: 0.9
         }}
         minZoom={0.5}
-        maxZoom={0.8}
-        defaultViewport={{ x: 0, y: 0, zoom: 0.8 }}
+        maxZoom={0.9}
+        defaultViewport={{ x: 0, y: 0, zoom: 0.9 }}
         attributionPosition="bottom-right"
         className="bg-transparent"
       >
         <Background 
           variant={BackgroundVariant.Dots} 
-          gap={8} 
-          size={0.8} 
+          gap={12} 
+          size={1} 
           color="rgba(255,255,255,0.15)" 
         />
         <Controls className="bg-white/10 backdrop-blur-sm" showInteractive={false} />
