@@ -1117,7 +1117,7 @@ const Index = () => {
             <div className="relative">
               <div className="relative">
                 <SplineContainer scene="https://prod.spline.design/USMDn0jW6GUQEWn1/scene.splinecode" />
-                <div className="absolute bottom-0 right-0 w-1/2 h-16 bg-[#000A33] z-10"></div>
+                <div className="absolute top-0 left-0 w-1/2 h-16 bg-[#000A33] z-10"></div>
               </div>
               <div className="text-center mt-12">
                 <button 
