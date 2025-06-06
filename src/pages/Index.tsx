@@ -332,115 +332,123 @@ const Index = () => {
         </div>
       </header>
 
-      {/* Mobile Navigation Menu - Add before the Hero section */}
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 bg-gradient-to-br from-[#170056]/95 via-[#410056]/95 to-[#54366B]/95 backdrop-blur-md md:hidden">
-          <div className="container mx-auto px-4 py-8">
-            <div className="flex justify-end mb-6">
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-white hover:bg-white/10 w-12 h-12"
-              >
-                <X className="h-8 w-8" />
-              </Button>
+      {/* Mobile Navigation Menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 bg-gradient-to-br from-[#170056]/95 via-[#410056]/95 to-[#54366B]/95 backdrop-blur-md md:hidden"
+          >
+            <div className="container mx-auto px-4 py-8">
+              <div className="flex justify-end mb-6">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-white hover:bg-white/10 w-12 h-12"
+                >
+                  <X className="h-8 w-8" />
+                </Button>
+              </div>
+              <nav className="flex flex-col space-y-4">
+                <Button
+                  variant="ghost"
+                  onClick={() => {
+                    scrollToSection('team');
+                    setMobileMenuOpen(false);
+                  }}
+                  className="text-white hover:bg-white/10 text-lg justify-start"
+                >
+                  Our Team
+                </Button>
+                <Button
+                  variant="ghost"
+                  onClick={() => {
+                    scrollToSection('research');
+                    setMobileMenuOpen(false);
+                  }}
+                  className="text-white hover:bg-white/10 text-lg justify-start"
+                >
+                  Research Areas
+                </Button>
+                <Button
+                  variant="ghost"
+                  onClick={() => {
+                    scrollToSection('courses');
+                    setMobileMenuOpen(false);
+                  }}
+                  className="text-white hover:bg-white/10 text-lg justify-start"
+                >
+                  Our Courses
+                </Button>
+                <Button
+                  variant="ghost"
+                  onClick={() => {
+                    scrollToSection('slbail');
+                    setMobileMenuOpen(false);
+                  }}
+                  className="text-white hover:bg-white/10 text-lg justify-start"
+                >
+                  SLBAIL
+                </Button>
+                <Button
+                  variant="ghost"
+                  onClick={() => {
+                    scrollToSection('news');
+                    setMobileMenuOpen(false);
+                  }}
+                  className="text-white hover:bg-white/10 text-lg justify-start"
+                >
+                  Latest News & Updates
+                </Button>
+                <Button
+                  variant="ghost"
+                  onClick={() => {
+                    scrollToSection('services');
+                    setMobileMenuOpen(false);
+                  }}
+                  className="text-white hover:bg-white/10 text-lg justify-start"
+                >
+                  Our Services
+                </Button>
+                <Button
+                  variant="ghost"
+                  onClick={() => {
+                    setContactModalOpen(true);
+                    setMobileMenuOpen(false);
+                  }}
+                  className="text-white hover:bg-white/10 text-lg justify-start"
+                >
+                  Contact Us
+                </Button>
+                <Button
+                  variant="ghost"
+                  onClick={() => {
+                    scrollToSection('partnerships');
+                    setMobileMenuOpen(false);
+                  }}
+                  className="text-white hover:bg-white/10 text-lg justify-start"
+                >
+                  Our Partnerships
+                </Button>
+                <Button
+                  variant="ghost"
+                  onClick={() => {
+                    scrollToSection('success-stories');
+                    setMobileMenuOpen(false);
+                  }}
+                  className="text-white hover:bg-white/10 text-lg justify-start"
+                >
+                  Success Stories
+                </Button>
+              </nav>
             </div>
-            <nav className="flex flex-col space-y-4">
-              <Button
-                variant="ghost"
-                onClick={() => {
-                  scrollToSection('team');
-                  setMobileMenuOpen(false);
-                }}
-                className="text-white hover:bg-white/10 text-lg justify-start"
-              >
-                Our Team
-              </Button>
-              <Button
-                variant="ghost"
-                onClick={() => {
-                  scrollToSection('research');
-                  setMobileMenuOpen(false);
-                }}
-                className="text-white hover:bg-white/10 text-lg justify-start"
-              >
-                Research Areas
-              </Button>
-              <Button
-                variant="ghost"
-                onClick={() => {
-                  scrollToSection('courses');
-                  setMobileMenuOpen(false);
-                }}
-                className="text-white hover:bg-white/10 text-lg justify-start"
-              >
-                Our Courses
-              </Button>
-              <Button
-                variant="ghost"
-                onClick={() => {
-                  scrollToSection('slbail');
-                  setMobileMenuOpen(false);
-                }}
-                className="text-white hover:bg-white/10 text-lg justify-start"
-              >
-                SLBAIL
-              </Button>
-              <Button
-                variant="ghost"
-                onClick={() => {
-                  scrollToSection('news');
-                  setMobileMenuOpen(false);
-                }}
-                className="text-white hover:bg-white/10 text-lg justify-start"
-              >
-                Latest News & Updates
-              </Button>
-              <Button
-                variant="ghost"
-                onClick={() => {
-                  scrollToSection('services');
-                  setMobileMenuOpen(false);
-                }}
-                className="text-white hover:bg-white/10 text-lg justify-start"
-              >
-                Our Services
-              </Button>
-              <Button
-                variant="ghost"
-                onClick={() => {
-                  setContactModalOpen(true);
-                  setMobileMenuOpen(false);
-                }}
-                className="text-white hover:bg-white/10 text-lg justify-start"
-              >
-                Contact Us
-              </Button>
-              <Button
-                variant="ghost"
-                onClick={() => {
-                  scrollToSection('partnerships');
-                  setMobileMenuOpen(false);
-                }}
-                className="text-white hover:bg-white/10 text-lg justify-start"
-              >
-                Our Partnerships
-              </Button>
-              <Button
-                variant="ghost"
-                onClick={() => {
-                  scrollToSection('success-stories');
-                  setMobileMenuOpen(false);
-                }}
-                className="text-white hover:bg-white/10 text-lg justify-start"
-              >
-                Success Stories
-              </Button>
-            </nav>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Hero Section */}
       <section className="relative overflow-hidden z-10">
@@ -889,19 +897,12 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="w-full h-[400px] md:h-[800px] rounded-lg overflow-hidden">
+          <div className="w-full h-[300px] sm:h-[400px] md:h-[600px] lg:h-[800px] rounded-lg overflow-hidden">
             <Spline 
               scene="https://prod.spline.design/USMDn0jW6GUQEWn1/scene.splinecode"
               style={{
                 width: '100%',
                 height: '100%',
-              }}
-              onLoad={(spline) => {
-                // Optimize performance for mobile
-                if (window.innerWidth < 768) {
-                  spline.setQuality('low');
-                  spline.setPixelRatio(1);
-                }
               }}
             />
           </div>
