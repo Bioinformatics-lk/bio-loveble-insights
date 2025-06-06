@@ -16,19 +16,31 @@ const Spline = lazy(() => import('@splinetool/react-spline'));
 
 // Memoize the Spline container component
 const SplineContainer = memo(({ scene }: { scene: string }) => (
-  <div className="w-full h-[300px] sm:h-[400px] md:h-[600px] lg:h-[800px] rounded-lg overflow-hidden">
+  <div className="w-full h-[300px] sm:h-[400px] md:h-[600px] lg:h-[800px] rounded-lg overflow-hidden relative">
+    <style>
+      {`
+        .spline-container :global(.spline-watermark) {
+          display: none !important;
+        }
+        .spline-container :global(.spline-logo) {
+          display: none !important;
+        }
+      `}
+    </style>
     <Suspense fallback={
       <div className="w-full h-full flex items-center justify-center bg-[#0a192f]/30">
         <div className="text-[#64ffda]">Loading 3D Model...</div>
       </div>
     }>
-      <Spline 
-        scene={scene}
-        style={{
-          width: '100%',
-          height: '100%',
-        }}
-      />
+      <div className="spline-container">
+        <Spline 
+          scene={scene}
+          style={{
+            width: '100%',
+            height: '100%',
+          }}
+        />
+      </div>
     </Suspense>
   </div>
 ));
