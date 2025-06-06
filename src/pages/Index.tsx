@@ -970,18 +970,20 @@ const Index = () => {
       </section>
 
       {/* SLBAIL Section */}
-      <section className="py-4 md:py-8 bg-gradient-to-br from-[#E6F0FF] via-[#000A33] to-black relative z-10" id="slbail">
+      <section className="py-4 md:py-8 bg-gradient-to-br from-[#000A33] via-[#000A33] to-black relative z-10" id="slbail">
         <div className="container mx-auto px-4">
           <div className="text-center mb-2 lg:mb-3">
             <div className="inline-block bg-[#000A33]/80 backdrop-blur-sm px-6 py-3 rounded-lg mb-4 border border-[#EAE3F5]">
               <h2 className="text-3xl md:text-4xl font-bold text-[#EAE3F5]">SLBAIL</h2>
             </div>
-            <h3 className="text-xl md:text-2xl font-semibold text-[#EAE3F5] mb-4">
-              Sri Lankan Bioinformatics and Artificial Intelligence Lab
-            </h3>
-            <p className="text-lg md:text-xl text-[#EAE3F5]/80 max-w-4xl mx-auto">
-              Sri Lanka's First Botanical Artificial Intelligence System (SLBAIS) that revolutionizes drug discovery through advanced AI agents. Our system integrates cutting-edge artificial intelligence with traditional botanical knowledge to accelerate and enhance the drug discovery pipeline.
-            </p>
+            <div className="bg-[#000A33]/90 backdrop-blur-sm p-6 rounded-lg mb-4">
+              <h3 className="text-xl md:text-2xl font-semibold text-[#EAE3F5] mb-4">
+                Sri Lankan Bioinformatics and Artificial Intelligence Lab
+              </h3>
+              <p className="text-lg md:text-xl text-[#EAE3F5]/80 max-w-4xl mx-auto">
+                Sri Lanka's First Botanical Artificial Intelligence System (SLBAIS) that revolutionizes drug discovery through advanced AI agents. Our system integrates cutting-edge artificial intelligence with traditional botanical knowledge to accelerate and enhance the drug discovery pipeline.
+              </p>
+            </div>
           </div>
 
           <div className="relative">
