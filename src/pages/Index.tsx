@@ -904,19 +904,53 @@ const Index = () => {
       </section>
 
       {/* Our Courses Section */}
-      <section className="py-16 md:py-24 relative" id="courses">
+      <section className="py-20 bg-gradient-to-br from-[#000A33] via-[#000A33] via-75% to-black">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#EAE3F5] mb-4">
-              Our Courses
-            </h2>
-            <p className="text-lg md:text-xl text-[#EAE3F5]/80 max-w-3xl mx-auto">
-              Explore our comprehensive curriculum designed to equip you with the latest skills in bioinformatics and drug discovery.
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Our Courses</h2>
+            <p className="text-lg text-gray-300 max-w-3xl mx-auto">
+              Explore our comprehensive curriculum designed to equip you with cutting-edge skills in bioinformatics and drug discovery.
             </p>
           </div>
 
-          <div className="mt-8">
-            <CoursePipeline />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+            {/* Slideshow */}
+            <div className="lg:col-span-1 h-[600px]">
+              <CourseSlideshow />
+            </div>
+
+            {/* Course Description */}
+            <div className="lg:col-span-1 bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10">
+              <h3 className="text-2xl font-semibold text-white mb-4">Course Overview</h3>
+              <p className="text-gray-300 mb-6">
+                Our curriculum is carefully designed to provide a comprehensive understanding of bioinformatics and drug discovery, from fundamental concepts to advanced applications.
+              </p>
+              <ul className="space-y-3 text-gray-300">
+                <li className="flex items-center">
+                  <svg className="w-5 h-5 text-sky-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  Hands-on practical experience
+                </li>
+                <li className="flex items-center">
+                  <svg className="w-5 h-5 text-sky-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  Industry-standard tools and techniques
+                </li>
+                <li className="flex items-center">
+                  <svg className="w-5 h-5 text-sky-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  Expert-led training sessions
+                </li>
+              </ul>
+            </div>
+
+            {/* Course Pipeline */}
+            <div className="lg:col-span-1 h-[600px]">
+              <CoursePipeline />
+            </div>
           </div>
         </div>
       </section>
