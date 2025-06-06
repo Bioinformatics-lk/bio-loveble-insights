@@ -996,7 +996,7 @@ const Index = () => {
               </div>
               <div className="flex justify-center mt-4">
                 <Button 
-                  className="bg-[#000A33] hover:bg-[#000A33]/90 text-[#EAE3F5] font-semibold px-8 py-5 text-lg rounded-lg transition-all duration-300 transform hover:scale-105 shadow-[0_0_15px_rgba(234,227,245,0.3)] hover:shadow-[0_0_25px_rgba(234,227,245,0.5)] border-2 border-[#EAE3F5] hover:border-[#EAE3F5]/80"
+                  className="bg-[#000A33] hover:bg-[#000A33]/90 text-[#EAE3F5] font-semibold px-8 py-5 text-lg rounded-lg transition-all duration-300 border border-[#EAE3F5]/20"
                   size="lg"
                 >
                   Join Our Lab
