@@ -924,18 +924,8 @@ const Index = () => {
       </section>
 
       {/* Our Academy Section */}
-      <section className="py-20 relative">
-        {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="/lovable-uploads/Photo 13.jpg" 
-            alt="Our Academy Background" 
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/50"></div>
-        </div>
-
-        <div className="container mx-auto px-4 relative z-10">
+      <section className="py-20 bg-gradient-to-br from-[#000A33] via-[#000A33] via-75% to-black">
+        <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <div className="inline-block border-2 border-white/30 rounded-xl px-8 py-4 backdrop-blur-sm">
               <h2 className="text-4xl md:text-5xl font-bold text-white text-center">Our Academy</h2>
@@ -957,15 +947,15 @@ const Index = () => {
                       src="/lovable-uploads/Photo 11.jpg" 
                       alt="Bioinformatics Research" 
                       className="w-full h-full object-cover"
-                    />
-                  </div>
+                  />
+                </div>
                   <div className="slide fade">
                     <img 
                       src="/lovable-uploads/Photo 10.jpg" 
                       alt="Drug Discovery Process" 
                       className="w-full h-full object-cover"
                     />
-                  </div>
+          </div>
                   {/* Navigation dots */}
                   <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2">
                     <span 
@@ -976,7 +966,7 @@ const Index = () => {
                       className={`dot ${currentSlideIndex === 1 ? 'active' : ''}`} 
                       onClick={() => currentSlide(2)}
                     ></span>
-                  </div>
+        </div>
                 </div>
               </div>
             </div>
@@ -985,7 +975,7 @@ const Index = () => {
             <div className="lg:col-span-1">
               <div className="h-[600px] rounded-2xl overflow-hidden shadow-xl">
                 <CoursePipeline />
-              </div>
+            </div>
             </div>
           </div>
 
