@@ -38,7 +38,7 @@ const SplineContainer = memo(({ scene }: { scene: string }) => (
           right: 0;
           width: 200px;
           height: 60px;
-          background: linear-gradient(135deg, #0a192f 0%, #000000 100%);
+          background: #000000;
           z-index: 10;
           backdrop-filter: blur(8px);
           border-top-left-radius: 8px;
@@ -47,7 +47,7 @@ const SplineContainer = memo(({ scene }: { scene: string }) => (
           position: absolute;
           bottom: 20%;
           right: 15%;
-          background: rgba(10, 25, 47, 0.95);
+          background: rgba(0, 0, 0, 0.95);
           border: 2px solid #64ffda;
           border-radius: 15px;
           padding: 1.5rem;
@@ -95,7 +95,7 @@ const SplineContainer = memo(({ scene }: { scene: string }) => (
       `}
     </style>
     <Suspense fallback={
-      <div className="w-full h-full flex items-center justify-center bg-[#0a192f]/30">
+      <div className="w-full h-full flex items-center justify-center bg-[#000000]/30">
         <div className="text-[#64ffda]">Loading 3D Model...</div>
       </div>
     }>
@@ -1013,10 +1013,10 @@ const Index = () => {
       </section>
 
       {/* SLBAIL Section */}
-      <section className="py-12 md:py-20 bg-gradient-to-br from-[#0a192f] via-[#000000] to-[#0a192f] relative z-10" id="slbail">
+      <section className="py-12 md:py-20 bg-[#000000] relative z-10" id="slbail">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 lg:mb-12">
-            <div className="inline-block bg-[#112240]/50 backdrop-blur-sm px-6 py-3 rounded-lg mb-4 border border-[#233554]">
+            <div className="inline-block bg-[#000000]/50 backdrop-blur-sm px-6 py-3 rounded-lg mb-4 border border-[#233554]">
               <h2 className="text-3xl md:text-4xl font-bold text-[#64ffda]">SLBAIL</h2>
             </div>
             <h3 className="text-xl md:text-2xl font-semibold text-[#ccd6f6] mb-4">
