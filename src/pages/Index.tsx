@@ -1027,7 +1027,21 @@ const Index = () => {
             </p>
           </div>
 
-          <SplineContainer scene="https://prod.spline.design/USMDn0jW6GUQEWn1/scene.splinecode" />
+          <div className="relative">
+            <SplineContainer scene="https://prod.spline.design/USMDn0jW6GUQEWn1/scene.splinecode" />
+            <div className="robot-dialog" style={{ top: '20%', left: '15%', bottom: 'auto', right: 'auto' }}>
+              <h3>Hi, I am SLBAIS!</h3>
+              <p>Sri Lanka's First Botanical Artificial Intelligence System</p>
+            </div>
+            <div className="flex justify-center mt-8">
+              <Button 
+                className="bg-[#64ffda] hover:bg-[#64ffda]/90 text-[#000000] font-semibold px-8 py-6 text-lg rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                size="lg"
+              >
+                Join Our Lab
+              </Button>
+            </div>
+          </div>
         </div>
       </section>
 
