@@ -650,7 +650,7 @@ const Index = () => {
         <div className="container mx-auto max-w-7xl">
           <div className="text-center space-y-8">
             <h2 className="text-4xl md:text-5xl font-bold text-[#170056] mb-6">
-              Explore. Discover. Advance.
+              Explore<span className="rainbow-dot">.</span> Discover<span className="rainbow-dot">.</span> Advance<span className="rainbow-dot">.</span>
             </h2>
             
             <p className="text-lg md:text-xl text-[#54366B] leading-relaxed px-4 md:px-8">
@@ -1030,6 +1030,21 @@ const Index = () => {
 
         .dot.active {
           background-color: white;
+        }
+
+        @keyframes rainbow {
+          0% { color: #ff0000; }
+          17% { color: #ff8000; }
+          33% { color: #ffff00; }
+          50% { color: #00ff00; }
+          67% { color: #0000ff; }
+          83% { color: #8000ff; }
+          100% { color: #ff0000; }
+        }
+
+        .rainbow-dot {
+          animation: rainbow 3s linear infinite;
+          display: inline-block;
         }
       `}</style>
 
