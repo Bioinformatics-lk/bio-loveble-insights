@@ -6,6 +6,7 @@ import { AuthModal } from "@/components/auth/AuthModal";
 import { ContactModal } from "@/components/contact/ContactModal";
 import { SearchBar } from "@/components/search/SearchBar";
 import { UserDashboard } from "@/components/dashboard/UserDashboard";
+import { CoursePipeline } from "@/components/courses/CoursePipeline";
 import { supabase } from "@/integrations/supabase/client";
 import { User } from '@supabase/supabase-js';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -903,72 +904,19 @@ const Index = () => {
       </section>
 
       {/* Our Courses Section */}
-      <section className="py-12 md:py-20 bg-white relative z-10" id="courses">
+      <section className="py-16 md:py-24 relative" id="courses">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-8 lg:mb-12">
-            <div className="inline-block bg-[#BBF7FF] px-6 py-3 rounded-lg mb-4">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Our Courses</h2>
-            </div>
-            <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-              Unlock the power of bioinformatics, cheminformatics, computational chemistry, and AI in drug discovery with our dynamic and comprehensive course offerings, designed to empower you with both foundational and advanced insights
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#EAE3F5] mb-4">
+              Our Courses
+            </h2>
+            <p className="text-lg md:text-xl text-[#EAE3F5]/80 max-w-3xl mx-auto">
+              Explore our comprehensive curriculum designed to equip you with the latest skills in bioinformatics and drug discovery.
             </p>
           </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {[
-              {
-                title: "Introduction to Bioinformatics",
-                description: "Learn the fundamentals of biological data analysis, sequence alignment, and database searching.",
-                image: "/lovable-uploads/4e188a16-d71f-4a8b-a106-11f470010a4f.png"
-              },
-              {
-                title: "Network Pharmacology",
-                description: "Explore drug-target interactions and molecular networks in pharmaceutical research.",
-                image: "/lovable-uploads/d1b14824-ca0c-46d3-b10a-1c79874bc655.png"
-              },
-              {
-                title: "Molecular Docking",
-                description: "Master computational methods for predicting molecular binding and drug design.",
-                image: "/lovable-uploads/2b975c3d-b2b0-487e-a418-c7c4853ddbaa.png"
-              },
-              {
-                title: "Molecular Dynamics",
-                description: "Simulate molecular behavior and protein folding using advanced computational techniques.",
-                image: "/lovable-uploads/78d5a7b4-78cf-48e5-a432-8686026b08b6.png"
-              },
-              {
-                title: "AI and ML in Drug Discovery",
-                description: "Apply machine learning and AI techniques to accelerate drug discovery processes.",
-                image: "/lovable-uploads/a574e257-4cfe-41e2-8a21-472924163bf2.png"
-              },
-              {
-                title: "Introduction to Cheminformatics",
-                description: "Learn chemical information processing and molecular property prediction methods.",
-                image: "/lovable-uploads/98298637-f3f3-4bba-b8ca-01d994276f78.png"
-              }
-            ].map((course, index) => (
-              <Card 
-                key={index} 
-                className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md cursor-pointer"
-                onClick={handleLearnMore}
-              >
-                <div className="relative overflow-hidden">
-                  <img 
-                    src={course.image} 
-                    alt={course.title}
-                    className="w-full h-40 md:h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <CardHeader>
-                  <CardTitle className="text-lg md:text-xl text-black hover:text-[#0090A3] transition-all">
-                    {course.title}
-                  </CardTitle>
-                  <CardDescription className="text-sm md:text-base text-gray-700">
-                    {course.description}
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            ))}
+
+          <div className="mt-8">
+            <CoursePipeline />
           </div>
         </div>
       </section>
