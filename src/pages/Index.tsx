@@ -969,9 +969,9 @@ const Index = () => {
       </section>
 
       {/* SLBAIL Section */}
-      <section className="py-12 md:py-20 bg-gradient-to-br from-black via-[#000A33] to-[#000A33] relative z-10" id="slbail">
+      <section className="py-8 md:py-12 bg-gradient-to-br from-black via-[#000A33] to-[#000A33] relative z-10" id="slbail">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-8 lg:mb-12">
+          <div className="text-center mb-4 lg:mb-6">
             <div className="inline-block bg-[#000A33]/80 backdrop-blur-sm px-6 py-3 rounded-lg mb-4 border border-[#EAE3F5]">
               <h2 className="text-3xl md:text-4xl font-bold text-[#EAE3F5]">SLBAIL</h2>
             </div>
@@ -992,9 +992,9 @@ const Index = () => {
                 Sri Lanka's First Botanical Artificial Intelligence System
               </p>
             </div>
-            <div className="flex justify-center mt-8">
+            <div className="flex justify-center mt-4">
               <Button 
-                className="bg-[#000A33] hover:bg-[#000A33]/90 text-[#EAE3F5] font-semibold px-8 py-6 text-lg rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl border border-[#EAE3F5]/20"
+                className="bg-[#000A33] hover:bg-[#000A33]/90 text-[#EAE3F5] font-semibold px-6 py-4 text-base rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl border border-[#EAE3F5]/20"
                 size="lg"
               >
                 Join Our Lab
