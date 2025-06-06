@@ -345,7 +345,10 @@ const Index = () => {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
     }
   };
 
@@ -370,6 +373,25 @@ const Index = () => {
     return <UserDashboard user={user} />;
   }
 
+  // Add this near the top of the file, after imports
+  useEffect(() => {
+    // Enable smooth scrolling for the entire page
+    document.documentElement.style.scrollBehavior = 'smooth';
+    
+    // Optimize animations with will-change
+    const animatedElements = document.querySelectorAll('.animate-on-scroll');
+    animatedElements.forEach(el => {
+      (el as HTMLElement).style.willChange = 'transform, opacity';
+    });
+
+    return () => {
+      document.documentElement.style.scrollBehavior = 'auto';
+      animatedElements.forEach(el => {
+        (el as HTMLElement).style.willChange = 'auto';
+      });
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#170056] via-[#410056] to-[#54366B] relative">
       <style>{`
@@ -377,6 +399,7 @@ const Index = () => {
           opacity: 0;
           transform: translateY(20px);
           transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+          will-change: transform, opacity;
         }
         
         .animate-in {
@@ -387,6 +410,32 @@ const Index = () => {
         .delay-200 { transition-delay: 200ms; }
         .delay-400 { transition-delay: 400ms; }
         .delay-600 { transition-delay: 600ms; }
+
+        /* Optimize scrolling performance */
+        * {
+          -webkit-overflow-scrolling: touch;
+          backface-visibility: hidden;
+          transform: translateZ(0);
+        }
+
+        /* Optimize animations */
+        .fade {
+          animation-name: fade;
+          animation-duration: 1.5s;
+          will-change: opacity;
+        }
+
+        @keyframes fade {
+          from {opacity: .4} 
+          to {opacity: 1}
+        }
+
+        /* Optimize transitions */
+        .transition-all {
+          transition-property: all;
+          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+          transition-duration: 300ms;
+        }
       `}</style>
 
       {/* Navigation Header */}
