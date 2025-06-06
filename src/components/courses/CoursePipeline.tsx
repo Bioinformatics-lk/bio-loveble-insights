@@ -14,34 +14,18 @@ import 'reactflow/dist/style.css';
 
 // Custom Node Component for Course Topics
 const CourseNode = ({ data }: { data: any }) => {
-  const getGlowColor = (id: string) => {
-    switch (id) {
-      case '1': return 'from-purple-500 via-purple-400 to-purple-500'; // Introduction to Bioinformatics
-      case '2': return 'from-blue-500 via-blue-400 to-blue-500'; // Network Pharmacology
-      case '3': return 'from-sky-500 via-sky-400 to-sky-500'; // Molecular Docking
-      case '4': return 'from-green-500 via-green-400 to-green-500'; // Molecular Dynamics
-      case '5': return 'from-emerald-700 via-emerald-600 to-emerald-700'; // Introduction to Cheminformatics
-      case '6': return 'from-fuchsia-500 via-fuchsia-400 to-fuchsia-500'; // AI and ML in Drug Discovery
-      case '7': return 'from-orange-500 via-red-500 to-orange-500'; // Research Project
-      default: return 'from-[#000A33] via-[#000A33] to-[#000A33]';
-    }
-  };
-
   return (
-    <div className="group">
-      <div className="relative bg-white px-6 py-4 rounded-2xl border-2 border-[#000A33] transition-all duration-300 text-center min-w-[200px] md:min-w-[300px] max-w-[300px] md:max-w-[400px]">
-        {/* Outer glow effect */}
-        <div className={`absolute -inset-1 rounded-2xl bg-gradient-to-r ${getGlowColor(data.id)} opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-md`} />
-        
+    <div>
+      <div className="bg-[#E6E6FA] px-12 py-8 rounded-2xl border-2 border-[#9370DB] text-center min-w-[600px] md:min-w-[900px] max-w-[900px] md:max-w-[1200px]">
         {/* Content */}
-        <div className="relative z-10">
-          <h3 className="text-[#000A33] font-semibold text-lg md:text-xl whitespace-normal leading-tight group-hover:text-sky-500 transition-colors">
+        <div>
+          <h3 className="text-white font-semibold text-3xl md:text-4xl whitespace-normal leading-tight">
             {data.label}
           </h3>
         </div>
       </div>
-      <Handle type="target" position={Position.Top} className="w-3 h-3 bg-[#000A33]/50" />
-      <Handle type="source" position={Position.Bottom} className="w-3 h-3 bg-[#000A33]/50" />
+      <Handle type="target" position={Position.Top} className="w-3 h-3 bg-[#9370DB]" />
+      <Handle type="source" position={Position.Bottom} className="w-3 h-3 bg-[#9370DB]" />
     </div>
   );
 };
@@ -92,13 +76,13 @@ export const CoursePipeline = () => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
     const startY = 50;
-    const verticalSpacing = isMobile ? 120 : 150;
+    const verticalSpacing = isMobile ? 200 : 250;
 
     return courses.map((course, index) => ({
       id: course.id,
       type: 'course',
       position: { 
-        x: centerX - (isMobile ? 100 : 150),
+        x: centerX - (isMobile ? 300 : 450),
         y: startY + (index * verticalSpacing)
       },
       data: { label: course.title, id: course.id },
@@ -114,7 +98,7 @@ export const CoursePipeline = () => {
       type: 'straight',
       animated: true,
       style: { 
-        stroke: '#000A33',
+        stroke: '#9370DB',
         strokeWidth: 2,
         strokeDasharray: '5,5',
       },
@@ -142,7 +126,7 @@ export const CoursePipeline = () => {
   }, [windowSize]);
 
   return (
-    <div className="w-full h-[800px] bg-white rounded-xl shadow-lg p-8">
+    <div className="w-full h-[1200px] bg-[#8A2BE2] rounded-xl shadow-lg p-8">
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -160,8 +144,8 @@ export const CoursePipeline = () => {
         attributionPosition="bottom-right"
         className="bg-transparent"
       >
-        <Background variant={BackgroundVariant.Dots} gap={12} size={1} color="rgba(0,10,51,0.1)" />
-        <Controls className="bg-white/20 backdrop-blur-sm" />
+        <Background variant={BackgroundVariant.Dots} gap={12} size={1} color="rgba(255,255,255,0.1)" />
+        <Controls className="bg-[#9370DB]/20" />
       </ReactFlow>
     </div>
   );
