@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import ReactFlow, {
   Node,
   Edge,
@@ -6,68 +6,134 @@ import ReactFlow, {
   Controls,
   useNodesState,
   useEdgesState,
-  Position,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 
 const initialNodes: Node[] = [
   {
     id: '1',
-    position: { x: 250, y: 0 },
+    position: { x: 400, y: 50 },
     data: { label: 'Introduction to Bioinformatics' },
     type: 'courseNode',
+    draggable: false,
   },
   {
     id: '2',
-    position: { x: 250, y: 100 },
+    position: { x: 400, y: 150 },
     data: { label: 'Network Pharmacology' },
     type: 'courseNode',
+    draggable: false,
   },
   {
     id: '3',
-    position: { x: 250, y: 200 },
+    position: { x: 400, y: 250 },
     data: { label: 'Molecular Docking' },
     type: 'courseNode',
+    draggable: false,
   },
   {
     id: '4',
-    position: { x: 250, y: 300 },
+    position: { x: 400, y: 350 },
     data: { label: 'Molecular Dynamics' },
     type: 'courseNode',
+    draggable: false,
   },
   {
     id: '5',
-    position: { x: 250, y: 400 },
+    position: { x: 400, y: 450 },
     data: { label: 'Introduction to Cheminformatics' },
     type: 'courseNode',
+    draggable: false,
   },
   {
     id: '6',
-    position: { x: 250, y: 500 },
+    position: { x: 400, y: 550 },
     data: { label: 'AI and ML in Drug Discovery' },
     type: 'courseNode',
+    draggable: false,
   },
   {
     id: '7',
-    position: { x: 250, y: 600 },
+    position: { x: 400, y: 650 },
     data: { label: 'Research Project' },
     type: 'courseNode',
+    draggable: false,
   },
 ];
 
 const initialEdges: Edge[] = [
-  { id: 'e1-2', source: '1', target: '2', animated: true, style: { strokeDasharray: '5,5' } },
-  { id: 'e2-3', source: '2', target: '3', animated: true, style: { strokeDasharray: '5,5' } },
-  { id: 'e3-4', source: '3', target: '4', animated: true, style: { strokeDasharray: '5,5' } },
-  { id: 'e4-5', source: '4', target: '5', animated: true, style: { strokeDasharray: '5,5' } },
-  { id: 'e5-6', source: '5', target: '6', animated: true, style: { strokeDasharray: '5,5' } },
-  { id: 'e6-7', source: '6', target: '7', animated: true, style: { strokeDasharray: '5,5' } },
+  { 
+    id: 'e1-2', 
+    source: '1', 
+    target: '2', 
+    animated: true, 
+    style: { 
+      strokeDasharray: '5,5',
+      stroke: '#000A33',
+      strokeWidth: 2,
+    } 
+  },
+  { 
+    id: 'e2-3', 
+    source: '2', 
+    target: '3', 
+    animated: true, 
+    style: { 
+      strokeDasharray: '5,5',
+      stroke: '#000A33',
+      strokeWidth: 2,
+    } 
+  },
+  { 
+    id: 'e3-4', 
+    source: '3', 
+    target: '4', 
+    animated: true, 
+    style: { 
+      strokeDasharray: '5,5',
+      stroke: '#000A33',
+      strokeWidth: 2,
+    } 
+  },
+  { 
+    id: 'e4-5', 
+    source: '4', 
+    target: '5', 
+    animated: true, 
+    style: { 
+      strokeDasharray: '5,5',
+      stroke: '#000A33',
+      strokeWidth: 2,
+    } 
+  },
+  { 
+    id: 'e5-6', 
+    source: '5', 
+    target: '6', 
+    animated: true, 
+    style: { 
+      strokeDasharray: '5,5',
+      stroke: '#000A33',
+      strokeWidth: 2,
+    } 
+  },
+  { 
+    id: 'e6-7', 
+    source: '6', 
+    target: '7', 
+    animated: true, 
+    style: { 
+      strokeDasharray: '5,5',
+      stroke: '#000A33',
+      strokeWidth: 2,
+    } 
+  },
 ];
 
 const CourseNode = ({ data }: { data: { label: string } }) => {
   return (
-    <div className="px-4 py-2 shadow-md rounded-md bg-white border-2 border-[#000A33] hover:border-sky-500 transition-colors duration-300">
-      <div className="text-[#000A33] hover:text-sky-500 transition-colors duration-300 font-medium">
+    <div className="px-6 py-3 shadow-md rounded-md bg-white border-2 border-[#000A33] hover:border-sky-500 transition-colors duration-300">
+      <div className="text-[#000A33] hover:text-sky-500 transition-colors duration-300 font-medium text-center">
         {data.label}
       </div>
     </div>
@@ -92,9 +158,12 @@ export const CoursePipeline = () => {
         nodeTypes={nodeTypes}
         fitView
         attributionPosition="bottom-right"
+        minZoom={0.5}
+        maxZoom={1.5}
+        defaultViewport={{ x: 0, y: 0, zoom: 1 }}
       >
-        <Background />
-        <Controls />
+        <Background color="#f0f0f0" gap={16} />
+        <Controls showInteractive={false} />
       </ReactFlow>
     </div>
   );
