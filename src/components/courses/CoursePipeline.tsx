@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactFlow, {
   Node,
   Edge,
@@ -7,6 +7,7 @@ import ReactFlow, {
   useNodesState,
   useEdgesState,
   Position,
+  MarkerType,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 
@@ -85,9 +86,15 @@ const initialEdges: Edge[] = [
     type: 'straight',
     style: { 
       strokeDasharray: '5,5',
-      stroke: '#000A33',
-      strokeWidth: 2,
-    } 
+      stroke: '#000000',
+      strokeWidth: 3,
+    },
+    markerEnd: {
+      type: MarkerType.Arrow,
+      width: 20,
+      height: 20,
+      color: '#000000',
+    }
   },
   { 
     id: 'e2-3', 
@@ -97,9 +104,15 @@ const initialEdges: Edge[] = [
     type: 'straight',
     style: { 
       strokeDasharray: '5,5',
-      stroke: '#000A33',
-      strokeWidth: 2,
-    } 
+      stroke: '#000000',
+      strokeWidth: 3,
+    },
+    markerEnd: {
+      type: MarkerType.Arrow,
+      width: 20,
+      height: 20,
+      color: '#000000',
+    }
   },
   { 
     id: 'e3-4', 
@@ -109,9 +122,15 @@ const initialEdges: Edge[] = [
     type: 'straight',
     style: { 
       strokeDasharray: '5,5',
-      stroke: '#000A33',
-      strokeWidth: 2,
-    } 
+      stroke: '#000000',
+      strokeWidth: 3,
+    },
+    markerEnd: {
+      type: MarkerType.Arrow,
+      width: 20,
+      height: 20,
+      color: '#000000',
+    }
   },
   { 
     id: 'e4-5', 
@@ -121,9 +140,15 @@ const initialEdges: Edge[] = [
     type: 'straight',
     style: { 
       strokeDasharray: '5,5',
-      stroke: '#000A33',
-      strokeWidth: 2,
-    } 
+      stroke: '#000000',
+      strokeWidth: 3,
+    },
+    markerEnd: {
+      type: MarkerType.Arrow,
+      width: 20,
+      height: 20,
+      color: '#000000',
+    }
   },
   { 
     id: 'e5-6', 
@@ -133,9 +158,15 @@ const initialEdges: Edge[] = [
     type: 'straight',
     style: { 
       strokeDasharray: '5,5',
-      stroke: '#000A33',
-      strokeWidth: 2,
-    } 
+      stroke: '#000000',
+      strokeWidth: 3,
+    },
+    markerEnd: {
+      type: MarkerType.Arrow,
+      width: 20,
+      height: 20,
+      color: '#000000',
+    }
   },
   { 
     id: 'e6-7', 
@@ -145,9 +176,15 @@ const initialEdges: Edge[] = [
     type: 'straight',
     style: { 
       strokeDasharray: '5,5',
-      stroke: '#000A33',
-      strokeWidth: 2,
-    } 
+      stroke: '#000000',
+      strokeWidth: 3,
+    },
+    markerEnd: {
+      type: MarkerType.Arrow,
+      width: 20,
+      height: 20,
+      color: '#000000',
+    }
   },
 ];
 
@@ -169,6 +206,10 @@ export const CoursePipeline = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
+  useEffect(() => {
+    console.log('Current edges:', edges);
+  }, [edges]);
+
   return (
     <div className="w-full h-[800px] bg-white rounded-xl shadow-lg p-8">
       <ReactFlow
@@ -185,6 +226,11 @@ export const CoursePipeline = () => {
         nodesDraggable={false}
         nodesConnectable={false}
         elementsSelectable={false}
+        defaultEdgeOptions={{
+          animated: true,
+          type: 'straight',
+          style: { stroke: '#000000', strokeWidth: 3 }
+        }}
       >
         <Background color="#f0f0f0" gap={16} />
         <Controls showInteractive={false} />
