@@ -38,10 +38,11 @@ const SplineContainer = memo(({ scene }: { scene: string }) => (
           right: 0;
           width: 200px;
           height: 60px;
-          background: #000000;
+          background: linear-gradient(to top right, #000A33, #000A33);
           z-index: 10;
           backdrop-filter: blur(8px);
           border-top-left-radius: 8px;
+          opacity: 0.95;
         }
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(10px); }
