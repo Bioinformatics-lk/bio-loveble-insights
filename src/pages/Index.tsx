@@ -19,11 +19,18 @@ const SplineContainer = memo(({ scene }: { scene: string }) => (
   <div className="w-full h-[300px] sm:h-[400px] md:h-[600px] lg:h-[800px] rounded-lg overflow-hidden relative">
     <style>
       {`
-        .spline-container :global(.spline-watermark) {
+        .spline-container :global(.spline-watermark),
+        .spline-container :global(.spline-logo),
+        .spline-container :global(.spline-watermark-container) {
           display: none !important;
         }
-        .spline-container :global(.spline-logo) {
-          display: none !important;
+        .spline-container :global(canvas) {
+          transform: translateX(10%) !important;
+        }
+        @media (max-width: 768px) {
+          .spline-container :global(canvas) {
+            transform: translateX(5%) !important;
+          }
         }
       `}
     </style>
@@ -32,12 +39,15 @@ const SplineContainer = memo(({ scene }: { scene: string }) => (
         <div className="text-[#64ffda]">Loading 3D Model...</div>
       </div>
     }>
-      <div className="spline-container">
+      <div className="spline-container w-full h-full flex items-center justify-center">
         <Spline 
           scene={scene}
           style={{
             width: '100%',
             height: '100%',
+            position: 'relative',
+            top: '50%',
+            transform: 'translateY(-50%)',
           }}
         />
       </div>
