@@ -217,6 +217,7 @@ const Index = () => {
   const [user, setUser] = useState<User | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
   // Counter animation states
   const [counters, setCounters] = useState({
@@ -321,6 +322,25 @@ const Index = () => {
 
     return () => clearInterval(timer);
   }, []);
+
+  // Slideshow functionality
+  useEffect(() => {
+    const slides = document.getElementsByClassName("slide");
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].classList.remove("active");
+    }
+    slides[currentSlideIndex].classList.add("active");
+
+    const timer = setInterval(() => {
+      setCurrentSlideIndex((prev) => (prev + 1) % slides.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, [currentSlideIndex]);
+
+  const currentSlide = (n: number) => {
+    setCurrentSlideIndex(n - 1);
+  };
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -913,47 +933,130 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
-            {/* Slideshow */}
-            <div className="lg:col-span-1 h-[600px]">
-              <CourseSlideshow />
+          {/* Three-column layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            {/* Left Column - Slideshow */}
+            <div className="lg:col-span-1">
+              <div className="relative h-[600px] rounded-2xl overflow-hidden shadow-xl">
+                <div className="absolute inset-0 bg-gradient-to-b from-[#000A33]/50 to-[#000A33]/80 z-10" />
+                <div className="slideshow-container h-full">
+                  <div className="slide fade">
+                    <img 
+                      src="/Photo10.jpg" 
+                      alt="Bioinformatics Research" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="slide fade">
+                    <img 
+                      src="/Photo11.jpg" 
+                      alt="Drug Discovery Process" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  {/* Navigation dots */}
+                  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2">
+                    <span 
+                      className={`dot ${currentSlideIndex === 0 ? 'active' : ''}`} 
+                      onClick={() => currentSlide(1)}
+                    ></span>
+                    <span 
+                      className={`dot ${currentSlideIndex === 1 ? 'active' : ''}`} 
+                      onClick={() => currentSlide(2)}
+                    ></span>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            {/* Course Description */}
-            <div className="lg:col-span-1 bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10">
-              <h3 className="text-2xl font-semibold text-white mb-4">Course Overview</h3>
-              <p className="text-gray-300 mb-6">
-                Our curriculum is carefully designed to provide a comprehensive understanding of bioinformatics and drug discovery, from fundamental concepts to advanced applications.
-              </p>
-              <ul className="space-y-3 text-gray-300">
-                <li className="flex items-center">
-                  <svg className="w-5 h-5 text-sky-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  Hands-on practical experience
-                </li>
-                <li className="flex items-center">
-                  <svg className="w-5 h-5 text-sky-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  Industry-standard tools and techniques
-                </li>
-                <li className="flex items-center">
-                  <svg className="w-5 h-5 text-sky-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  Expert-led training sessions
-                </li>
-              </ul>
+            {/* Middle Column - Course Details */}
+            <div className="lg:col-span-1">
+              <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 h-[600px] overflow-y-auto">
+                <h3 className="text-2xl font-semibold text-white mb-6">Course Overview</h3>
+                <div className="space-y-6">
+                  <div className="bg-white/10 rounded-xl p-4">
+                    <h4 className="text-xl font-medium text-white mb-2">Introduction to Bioinformatics</h4>
+                    <p className="text-gray-300">Foundation in computational biology and data analysis.</p>
+                  </div>
+                  <div className="bg-white/10 rounded-xl p-4">
+                    <h4 className="text-xl font-medium text-white mb-2">Network Pharmacology</h4>
+                    <p className="text-gray-300">Understanding drug-target interactions and network analysis.</p>
+                  </div>
+                  <div className="bg-white/10 rounded-xl p-4">
+                    <h4 className="text-xl font-medium text-white mb-2">Molecular Docking</h4>
+                    <p className="text-gray-300">Advanced techniques in molecular modeling and simulation.</p>
+                  </div>
+                  <div className="bg-white/10 rounded-xl p-4">
+                    <h4 className="text-xl font-medium text-white mb-2">Molecular Dynamics</h4>
+                    <p className="text-gray-300">Study of molecular motion and interactions over time.</p>
+                  </div>
+                  <div className="bg-white/10 rounded-xl p-4">
+                    <h4 className="text-xl font-medium text-white mb-2">Introduction to Cheminformatics</h4>
+                    <p className="text-gray-300">Computational methods in chemical data analysis.</p>
+                  </div>
+                  <div className="bg-white/10 rounded-xl p-4">
+                    <h4 className="text-xl font-medium text-white mb-2">AI and ML in Drug Discovery</h4>
+                    <p className="text-gray-300">Modern approaches to drug development using AI.</p>
+                  </div>
+                  <div className="bg-white/10 rounded-xl p-4">
+                    <h4 className="text-xl font-medium text-white mb-2">Research Project</h4>
+                    <p className="text-gray-300">Hands-on experience in bioinformatics research.</p>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            {/* Course Pipeline */}
-            <div className="lg:col-span-1 h-[600px]">
-              <CoursePipeline />
+            {/* Right Column - Minimized React Flow */}
+            <div className="lg:col-span-1">
+              <div className="h-[600px] rounded-2xl overflow-hidden shadow-xl">
+                <CoursePipeline />
+              </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Add slideshow styles */}
+      <style jsx>{`
+        .slideshow-container {
+          position: relative;
+          height: 100%;
+        }
+
+        .slide {
+          display: none;
+          height: 100%;
+        }
+
+        .slide.active {
+          display: block;
+        }
+
+        .fade {
+          animation-name: fade;
+          animation-duration: 1.5s;
+        }
+
+        @keyframes fade {
+          from {opacity: .4} 
+          to {opacity: 1}
+        }
+
+        .dot {
+          height: 12px;
+          width: 12px;
+          margin: 0 4px;
+          background-color: rgba(255, 255, 255, 0.5);
+          border-radius: 50%;
+          display: inline-block;
+          transition: background-color 0.6s ease;
+          cursor: pointer;
+        }
+
+        .dot.active {
+          background-color: white;
+        }
+      `}</style>
 
       {/* SLBAIL Section */}
       <section className="py-4 md:py-8 bg-[#000A33] relative" id="slbail">

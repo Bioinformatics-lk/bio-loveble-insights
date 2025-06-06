@@ -19,7 +19,7 @@ const CourseNode = ({ data }: { data: any }) => {
       <div className="bg-[#4d2884]/90 backdrop-blur-md px-6 py-4 rounded-xl border-2 border-white/30 text-center min-w-[200px] md:min-w-[250px] max-w-[250px] md:max-w-[300px] shadow-lg shadow-[#2e0669]/20">
         {/* Content */}
         <div>
-          <h3 className="text-white font-semibold text-sm md:text-base whitespace-normal leading-tight">
+          <h3 className="text-white font-semibold text-lg md:text-xl whitespace-normal leading-tight">
             {data.label}
           </h3>
         </div>
@@ -76,7 +76,7 @@ export const CoursePipeline = () => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
     const startY = 20;
-    const verticalSpacing = isMobile ? 80 : 100;
+    const verticalSpacing = isMobile ? 100 : 120;
 
     return courses.map((course, index) => ({
       id: course.id,
@@ -126,7 +126,7 @@ export const CoursePipeline = () => {
   }, [windowSize]);
 
   return (
-    <div className="w-full h-[600px] bg-[#2e0669] rounded-xl shadow-lg p-4 relative overflow-hidden">
+    <div className="w-full h-full bg-[#2e0669] rounded-xl shadow-lg relative overflow-hidden">
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#2e0669] via-[#2e0669]/95 to-[#2e0669]/90 backdrop-blur-sm" />
       
@@ -142,21 +142,21 @@ export const CoursePipeline = () => {
         fitView
         fitViewOptions={{ 
           padding: 0.1,
-          maxZoom: 0.9
+          maxZoom: 0.8
         }}
-        minZoom={0.4}
-        maxZoom={0.9}
-        defaultViewport={{ x: 0, y: 0, zoom: 0.9 }}
+        minZoom={0.5}
+        maxZoom={0.8}
+        defaultViewport={{ x: 0, y: 0, zoom: 0.8 }}
         attributionPosition="bottom-right"
         className="bg-transparent"
       >
         <Background 
           variant={BackgroundVariant.Dots} 
           gap={8} 
-          size={0.5} 
+          size={0.8} 
           color="rgba(255,255,255,0.15)" 
         />
-        <Controls className="bg-white/10 backdrop-blur-sm" />
+        <Controls className="bg-white/10 backdrop-blur-sm" showInteractive={false} />
       </ReactFlow>
     </div>
   );
