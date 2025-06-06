@@ -38,7 +38,7 @@ const SplineContainer = memo(({ scene }: { scene: string }) => (
           right: 0;
           width: 200px;
           height: 60px;
-          background: linear-gradient(to top right, #000A33, #000A33);
+          background: linear-gradient(to top right, #000A33, black);
           z-index: 10;
           backdrop-filter: blur(8px);
           border-top-left-radius: 8px;
@@ -970,7 +970,7 @@ const Index = () => {
       </section>
 
       {/* SLBAIL Section */}
-      <section className="py-4 md:py-8 bg-gradient-to-br from-black via-[#000A33] to-[#000A33] relative z-10" id="slbail">
+      <section className="py-4 md:py-8 bg-gradient-to-br from-white via-[#000A33] to-black relative z-10" id="slbail">
         <div className="container mx-auto px-4">
           <div className="text-center mb-2 lg:mb-3">
             <div className="inline-block bg-[#000A33]/80 backdrop-blur-sm px-6 py-3 rounded-lg mb-4 border border-[#EAE3F5]">
