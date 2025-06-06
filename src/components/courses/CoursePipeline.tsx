@@ -16,7 +16,7 @@ import 'reactflow/dist/style.css';
 const CourseNode = ({ data }: { data: any }) => {
   return (
     <div>
-      <div className="bg-[#E6E6FA] px-12 py-8 rounded-2xl border-2 border-[#9370DB] text-center min-w-[600px] md:min-w-[900px] max-w-[900px] md:max-w-[1200px]">
+      <div className="bg-[#4d2884]/90 backdrop-blur-md px-12 py-8 rounded-2xl border-2 border-white/30 text-center min-w-[600px] md:min-w-[900px] max-w-[900px] md:max-w-[1200px] shadow-lg shadow-[#2e0669]/20">
         {/* Content */}
         <div>
           <h3 className="text-white font-semibold text-3xl md:text-4xl whitespace-normal leading-tight">
@@ -24,8 +24,8 @@ const CourseNode = ({ data }: { data: any }) => {
           </h3>
         </div>
       </div>
-      <Handle type="target" position={Position.Top} className="w-3 h-3 bg-[#9370DB]" />
-      <Handle type="source" position={Position.Bottom} className="w-3 h-3 bg-[#9370DB]" />
+      <Handle type="target" position={Position.Top} className="w-3 h-3 bg-white/50" />
+      <Handle type="source" position={Position.Bottom} className="w-3 h-3 bg-white/50" />
     </div>
   );
 };
@@ -98,7 +98,7 @@ export const CoursePipeline = () => {
       type: 'straight',
       animated: true,
       style: { 
-        stroke: '#9370DB',
+        stroke: 'rgba(255, 255, 255, 0.8)',
         strokeWidth: 2,
         strokeDasharray: '5,5',
       },
@@ -126,7 +126,13 @@ export const CoursePipeline = () => {
   }, [windowSize]);
 
   return (
-    <div className="w-full h-[1200px] bg-[#8A2BE2] rounded-xl shadow-lg p-8">
+    <div className="w-full h-[1200px] bg-[#2e0669] rounded-xl shadow-lg p-8 relative overflow-hidden">
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#2e0669] via-[#2e0669]/95 to-[#2e0669]/90 backdrop-blur-sm" />
+      
+      {/* White border container */}
+      <div className="absolute inset-0 border-4 border-white/20 rounded-xl pointer-events-none" />
+      
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -144,8 +150,13 @@ export const CoursePipeline = () => {
         attributionPosition="bottom-right"
         className="bg-transparent"
       >
-        <Background variant={BackgroundVariant.Dots} gap={12} size={1} color="rgba(255,255,255,0.1)" />
-        <Controls className="bg-[#9370DB]/20" />
+        <Background 
+          variant={BackgroundVariant.Dots} 
+          gap={12} 
+          size={1} 
+          color="rgba(255,255,255,0.15)" 
+        />
+        <Controls className="bg-white/10 backdrop-blur-sm" />
       </ReactFlow>
     </div>
   );
