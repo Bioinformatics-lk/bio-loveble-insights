@@ -890,7 +890,7 @@ const Index = () => {
           </div>
 
           <div className="w-full h-[600px] md:h-[800px] rounded-lg overflow-hidden">
-            <Spline scene="https://prod.spline.design/bs385JtCR90O0nkV/scene.splinecode" />
+            <Spline scene="https://prod.spline.design/USMDn0jW6GUQEWn1/scene.splinecode" />
           </div>
         </div>
       </section>
