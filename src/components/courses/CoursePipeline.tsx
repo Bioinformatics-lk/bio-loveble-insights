@@ -82,7 +82,7 @@ const initialEdges: Edge[] = [
     source: '1', 
     target: '2', 
     animated: true,
-    type: 'smoothstep',
+    type: 'straight',
     style: { 
       strokeDasharray: '5,5',
       stroke: '#000A33',
@@ -94,7 +94,7 @@ const initialEdges: Edge[] = [
     source: '2', 
     target: '3', 
     animated: true,
-    type: 'smoothstep',
+    type: 'straight',
     style: { 
       strokeDasharray: '5,5',
       stroke: '#000A33',
@@ -106,7 +106,7 @@ const initialEdges: Edge[] = [
     source: '3', 
     target: '4', 
     animated: true,
-    type: 'smoothstep',
+    type: 'straight',
     style: { 
       strokeDasharray: '5,5',
       stroke: '#000A33',
@@ -118,7 +118,7 @@ const initialEdges: Edge[] = [
     source: '4', 
     target: '5', 
     animated: true,
-    type: 'smoothstep',
+    type: 'straight',
     style: { 
       strokeDasharray: '5,5',
       stroke: '#000A33',
@@ -130,7 +130,7 @@ const initialEdges: Edge[] = [
     source: '5', 
     target: '6', 
     animated: true,
-    type: 'smoothstep',
+    type: 'straight',
     style: { 
       strokeDasharray: '5,5',
       stroke: '#000A33',
@@ -142,7 +142,7 @@ const initialEdges: Edge[] = [
     source: '6', 
     target: '7', 
     animated: true,
-    type: 'smoothstep',
+    type: 'straight',
     style: { 
       strokeDasharray: '5,5',
       stroke: '#000A33',
