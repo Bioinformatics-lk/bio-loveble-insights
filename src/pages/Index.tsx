@@ -38,8 +38,10 @@ const SplineContainer = memo(({ scene }: { scene: string }) => (
           right: 0;
           width: 200px;
           height: 60px;
-          background: linear-gradient(to bottom right, #0a192f, #000000);
+          background: linear-gradient(135deg, #0a192f 0%, #000000 100%);
           z-index: 10;
+          backdrop-filter: blur(8px);
+          border-top-left-radius: 8px;
         }
         .robot-dialog {
           position: absolute;
