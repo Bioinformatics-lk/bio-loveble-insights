@@ -934,7 +934,7 @@ const Index = () => {
               At Bioinformatics.lk Academy, we're revolutionizing science education through our innovative journey-based learning approach! Our passionate mentors guide learners through engaging, self-paced projects aligned with the Sustainable Development Goals (SDGs) from core foundations to cutting-edge paths in Bioinformatics, Cheminformatics, Computational Biology, and AI in Life Sciences. Regular team challenges ignite curiosity, foster collaboration, and build essential skills for the future of healthcare, agriculture, and environmental science.
             </p>
           </div>
-
+          
           {/* Two-column layout */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
             {/* Left Column - Slideshow */}
@@ -944,14 +944,14 @@ const Index = () => {
                 <div className="slideshow-container h-full">
                   <div className="slide fade">
                     <img 
-                      src="/Photo11.jpg" 
+                      src="/lovable-uploads/Photo11.jpg" 
                       alt="Bioinformatics Research" 
                       className="w-full h-full object-cover"
                     />
                   </div>
                   <div className="slide fade">
                     <img 
-                      src="/Photo11.jpg" 
+                      src="/lovable-uploads/Photo10.jpg" 
                       alt="Drug Discovery Process" 
                       className="w-full h-full object-cover"
                     />
@@ -978,11 +978,21 @@ const Index = () => {
               </div>
             </div>
           </div>
+
+          {/* Join Our Academy Button */}
+          <div className="text-center mt-12">
+            <button 
+              onClick={() => navigate('/join')}
+              className="bg-white text-[#000A33] px-8 py-4 rounded-xl text-lg font-semibold hover:bg-[#4d2884] hover:text-white transition-colors duration-300 shadow-lg"
+            >
+              Join Our Academy
+            </button>
+          </div>
         </div>
       </section>
 
       {/* Global styles */}
-      <style global jsx>{`
+      <style>{`
         .slideshow-container {
           position: relative;
           height: 100%;
@@ -1040,18 +1050,18 @@ const Index = () => {
 
           <div className="relative">
             <div className="relative">
-              <div className="relative">
-                <SplineContainer scene="https://prod.spline.design/USMDn0jW6GUQEWn1/scene.splinecode" />
+          <div className="relative">
+            <SplineContainer scene="https://prod.spline.design/USMDn0jW6GUQEWn1/scene.splinecode" />
                 <div className="absolute bottom-0 right-0 w-1/2 h-16 bg-[#000A33] z-10"></div>
               </div>
               <div className="flex justify-center mt-4">
-                <Button 
+              <Button 
                   onClick={() => setAuthModalOpen(true)}
                   className="bg-[#000A33] hover:bg-[#000A33]/90 text-[#EAE3F5] font-semibold px-8 py-5 text-lg rounded-lg transition-all duration-300 border border-[#EAE3F5]/20"
-                  size="lg"
-                >
-                  Join Our Lab
-                </Button>
+                size="lg"
+              >
+                Join Our Lab
+              </Button>
               </div>
             </div>
           </div>
