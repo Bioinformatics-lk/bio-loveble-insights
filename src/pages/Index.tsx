@@ -1099,16 +1099,16 @@ const Index = () => {
       </section>
 
       {/* SLBAIL Section */}
-      <section className="py-4 md:py-8 bg-[#000A33] relative" id="slbail">
+      <section className="py-20 bg-gradient-to-br from-[#000A33] via-[#000A33] via-75% to-black">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-2 lg:mb-3">
-            <div className="inline-block bg-[#000A33]/80 backdrop-blur-sm px-6 py-3 rounded-lg mb-4 border border-[#EAE3F5]">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#EAE3F5]">SLBAIL</h2>
+          <div className="text-center mb-16">
+            <div className="inline-block border-2 border-white/30 rounded-xl px-8 py-4 backdrop-blur-sm">
+              <h2 className="text-4xl md:text-5xl font-bold text-white text-center">SLBAIL</h2>
             </div>
-            <h3 className="text-xl md:text-2xl font-semibold text-[#EAE3F5] mb-4">
+            <h3 className="text-xl md:text-2xl font-semibold text-[#EAE3F5] mb-4 mt-8">
               Sri Lankan Bioinformatics and Artificial Intelligence Lab
             </h3>
-            <p className="text-lg md:text-xl text-[#EAE3F5]/80 max-w-4xl mx-auto">
+            <p className="text-lg text-gray-300 max-w-4xl mx-auto mt-8">
               Sri Lanka's First Botanical Artificial Intelligence System (SLBAIS) that revolutionizes drug discovery through advanced AI agents. Our system integrates cutting-edge artificial intelligence with traditional botanical knowledge to accelerate and enhance the drug discovery pipeline.
             </p>
           </div>
@@ -1119,14 +1119,13 @@ const Index = () => {
                 <SplineContainer scene="https://prod.spline.design/USMDn0jW6GUQEWn1/scene.splinecode" />
                 <div className="absolute bottom-0 right-0 w-1/2 h-16 bg-[#000A33] z-10"></div>
               </div>
-              <div className="flex justify-center mt-4">
-                <Button 
+              <div className="text-center mt-12">
+                <button 
                   onClick={() => setAuthModalOpen(true)}
-                  className="bg-[#000A33] hover:bg-[#000A33]/90 text-[#EAE3F5] font-semibold px-8 py-5 text-lg rounded-lg transition-all duration-300 border border-[#EAE3F5]/20"
-                  size="lg"
+                  className="bg-white text-[#000A33] px-8 py-4 rounded-xl text-lg font-semibold hover:bg-[#4d2884] hover:text-white transition-colors duration-300 shadow-lg"
                 >
                   Join Our Lab
-                </Button>
+                </button>
               </div>
             </div>
           </div>
