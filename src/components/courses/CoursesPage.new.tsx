@@ -1,5 +1,240 @@
 'use client';
 
+import React from 'react';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import '@/styles/glow.css';
+import { 
+  BookOpen, 
+  Network, 
+  Atom, 
+  Boxes, 
+  Brain, 
+  FlaskConical,
+  ArrowLeft,
+  GraduationCap,
+  ChevronRight,
+  ExternalLink,
+  DollarSign
+} from "lucide-react";
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const courses = [
+  {
+    title: "Introduction to Bioinformatics",
+    description: "Learn the fundamentals of bioinformatics and its applications in modern biology",
+    detailedDescription: "This is the inaugural gateway to bioinformatics: a friendly, foundational course covering DNA, sequence analysis, and database essentials. It's the perfect springboard before diving deeper into our specialized pipeline.",
+    icon: BookOpen,
+    color: "from-purple-600 to-blue-600",
+    step: 1,
+    price: "10,000 LKR",
+    totalFee: "10,000 LKR",
+    enrollmentLink: "https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform"
+  },
+  {
+    title: "Network Pharmacology",
+    description: "Understand drug-target interactions and biological networks in pharmaceutical research",
+    detailedDescription: "As the second milestone, Network Pharmacology teaches you how to map drug–target interactions on a grand scale. Explore protein networks, uncover polypharmacology strategies, and learn to repurpose existing compounds for novel therapies—like a detective of molecular webs.",
+    icon: Network,
+    color: "from-blue-600 to-cyan-600",
+    step: 2,
+    price: "5,000 LKR",
+    totalFee: "15,000 LKR",
+    enrollmentLink: "https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform"
+  },
+  {
+    title: "Molecular Docking",
+    description: "Master computational techniques for predicting molecular interactions",
+    detailedDescription: "Venture into the third course to master molecular docking: predict how small molecules snugly fit into protein pockets, evaluate binding energies, and screen virtual libraries for promising drug candidates. This is your passport to structure-based design.",
+    icon: Atom,
+    color: "from-cyan-600 to-teal-600",
+    step: 3,
+    price: "5,000 LKR",
+    totalFee: "20,000 LKR",
+    enrollmentLink: "https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform"
+  },
+  {
+    title: "Molecular Dynamics",
+    description: "Explore the simulation of atomic and molecular movements in biological systems",
+    detailedDescription: "In the fourth stage, Molecular Dynamics lets you watch atoms dance: set up and run simulations on our servers, analyze trajectories, and uncover the hidden choreography of proteins. Students even get server access to run their own exploratory studies—real-time science in action!",
+    icon: Boxes,
+    color: "from-teal-600 to-green-600",
+    step: 4,
+    price: "10,000 LKR",
+    totalFee: "30,000 LKR",
+    enrollmentLink: "https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform"
+  },
+  {
+    title: "Introduction to Cheminformatics",
+    description: "Learn the basics of chemical information handling and drug design",
+    detailedDescription: "Dive into cheminformatics in the fifth course: decode SMILES, compute molecular fingerprints, and mine chemical databases for trends. Whether you dream of QSAR models or AI-driven scaffold hops, this class teaches you to speak the language of molecules.",
+    icon: FlaskConical,
+    color: "from-green-600 to-emerald-600",
+    step: 5,
+    price: "5,000 LKR",
+    totalFee: "35,000 LKR",
+    enrollmentLink: "https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform"
+  },
+  {
+    title: "AI and ML in Drug Discovery",
+    description: "Apply artificial intelligence and machine learning in pharmaceutical research",
+    detailedDescription: "Embark on the sixth frontier: AI and ML in Drug Discovery. Learn to train neural nets on biological data, predict ADMET properties, and design de novo compounds with generative models. It's where algorithms meet molecules to spark tomorrow's breakthroughs.",
+    icon: Brain,
+    color: "from-emerald-600 to-purple-600",
+    step: 6,
+    price: "5,000 LKR",
+    totalFee: "40,000 LKR",
+    enrollmentLink: "https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform"
+  },
+  {
+    title: "Research Project",
+    description: "Apply your knowledge in a comprehensive research project",
+    detailedDescription: "Culminate your journey with a hands-on Research Project: integrate all your skills into a real-world case study—be it docking pipelines, MD thermodynamics, or AI-guided leads. This capstone synthesizes theory into practice and showcases your scientific prowess.",
+    icon: GraduationCap,
+    color: "from-rose-600 to-orange-600",
+    step: 7,
+    isSpecial: true,
+    price: "10,000 LKR",
+    totalFee: "50,000 LKR",
+    enrollmentLink: "https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform"
+  }
+];
+
+export const CoursesPage = () => {
+  const navigate = useNavigate();
+  const [hoveredStep, setHoveredStep] = useState<number | null>(null);
+  const [selectedCourse, setSelectedCourse] = useState<number | null>(null);
+
+  const handleEnrollClick = (enrollmentLink: string) => {
+    window.open(enrollmentLink, '_blank');
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-indigo-900 to-purple-900 relative overflow-hidden">
+      {/* Background Images */}
+      <div className="absolute inset-0 z-0">
+        {/* Top Left Image */}
+        <div 
+          className="absolute top-0 left-0 w-1/2 h-1/2 bg-contain bg-no-repeat opacity-40"
+          style={{ backgroundImage: 'url("/lovable-uploads/P1.png")' }}
+        />
+        {/* Top Right Image */}
+        <div 
+          className="absolute top-0 right-0 w-1/2 h-1/2 bg-contain bg-no-repeat opacity-40"
+          style={{ backgroundImage: 'url("/lovable-uploads/P2.png")' }}
+        />
+        {/* Overlay Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/50 to-purple-900/50 backdrop-blur-[2px]" />
+      </div>
+
+      {/* Back Button */}
+      <div className="sticky top-4 left-4 z-50 container mx-auto px-4">
+        <Button
+          onClick={() => navigate('/')}
+          variant="ghost"
+          className="bg-white/10 hover:bg-white/20 text-white border border-white/20 shadow-sm hover:shadow flex items-center space-x-2 transition-all duration-300"
+          size="sm"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          <span>Back to Dashboard</span>
+        </Button>
+      </div>
+
+      <main className="container mx-auto px-4 py-16 relative z-10">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Course Pipeline
+          </h1>
+          <p className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto">
+            Follow our structured learning path from fundamentals to advanced research
+          </p>
+        </div>
+
+        {/* Course Pipeline - Mobile */}
+        <div className="lg:hidden space-y-4">
+          {courses.map((course, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="relative"
+            >
+              <Card 
+                className={`
+                  transform transition-all duration-300
+                  border-2 border-white/10 hover:border-white/30
+                  ${course.isSpecial ? 'bg-gradient-to-br from-rose-500/20 to-orange-500/20' : 'bg-white/10'}
+                  backdrop-blur-sm p-4
+                `}
+                onClick={() => setSelectedCourse(selectedCourse === course.step ? null : course.step)}
+              >
+                <div className="flex items-start space-x-4">
+                  <div className="flex flex-col items-center space-y-2">
+                    {/* Step Number */}
+                    <div className={`
+                      w-8 h-8 rounded-full bg-gradient-to-r ${course.color}
+                      flex items-center justify-center text-white font-bold text-sm shadow-lg
+                    `}>
+                      {course.step}
+                    </div>
+                    {/* Icon */}
+                    <div className={`
+                      w-8 h-8 rounded-full bg-gradient-to-r ${course.color}
+                      flex items-center justify-center shadow-lg
+                      ${course.isSpecial ? 'animate-pulse' : ''}
+                    `}>
+                      <course.icon className="h-4 w-4 text-white" />
+                    </div>
+                  </div>
+                  {/* Text Content */}
+                  <div className="flex-1">
+                    <h3 className="text-base font-semibold text-white">
+                      {course.title}
+                    </h3>
+                    <p className="text-xs text-white/70 mt-1">
+                      {course.description}
+                    </p>
+                  </div>
+                  <ChevronRight className="h-5 w-5 text-white/70 mt-2" />
+                </div>
+              </Card>
+
+              {/* Mobile Course Details Popup */}
+              <AnimatePresence>
+                {selectedCourse === course.step && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 20 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    className="lg:hidden absolute left-0 right-0 top-full mt-2 bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-lg shadow-xl p-4 z-20"
+                  >
+                    <div className="flex flex-col space-y-3">
+                      <p className="text-white/90 text-sm leading-relaxed">
+                        {course.detailedDescription}
+                      </p>
+                      <div className="flex items-center justify-between">
+                        <span className="text-white font-semibold">Course Fee</span>
+                        <span className="text-white flex items-center">
+                          <DollarSign className="w-4 h-4 mr-1" />
+                          {course.price}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-white font-semibold">Total Fee to Here</span>
+                        <span className="text-white flex items-center">
+                          <DollarSign className="w-4 h-4 mr-1" />
+                          {course.totalFee}
+                        </span>
+                      </div>
+                      <Button
+                        onClick={() => handleEnrollClick(course.enrollmentLink)}
+'use client';
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import '@/styles/glow.css';

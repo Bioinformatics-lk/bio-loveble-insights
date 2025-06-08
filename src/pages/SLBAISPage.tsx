@@ -1,26 +1,42 @@
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Brain, MessageCircle } from "lucide-react";
-import {
-  ReactFlow,
+import ReactFlow, {
   Node,
   Edge,
+  NodeChange,
+  EdgeChange,
+  applyNodeChanges,
+  applyEdgeChanges,
   Background,
   Controls,
+  MiniMap,
   useNodesState,
   useEdgesState,
-  addEdge,
   Connection,
+  addEdge,
   NodeTypes,
   BackgroundVariant,
   Handle,
   Position,
-} from '@xyflow/react';
-import '@xyflow/react/dist/style.css';
+} from 'reactflow';
+import 'reactflow/dist/style.css';
+
+interface NodeData {
+  label: string;
+}
+
+interface Topic {
+  id: string;
+  title: string;
+  x: number;
+  y: number;
+  label: string;
+}
 
 // Custom Node Component for the Brain
-const BrainNode = ({ data }: { data: any }) => (
+const BrainNode = ({ data }: { data: NodeData }) => (
   <div className="relative w-32 h-32 md:w-48 md:h-48">
     {/* Multi-layered glowing effect */}
     <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#1a0b2e] to-[#2d1b69] blur-xl transform-gpu animate-pulse" />
@@ -89,149 +105,95 @@ const nodeTypes: NodeTypes = {
   slbais: SLBAISNode,
 };
 
-const topics = [
-  { id: "literature", title: "Literature Search Agent" },
-  { id: "network", title: "Network Pharmacology Agent" },
-  { id: "docking", title: "Molecular Docking Agent" },
-  { id: "dynamics", title: "Molecular Dynamics Agent" },
-  { id: "manuscript", title: "Manuscript Writing Agent" },
-  { id: "formulation", title: "Formulation Development Agent" },
+const topics: Topic[] = [
+  {
+    id: 'docking',
+    title: 'Molecular Docking',
+    x: -3,
+    y: -3.2,
+    label: 'Molecular Docking'
+  },
+  {
+    id: 'dynamics',
+    title: 'Molecular Dynamics',
+    x: 3,
+    y: -2.8,
+    label: 'Molecular Dynamics'
+  },
+  {
+    id: 'network',
+    title: 'Network Pharmacology',
+    x: -4,
+    y: -2.5,
+    label: 'Network Pharmacology'
+  },
+  {
+    id: 'manuscript',
+    title: 'Manuscript Writing',
+    x: 4,
+    y: -2.2,
+    label: 'Manuscript Writing'
+  },
+  {
+    id: 'literature',
+    title: 'Literature Review',
+    x: -3,
+    y: -1.8,
+    label: 'Literature Review'
+  },
+  {
+    id: 'formulation',
+    title: 'Formulation',
+    x: 3,
+    y: -1.5,
+    label: 'Formulation'
+  }
 ];
 
 export const SLBAISPage = () => {
   const navigate = useNavigate();
-  const [windowSize, setWindowSize] = useState({
+  const [nodes, setNodes] = useState<Node[]>([]);
+  const [edges, setEdges] = useState<Edge[]>([]);
+  const [dimensions, setDimensions] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
   });
 
   // Calculate positions for nodes
   const calculateNodePositions = () => {
-    const isMobile = windowSize.width < 768;
-    const centerX = windowSize.width / 2;
-    const centerY = windowSize.height * (isMobile ? 0.5 : 0.45);
+    const isMobile = dimensions.width < 768;
+    const centerX = dimensions.width / 2;
+    const centerY = dimensions.height * (isMobile ? 0.5 : 0.45);
     const verticalSpacing = isMobile ? 100 : 200;
     const horizontalSpacing = isMobile ? 100 : 240;
 
-    // Calculate brain dimensions
-    const brainWidth = isMobile ? 32 : 96;
-    const brainHeight = isMobile ? 32 : 96;
-
-    // Brain node at the center
-    const nodes: Node[] = [
-      {
-        id: 'brain',
-        type: 'brain',
-        position: { 
-          x: centerX - brainWidth,
-          y: centerY
-        },
-        data: { label: 'Brain' },
+    return topics.map((topic) => ({
+      id: topic.id,
+      type: 'topic',
+      position: {
+        x: centerX + topic.x * horizontalSpacing,
+        y: centerY + topic.y * verticalSpacing,
       },
-      {
-        id: 'slbais',
-        type: 'slbais',
-        position: {
-          x: centerX - (isMobile ? 100 : 200),
-          y: centerY + brainHeight + (isMobile ? 60 : 120)
-        },
-        data: { label: 'SLBAIS' },
-      }
-    ];
-
-    // Calculate positions for different levels
-    topics.forEach((topic) => {
-      let x = centerX;
-      let y = centerY;
-      let offset = 0;
-      
-      // Level 1 - Top level (Molecular Docking and Molecular Dynamics)
-      if (topic.id === 'docking') {
-        offset = -horizontalSpacing * (isMobile ? 1.5 : 3);
-        x = centerX + offset;
-        y = centerY - verticalSpacing * (isMobile ? 2.8 : 3.2);
-      }
-      else if (topic.id === 'dynamics') {
-        offset = horizontalSpacing * (isMobile ? 1.5 : 3);
-        x = centerX + offset;
-        y = centerY - verticalSpacing * (isMobile ? 2.4 : 2.8);
-      }
-      // Level 2 - Second level (Network Pharmacology and Manuscript Writing)
-      else if (topic.id === 'network') {
-        offset = -horizontalSpacing * (isMobile ? 2 : 4);
-        x = centerX + offset;
-        y = centerY - verticalSpacing * (isMobile ? 2 : 2.5);
-      }
-      else if (topic.id === 'manuscript') {
-        offset = horizontalSpacing * (isMobile ? 2 : 4);
-        x = centerX + offset;
-        y = centerY - verticalSpacing * (isMobile ? 1.8 : 2.2);
-      }
-      // Middle Level - Fixed Position (Literature and Formulation)
-      else if (topic.id === 'literature') {
-        offset = -horizontalSpacing * (isMobile ? 1.5 : 3);
-        x = centerX + offset;
-        y = centerY - verticalSpacing * (isMobile ? 1.4 : 1.8);
-      }
-      else if (topic.id === 'formulation') {
-        offset = horizontalSpacing * (isMobile ? 1.5 : 3);
-        x = centerX + offset;
-        y = centerY - verticalSpacing * (isMobile ? 1.2 : 1.5);
-      }
-
-      nodes.push({
-        id: topic.id,
-        type: 'topic',
-        position: { 
-          x: x - (isMobile ? 35 : 100),
-          y 
-        },
-        data: { label: topic.title },
-      });
-    });
-
-    return nodes;
+      data: { label: topic.label },
+    }));
   };
 
   // Calculate edges (connections)
   const calculateEdges = () => {
-    const isMobile = windowSize.width < 768;
-    const edges = topics.map((topic) => ({
+    const isMobile = dimensions.width < 768;
+    return topics.map((topic) => ({
       id: `brain-${topic.id}`,
       source: 'brain',
       target: topic.id,
       type: 'smoothstep',
       animated: true,
-      style: { 
-        stroke: 'rgba(255, 255, 255, 0.25)',
-        strokeWidth: isMobile ? 1 : 2,
-        strokeDasharray: isMobile ? '4,4' : '6,6',
-      },
+      style: { stroke: '#fff', strokeWidth: isMobile ? 1 : 2 },
     }));
-
-    // Vertical connection from Brain to SLBAIS
-    edges.push({
-      id: 'brain-slbais',
-      source: 'brain',
-      target: 'slbais',
-      type: 'straight',
-      animated: true,
-      style: { 
-        stroke: 'rgba(255, 255, 255, 0.6)',
-        strokeWidth: isMobile ? 2.5 : 3.5,
-        strokeDasharray: '10,10',
-      },
-    });
-
-    return edges;
   };
-
-  const [nodes, setNodes, onNodesChange] = useNodesState(calculateNodePositions());
-  const [edges, setEdges, onEdgesChange] = useEdgesState(calculateEdges());
 
   useEffect(() => {
     const handleResize = () => {
-      setWindowSize({
+      setDimensions({
         width: window.innerWidth,
         height: window.innerHeight,
       });
@@ -244,32 +206,21 @@ export const SLBAISPage = () => {
   useEffect(() => {
     setNodes(calculateNodePositions());
     setEdges(calculateEdges());
-  }, [windowSize]);
+  }, [dimensions]);
 
-  // Remove the center-top node since we don't need it anymore
-  useEffect(() => {
-    const isMobile = windowSize.width < 768;
-    const centerX = windowSize.width / 2;
-    const topY = windowSize.height * (isMobile ? 0.85 : 0.8);
+  const onNodesChange = useCallback(
+    (changes: NodeChange[]) => setNodes((prev: Node[]) => applyNodeChanges(changes, prev)),
+    []
+  );
 
-    // Add chat button node (invisible, just for connection)
-    setNodes(prev => [
-      ...prev,
-      {
-        id: 'chat-button',
-        type: 'chat',
-        position: { 
-          x: centerX - (isMobile ? 35 : 100),
-          y: topY + (isMobile ? 100 : 250)
-        },
-        data: { label: 'Chat' },
-      }
-    ]);
-  }, [windowSize, setNodes]);
+  const onEdgesChange = useCallback(
+    (changes: EdgeChange[]) => setEdges((eds: Edge[]) => applyEdgeChanges(changes, eds)),
+    []
+  );
 
   const onConnect = useCallback(
-    (params: Connection) => setEdges((eds) => addEdge(params, eds)),
-    [setEdges]
+    (params: Connection) => setEdges((eds: Edge[]) => addEdge(params, eds)),
+    []
   );
 
   return (
