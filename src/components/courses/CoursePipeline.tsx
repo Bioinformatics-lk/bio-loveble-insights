@@ -1,14 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
+import { useCallback } from 'react';
+import { Node, Edge } from 'reactflow';
+import { Position, BackgroundVariant, Handle } from 'reactflow';
 import ReactFlow, {
-  Node,
-  Edge,
   Background,
   Controls,
   useNodesState,
   useEdgesState,
-  Position,
-  BackgroundVariant,
-  Handle,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 
@@ -93,7 +91,7 @@ const initialEdges = [
   }
 ];
 
-export const CoursePipeline = () => {
+const CoursePipeline = () => {
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -168,4 +166,6 @@ export const CoursePipeline = () => {
       </ReactFlow>
     </div>
   );
-}; 
+};
+
+export default CoursePipeline; 

@@ -40,7 +40,7 @@ interface Topic {
 }
 
 // Custom Node Component for the Brain
-const BrainNode = ({ data }: { data: NodeData }) => (
+const BrainNode = () => (
   <div className="relative w-32 h-32 md:w-48 md:h-48">
     {/* Multi-layered glowing effect */}
     <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#1a0b2e] to-[#2d1b69] blur-xl transform-gpu animate-pulse" />
