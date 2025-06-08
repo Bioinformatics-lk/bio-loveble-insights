@@ -1,6 +1,8 @@
+import React from 'react';
+import { motion } from 'framer-motion';
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import { Button } from "../components/ui/button";
 import { Brain, MessageCircle } from "lucide-react";
 import {
   ReactFlow,
@@ -18,6 +20,9 @@ import {
   Position,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
+import { Card, CardContent } from "../components/ui/card";
+import { useAuth } from '../contexts/AuthContext';
+import { SplineContainer } from '../components/SplineContainer';
 
 // Custom Node Component for the Brain
 const BrainNode = ({ data }: { data: any }) => (
