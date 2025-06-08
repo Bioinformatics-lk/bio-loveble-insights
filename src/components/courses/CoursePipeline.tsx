@@ -11,10 +11,19 @@ import ReactFlow, {
 import 'reactflow/dist/style.css';
 
 // Custom Node Component for Course Topics
-const CourseNode = ({ data }: { data: { label: string } }) => {
+const CourseNode = ({ data }: { data: any }) => {
   return (
-    <div className="px-4 py-2 shadow-lg rounded-lg bg-[#000A33]/40 backdrop-blur-sm border border-white/20">
-      <div className="text-white text-center font-medium">{data.label}</div>
+    <div>
+      <div className="bg-[#4d2884]/90 backdrop-blur-md px-8 py-6 rounded-xl border-2 border-white/30 text-center min-w-[300px] md:min-w-[400px] max-w-[400px] md:max-w-[500px] shadow-lg shadow-[#2e0669]/20">
+        {/* Content */}
+        <div>
+          <h3 className="text-white font-semibold text-xl md:text-2xl whitespace-normal leading-tight">
+            {data.label}
+          </h3>
+        </div>
+      </div>
+      <Handle type="target" position={Position.Top} className="w-2 h-2 bg-white/50" />
+      <Handle type="source" position={Position.Bottom} className="w-2 h-2 bg-white/50" />
     </div>
   );
 };
@@ -63,7 +72,7 @@ const initialEdges = [
     target: '2',
     type: 'smoothstep',
     animated: true,
-    style: { stroke: '#4d2884', strokeWidth: 2, strokeDasharray: '5,5', opacity: 0.6 },
+    style: { stroke: '#4d2884', strokeWidth: 2, strokeDasharray: '5,5' },
   },
   {
     id: 'e2-3',
@@ -71,7 +80,7 @@ const initialEdges = [
     target: '3',
     type: 'smoothstep',
     animated: true,
-    style: { stroke: '#4d2884', strokeWidth: 2, strokeDasharray: '5,5', opacity: 0.6 },
+    style: { stroke: '#4d2884', strokeWidth: 2, strokeDasharray: '5,5' },
   },
   {
     id: 'e3-4',
@@ -79,7 +88,7 @@ const initialEdges = [
     target: '4',
     type: 'smoothstep',
     animated: true,
-    style: { stroke: '#4d2884', strokeWidth: 2, strokeDasharray: '5,5', opacity: 0.6 },
+    style: { stroke: '#4d2884', strokeWidth: 2, strokeDasharray: '5,5' },
   },
   {
     id: 'e4-5',
@@ -87,7 +96,7 @@ const initialEdges = [
     target: '5',
     type: 'smoothstep',
     animated: true,
-    style: { stroke: '#4d2884', strokeWidth: 2, strokeDasharray: '5,5', opacity: 0.6 },
+    style: { stroke: '#4d2884', strokeWidth: 2, strokeDasharray: '5,5' },
   }
 ];
 
@@ -152,17 +161,37 @@ const CoursePipeline = () => {
   }, [windowSize]);
 
   return (
-    <div className="w-full h-full bg-[#000A33]/20">
+    <div className="w-full h-full bg-[#2e0669] rounded-xl shadow-lg relative overflow-hidden">
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#2e0669] via-[#2e0669]/95 to-[#2e0669]/90 backdrop-blur-sm" />
+      
+      {/* White border container */}
+      <div className="absolute inset-0 border-2 border-white/20 rounded-xl pointer-events-none" />
+      
       <ReactFlow
         nodes={nodes}
         edges={edges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
         nodeTypes={nodeTypes}
         fitView
+        fitViewOptions={{ 
+          padding: 0.2,
+          maxZoom: 0.9
+        }}
+        minZoom={0.5}
+        maxZoom={0.9}
+        defaultViewport={{ x: 0, y: 0, zoom: 0.9 }}
         attributionPosition="bottom-right"
         className="bg-transparent"
       >
-        <Controls showInteractive={false} />
-        <Background color="#4d2884" gap={16} size={1} />
+        <Background 
+          variant={BackgroundVariant.Dots} 
+          gap={12} 
+          size={1} 
+          color="rgba(255,255,255,0.15)" 
+        />
+        <Controls className="bg-white/10 backdrop-blur-sm" showInteractive={false} />
       </ReactFlow>
     </div>
   );
