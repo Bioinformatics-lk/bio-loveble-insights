@@ -1141,7 +1141,7 @@ const Index = () => {
           <div className="relative">
             <div className="relative">
               <div className="relative">
-                <SplineContainer scene="https://prod.spline.design/6YghhMwUUx6KhU8Y/scene.splinecode" />
+                <SplineContainer scene="https://prod.spline.design/USMDn0jW6GUQEWn1/scene.splinecode" />
               </div>
               <div className="text-center mt-12">
                 <button 
