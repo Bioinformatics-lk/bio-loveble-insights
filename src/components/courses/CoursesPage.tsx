@@ -1,6 +1,4 @@
-'use client';
-
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import '@/styles/glow.css';
@@ -18,7 +16,6 @@ import {
   DollarSign
 } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const courses = [

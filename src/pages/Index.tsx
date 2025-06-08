@@ -6,7 +6,7 @@ import { AuthModal } from "@/components/auth/AuthModal";
 import { ContactModal } from "@/components/contact/ContactModal";
 import { SearchBar } from "@/components/search/SearchBar";
 import { UserDashboard } from "@/components/dashboard/UserDashboard";
-import { CoursePipeline } from "@/components/courses/CoursePipeline";
+import CoursePipeline from "@/components/courses/CoursePipeline";
 import { supabase } from "@/integrations/supabase/client";
 import { User } from '@supabase/supabase-js';
 import { motion, AnimatePresence } from 'framer-motion';
