@@ -27,6 +27,10 @@ interface NodeData {
   label: string;
 }
 
+interface TopicNodeData {
+  label: string;
+}
+
 interface Topic {
   id: string;
   title: string;
@@ -59,7 +63,7 @@ const BrainNode = ({ data }: { data: NodeData }) => (
 );
 
 // Custom Node Component for Topics
-const TopicNode = ({ data }: { data: any }) => (
+const TopicNode = ({ data }: { data: TopicNodeData }) => (
   <div className="group">
     <div className="relative bg-[#1a0b2e]/20 backdrop-blur-md px-4 md:px-6 py-3 md:py-4 rounded-2xl border border-[#2d1b69] hover:bg-[#2d1b69]/30 transition-all duration-300 text-center min-w-[140px] md:min-w-[180px] max-w-[160px] md:max-w-[220px] transform hover:scale-105">
       {/* Enhanced glow effect */}
