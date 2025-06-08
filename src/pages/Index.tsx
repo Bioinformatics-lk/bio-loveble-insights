@@ -11,13 +11,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { User } from '@supabase/supabase-js';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 
 // Lazy load the Spline component
 const Spline = lazy(() => import('@splinetool/react-spline'));
@@ -931,63 +924,69 @@ const Index = () => {
       </section>
 
       {/* Our Academy Section */}
-      <section className="py-20 relative" id="academy">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#000A33] via-[#000A33] to-black"></div>
-        <div className="container mx-auto px-4 relative z-10">
+      <section className="py-20 bg-gradient-to-br from-[#000A33] via-[#000A33] via-75% to-black">
+        <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <div className="inline-block border-2 border-white/30 rounded-xl px-8 py-4 backdrop-blur-sm">
               <h2 className="text-4xl md:text-5xl font-bold text-white text-center">Our Academy</h2>
             </div>
+            <p className="text-lg text-gray-300 max-w-4xl mx-auto mt-8">
+              At Bioinformatics.lk Academy, we're revolutionizing science education through our innovative journey-based learning approach! Our passionate mentors guide learners through engaging, self-paced projects aligned with the Sustainable Development Goals (SDGs) from core foundations to cutting-edge paths in Bioinformatics, Cheminformatics, Computational Biology, and AI in Life Sciences. Regular team challenges ignite curiosity, foster collaboration, and build essential skills for the future of healthcare, agriculture, and environmental science.
+            </p>
           </div>
-
-          <div className="text-center mb-8">
-            <h3 className="text-3xl md:text-4xl font-bold text-white bg-[#000A33]/60 backdrop-blur-sm py-4 px-6 rounded-xl inline-block">
-              Bioinformatics.lk Academy
-            </h3>
+          
+          {/* Two-column layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+            {/* Left Column - Slideshow */}
+            <div className="lg:col-span-1">
+              <div className="relative h-[600px] rounded-2xl overflow-hidden shadow-xl">
+                <div className="absolute inset-0 bg-gradient-to-b from-[#000A33]/50 to-[#000A33]/80 z-10" />
+                <div className="slideshow-container h-full">
+                  <div className="slide fade">
+                    <img 
+                      src="/lovable-uploads/Photo 11.jpg" 
+                      alt="Bioinformatics Research" 
+                      className="w-full h-full object-cover"
+                  />
+                </div>
+                  <div className="slide fade">
+                    <img 
+                      src="/lovable-uploads/Photo 10.jpg" 
+                      alt="Drug Discovery Process" 
+                      className="w-full h-full object-cover"
+                    />
           </div>
-
-          <div className="relative">
-            <div className="relative">
-              <div className="relative w-full h-[300px] md:h-[500px] lg:h-[600px]">
-                <Swiper
-                  modules={[Navigation, Pagination, Autoplay]}
-                  spaceBetween={0}
-                  slidesPerView={1}
-                  navigation
-                  pagination={{ clickable: true }}
-                  autoplay={{ delay: 5000, disableOnInteraction: false }}
-                  className="w-full h-full"
-                >
-                  <SwiperSlide>
-                    <div className="relative w-full h-full">
-                      <img
-                        src="/lovable-uploads/Photo 1.jpg"
-                        alt="Academy 1"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className="relative w-full h-full">
-                      <img
-                        src="/lovable-uploads/Photo 2.jpg"
-                        alt="Academy 2"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className="relative w-full h-full">
-                      <img
-                        src="/lovable-uploads/Photo 3.jpg"
-                        alt="Academy 3"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </SwiperSlide>
-                </Swiper>
+                  {/* Navigation dots */}
+                  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2">
+                    <span 
+                      className={`dot ${currentSlideIndex === 0 ? 'active' : ''}`} 
+                      onClick={() => currentSlide(1)}
+                    ></span>
+                    <span 
+                      className={`dot ${currentSlideIndex === 1 ? 'active' : ''}`} 
+                      onClick={() => currentSlide(2)}
+                    ></span>
+        </div>
+                </div>
               </div>
             </div>
+
+            {/* Right Column - React Flow */}
+            <div className="lg:col-span-1">
+              <div className="h-[600px] rounded-2xl overflow-hidden shadow-xl">
+                <CoursePipeline />
+            </div>
+            </div>
+          </div>
+
+          {/* Join Our Academy Button */}
+          <div className="text-center mt-12">
+            <button 
+              onClick={() => navigate('/join')}
+              className="bg-white text-[#000A33] px-8 py-4 rounded-xl text-lg font-semibold hover:bg-[#4d2884] hover:text-white transition-colors duration-300 shadow-lg"
+            >
+              Join Our Academy
+            </button>
           </div>
         </div>
       </section>
