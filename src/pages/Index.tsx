@@ -1,7 +1,7 @@
 import React, { useState, useEffect, lazy, Suspense, memo } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChevronDown, BookOpen, Search, FileText, Youtube, Linkedin, Twitter, Users, FlaskConical, GraduationCap, Newspaper, Briefcase, MessageCircle, Handshake, Trophy, ExternalLink, Dna, Atom, Brain, Network, Computer, Menu, X, ArrowRight, Boxes, DollarSign } from "lucide-react";
+import { FileText, Youtube, Linkedin, Twitter, FlaskConical, ExternalLink, Dna, Atom, Brain, Network, Computer, Menu, X } from "lucide-react";
 import { AuthModal } from "@/components/auth/AuthModal";
 import { ContactModal } from "@/components/contact/ContactModal";
 import { SearchBar } from "@/components/search/SearchBar";
@@ -10,7 +10,7 @@ import CoursePipeline from "@/components/courses/CoursePipeline";
 import { supabase } from "@/integrations/supabase/client";
 import { User } from '@supabase/supabase-js';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 // Lazy load the Spline component
 const Spline = lazy(() => import('@splinetool/react-spline'));

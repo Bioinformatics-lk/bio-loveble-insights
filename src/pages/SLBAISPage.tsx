@@ -1,31 +1,18 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Brain, MessageCircle } from "lucide-react";
 import ReactFlow, {
   Node,
   Edge,
-  NodeChange,
-  EdgeChange,
-  applyNodeChanges,
-  applyEdgeChanges,
   Background,
   Controls,
-  MiniMap,
-  useNodesState,
-  useEdgesState,
-  Connection,
-  addEdge,
   NodeTypes,
   BackgroundVariant,
   Handle,
   Position,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
-
-interface NodeData {
-  label: string;
-}
 
 interface TopicNodeData {
   label: string;
@@ -212,21 +199,6 @@ export const SLBAISPage = () => {
     setEdges(calculateEdges());
   }, [dimensions]);
 
-  const onNodesChange = useCallback(
-    (changes: NodeChange[]) => setNodes((prev: Node[]) => applyNodeChanges(changes, prev)),
-    []
-  );
-
-  const onEdgesChange = useCallback(
-    (changes: EdgeChange[]) => setEdges((eds: Edge[]) => applyEdgeChanges(changes, eds)),
-    []
-  );
-
-  const onConnect = useCallback(
-    (params: Connection) => setEdges((eds: Edge[]) => addEdge(params, eds)),
-    []
-  );
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0a0612] via-[#1a0b2e] to-[#2d1b69] relative overflow-hidden">
       {/* Background Effects */}
@@ -252,9 +224,6 @@ export const SLBAISPage = () => {
           <ReactFlow
             nodes={nodes}
             edges={edges}
-            onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
-            onConnect={onConnect}
             nodeTypes={nodeTypes}
             fitView
             fitViewOptions={{ 

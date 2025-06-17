@@ -29,7 +29,7 @@ function App() {
     });
 
     // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
     });
 
@@ -52,7 +52,7 @@ function App() {
           path="/dashboard"
           element={
             <ProtectedRoute user={user}>
-              <UserDashboard user={user} />
+              <UserDashboard user={user!} />
             </ProtectedRoute>
           }
         />

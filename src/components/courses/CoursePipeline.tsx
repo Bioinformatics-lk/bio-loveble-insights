@@ -113,12 +113,12 @@ const CoursePipeline = () => {
     const startY = 20;
     const verticalSpacing = isMobile ? 120 : 150;
 
-    return initialNodes.map((node, index) => ({
+    return initialNodes.map((node) => ({
       id: node.id,
       type: 'course',
       position: { 
         x: centerX - (isMobile ? 150 : 200),
-        y: startY + (index * verticalSpacing)
+        y: startY + (node.id * verticalSpacing)
       },
       data: { label: node.data.label, id: node.id },
     }));
