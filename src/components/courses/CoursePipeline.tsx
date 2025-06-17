@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useCallback } from 'react';
-import { Node, Edge } from 'reactflow';
-import { Position, BackgroundVariant, Handle } from 'reactflow';
+import { Node, Edge, Position, BackgroundVariant, Handle } from 'reactflow';
 import ReactFlow, {
   Background,
   Controls,
@@ -10,12 +8,17 @@ import ReactFlow, {
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 
-// Custom Node Component for Course Topics
-const CourseNode = ({ data }: { data: any }) => {
+// 定义节点数据类型
+interface CourseNodeData {
+  label: string;
+  id: string;
+}
+
+// 自定义节点组件
+const CourseNode = ({ data }: { data: CourseNodeData }) => {
   return (
     <div>
       <div className="bg-[#4d2884]/90 backdrop-blur-md px-8 py-6 rounded-xl border-2 border-white/30 text-center min-w-[300px] md:min-w-[400px] max-w-[400px] md:max-w-[500px] shadow-lg shadow-[#2e0669]/20">
-        {/* Content */}
         <div>
           <h3 className="text-white font-semibold text-xl md:text-2xl whitespace-normal leading-tight">
             {data.label}
@@ -28,43 +31,46 @@ const CourseNode = ({ data }: { data: any }) => {
   );
 };
 
+// 定义节点类型
 const nodeTypes = {
   course: CourseNode,
 };
 
+// 初始节点数据
 const initialNodes = [
   {
     id: '1',
     position: { x: 250, y: 50 },
-    data: { label: 'Core Foundations' },
+    data: { label: 'Core Foundations', id: '1' },
     draggable: false,
   },
   {
     id: '2',
     position: { x: 250, y: 150 },
-    data: { label: 'Bioinformatics' },
+    data: { label: 'Bioinformatics', id: '2' },
     draggable: false,
   },
   {
     id: '3',
     position: { x: 250, y: 250 },
-    data: { label: 'Cheminformatics' },
+    data: { label: 'Cheminformatics', id: '3' },
     draggable: false,
   },
   {
     id: '4',
     position: { x: 250, y: 350 },
-    data: { label: 'Computational Biology' },
+    data: { label: 'Computational Biology', id: '4' },
     draggable: false,
   },
   {
     id: '5',
     position: { x: 250, y: 450 },
-    data: { label: 'AI in Life Sciences' },
+    data: { label: 'AI in Life Sciences', id: '5' },
     draggable: false,
   }
 ];
 
+// 初始边数据
 const initialEdges = [
   {
     id: 'e1-2',
@@ -100,13 +106,19 @@ const initialEdges = [
   }
 ];
 
-const CoursePipeline = () => {
-  const [windowSize, setWindowSize] = useState({
+// 窗口尺寸类型
+interface WindowSize {
+  width: number;
+  height: number;
+}
+
+const CoursePipeline: React.FC = () => {
+  const [windowSize, setWindowSize] = useState<WindowSize>({
     width: window.innerWidth,
     height: window.innerHeight,
   });
 
-  // Calculate positions for nodes
+  // 计算节点位置
   const calculateNodePositions = () => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
@@ -118,15 +130,15 @@ const CoursePipeline = () => {
       type: 'course',
       position: { 
         x: centerX - (isMobile ? 150 : 200),
-        y: startY + (node.id * verticalSpacing)
+        y: startY + (Number(node.id) * verticalSpacing)
       },
       data: { label: node.data.label, id: node.id },
     }));
   };
 
-  // Calculate edges (connections)
+  // 计算边连接
   const calculateEdges = () => {
-    return initialEdges.map((edge, index) => ({
+    return initialEdges.map((edge) => ({
       id: edge.id,
       source: edge.source,
       target: edge.target,

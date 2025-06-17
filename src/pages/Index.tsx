@@ -294,7 +294,6 @@ const Index = () => {
   // Animate counters with 3x slower speed
   useEffect(() => {
     const targets = { courses: 6, students: 10, projects: 5, partnerships: 5 };
-    const duration = 9000;
     const increment = 225;
 
     const timer = setInterval(() => {
@@ -407,17 +406,14 @@ const Index = () => {
                   src="/lovable-uploads/76f3562a-0d90-4bbc-a1b8-640acc56da80.png" 
                   alt="Bioinformatics.lk" 
                   className={`w-8 h-8 object-contain transition-all duration-300 ${
-                    isScrolled ? 'filter hue-rotate-180' : 'brightness-100'
+                    isScrolled ? 'scale-90' : 'scale-100'
                   }`}
-                  style={{
-                    filter: isScrolled ? 'invert(23%) sepia(90%) saturate(6453%) hue-rotate(265deg) brightness(89%) contrast(93%)' : 'none'
-                  }}
                 />
               </div>
-              <span className={`text-xl font-bold transition-colors duration-300 ml-0.5 ${
-                isScrolled ? 'text-gray-800' : 'text-[#EAE3F5]'
+              <span className={`ml-2 text-lg font-semibold transition-all duration-300 ${
+                isScrolled ? 'text-gray-900' : 'text-white'
               }`}>
-                ioinformatics.lk
+                Bioinformatics.lk
               </span>
             </motion.div>
 

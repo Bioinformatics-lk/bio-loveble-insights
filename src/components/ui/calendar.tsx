@@ -14,14 +14,6 @@ function Calendar({
   showOutsideDays = true,
   ...props
 }: CalendarProps) {
-  const IconLeft = () => {
-    return <ChevronLeft className="h-4 w-4" />;
-  };
-
-  const IconRight = () => {
-    return <ChevronRight className="h-4 w-4" />;
-  };
-
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
@@ -61,13 +53,14 @@ function Calendar({
         ...classNames,
       }}
       components={{
-        IconLeft: IconLeft as CustomComponents["IconLeft"],
-        IconRight: IconRight as CustomComponents["IconRight"],
+        IconLeft: () => <ChevronLeft className="h-4 w-4" />,
+        IconRight: () => <ChevronRight className="h-4 w-4" />
       }}
       {...props}
     />
   );
 }
+
 Calendar.displayName = "Calendar";
 
 export { Calendar };
