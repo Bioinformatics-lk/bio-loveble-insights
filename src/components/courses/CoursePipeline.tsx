@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Node, Edge, Position, BackgroundVariant, Handle } from 'reactflow';
+import { Position, BackgroundVariant, Handle } from 'reactflow';
 import ReactFlow, {
   Background,
   Controls,
