@@ -13,7 +13,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
 // Lazy load the Spline component
-const Spline = lazy(() => import('@splinetool/react-spline/next'));
+const Spline = lazy(() => import('@splinetool/react-spline'));
 
 // Memoize the Spline container component
 const SplineContainer = memo(({ scene }: { scene: string }) => (
