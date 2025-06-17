@@ -212,14 +212,13 @@ const MobileMenu = memo(({
 const Index = () => {
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [contactModalOpen, setContactModalOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
-  // Counter animation states
+  // 计数器动画状态
   const [counters, setCounters] = useState({
     courses: 0,
     students: 0,
@@ -227,7 +226,7 @@ const Index = () => {
     partnerships: 0
   });
 
-  // Add animation observer
+  // 添加动画观察器
   useEffect(() => {
     const observerOptions = {
       root: null,
@@ -252,7 +251,7 @@ const Index = () => {
   }, []);
 
   useEffect(() => {
-    // Get initial session
+    // 获取初始会话
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
       if (session?.user) {
@@ -260,9 +259,9 @@ const Index = () => {
       }
     });
 
-    // Listen for auth changes
+    // 监听认证状态变化
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
+      (_, session) => {
         setUser(session?.user ?? null);
         if (session?.user) {
           navigate('/dashboard');
@@ -273,7 +272,7 @@ const Index = () => {
     return () => subscription.unsubscribe();
   }, [navigate]);
 
-  // Optimize scroll handler with debounce
+  // 优化滚动处理
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
     const handleScroll = () => {
@@ -291,7 +290,7 @@ const Index = () => {
     };
   }, []);
 
-  // Animate counters with 3x slower speed
+  // 计数器动画
   useEffect(() => {
     const targets = { courses: 6, students: 10, projects: 5, partnerships: 5 };
     const increment = 225;
@@ -322,7 +321,7 @@ const Index = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Slideshow functionality
+  // 幻灯片功能
   useEffect(() => {
     const slides = document.getElementsByClassName("slide");
     for (let i = 0; i < slides.length; i++) {
@@ -348,10 +347,6 @@ const Index = () => {
     }
   };
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-  };
-
   const handleLearnMore = () => {
     setAuthModalOpen(true);
   };
@@ -364,7 +359,7 @@ const Index = () => {
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
-  // If user is logged in, show dashboard
+  // 如果用户已登录，显示仪表板
   if (user) {
     return <UserDashboard user={user} />;
   }
@@ -388,7 +383,7 @@ const Index = () => {
         .delay-600 { transition-delay: 600ms; }
       `}</style>
 
-      {/* Navigation Header */}
+      {/* 导航头部 */}
       <header className={`sticky top-0 z-50 backdrop-blur-md border-b transition-all duration-300 ${
         isScrolled 
           ? 'bg-white/95 border-gray-300/30' 
@@ -396,7 +391,7 @@ const Index = () => {
       }`}>
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
-            {/* Logo and Brand Name - Left Side */}
+            {/* Logo和品牌名称 - 左侧 */}
             <motion.div 
               className="flex items-center"
               layout
@@ -539,7 +534,7 @@ const Index = () => {
             {/* Right Side - Search and Login */}
             <div className="flex items-center gap-4">
               {/* New Overlay Search Bar */}
-              <SearchBar onClose={() => setSearchOpen(false)} />
+              <SearchBar onClose={() => setAuthModalOpen(false)} />
               
               <Button
                 onClick={() => setAuthModalOpen(true)}
