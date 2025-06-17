@@ -1,10 +1,10 @@
 [build]
   command = "npm install --legacy-peer-deps && npm run build"
   publish = "dist"
-  environment = { ROLLUP_SKIP_NODE_RESOLVE = "true" }
-
-[build.environment]
-  NODE_VERSION = "20"
+  environment = { 
+    ROLLUP_SKIP_NODE_RESOLVE = "true",
+    NODE_VERSION = "20"
+  }
 
 [[redirects]]
   from = "/*"
