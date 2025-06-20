@@ -388,11 +388,18 @@ const Index = () => {
         }
         
         .animate-scroll {
-          animation: scroll 30s linear infinite;
+          animation: scroll 60s linear infinite;
+          will-change: transform;
         }
         
         .animate-scroll:hover {
           animation-play-state: paused;
+        }
+        
+        @media (max-width: 768px) {
+          .animate-scroll {
+            animation: scroll 40s linear infinite;
+          }
         }
       `}</style>
 
@@ -1175,7 +1182,7 @@ const Index = () => {
           
           {/* Auto-scrolling advisors container */}
           <div className="relative overflow-hidden">
-            <div className="flex animate-scroll space-x-6 lg:space-x-8">
+            <div className="flex animate-scroll space-x-4 md:space-x-6 lg:space-x-8">
               {[
                 {
                   name: "Dr. Lakmal Ranathunga",
@@ -1220,27 +1227,27 @@ const Index = () => {
                   image: "/lovable-uploads/UM.png"
                 }
               ].map((advisor, index) => (
-                <Card key={index} className="min-w-[300px] md:min-w-[350px] bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
-                  <div className="relative overflow-hidden">
+                <Card key={index} className="min-w-[280px] md:min-w-[320px] lg:min-w-[350px] bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
+                  <div className="relative overflow-hidden bg-gray-50 p-4">
                     <img 
                       src={advisor.image} 
                       alt={advisor.name}
-                      className="w-full h-48 md:h-56 object-cover"
+                      className="w-full h-40 md:h-48 lg:h-56 object-contain"
                     />
                   </div>
-                  <CardHeader>
-                    <CardTitle className="text-lg md:text-xl text-black hover:text-[#A50053] transition-colors">
+                  <CardHeader className="p-4">
+                    <CardTitle className="text-base md:text-lg lg:text-xl text-black hover:text-[#A50053] transition-colors">
                       {advisor.name}
                     </CardTitle>
                     {advisor.title && (
-                      <CardDescription className="text-sm md:text-base text-gray-700 font-medium">
+                      <CardDescription className="text-xs md:text-sm lg:text-base text-gray-700 font-medium">
                         {advisor.title}
                       </CardDescription>
                     )}
-                    <CardDescription className="text-sm text-gray-600">
+                    <CardDescription className="text-xs md:text-sm text-gray-600">
                       {advisor.experience}
                     </CardDescription>
-                    <CardDescription className="text-sm text-gray-600 font-medium">
+                    <CardDescription className="text-xs md:text-sm text-gray-600 font-medium">
                       {advisor.education}
                     </CardDescription>
                   </CardHeader>
@@ -1291,27 +1298,27 @@ const Index = () => {
                   image: "/lovable-uploads/UM.png"
                 }
               ].map((advisor, index) => (
-                <Card key={`duplicate-${index}`} className="min-w-[300px] md:min-w-[350px] bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
-                  <div className="relative overflow-hidden">
+                <Card key={`duplicate-${index}`} className="min-w-[280px] md:min-w-[320px] lg:min-w-[350px] bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
+                  <div className="relative overflow-hidden bg-gray-50 p-4">
                     <img 
                       src={advisor.image} 
                       alt={advisor.name}
-                      className="w-full h-48 md:h-56 object-cover"
+                      className="w-full h-40 md:h-48 lg:h-56 object-contain"
                     />
                   </div>
-                  <CardHeader>
-                    <CardTitle className="text-lg md:text-xl text-black hover:text-[#A50053] transition-colors">
+                  <CardHeader className="p-4">
+                    <CardTitle className="text-base md:text-lg lg:text-xl text-black hover:text-[#A50053] transition-colors">
                       {advisor.name}
                     </CardTitle>
                     {advisor.title && (
-                      <CardDescription className="text-sm md:text-base text-gray-700 font-medium">
+                      <CardDescription className="text-xs md:text-sm lg:text-base text-gray-700 font-medium">
                         {advisor.title}
                       </CardDescription>
                     )}
-                    <CardDescription className="text-sm text-gray-600">
+                    <CardDescription className="text-xs md:text-sm text-gray-600">
                       {advisor.experience}
                     </CardDescription>
-                    <CardDescription className="text-sm text-gray-600 font-medium">
+                    <CardDescription className="text-xs md:text-sm text-gray-600 font-medium">
                       {advisor.education}
                     </CardDescription>
                   </CardHeader>
