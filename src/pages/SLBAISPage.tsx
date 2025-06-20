@@ -80,9 +80,9 @@ const SLBAISNode = () => (
   <div className="relative bg-[#1a0b2e]/20 backdrop-blur-md px-6 py-4 rounded-2xl border border-[#2d1b69] text-center min-w-[200px] md:min-w-[300px] max-w-[300px] md:max-w-[400px]">
     <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#1a0b2e]/20 via-[#2d1b69]/20 to-[#1a0b2e]/20 blur-sm animate-gradient-x" />
     <div className="relative z-10">
-      <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 tracking-wider">S L B A I S</h2>
+      <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 tracking-wider">S L B A I L</h2>
       <p className="text-white/80 text-sm md:text-base">
-        Sri Lanka's First Botanical Artificial Intelligence System
+        Sri Lanka's First Bioinformatics and Artificial Intelligence Laboratory
       </p>
     </div>
     <Handle type="target" position={Position.Top} className="w-3 h-3 md:w-4 md:h-4 bg-white/50 shadow-glow" />
