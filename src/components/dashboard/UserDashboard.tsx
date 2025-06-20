@@ -29,7 +29,7 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
   };
 
   const handleExploreSlhaif = () => {
-    navigate('/slbais');
+    alert("SLBAIS will be launching soon.");
   };
 
   return (
@@ -180,7 +180,7 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
             </motion.div>
           </div>
 
-          {/* SLBAIS Card - Centered Below */}
+          {/* SLBAIL Card - Centered Below */}
           <motion.div
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -206,69 +206,11 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
               </div>
               
               <CardHeader className="text-center relative z-10">
-                <div className="w-28 h-28 mx-auto mb-6 bg-transparent rounded-full flex items-center justify-center relative group">
-                  {/* Optimized Glowing background effect */}
-                  <motion.div
-                    initial={{ scale: 1, opacity: 0.3 }}
-                    animate={{
-                      scale: [1, 1.1, 1],
-                      opacity: [0.3, 0.5, 0.3],
-                    }}
-                    transition={{
-                      duration: 1.5,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      times: [0, 0.5, 1],
-                    }}
-                    className="absolute inset-0 rounded-full bg-gradient-to-r from-[#54366B] to-[#363B6B] blur-xl transform-gpu"
-                  />
-                  
-                  {/* Optimized Pulsing ring effect */}
-                  <motion.div
-                    initial={{ scale: 1, opacity: 0.2 }}
-                    animate={{
-                      scale: [1, 1.2, 1],
-                      opacity: [0.2, 0.3, 0.2],
-                    }}
-                    transition={{
-                      duration: 1.5,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      times: [0, 0.5, 1],
-                    }}
-                    className="absolute -inset-3 rounded-full bg-gradient-to-r from-[#54366B] to-[#363B6B] blur-lg transform-gpu"
-                  />
-                  
-                  {/* Optimized Brain icon animation */}
-                  <motion.div
-                    initial={{ scale: 1 }}
-                    animate={{
-                      scale: [1, 1.08, 1],
-                    }}
-                    transition={{
-                      duration: 1.5,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      times: [0, 0.5, 1],
-                    }}
-                    className="relative z-10 transform-gpu"
-                  >
-                    <div className="relative transform-gpu">
-                      {/* Optimized layered glows */}
-                      <div className="absolute inset-0 blur-md bg-white/20 rounded-full transform-gpu"></div>
-                      <div className="absolute inset-0 blur-lg bg-white/15 rounded-full scale-110 transform-gpu"></div>
-                      <div className="absolute inset-0 blur-xl bg-white/10 rounded-full scale-125 transform-gpu"></div>
-                      <Brain 
-                        className="h-14 w-14 text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.8)] filter brightness-150 transform-gpu" 
-                      />
-                    </div>
-                  </motion.div>
-                </div>
                 <CardTitle className="text-3xl text-white font-bold drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">
-                  SLBAIS
+                  SLBAIL
                 </CardTitle>
                 <CardDescription className="text-white/90 text-lg mt-2 font-medium">
-                  Sri Lanka's First Botanical Artificial Intelligence Factory
+                  Sri Lanka's First Bioinformatics and Artificial Intelligence Laboratory
                 </CardDescription>
             </CardHeader>
             <CardContent>
@@ -277,7 +219,7 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
                   className="w-full bg-[#363B6B] hover:bg-[#000A33] text-white border border-white/20 transition-all text-lg py-6 font-semibold shadow-lg hover:shadow-xl backdrop-blur-sm"
                 size="lg"
               >
-                  Explore SLBAIS
+                  Explore SLBAIL
               </Button>
             </CardContent>
           </Card>

@@ -1144,23 +1144,16 @@ const Index = () => {
             <h3 className="text-xl md:text-2xl font-semibold text-[#EAE3F5] mb-4 mt-8">
               Sri Lankan Bioinformatics and Artificial Intelligence Lab
             </h3>
-            <p className="text-lg text-gray-300 max-w-4xl mx-auto mt-8">
-              Sri Lanka's First Botanical Artificial Intelligence System (SLBAIS) that revolutionizes drug discovery through advanced AI agents. Our system integrates cutting-edge artificial intelligence with traditional botanical knowledge to accelerate and enhance the drug discovery pipeline.
-            </p>
           </div>
 
           <div className="relative">
             <div className="relative">
-              <div className="relative">
-                <SplineContainer scene="loading..." />
-                <div className="absolute bottom-0 right-0 w-1/2 h-16 bg-[#000A33] z-10"></div>
-              </div>
               <div className="text-center mt-12">
                 <button 
-                  onClick={() => setAuthModalOpen(true)}
+                  onClick={() => alert("SLBAIS will be launching soon.")}
                   className="bg-white text-[#000A33] px-8 py-4 rounded-xl text-lg font-semibold hover:bg-[#4d2884] hover:text-white transition-colors duration-300 shadow-lg"
                 >
-                  Join Our Lab
+                  Explore SLBAIL
                 </button>
               </div>
             </div>
