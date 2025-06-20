@@ -388,7 +388,7 @@ const Index = () => {
         }
         
         .animate-scroll {
-          animation: scroll 60s linear infinite;
+          animation: scroll 30s linear infinite;
           will-change: transform;
         }
         
@@ -398,7 +398,7 @@ const Index = () => {
         
         @media (max-width: 768px) {
           .animate-scroll {
-            animation: scroll 40s linear infinite;
+            animation: scroll 20s linear infinite;
           }
         }
       `}</style>
