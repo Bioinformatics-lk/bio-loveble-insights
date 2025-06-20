@@ -185,12 +185,12 @@ const MobileMenu = memo(({
             <Button
               variant="ghost"
               onClick={() => {
-                onSectionClick('partnerships');
+                onSectionClick('advisors');
                 onClose();
               }}
               className="text-white hover:bg-white/10 text-lg justify-start"
             >
-              Our Partnerships
+              Our Advisors
             </Button>
             <Button
               variant="ghost"
@@ -381,6 +381,23 @@ const Index = () => {
         .delay-200 { transition-delay: 200ms; }
         .delay-400 { transition-delay: 400ms; }
         .delay-600 { transition-delay: 600ms; }
+        
+        @keyframes scroll {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+        
+        .animate-scroll {
+          animation: scroll 30s linear infinite;
+        }
+        
+        .animate-scroll:hover {
+          animation-play-state: paused;
+        }
       `}</style>
 
       {/* 导航头部 */}
@@ -509,14 +526,14 @@ const Index = () => {
               </Button>
               <Button
                 variant="ghost"
-                onClick={() => scrollToSection('partnerships')}
+                onClick={() => scrollToSection('advisors')}
                 className={`transition-all transform hover:scale-105 text-sm ${
                   isScrolled 
                     ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
                     : 'text-purple-100 hover:text-white hover:bg-white/10'
                 }`}
               >
-                Our Partnerships
+                Our Advisors
               </Button>
               <Button
                 variant="ghost"
@@ -1148,78 +1165,163 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Our Partnerships Section */}
-      <section className="py-12 md:py-20 bg-white relative z-10" id="partnerships">
+      {/* Our Advisors Section */}
+      <section className="py-12 md:py-20 bg-white relative z-10" id="advisors">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 lg:mb-12">
             <div className="inline-block bg-[#FFBBE5] px-6 py-3 rounded-lg mb-4">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Our Partnerships</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Our Advisors</h2>
             </div>
             <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-              Collaborating with leading institutions local and worldwide
+              Brilliant minds who guide us with their wealth of expertise and insight.
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {[
-              {
-                category: "Academics",
-                partner: "University of Peradeniya, Faculty of Agriculture, Department of Animal Science",
-                url: "https://agri.pdn.ac.lk/ansc/",
-                image: "/lovable-uploads/f819fa08-d68c-4051-aaf6-9400fcbd120f.png"
-              },
-              {
-                category: "Open Source",
-                partner: "Institute of Scientific Informatics",
-                url: "https://www.linkedin.com/company/institute-of-scientific-informatics/?viewAsMember=true",
-                image: "/lovable-uploads/2e7cdf35-206d-4ea5-9a42-57a8463de5da.png"
-              },
-              {
-                category: "Open Source",
-                partner: "Global Chemistry Inc, U.S.A",
-                url: "https://globalchemistry.org/",
-                image: "/lovable-uploads/b6881a52-3aa0-4dfb-95bf-1061d262f01c.png"
-              },
-              {
-                category: "Education and Research",
-                partner: "Chemo-Informatics Academy, Nigeria",
-                url: "https://www.linkedin.com/company/chemoinformatics-academy/posts/?feedView=all",
-                image: "/lovable-uploads/1953afc8-f585-4e96-a138-a7ae2375e033.png"
-              },
-              {
-                category: "Industry",
-                partner: "Standard Seed Corporation, Delaware, Wilmington, U.S.A",
-                url: "https://standardseedai.com/",
-                image: "/lovable-uploads/b6abe787-a4b1-469e-ace7-f3ba7c44eb36.png"
-              },
-              {
-                category: "Education and Research",
-                partner: "Agriculture.lk",
-                url: "https://agriculture.lk/",
-                image: "/lovable-uploads/e278cf89-1409-4a6a-9fc0-72a0d940ceba.png"
-              }
-            ].map((partnership, index) => (
-              <Card key={index} className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
-                <div className="relative overflow-hidden">
-                  <img 
-                    src={partnership.image} 
-                    alt={partnership.partner}
-                    className="w-full h-40 md:h-48 object-cover"
-                  />
-                </div>
-                <CardHeader>
-                  <CardTitle className="text-lg md:text-xl text-black hover:text-[#A50053] transition-colors cursor-pointer">
-                    {partnership.category}
-                  </CardTitle>
-                  <CardDescription 
-                    className="text-sm md:text-base text-black cursor-pointer hover:text-[#A50053] hover:underline transition-all"
-                    onClick={() => handlePartnershipClick(partnership.url)}
-                  >
-                    {partnership.partner}
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            ))}
+          {/* Auto-scrolling advisors container */}
+          <div className="relative overflow-hidden">
+            <div className="flex animate-scroll space-x-6 lg:space-x-8">
+              {[
+                {
+                  name: "Dr. Lakmal Ranathunga",
+                  title: "Lecturer/Entrepreneur/Researcher",
+                  experience: "10+ years of experience in Bioinformatics and Virology",
+                  education: "PhD CNU South Korea",
+                  image: "/lovable-uploads/CNU.png"
+                },
+                {
+                  name: "Dr. Sul Sharif",
+                  title: "Computer Scientist/Organic Chemist/CSO and co-founder of SSC",
+                  experience: "10+ years of experience in Cheminformatics and Artificial Intelligence",
+                  education: "PhD UMB U.S.A",
+                  image: "/lovable-uploads/UMB.png"
+                },
+                {
+                  name: "Dr. Pabasara Kalansooriya",
+                  title: "Senior Lecturer/Researcher",
+                  experience: "10+ years of experience in Medicinal Chemistry",
+                  education: "PhD UQ Australia",
+                  image: "/lovable-uploads/UQ.png"
+                },
+                {
+                  name: "Dr. Paween Mahinthichaichan",
+                  title: "Former FDA/Researcher",
+                  experience: "10+ years of experience in Biophysics",
+                  education: "PhD UI U.S.A",
+                  image: "/lovable-uploads/UI.png"
+                },
+                {
+                  name: "Mr. Nishan Karassik",
+                  title: "CIO and founder of Phylos Bioscience",
+                  experience: "10+ years of experience in Biotech entrepreneurship",
+                  education: "Bsc UO U.S.A",
+                  image: "/lovable-uploads/UO.png"
+                },
+                {
+                  name: "Dr. Sisira Amarasinghe",
+                  title: "",
+                  experience: "10+ years of experience in Information Systems",
+                  education: "PhD UM U.S.A",
+                  image: "/lovable-uploads/UM.png"
+                }
+              ].map((advisor, index) => (
+                <Card key={index} className="min-w-[300px] md:min-w-[350px] bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
+                  <div className="relative overflow-hidden">
+                    <img 
+                      src={advisor.image} 
+                      alt={advisor.name}
+                      className="w-full h-48 md:h-56 object-cover"
+                    />
+                  </div>
+                  <CardHeader>
+                    <CardTitle className="text-lg md:text-xl text-black hover:text-[#A50053] transition-colors">
+                      {advisor.name}
+                    </CardTitle>
+                    {advisor.title && (
+                      <CardDescription className="text-sm md:text-base text-gray-700 font-medium">
+                        {advisor.title}
+                      </CardDescription>
+                    )}
+                    <CardDescription className="text-sm text-gray-600">
+                      {advisor.experience}
+                    </CardDescription>
+                    <CardDescription className="text-sm text-gray-600 font-medium">
+                      {advisor.education}
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+              ))}
+              {/* Duplicate cards for seamless scrolling */}
+              {[
+                {
+                  name: "Dr. Lakmal Ranathunga",
+                  title: "Lecturer/Entrepreneur/Researcher",
+                  experience: "10+ years of experience in Bioinformatics and Virology",
+                  education: "PhD CNU South Korea",
+                  image: "/lovable-uploads/CNU.png"
+                },
+                {
+                  name: "Dr. Sul Sharif",
+                  title: "Computer Scientist/Organic Chemist/CSO and co-founder of SSC",
+                  experience: "10+ years of experience in Cheminformatics and Artificial Intelligence",
+                  education: "PhD UMB U.S.A",
+                  image: "/lovable-uploads/UMB.png"
+                },
+                {
+                  name: "Dr. Pabasara Kalansooriya",
+                  title: "Senior Lecturer/Researcher",
+                  experience: "10+ years of experience in Medicinal Chemistry",
+                  education: "PhD UQ Australia",
+                  image: "/lovable-uploads/UQ.png"
+                },
+                {
+                  name: "Dr. Paween Mahinthichaichan",
+                  title: "Former FDA/Researcher",
+                  experience: "10+ years of experience in Biophysics",
+                  education: "PhD UI U.S.A",
+                  image: "/lovable-uploads/UI.png"
+                },
+                {
+                  name: "Mr. Nishan Karassik",
+                  title: "CIO and founder of Phylos Bioscience",
+                  experience: "10+ years of experience in Biotech entrepreneurship",
+                  education: "Bsc UO U.S.A",
+                  image: "/lovable-uploads/UO.png"
+                },
+                {
+                  name: "Dr. Sisira Amarasinghe",
+                  title: "",
+                  experience: "10+ years of experience in Information Systems",
+                  education: "PhD UM U.S.A",
+                  image: "/lovable-uploads/UM.png"
+                }
+              ].map((advisor, index) => (
+                <Card key={`duplicate-${index}`} className="min-w-[300px] md:min-w-[350px] bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
+                  <div className="relative overflow-hidden">
+                    <img 
+                      src={advisor.image} 
+                      alt={advisor.name}
+                      className="w-full h-48 md:h-56 object-cover"
+                    />
+                  </div>
+                  <CardHeader>
+                    <CardTitle className="text-lg md:text-xl text-black hover:text-[#A50053] transition-colors">
+                      {advisor.name}
+                    </CardTitle>
+                    {advisor.title && (
+                      <CardDescription className="text-sm md:text-base text-gray-700 font-medium">
+                        {advisor.title}
+                      </CardDescription>
+                    )}
+                    <CardDescription className="text-sm text-gray-600">
+                      {advisor.experience}
+                    </CardDescription>
+                    <CardDescription className="text-sm text-gray-600 font-medium">
+                      {advisor.education}
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+              ))}
+            </div>
           </div>
         </div>
       </section>
