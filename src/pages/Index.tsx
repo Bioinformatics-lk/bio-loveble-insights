@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy, Suspense, memo } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { FileText, Youtube, Linkedin, Twitter, FlaskConical, ExternalLink, Dna, Atom, Brain, Network, Computer, Menu, X } from "lucide-react";
@@ -11,76 +11,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { User } from '@supabase/supabase-js';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-
-// Lazy load the Spline component
-const Spline = lazy(() => import('@splinetool/react-spline'));
-
-// Memoize the Spline container component
-const SplineContainer = memo(({ scene }: { scene: string }) => (
-  <div className="w-full h-[300px] sm:h-[400px] md:h-[600px] lg:h-[800px] rounded-lg overflow-hidden relative">
-    <style>
-      {`
-        .spline-container :global(.spline-watermark),
-        .spline-container :global(.spline-logo),
-        .spline-container :global(.spline-watermark-container) {
-          display: none !important;
-        }
-        .spline-container :global(canvas) {
-          transform: translateX(25%) !important;
-        }
-        @media (max-width: 768px) {
-          .spline-container :global(canvas) {
-            transform: translateX(15%) !important;
-          }
-        }
-        .branding-overlay {
-          position: absolute;
-          bottom: 0;
-          right: 0;
-          width: 200px;
-          height: 40px;
-          background: linear-gradient(to top right,rgb(0, 0, 12), black);
-          z-index: 10;
-          backdrop-filter: blur(8px);
-          border-top-left-radius: 8px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: white;
-          font-weight: 500;
-          font-size: 0.875rem;
-        }
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @media (max-width: 768px) {
-          .spline-container :global(canvas) {
-            transform: translateX(15%) !important;
-          }
-        }
-      `}
-    </style>
-    <Suspense fallback={
-      <div className="w-full h-full flex items-center justify-center bg-[#000000]/30">
-        <div className="text-[#64ffda]">Loading 3D Model...</div>
-      </div>
-    }>
-      <div className="spline-container w-full h-full flex items-center justify-center relative">
-        <Spline 
-          scene={scene}
-          style={{
-            width: '100%',
-            height: '100%',
-            position: 'relative',
-            top: '50%',
-            transform: 'translateY(-50%)',
-          }}
-        />
-      </div>
-    </Suspense>
-  </div>
-));
 
 // Memoize the mobile menu component
 const MobileMenu = memo(({ 
