@@ -355,10 +355,6 @@ const Index = () => {
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
-  const handlePartnershipClick = (url: string) => {
-    window.open(url, '_blank', 'noopener,noreferrer');
-  };
-
   // 如果用户已登录，显示仪表板
   if (user) {
     return <UserDashboard user={user} />;
