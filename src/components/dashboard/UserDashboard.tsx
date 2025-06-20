@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { User, LogOut, Briefcase, BookOpen } from "lucide-react";
@@ -33,39 +32,23 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
   };
 
   return (
-    <motion.div 
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-      className="min-h-screen bg-gradient-to-br from-[#170056] via-[#410056] to-[#54366B] relative overflow-hidden"
-    >
-      {/* Background Images */}
+    <div className="min-h-screen bg-gradient-to-br from-[#170056] via-[#410056] to-[#54366B] relative overflow-hidden">
+      {/* Simplified Background - Reduced blur effects */}
       <div className="absolute inset-0 z-0">
-        {/* Geometric Shapes for Visual Interest */}
-        <div className="absolute top-20 left-10 w-64 h-64 rounded-full bg-[#54366B]/20 blur-3xl"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 rounded-full bg-[#000A33]/40 blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[#363B6B]/20 blur-3xl"></div>
-        {/* Overlay Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#170056]/50 to-[#410056]/50 backdrop-blur-[2px]" />
+        {/* Simplified geometric shapes with reduced blur */}
+        <div className="absolute top-20 left-10 w-64 h-64 rounded-full bg-[#54366B]/10"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 rounded-full bg-[#000A33]/20"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[#363B6B]/10"></div>
+        {/* Simplified overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#170056]/30 to-[#410056]/30" />
       </div>
 
-      {/* Top Bar */}
-      <motion.header 
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="sticky top-0 z-50 w-full bg-white/10 backdrop-blur-md border-b border-white/20 shadow-lg"
-      >
+      {/* Top Bar - Simplified animations */}
+      <header className="sticky top-0 z-50 w-full bg-white/10 border-b border-white/20 shadow-lg">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Left Side - Logo and User Info */}
-            <motion.div 
-              initial={{ x: -20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex items-center space-x-4 md:space-x-6"
-            >
+            <div className="flex items-center space-x-4 md:space-x-6">
               {/* Site Name */}
               <h1 className="text-xl md:text-2xl font-bold text-white">
                 Bioinformatics.lk
@@ -88,144 +71,102 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
                   </p>
               </div>
               </div>
-            </motion.div>
+            </div>
 
             {/* Right Side - Logout Button */}
-            <motion.div
-              initial={{ x: 20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
             <Button
               onClick={handleLogout}
-                className="bg-white/10 hover:bg-white/20 text-white border border-white/20 shadow-sm hover:shadow flex items-center space-x-2 transition-all duration-300"
-                size="sm"
+              className="bg-white/10 hover:bg-white/20 text-white border border-white/20 shadow-sm hover:shadow flex items-center space-x-2 transition-colors duration-200"
+              size="sm"
             >
-                <LogOut className="h-4 w-4" />
-                <span className="hidden sm:inline">Logout</span>
+              <LogOut className="h-4 w-4" />
+              <span className="hidden sm:inline">Logout</span>
             </Button>
-            </motion.div>
           </div>
         </div>
-      </motion.header>
+      </header>
 
-      {/* Main Content */}
+      {/* Main Content - Simplified animations */}
       <main className="container mx-auto px-4 py-16 relative z-10">
-        <motion.div 
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="grid grid-cols-1 gap-10 max-w-5xl mx-auto"
-        >
+        <div className="grid grid-cols-1 gap-10 max-w-5xl mx-auto">
           {/* First Row - Services and Courses */}
           <div className="grid md:grid-cols-2 gap-10">
             {/* Services Card */}
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <Card className="border-2 border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300 h-full flex flex-col">
-                <CardHeader className="text-center flex-1">
-                  <div className="w-24 h-24 mx-auto mb-6 bg-[#363B6B] rounded-full flex items-center justify-center shadow-lg">
-                    <Briefcase className="h-12 w-12 text-white" />
-                  </div>
-                  <CardTitle className="text-3xl text-white font-bold">
-                    Services
-                  </CardTitle>
-                  <CardDescription className="text-white/70 text-lg mt-2">
-                    Professional bioinformatics and computational biology services
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="mt-auto">
-                  <Button 
-                    onClick={handleViewServices}
-                    className="w-full bg-[#363B6B] hover:bg-[#000A33] text-white border border-white/20 transition-all text-lg py-6 font-semibold shadow-lg hover:shadow-xl"
-                    size="lg"
-                  >
-                    View Services
-                  </Button>
-                </CardContent>
-              </Card>
-            </motion.div>
+            <Card className="border-2 border-white/20 bg-white/10 hover:bg-white/20 transition-colors duration-200 h-full flex flex-col">
+              <CardHeader className="text-center flex-1">
+                <div className="w-24 h-24 mx-auto mb-6 bg-[#363B6B] rounded-full flex items-center justify-center shadow-lg">
+                  <Briefcase className="h-12 w-12 text-white" />
+                </div>
+                <CardTitle className="text-3xl text-white font-bold">
+                  Services
+                </CardTitle>
+                <CardDescription className="text-white/70 text-lg mt-2">
+                  Professional bioinformatics and computational biology services
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="mt-auto">
+                <Button 
+                  onClick={handleViewServices}
+                  className="w-full bg-[#363B6B] hover:bg-[#000A33] text-white border border-white/20 transition-colors duration-200 text-lg py-6 font-semibold shadow-lg"
+                  size="lg"
+                >
+                  View Services
+                </Button>
+              </CardContent>
+            </Card>
 
-          {/* Courses Card */}
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <Card className="border-2 border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300 h-full flex flex-col">
-                <CardHeader className="text-center flex-1">
-                  <div className="w-24 h-24 mx-auto mb-6 bg-[#363B6B] rounded-full flex items-center justify-center shadow-lg">
-                    <BookOpen className="h-12 w-12 text-white" />
-              </div>
-                  <CardTitle className="text-3xl text-white font-bold">
-                Courses
-              </CardTitle>
-                  <CardDescription className="text-white/70 text-lg mt-2">
-                Access our comprehensive bioinformatics courses
-              </CardDescription>
-            </CardHeader>
-                <CardContent className="mt-auto">
-              <Button 
-                    onClick={handleViewCourses}
-                    className="w-full bg-[#363B6B] hover:bg-[#000A33] text-white border border-white/20 transition-all text-lg py-6 font-semibold shadow-lg hover:shadow-xl"
-                size="lg"
-              >
-                View Courses
-              </Button>
-            </CardContent>
-          </Card>
-            </motion.div>
+            {/* Courses Card */}
+            <Card className="border-2 border-white/20 bg-white/10 hover:bg-white/20 transition-colors duration-200 h-full flex flex-col">
+              <CardHeader className="text-center flex-1">
+                <div className="w-24 h-24 mx-auto mb-6 bg-[#363B6B] rounded-full flex items-center justify-center shadow-lg">
+                  <BookOpen className="h-12 w-12 text-white" />
+                </div>
+                <CardTitle className="text-3xl text-white font-bold">
+                  Courses
+                </CardTitle>
+                <CardDescription className="text-white/70 text-lg mt-2">
+                  Access our comprehensive bioinformatics courses
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="mt-auto">
+                <Button 
+                  onClick={handleViewCourses}
+                  className="w-full bg-[#363B6B] hover:bg-[#000A33] text-white border border-white/20 transition-colors duration-200 text-lg py-6 font-semibold shadow-lg"
+                  size="lg"
+                >
+                  View Courses
+                </Button>
+              </CardContent>
+            </Card>
           </div>
 
-          {/* SLBAIL Card - Centered Below */}
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ type: "spring", stiffness: 300 }}
-            className="md:col-span-2 md:w-2/3 mx-auto"
-          >
-            <Card className="border-2 border-white/20 bg-transparent backdrop-blur-sm hover:bg-white/5 transition-all duration-300 relative overflow-hidden will-change-transform">
-              {/* Optimized Glowing Effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#54366B]/20 to-[#363B6B]/20">
-                <motion.div
-                  initial={{ opacity: 0.2 }}
-                  animate={{
-                    opacity: [0.2, 0.4, 0.2],
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    times: [0, 0.5, 1],
-                  }}
-                  className="w-full h-full bg-gradient-to-r from-[#54366B] to-[#363B6B] blur-2xl transform-gpu"
-                />
-              </div>
+          {/* SLBAIL Card - Simplified */}
+          <div className="md:col-span-2 md:w-2/3 mx-auto">
+            <Card className="border-2 border-white/20 bg-transparent hover:bg-white/5 transition-colors duration-200 relative overflow-hidden">
+              {/* Simplified background effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#54366B]/10 to-[#363B6B]/10" />
               
               <CardHeader className="text-center relative z-10">
-                <CardTitle className="text-3xl text-white font-bold drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">
+                <CardTitle className="text-3xl text-white font-bold">
                   SLBAIL
                 </CardTitle>
                 <CardDescription className="text-white/90 text-lg mt-2 font-medium">
                   Sri Lanka's First Bioinformatics and Artificial Intelligence Laboratory
                 </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button 
+              </CardHeader>
+              <CardContent>
+                <Button 
                   onClick={handleExploreSlhaif}
-                  className="w-full bg-[#363B6B] hover:bg-[#000A33] text-white border border-white/20 transition-all text-lg py-6 font-semibold shadow-lg hover:shadow-xl backdrop-blur-sm"
-                size="lg"
-              >
+                  className="w-full bg-[#363B6B] hover:bg-[#000A33] text-white border border-white/20 transition-colors duration-200 text-lg py-6 font-semibold shadow-lg"
+                  size="lg"
+                >
                   Explore SLBAIL
-              </Button>
-            </CardContent>
-          </Card>
-          </motion.div>
-        </motion.div>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
       </main>
-    </motion.div>
+    </div>
   );
 };

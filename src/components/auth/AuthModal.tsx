@@ -114,7 +114,7 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
           <Button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#54366B] hover:bg-[#410056] text-[#EAE3F5] border border-[#EAE3F5]/20 transition-all transform hover:scale-105"
+            className="w-full bg-[#54366B] hover:bg-[#410056] text-[#EAE3F5] border border-[#EAE3F5]/20 transition-colors duration-200"
           >
             {loading ? 'Processing...' : (isLogin ? 'Login' : 'Sign Up')}
           </Button>
