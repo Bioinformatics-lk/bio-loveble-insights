@@ -148,7 +148,7 @@ const Index = () => {
   const navigate = useNavigate();
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
-  // 计数器动画状态
+  // Counter animation state
   const [counters, setCounters] = useState({
     courses: 0,
     students: 0,
@@ -156,7 +156,7 @@ const Index = () => {
     partnerships: 0
   });
 
-  // 添加动画观察器
+  // Add animation observer
   useEffect(() => {
     const observerOptions = {
       root: null,
@@ -180,8 +180,8 @@ const Index = () => {
     return () => observer.disconnect();
   }, []);
 
+  // Get initial session
   useEffect(() => {
-    // 获取初始会话
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
       if (session?.user) {
@@ -189,7 +189,7 @@ const Index = () => {
       }
     });
 
-    // 监听认证状态变化
+    // Listen for auth state changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (_, session) => {
         setUser(session?.user ?? null);
@@ -202,7 +202,7 @@ const Index = () => {
     return () => subscription.unsubscribe();
   }, [navigate]);
 
-  // 优化滚动处理
+  // Optimize scroll handling
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
     const handleScroll = () => {
@@ -220,7 +220,7 @@ const Index = () => {
     };
   }, []);
 
-  // 计数器动画
+  // Counter animation
   useEffect(() => {
     const targets = { courses: 6, students: 10, projects: 5, partnerships: 5 };
     const increment = 225;
@@ -251,7 +251,7 @@ const Index = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // 幻灯片功能
+  // Slideshow functionality
   useEffect(() => {
     const slides = document.getElementsByClassName("slide");
     for (let i = 0; i < slides.length; i++) {
@@ -285,7 +285,7 @@ const Index = () => {
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
-  // 如果用户已登录，显示仪表板
+  // If user is logged in, show dashboard
   if (user) {
     return <UserDashboard user={user} />;
   }
@@ -333,7 +333,7 @@ const Index = () => {
         }
       `}</style>
 
-      {/* 导航头部 */}
+      {/* Navigation Header */}
       <header className={`sticky top-0 z-50 backdrop-blur-md border-b transition-all duration-300 ${
         isScrolled 
           ? 'bg-white/95 border-gray-300/30' 
@@ -341,7 +341,7 @@ const Index = () => {
       }`}>
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
-            {/* Logo和品牌名称 - 左侧 */}
+            {/* Logo and Brand Name - Left Side */}
             <motion.div 
               className="flex items-center"
               layout

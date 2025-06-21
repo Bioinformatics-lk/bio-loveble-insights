@@ -11,58 +11,58 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-// 定义节点数据类型
+// Define node data type
 interface CourseNodeData {
   label: string;
   id: string;
   onClick?: () => void;
 }
 
-// 课程详细信息数据
+// Course details data
 const courseDetails = {
   '1': {
     title: 'Core Foundations',
-    description: '建立生物信息学的基础知识体系，包括分子生物学、统计学和编程基础。为后续专业课程打下坚实基础。',
-    duration: '4 周',
-    level: '初级',
-    topics: ['分子生物学基础', '统计学原理', 'Python编程', '数据库基础'],
+    description: 'Build a solid foundation in bioinformatics, including molecular biology, statistics, and programming basics. Prepare for advanced courses.',
+    duration: '4 weeks',
+    level: 'Beginner',
+    topics: ['Molecular Biology Basics', 'Principles of Statistics', 'Python Programming', 'Database Fundamentals'],
     enrollmentLink: 'https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform'
   },
   '2': {
     title: 'Bioinformatics',
-    description: '深入学习生物信息学核心概念，包括序列分析、基因组学和蛋白质组学。掌握生物数据分析的关键技能。',
-    duration: '6 周',
-    level: '中级',
-    topics: ['序列分析', '基因组学', '蛋白质组学', '生物数据库'],
+    description: 'Deep dive into core bioinformatics concepts, including sequence analysis, genomics, and proteomics. Master essential skills for biological data analysis.',
+    duration: '6 weeks',
+    level: 'Intermediate',
+    topics: ['Sequence Analysis', 'Genomics', 'Proteomics', 'Biological Databases'],
     enrollmentLink: 'https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform'
   },
   '3': {
     title: 'Cheminformatics',
-    description: '探索化学信息学领域，学习分子描述符、药物设计和化学数据库分析。为药物发现奠定基础。',
-    duration: '5 周',
-    level: '中级',
-    topics: ['分子描述符', '药物设计', '化学数据库', 'QSAR建模'],
+    description: 'Explore cheminformatics, learn about molecular descriptors, drug design, and chemical database analysis. Lay the foundation for drug discovery.',
+    duration: '5 weeks',
+    level: 'Intermediate',
+    topics: ['Molecular Descriptors', 'Drug Design', 'Chemical Databases', 'QSAR Modeling'],
     enrollmentLink: 'https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform'
   },
   '4': {
     title: 'Computational Biology',
-    description: '结合计算方法和生物学原理，学习系统生物学、网络分析和生物建模技术。',
-    duration: '6 周',
-    level: '高级',
-    topics: ['系统生物学', '网络分析', '生物建模', '机器学习基础'],
+    description: 'Combine computational methods and biological principles, learn systems biology, network analysis, and biological modeling techniques.',
+    duration: '6 weeks',
+    level: 'Advanced',
+    topics: ['Systems Biology', 'Network Analysis', 'Biological Modeling', 'Machine Learning Basics'],
     enrollmentLink: 'https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform'
   },
   '5': {
     title: 'AI in Life Sciences',
-    description: '将人工智能技术应用于生命科学，学习深度学习、预测建模和自动化药物发现。',
-    duration: '8 周',
-    level: '高级',
-    topics: ['深度学习', '预测建模', '自动化药物发现', 'AI伦理'],
+    description: 'Apply artificial intelligence in life sciences, learn deep learning, predictive modeling, and automated drug discovery.',
+    duration: '8 weeks',
+    level: 'Advanced',
+    topics: ['Deep Learning', 'Predictive Modeling', 'Automated Drug Discovery', 'AI Ethics'],
     enrollmentLink: 'https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform'
   }
 };
 
-// 自定义节点组件
+// Custom node component
 const CourseNode = ({ data }: NodeProps<CourseNodeData>) => {
   return (
     <div>
@@ -82,12 +82,12 @@ const CourseNode = ({ data }: NodeProps<CourseNodeData>) => {
   );
 };
 
-// 定义节点类型
+// Node types
 const nodeTypes = {
   course: CourseNode,
 };
 
-// 初始节点数据
+// Initial node data
 const initialNodes = [
   {
     id: '1',
@@ -121,7 +121,7 @@ const initialNodes = [
   }
 ];
 
-// 初始边数据
+// Initial edge data
 const initialEdges = [
   {
     id: 'e1-2',
@@ -157,7 +157,7 @@ const initialEdges = [
   }
 ];
 
-// 窗口尺寸类型
+// Window size type
 interface WindowSize {
   width: number;
   height: number;
@@ -170,17 +170,17 @@ const CoursePipeline: React.FC = () => {
   });
   const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
 
-  // 处理课程点击事件
+  // Handle course click
   const handleCourseClick = (courseId: string) => {
     setSelectedCourse(courseId);
   };
 
-  // 处理注册点击事件
+  // Handle enroll click
   const handleEnrollClick = (enrollmentLink: string) => {
     window.open(enrollmentLink, '_blank');
   };
 
-  // 计算节点位置
+  // Calculate node positions
   const calculateNodePositions = () => {
     const isMobile = windowSize.width < 768;
     const centerX = windowSize.width / 2;
@@ -198,7 +198,7 @@ const CoursePipeline: React.FC = () => {
     }));
   };
 
-  // 计算边连接
+  // Calculate edges
   const calculateEdges = () => {
     return initialEdges.map((edge) => ({
       id: edge.id,
@@ -274,7 +274,7 @@ const CoursePipeline: React.FC = () => {
         <Controls className="bg-white/10 backdrop-blur-sm" showInteractive={false} />
       </ReactFlow>
 
-      {/* 课程详情弹窗 */}
+      {/* Course details popup */}
       <AnimatePresence>
         {selectedCourse && courseDetails[selectedCourse as keyof typeof courseDetails] && (
           <motion.div
@@ -284,10 +284,10 @@ const CoursePipeline: React.FC = () => {
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
             onClick={() => setSelectedCourse(null)}
           >
-            {/* 背景遮罩 */}
+            {/* Overlay */}
             <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
             
-            {/* 弹窗内容 */}
+            {/* Popup content */}
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -296,7 +296,7 @@ const CoursePipeline: React.FC = () => {
               className="relative bg-gradient-to-br from-[#4d2884]/95 to-[#2e0669]/95 backdrop-blur-md border-2 border-white/30 rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* 关闭按钮 */}
+              {/* Close button */}
               <button
                 onClick={() => setSelectedCourse(null)}
                 className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors z-10"
@@ -304,7 +304,7 @@ const CoursePipeline: React.FC = () => {
                 <X className="h-6 w-6" />
               </button>
 
-              {/* 弹窗内容 */}
+              {/* Popup content */}
               <div className="p-6">
                 <div className="text-center mb-6">
                   <h3 className="text-2xl font-bold text-white mb-2">
@@ -315,25 +315,25 @@ const CoursePipeline: React.FC = () => {
                   </p>
                 </div>
 
-                {/* 课程信息 */}
+                {/* Course info */}
                 <div className="space-y-4 mb-6">
                   <div className="flex justify-between items-center">
-                    <span className="text-white/70">课程时长:</span>
+                    <span className="text-white/70">Duration:</span>
                     <span className="text-white font-semibold">
                       {courseDetails[selectedCourse as keyof typeof courseDetails].duration}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-white/70">难度等级:</span>
+                    <span className="text-white/70">Level:</span>
                     <span className="text-white font-semibold">
                       {courseDetails[selectedCourse as keyof typeof courseDetails].level}
                     </span>
                   </div>
                 </div>
 
-                {/* 课程主题 */}
+                {/* Course topics */}
                 <div className="mb-6">
-                  <h4 className="text-white font-semibold mb-3">课程主题:</h4>
+                  <h4 className="text-white font-semibold mb-3">Topics:</h4>
                   <div className="grid grid-cols-1 gap-2">
                     {courseDetails[selectedCourse as keyof typeof courseDetails].topics.map((topic, index) => (
                       <div key={index} className="flex items-center space-x-2">
@@ -344,12 +344,12 @@ const CoursePipeline: React.FC = () => {
                   </div>
                 </div>
 
-                {/* 注册按钮 */}
+                {/* Enroll button */}
                 <Button
                   onClick={() => handleEnrollClick(courseDetails[selectedCourse as keyof typeof courseDetails].enrollmentLink)}
                   className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-3 rounded-xl transition-all duration-300 transform hover:scale-105"
                 >
-                  立即注册
+                  Enroll Now
                   <ExternalLink className="w-4 h-4 ml-2" />
                 </Button>
               </div>
