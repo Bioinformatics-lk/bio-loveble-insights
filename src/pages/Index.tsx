@@ -266,19 +266,11 @@ const Index = () => {
     return () => clearInterval(timer);
   }, [currentSlideIndex]);
 
-  const currentSlide = (n: number) => {
-    setCurrentSlideIndex(n - 1);
-  };
-
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
-  };
-
-  const handleLearnMore = () => {
-    setAuthModalOpen(true);
   };
 
   const handleTeamMemberClick = (url: string) => {
@@ -328,7 +320,7 @@ const Index = () => {
         
         @media (max-width: 768px) {
           .animate-scroll {
-            animation: scroll 20s linear infinite;
+            animation: scroll 8s linear infinite;
           }
         }
 
@@ -340,26 +332,96 @@ const Index = () => {
         /* Research Area Hover Animations */
         .research-card {
           transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          position: relative;
         }
 
         .research-card:hover {
-          transform: translateY(-8px) scale(1.02);
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+          transform: translateY(-12px) scale(1.03);
+          box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+          border-color: rgba(160, 0, 152, 0.3);
         }
 
         .research-description {
-          transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+          max-height: 0;
+          overflow: hidden;
         }
 
         .research-card:hover .research-description {
           opacity: 1 !important;
           transform: translateY(0) !important;
+          max-height: 200px;
+          margin-top: 1rem;
+        }
+
+        .research-card:hover .research-card svg {
+          filter: drop-shadow(0 4px 8px rgba(160, 0, 152, 0.3));
         }
 
         @media (max-width: 768px) {
           .research-card:hover {
+            transform: translateY(-6px) scale(1.02);
+          }
+          
+          .research-card:hover .research-description {
+            max-height: 150px;
+          }
+        }
+
+        /* Service Area Hover Animations */
+        .service-card {
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          position: relative;
+        }
+
+        .service-card:hover {
+          transform: translateY(-8px) scale(1.02);
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+          border-color: rgba(170, 81, 0, 0.3);
+        }
+
+        .service-description {
+          transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+          max-height: 0;
+          overflow: hidden;
+        }
+
+        .service-card:hover .service-description {
+          opacity: 1 !important;
+          transform: translateY(0) !important;
+          max-height: 150px;
+          margin-top: 1rem;
+        }
+
+        .service-card:hover .service-card svg {
+          filter: drop-shadow(0 4px 8px rgba(170, 81, 0, 0.3));
+        }
+
+        @media (max-width: 768px) {
+          .service-card:hover {
             transform: translateY(-4px) scale(1.01);
           }
+          
+          .service-card:hover .service-description {
+            max-height: 120px;
+          }
+        }
+
+        /* Slideshow Hover Effect for Our Academy */
+        .slideshow-hover-group:hover .slideshow-overlay {
+          background: linear-gradient(to bottom, rgba(10, 6, 18, 0.15) 0%, rgba(26, 11, 46, 0.10) 60%, rgba(45, 27, 105, 0.05) 100%) !important;
+          opacity: 0.5;
+        }
+        .slideshow-hover-group:hover .slideshow-img {
+          filter: brightness(1.15) contrast(1.08) saturate(1.1) drop-shadow(0 4px 16px rgba(80,80,160,0.10));
+          transition: filter 0.5s cubic-bezier(0.4,0,0.2,1);
+        }
+        .slideshow-img {
+          filter: brightness(0.92) contrast(1) saturate(1);
+          transition: filter 0.5s cubic-bezier(0.4,0,0.2,1);
+        }
+        .slideshow-overlay {
+          transition: background 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.5s cubic-bezier(0.4,0,0.2,1);
         }
       `}</style>
 
@@ -848,44 +910,44 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-            <Card className="research-card group bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg cursor-pointer">
-              <CardHeader className="text-center relative overflow-hidden">
-                <div className="flex justify-center mb-4">
-                  <Dna className="h-16 w-16 text-purple-600 transition-transform duration-300 group-hover:scale-110" />
+          <div className="grid md:grid-cols-3 gap-8 lg:gap-10">
+            <Card className="research-card group bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/95 transition-all transform hover:scale-105 shadow-lg cursor-pointer min-h-[280px] md:min-h-[320px]">
+              <CardHeader className="text-center relative overflow-hidden p-8">
+                <div className="flex justify-center mb-6">
+                  <Dna className="h-20 w-20 md:h-24 md:w-24 text-purple-600 transition-all duration-300 group-hover:scale-110 group-hover:text-purple-700" />
                 </div>
-                <CardTitle className="text-xl text-gray-800 text-center hover:text-[#A00098] transition-colors">
+                <CardTitle className="text-2xl md:text-3xl font-bold text-gray-800 text-center hover:text-[#A00098] transition-colors mb-4">
                   Bioinformatics
                 </CardTitle>
-                <CardDescription className="research-description text-gray-600 text-center mt-2 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 ease-out">
+                <CardDescription className="research-description text-gray-600 text-center text-base md:text-lg leading-relaxed opacity-0 group-hover:opacity-100 transform translate-y-6 group-hover:translate-y-0 transition-all duration-600 ease-out">
                   Identification of Active Compounds in Sri Lankan Medicinal Plants as Antivirals Against African Swine Fever
                 </CardDescription>
               </CardHeader>
             </Card>
 
-            <Card className="research-card group bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg cursor-pointer">
-              <CardHeader className="text-center relative overflow-hidden">
-                <div className="flex justify-center mb-4">
-                  <Atom className="h-16 w-16 text-purple-600 transition-transform duration-300 group-hover:scale-110" />
+            <Card className="research-card group bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/95 transition-all transform hover:scale-105 shadow-lg cursor-pointer min-h-[280px] md:min-h-[320px]">
+              <CardHeader className="text-center relative overflow-hidden p-8">
+                <div className="flex justify-center mb-6">
+                  <Atom className="h-20 w-20 md:h-24 md:w-24 text-purple-600 transition-all duration-300 group-hover:scale-110 group-hover:text-purple-700" />
                 </div>
-                <CardTitle className="text-xl text-gray-800 text-center hover:text-[#A00098] transition-colors">
+                <CardTitle className="text-2xl md:text-3xl font-bold text-gray-800 text-center hover:text-[#A00098] transition-colors mb-4">
                   Cheminformatics
                 </CardTitle>
-                <CardDescription className="research-description text-gray-600 text-center mt-2 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 ease-out">
+                <CardDescription className="research-description text-gray-600 text-center text-base md:text-lg leading-relaxed opacity-0 group-hover:opacity-100 transform translate-y-6 group-hover:translate-y-0 transition-all duration-600 ease-out">
                   Development of globally accessible comprehensive database with an AI-integrated web platform cataloging endemic medicinal plants with detailed information.
                 </CardDescription>
               </CardHeader>
             </Card>
 
-            <Card className="research-card group bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg cursor-pointer">
-              <CardHeader className="text-center relative overflow-hidden">
-                <div className="flex justify-center mb-4">
-                  <Brain className="h-16 w-16 text-purple-600 transition-transform duration-300 group-hover:scale-110" />
+            <Card className="research-card group bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/95 transition-all transform hover:scale-105 shadow-lg cursor-pointer min-h-[280px] md:min-h-[320px]">
+              <CardHeader className="text-center relative overflow-hidden p-8">
+                <div className="flex justify-center mb-6">
+                  <Brain className="h-20 w-20 md:h-24 md:w-24 text-purple-600 transition-all duration-300 group-hover:scale-110 group-hover:text-purple-700" />
                 </div>
-                <CardTitle className="text-xl text-gray-800 text-center hover:text-[#A00098] transition-colors">
+                <CardTitle className="text-2xl md:text-3xl font-bold text-gray-800 text-center hover:text-[#A00098] transition-colors mb-4">
                   AI-driven Drug Discovery
                 </CardTitle>
-                <CardDescription className="research-description text-gray-600 text-center mt-2 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 ease-out">
+                <CardDescription className="research-description text-gray-600 text-center text-base md:text-lg leading-relaxed opacity-0 group-hover:opacity-100 transform translate-y-6 group-hover:translate-y-0 transition-all duration-600 ease-out">
                   Discovery of Antiviral Compounds from Sri Lankan Medicinal Plants and Deep Learning Based De Novo Design and Bioactivity Prediction of Natural-Product-Inspired Inhibitors Against Livestock and Aquaculture Viral Diseases.
                 </CardDescription>
               </CardHeader>
@@ -910,57 +972,37 @@ const Index = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
             {/* Left Column - Slideshow */}
             <div className="lg:col-span-1">
-              <div className="relative h-[400px] md:h-[500px] lg:h-[600px] rounded-2xl overflow-hidden shadow-xl">
-                <div className="absolute inset-0 bg-gradient-to-b from-[#000A33]/50 to-[#000A33]/80 z-10" />
+              <div className="relative h-[400px] md:h-[500px] lg:h-[600px] rounded-2xl overflow-hidden shadow-xl slideshow-hover-group">
+                <div className="absolute inset-0 bg-gradient-to-b from-[#000A33]/50 to-[#000A33]/80 z-10 slideshow-overlay transition-all duration-500" />
                 <div className="slideshow-container h-full">
                   <div className="slide fade">
                     <img 
                       src="/lovable-uploads/Our academy 01.jpg" 
                       alt="Our Academy - Learning Environment" 
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover slideshow-img transition-all duration-500"
                     />
                   </div>
                   <div className="slide fade">
                     <img 
                       src="/lovable-uploads/Our academy 02.jpg" 
                       alt="Our Academy - Research Facilities" 
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover slideshow-img transition-all duration-500"
                     />
                   </div>
                   <div className="slide fade">
                     <img 
                       src="/lovable-uploads/Photo 11.jpg" 
                       alt="Bioinformatics Research" 
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+                      className="w-full h-full object-cover slideshow-img transition-all duration-500"
+                  />
+                </div>
                   <div className="slide fade">
                     <img 
                       src="/lovable-uploads/Photo 10.jpg" 
                       alt="Drug Discovery Process" 
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover slideshow-img transition-all duration-500"
                     />
-                  </div>
-                  
-                  {/* Navigation dots */}
-                  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2">
-                    <span 
-                      className={`dot ${currentSlideIndex === 0 ? 'active' : ''}`} 
-                      onClick={() => currentSlide(1)}
-                    ></span>
-                    <span 
-                      className={`dot ${currentSlideIndex === 1 ? 'active' : ''}`} 
-                      onClick={() => currentSlide(2)}
-                    ></span>
-                    <span 
-                      className={`dot ${currentSlideIndex === 2 ? 'active' : ''}`} 
-                      onClick={() => currentSlide(3)}
-                    ></span>
-                    <span 
-                      className={`dot ${currentSlideIndex === 3 ? 'active' : ''}`} 
-                      onClick={() => currentSlide(4)}
-                    ></span>
-                  </div>
+        </div>
                 </div>
               </div>
             </div>
@@ -969,7 +1011,7 @@ const Index = () => {
             <div className="lg:col-span-1">
               <div className="h-[400px] md:h-[500px] lg:h-[600px] rounded-2xl overflow-hidden shadow-xl">
                 <CoursePipeline />
-              </div>
+            </div>
             </div>
           </div>
 
@@ -1089,15 +1131,16 @@ const Index = () => {
             ].map((service, index) => (
               <Card 
                 key={index} 
-                className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md cursor-pointer"
-                onClick={handleLearnMore}
+                className="service-card group bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md cursor-pointer min-h-[200px] md:min-h-[240px]"
               >
-                <CardHeader>
-                  <CardTitle className="text-lg md:text-xl text-black hover:text-[#AA5100] transition-all flex items-center gap-2">
-                    <service.icon className="h-6 w-6 text-orange-600" />
+                <CardHeader className="text-center relative overflow-hidden p-6">
+                  <div className="flex justify-center mb-4">
+                    <service.icon className="h-12 w-12 md:h-16 md:w-16 text-orange-600 transition-all duration-300 group-hover:scale-110 group-hover:text-orange-700" />
+                  </div>
+                  <CardTitle className="text-lg md:text-xl font-bold text-black hover:text-[#AA5100] transition-all text-center">
                     {service.title}
                   </CardTitle>
-                  <CardDescription className="text-sm md:text-base text-gray-700">
+                  <CardDescription className="service-description text-sm md:text-base text-gray-700 text-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 ease-out mt-4">
                     {service.description}
                   </CardDescription>
                 </CardHeader>
@@ -1243,7 +1286,7 @@ const Index = () => {
           
           {/* Auto-scrolling advisors container */}
           <div className="relative overflow-hidden">
-            <div className="flex animate-scroll space-x-4 md:space-x-6 lg:space-x-8">
+            <div className="flex animate-scroll space-x-2 md:space-x-4 lg:space-x-6">
               {[
                 {
                   name: "Dr. Lakmal Ranathunga",
@@ -1288,27 +1331,27 @@ const Index = () => {
                   image: "/lovable-uploads/UM.png"
                 }
               ].map((advisor, index) => (
-                <Card key={index} className="min-w-[280px] md:min-w-[320px] lg:min-w-[350px] bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
-                  <div className="relative overflow-hidden bg-gray-50 p-4">
+                <Card key={index} className="min-w-[240px] sm:min-w-[280px] md:min-w-[320px] lg:min-w-[350px] bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
+                  <div className="relative overflow-hidden bg-gray-50 p-3 md:p-4">
                     <img 
                       src={advisor.image} 
                       alt={advisor.name}
-                      className="w-full h-40 md:h-48 lg:h-56 object-contain"
+                      className="w-full h-32 sm:h-40 md:h-48 lg:h-56 object-contain"
                   />
                 </div>
-                  <CardHeader className="p-4">
-                    <CardTitle className="text-base md:text-lg lg:text-xl text-black hover:text-[#A50053] transition-colors">
+                  <CardHeader className="p-3 md:p-4">
+                    <CardTitle className="text-sm sm:text-base md:text-lg lg:text-xl text-black hover:text-[#A50053] transition-colors">
                       {advisor.name}
                   </CardTitle>
                     {advisor.title && (
-                      <CardDescription className="text-xs md:text-sm lg:text-base text-gray-700 font-medium">
+                      <CardDescription className="text-xs sm:text-xs md:text-sm lg:text-base text-gray-700 font-medium">
                         {advisor.title}
                       </CardDescription>
                     )}
-                    <CardDescription className="text-xs md:text-sm text-gray-600">
+                    <CardDescription className="text-xs sm:text-xs md:text-sm text-gray-600">
                       {advisor.experience}
                     </CardDescription>
-                    <CardDescription className="text-xs md:text-sm text-gray-600 font-medium">
+                    <CardDescription className="text-xs sm:text-xs md:text-sm text-gray-600 font-medium">
                       {advisor.education}
                   </CardDescription>
                 </CardHeader>
@@ -1359,27 +1402,27 @@ const Index = () => {
                   image: "/lovable-uploads/UM.png"
                 }
               ].map((advisor, index) => (
-                <Card key={`duplicate-${index}`} className="min-w-[280px] md:min-w-[320px] lg:min-w-[350px] bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
-                  <div className="relative overflow-hidden bg-gray-50 p-4">
+                <Card key={`duplicate-${index}`} className="min-w-[240px] sm:min-w-[280px] md:min-w-[320px] lg:min-w-[350px] bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
+                  <div className="relative overflow-hidden bg-gray-50 p-3 md:p-4">
                     <img 
                       src={advisor.image} 
                       alt={advisor.name}
-                      className="w-full h-40 md:h-48 lg:h-56 object-contain"
+                      className="w-full h-32 sm:h-40 md:h-48 lg:h-56 object-contain"
                     />
                   </div>
-                  <CardHeader className="p-4">
-                    <CardTitle className="text-base md:text-lg lg:text-xl text-black hover:text-[#A50053] transition-colors">
+                  <CardHeader className="p-3 md:p-4">
+                    <CardTitle className="text-sm sm:text-base md:text-lg lg:text-xl text-black hover:text-[#A50053] transition-colors">
                       {advisor.name}
                     </CardTitle>
                     {advisor.title && (
-                      <CardDescription className="text-xs md:text-sm lg:text-base text-gray-700 font-medium">
+                      <CardDescription className="text-xs sm:text-xs md:text-sm lg:text-base text-gray-700 font-medium">
                         {advisor.title}
                       </CardDescription>
                     )}
-                    <CardDescription className="text-xs md:text-sm text-gray-600">
+                    <CardDescription className="text-xs sm:text-xs md:text-sm text-gray-600">
                       {advisor.experience}
                     </CardDescription>
-                    <CardDescription className="text-xs md:text-sm text-gray-600 font-medium">
+                    <CardDescription className="text-xs sm:text-xs md:text-sm text-gray-600 font-medium">
                       {advisor.education}
                     </CardDescription>
                   </CardHeader>
