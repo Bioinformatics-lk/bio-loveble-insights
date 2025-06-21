@@ -8,28 +8,28 @@ const slbailTopics = [
   {
     id: 'ai-agents',
     title: 'AI Agents',
-    description: 'Advanced artificial intelligence systems for automated research and analysis',
+    description: 'Advanced artificial intelligence systems for automated research and analysis. Explore cutting-edge AI technologies for drug discovery and computational biology.',
     image: '/lovable-uploads/slbail01.png',
     color: 'from-purple-600 to-blue-600'
   },
   {
     id: 'bioinformatics',
     title: 'Bioinformatics and Cheminformatics',
-    description: 'Computational analysis of biological and chemical data for drug discovery',
+    description: 'Computational analysis of biological and chemical data for drug discovery. Integrate molecular biology with computational methods.',
     image: '/lovable-uploads/slbail02.png',
     color: 'from-blue-600 to-cyan-600'
   },
   {
     id: 'computational-chemistry',
     title: 'Computational Chemistry',
-    description: 'Molecular modeling and simulation for chemical research and development',
+    description: 'Molecular modeling and simulation for chemical research and development. Advanced computational techniques for molecular analysis.',
     image: '/lovable-uploads/slbail03.png',
     color: 'from-cyan-600 to-teal-600'
   },
   {
     id: 'cmpaat-database',
     title: 'CMPAAT Botanical Database',
-    description: 'Comprehensive database of medicinal plants and their therapeutic properties',
+    description: 'Comprehensive database of medicinal plants and their therapeutic properties. Access extensive botanical and pharmacological data.',
     image: '/lovable-uploads/slbail04.png',
     color: 'from-teal-600 to-green-600'
   }
@@ -88,38 +88,38 @@ export const SLBAISPage = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="relative group"
+              className="relative group cursor-pointer"
               onMouseEnter={() => setHoveredTopic(topic.id)}
               onMouseLeave={() => setHoveredTopic(null)}
             >
-              <div className="relative w-full h-80 md:h-96 rounded-2xl overflow-hidden bg-gradient-to-br from-[#1a0b2e]/50 to-[#2d1b69]/50 border-2 border-white/20 shadow-2xl">
+              <div className="relative w-full h-80 md:h-96 rounded-2xl overflow-hidden bg-gradient-to-br from-[#1a0b2e]/50 to-[#2d1b69]/50 border-2 border-white/20 shadow-2xl transition-all duration-300 group-hover:border-white/40 group-hover:shadow-2xl">
                 
                 <div 
-                  className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-500 transform scale-110 group-hover:scale-100"
+                  className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-700 transform scale-110 group-hover:scale-100"
                   style={{ backgroundImage: `url(${topic.image})` }}
                 />
                 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/40" />
                 
                 <AnimatePresence>
                   {hoveredTopic !== topic.id && (
                     <motion.div
-                      initial={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.3 }}
+                      initial={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={{ duration: 0.4, ease: "easeInOut" }}
                       className="absolute inset-0 flex flex-col justify-end p-6 text-white"
                     >
-                      <div className={`inline-flex items-center px-3 py-1 rounded-full bg-gradient-to-r ${topic.color} text-white text-sm font-medium mb-4 w-fit`}>
+                      <div className={`inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r ${topic.color} text-white text-sm font-semibold mb-4 w-fit shadow-lg`}>
                         {topic.title}
                       </div>
                       
-                      <p className="text-white/90 text-lg leading-relaxed">
+                      <p className="text-white text-lg leading-relaxed mb-4 font-medium">
                         {topic.description}
                       </p>
                       
-                      <div className="mt-4 flex items-center text-white/60 text-sm">
-                        <div className="w-2 h-2 bg-white/60 rounded-full mr-2 animate-pulse"></div>
-                        Hover to explore
+                      <div className="flex items-center text-white/80 text-sm font-medium">
+                        <div className="w-3 h-3 bg-white/80 rounded-full mr-3 animate-pulse"></div>
+                        Hover to explore image
                       </div>
                     </motion.div>
                   )}
@@ -128,10 +128,10 @@ export const SLBAISPage = () => {
                 <AnimatePresence>
                   {hoveredTopic === topic.id && (
                     <motion.div
-                      initial={{ opacity: 0, scale: 0.8 }}
+                      initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.8 }}
-                      transition={{ duration: 0.4, ease: "easeOut" }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{ duration: 0.5, ease: "easeOut" }}
                       className="absolute inset-0 flex items-center justify-center"
                     >
                       <div 
@@ -139,11 +139,17 @@ export const SLBAISPage = () => {
                         style={{ backgroundImage: `url(${topic.image})` }}
                       />
                       
-                      <div className="absolute inset-0 bg-black/20" />
+                      <div className="absolute inset-0 bg-black/10" />
                       
                       <div className="absolute bottom-4 left-4 right-4">
-                        <div className={`inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r ${topic.color} text-white font-semibold shadow-lg`}>
+                        <div className={`inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r ${topic.color} text-white font-bold shadow-xl backdrop-blur-sm`}>
                           {topic.title}
+                        </div>
+                      </div>
+                      
+                      <div className="absolute top-4 right-4">
+                        <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                          <div className="w-2 h-2 bg-white rounded-full"></div>
                         </div>
                       </div>
                     </motion.div>
