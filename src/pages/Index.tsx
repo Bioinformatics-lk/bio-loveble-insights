@@ -180,7 +180,7 @@ const Index = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Get initial session
+    // Get initial session
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
@@ -1067,28 +1067,6 @@ const Index = () => {
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
-          {/* Image Test Section - Temporary for debugging */}
-          <div className="mb-8 p-4 bg-white/10 rounded-lg">
-            <h3 className="text-white text-lg font-semibold mb-4">Image Test (Debug):</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {[
-                '/lovable-uploads/slbail01.png',
-                '/lovable-uploads/slbail02.png', 
-                '/lovable-uploads/slbail03.png',
-                '/lovable-uploads/slbail04.png'
-              ].map((img, i) => (
-                <div key={i} className="text-center">
-                  <img 
-                    src={img} 
-                    alt={`Test ${i+1}`}
-                    className="w-16 h-16 object-cover rounded border-2 border-white/30"
-                  />
-                  <p className="text-white text-xs mt-2">Test {i+1}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
           <div className="text-center mb-16">
             <div className="inline-block border-2 border-white/30 rounded-xl px-8 py-4 backdrop-blur-sm">
               <h2 className="text-4xl md:text-5xl font-bold text-white text-center">SLBAIL</h2>
@@ -1154,7 +1132,7 @@ const Index = () => {
                 <div className="slbail-text-overlay absolute inset-0 flex flex-col justify-end p-6 text-white">
                   <div className={`inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r ${topic.color} text-white text-sm font-semibold mb-4 w-fit shadow-lg`}>
                     {topic.title}
-                  </div>
+              </div>
                   
                   <p className="text-white text-lg leading-relaxed mb-4 font-medium">
                     {topic.description}
@@ -1188,12 +1166,12 @@ const Index = () => {
 
           {/* Explore SLBAIL Button */}
           <div className="text-center">
-            <button 
+                <button 
               onClick={() => alert("SLBAIS will be launching soon.")}
               className="bg-white text-[#000A33] px-8 py-4 rounded-xl text-lg font-semibold hover:bg-[#4d2884] hover:text-white transition-all duration-300 shadow-lg transform hover:scale-105"
-            >
+                >
               Explore SLBAIL
-            </button>
+                </button>
           </div>
         </div>
       </section>
@@ -1263,12 +1241,12 @@ const Index = () => {
                       src={advisor.image} 
                       alt={advisor.name}
                       className="w-full h-40 md:h-48 lg:h-56 object-contain"
-                    />
-                  </div>
+                  />
+                </div>
                   <CardHeader className="p-4">
                     <CardTitle className="text-base md:text-lg lg:text-xl text-black hover:text-[#A50053] transition-colors">
                       {advisor.name}
-                    </CardTitle>
+                  </CardTitle>
                     {advisor.title && (
                       <CardDescription className="text-xs md:text-sm lg:text-base text-gray-700 font-medium">
                         {advisor.title}
@@ -1279,10 +1257,10 @@ const Index = () => {
                     </CardDescription>
                     <CardDescription className="text-xs md:text-sm text-gray-600 font-medium">
                       {advisor.education}
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
-              ))}
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            ))}
               {/* Duplicate cards for seamless scrolling */}
               {[
                 {
