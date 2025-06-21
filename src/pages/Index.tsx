@@ -1079,17 +1079,42 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="relative">
-            <div className="relative">
-              <div className="text-center mt-12">
-                <button 
-                  onClick={() => alert("SLBAIS will be launching soon.")}
-                  className="bg-white text-[#000A33] px-8 py-4 rounded-xl text-lg font-semibold hover:bg-[#4d2884] hover:text-white transition-colors duration-300 shadow-lg"
-                >
-                  Explore SLBAIL
-                </button>
+          {/* SLBAIL Images Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
+            {[
+              { src: "/lovable-uploads/slbail01.png", alt: "SLBAIL Image 1" },
+              { src: "/lovable-uploads/slbail02.png", alt: "SLBAIL Image 2" },
+              { src: "/lovable-uploads/slbail03.png", alt: "SLBAIL Image 3" },
+              { src: "/lovable-uploads/slbail04.png", alt: "SLBAIL Image 4" }
+            ].map((image, index) => (
+              <div 
+                key={index}
+                className="group relative overflow-hidden rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-500 transform hover:scale-105 hover:shadow-2xl"
+                style={{
+                  animationDelay: `${index * 200}ms`,
+                  animation: 'fadeInUp 0.8s ease-out forwards'
+                }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-[#54366B]/20 to-[#363B6B]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <img 
+                  src={image.src} 
+                  alt={image.alt}
+                  className="w-full h-48 md:h-56 object-cover transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               </div>
-            </div>
+            ))}
+          </div>
+
+          {/* Explore SLBAIL Button */}
+          <div className="text-center">
+            <button 
+              onClick={() => alert("SLBAIS will be launching soon.")}
+              className="bg-white text-[#000A33] px-8 py-4 rounded-xl text-lg font-semibold hover:bg-[#4d2884] hover:text-white transition-all duration-300 shadow-lg transform hover:scale-105"
+            >
+              Explore SLBAIL
+            </button>
           </div>
         </div>
       </section>
