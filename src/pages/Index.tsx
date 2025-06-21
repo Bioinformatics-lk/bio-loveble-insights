@@ -444,8 +444,8 @@ const Index = () => {
                   alt="Bioinformatics.lk" 
                   className={`w-8 h-8 object-contain transition-all duration-300 ${
                     isScrolled 
-                      ? 'scale-90 filter brightness-0 saturate-100 invert-15 sepia-100 saturate-2000 hue-rotate-240 brightness-90 contrast-100' 
-                      : 'scale-100 filter brightness-0 invert-100'
+                      ? 'scale-90 filter brightness-0 saturate-100 invert-20 sepia-100 saturate-1500 hue-rotate-220 brightness-85 contrast-110' 
+                      : 'scale-100 filter brightness-0 saturate-100 invert-100 sepia-50 saturate-200 hue-rotate-280 brightness-110 contrast-90'
                   }`}
                 />
               </div>
