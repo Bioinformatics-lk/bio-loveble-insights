@@ -331,6 +331,36 @@ const Index = () => {
             animation: scroll 20s linear infinite;
           }
         }
+
+        .rainbow-dot {
+          animation: rainbow 3s linear infinite;
+          display: inline-block;
+        }
+
+        /* Research Area Hover Animations */
+        .research-card {
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .research-card:hover {
+          transform: translateY(-8px) scale(1.02);
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .research-description {
+          transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .research-card:hover .research-description {
+          opacity: 1 !important;
+          transform: translateY(0) !important;
+        }
+
+        @media (max-width: 768px) {
+          .research-card:hover {
+            transform: translateY(-4px) scale(1.01);
+          }
+        }
       `}</style>
 
       {/* Navigation Header */}
@@ -819,43 +849,43 @@ const Index = () => {
           </div>
           
           <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-            <Card className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg">
-              <CardHeader className="text-center">
+            <Card className="research-card group bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg cursor-pointer">
+              <CardHeader className="text-center relative overflow-hidden">
                 <div className="flex justify-center mb-4">
-                  <Dna className="h-16 w-16 text-purple-600" />
+                  <Dna className="h-16 w-16 text-purple-600 transition-transform duration-300 group-hover:scale-110" />
                 </div>
-                <CardTitle className="text-xl text-gray-800 text-center hover:text-[#A00098] transition-colors cursor-pointer">
+                <CardTitle className="text-xl text-gray-800 text-center hover:text-[#A00098] transition-colors">
                   Bioinformatics
                 </CardTitle>
-                <CardDescription className="text-gray-600 text-center mt-2">
+                <CardDescription className="research-description text-gray-600 text-center mt-2 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 ease-out">
                   Identification of Active Compounds in Sri Lankan Medicinal Plants as Antivirals Against African Swine Fever
                 </CardDescription>
               </CardHeader>
             </Card>
 
-            <Card className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg">
-              <CardHeader className="text-center">
+            <Card className="research-card group bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg cursor-pointer">
+              <CardHeader className="text-center relative overflow-hidden">
                 <div className="flex justify-center mb-4">
-                  <Atom className="h-16 w-16 text-purple-600" />
+                  <Atom className="h-16 w-16 text-purple-600 transition-transform duration-300 group-hover:scale-110" />
                 </div>
-                <CardTitle className="text-xl text-gray-800 text-center hover:text-[#A00098] transition-colors cursor-pointer">
+                <CardTitle className="text-xl text-gray-800 text-center hover:text-[#A00098] transition-colors">
                   Cheminformatics
                 </CardTitle>
-                <CardDescription className="text-gray-600 text-center mt-2">
+                <CardDescription className="research-description text-gray-600 text-center mt-2 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 ease-out">
                   Development of globally accessible comprehensive database with an AI-integrated web platform cataloging endemic medicinal plants with detailed information.
                 </CardDescription>
               </CardHeader>
             </Card>
 
-            <Card className="bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg">
-              <CardHeader className="text-center">
+            <Card className="research-card group bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/90 transition-all transform hover:scale-105 shadow-lg cursor-pointer">
+              <CardHeader className="text-center relative overflow-hidden">
                 <div className="flex justify-center mb-4">
-                  <Brain className="h-16 w-16 text-purple-600" />
+                  <Brain className="h-16 w-16 text-purple-600 transition-transform duration-300 group-hover:scale-110" />
                 </div>
-                <CardTitle className="text-xl text-gray-800 text-center hover:text-[#A00098] transition-colors cursor-pointer">
+                <CardTitle className="text-xl text-gray-800 text-center hover:text-[#A00098] transition-colors">
                   AI-driven Drug Discovery
                 </CardTitle>
-                <CardDescription className="text-gray-600 text-center mt-2">
+                <CardDescription className="research-description text-gray-600 text-center mt-2 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 ease-out">
                   Discovery of Antiviral Compounds from Sri Lankan Medicinal Plants and Deep Learning Based De Novo Design and Bioactivity Prediction of Natural-Product-Inspired Inhibitors Against Livestock and Aquaculture Viral Diseases.
                 </CardDescription>
               </CardHeader>
