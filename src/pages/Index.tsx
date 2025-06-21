@@ -880,23 +880,38 @@ const Index = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
             {/* Left Column - Slideshow */}
             <div className="lg:col-span-1">
-              <div className="relative h-[600px] rounded-2xl overflow-hidden shadow-xl">
+              <div className="relative h-[400px] md:h-[500px] lg:h-[600px] rounded-2xl overflow-hidden shadow-xl">
                 <div className="absolute inset-0 bg-gradient-to-b from-[#000A33]/50 to-[#000A33]/80 z-10" />
                 <div className="slideshow-container h-full">
+                  <div className="slide fade">
+                    <img 
+                      src="/lovable-uploads/Our academy 01.jpg" 
+                      alt="Our Academy - Learning Environment" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="slide fade">
+                    <img 
+                      src="/lovable-uploads/Our academy 02.jpg" 
+                      alt="Our Academy - Research Facilities" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                   <div className="slide fade">
                     <img 
                       src="/lovable-uploads/Photo 11.jpg" 
                       alt="Bioinformatics Research" 
                       className="w-full h-full object-cover"
-                  />
-                </div>
+                    />
+                  </div>
                   <div className="slide fade">
                     <img 
                       src="/lovable-uploads/Photo 10.jpg" 
                       alt="Drug Discovery Process" 
                       className="w-full h-full object-cover"
                     />
-          </div>
+                  </div>
+                  
                   {/* Navigation dots */}
                   <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2">
                     <span 
@@ -907,16 +922,24 @@ const Index = () => {
                       className={`dot ${currentSlideIndex === 1 ? 'active' : ''}`} 
                       onClick={() => currentSlide(2)}
                     ></span>
-        </div>
+                    <span 
+                      className={`dot ${currentSlideIndex === 2 ? 'active' : ''}`} 
+                      onClick={() => currentSlide(3)}
+                    ></span>
+                    <span 
+                      className={`dot ${currentSlideIndex === 3 ? 'active' : ''}`} 
+                      onClick={() => currentSlide(4)}
+                    ></span>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Right Column - React Flow */}
             <div className="lg:col-span-1">
-              <div className="h-[600px] rounded-2xl overflow-hidden shadow-xl">
+              <div className="h-[400px] md:h-[500px] lg:h-[600px] rounded-2xl overflow-hidden shadow-xl">
                 <CoursePipeline />
-            </div>
+              </div>
             </div>
           </div>
 

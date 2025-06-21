@@ -24,8 +24,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 const courses = [
   {
     title: "Introduction to Bioinformatics",
-    description: "Learn the fundamentals of bioinformatics and its applications in modern biology",
-    detailedDescription: "This is the inaugural gateway to bioinformatics: a friendly, foundational course covering DNA, sequence analysis, and database essentials. It's the perfect springboard before diving deeper into our specialized pipeline.",
+    description: "Learn the fundamentals of bioinformatics and computational biology",
+    detailedDescription: "Start your journey with Introduction to Bioinformatics, where you'll learn the essential tools and concepts that bridge biology and computer science. This foundational course covers molecular biology basics, statistical analysis, and programming fundamentals that will serve as the cornerstone for all advanced studies.",
     icon: BookOpen,
     color: "from-purple-600 to-blue-600",
     step: 1,
@@ -35,7 +35,6 @@ const courses = [
     duration: "4 weeks",
     level: "Beginner",
     maxStudents: 25,
-    instructor: "Dr. Sarah Chen",
     prerequisites: "Basic high school biology and mathematics",
     outcomes: [
       "Understand fundamental biological concepts",
@@ -57,7 +56,6 @@ const courses = [
     duration: "6 weeks",
     level: "Intermediate",
     maxStudents: 20,
-    instructor: "Dr. Michael Rodriguez",
     prerequisites: "Introduction to Bioinformatics course or equivalent knowledge",
     outcomes: [
       "Analyze drug-target interactions",
@@ -79,7 +77,6 @@ const courses = [
     duration: "5 weeks",
     level: "Intermediate",
     maxStudents: 18,
-    instructor: "Dr. Emily Watson",
     prerequisites: "Network Pharmacology course or strong chemistry background",
     outcomes: [
       "Predict molecular interactions",
@@ -101,7 +98,6 @@ const courses = [
     duration: "6 weeks",
     level: "Advanced",
     maxStudents: 15,
-    instructor: "Dr. James Thompson",
     prerequisites: "Molecular Docking course or equivalent experience",
     outcomes: [
       "Set up molecular simulations",
@@ -123,7 +119,6 @@ const courses = [
     duration: "5 weeks",
     level: "Intermediate",
     maxStudents: 18,
-    instructor: "Dr. Lisa Park",
     prerequisites: "Molecular Dynamics course or strong chemistry background",
     outcomes: [
       "Decode SMILES notation",
@@ -145,7 +140,6 @@ const courses = [
     duration: "8 weeks",
     level: "Advanced",
     maxStudents: 12,
-    instructor: "Dr. Alex Kumar",
     prerequisites: "Cheminformatics course or strong AI background",
     outcomes: [
       "Train neural networks on biological data",
@@ -168,7 +162,6 @@ const courses = [
     duration: "12 weeks",
     level: "Advanced",
     maxStudents: 10,
-    instructor: "Dr. Maria Santos",
     prerequisites: "All previous courses or equivalent experience",
     outcomes: [
       "Integrate all learned skills",
@@ -491,12 +484,6 @@ export const CoursesPage = () => {
 
                           {/* Right Column */}
                           <div className="space-y-6">
-                            {/* Instructor Info */}
-                            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-                              <h3 className="text-white font-semibold text-lg mb-3">Instructor</h3>
-                              <p className="text-white/90 text-lg">{course.instructor}</p>
-                            </div>
-
                             {/* Pricing Info */}
                             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
                               <h3 className="text-white font-semibold text-lg mb-4">Pricing</h3>

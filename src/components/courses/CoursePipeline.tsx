@@ -29,7 +29,6 @@ const courseDetails = {
     enrollmentLink: 'https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform',
     prerequisites: 'Basic high school biology and mathematics',
     outcomes: ['Understand fundamental biological concepts', 'Master basic statistical analysis', 'Learn Python programming', 'Gain database management skills'],
-    instructor: 'Dr. Sarah Chen',
     maxStudents: 25
   },
   '2': {
@@ -41,7 +40,6 @@ const courseDetails = {
     enrollmentLink: 'https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform',
     prerequisites: 'Core Foundations course or equivalent knowledge',
     outcomes: ['Analyze DNA and protein sequences', 'Understand genomic data processing', 'Master proteomic analysis tools', 'Navigate biological databases'],
-    instructor: 'Dr. Michael Rodriguez',
     maxStudents: 20
   },
   '3': {
@@ -53,7 +51,6 @@ const courseDetails = {
     enrollmentLink: 'https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform',
     prerequisites: 'Bioinformatics course or strong chemistry background',
     outcomes: ['Calculate molecular descriptors', 'Design drug-like molecules', 'Use chemical databases', 'Apply QSAR modeling'],
-    instructor: 'Dr. Emily Watson',
     maxStudents: 18
   },
   '4': {
@@ -65,7 +62,6 @@ const courseDetails = {
     enrollmentLink: 'https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform',
     prerequisites: 'Cheminformatics course or equivalent experience',
     outcomes: ['Model biological systems', 'Analyze biological networks', 'Apply machine learning', 'Conduct computational research'],
-    instructor: 'Dr. James Thompson',
     maxStudents: 15
   },
   '5': {
@@ -77,7 +73,6 @@ const courseDetails = {
     enrollmentLink: 'https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform',
     prerequisites: 'Computational Biology course or strong AI background',
     outcomes: ['Implement deep learning models', 'Build predictive systems', 'Automate drug discovery', 'Understand AI ethics'],
-    instructor: 'Dr. Lisa Park',
     maxStudents: 12
   }
 };
@@ -417,14 +412,6 @@ const CoursePipeline: React.FC = () => {
                           </div>
                         ))}
                       </div>
-                    </div>
-
-                    {/* Instructor Info */}
-                    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-                      <h3 className="text-white font-semibold text-lg mb-3">Instructor</h3>
-                      <p className="text-white/90 text-lg">
-                        {courseDetails[selectedCourse as keyof typeof courseDetails].instructor}
-                      </p>
                     </div>
                   </div>
                 </div>
