@@ -180,3 +180,48 @@
 .chat-button-glow:hover::before {
   opacity: 0.7;
 }
+
+/* SLBAIL Section Custom Styles */
+.slbail-card {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slbail-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.slbail-text-overlay {
+  transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slbail-card:hover .slbail-text-overlay {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.slbail-hover-content {
+  transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slbail-card:hover .slbail-hover-content {
+  opacity: 1;
+}
+
+.slbail-image {
+  transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slbail-card:hover .slbail-image {
+  transform: scale(1);
+}
+
+.slbail-overlay {
+  transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slbail-card:hover .slbail-overlay {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.05), transparent);
+}

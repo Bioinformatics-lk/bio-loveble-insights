@@ -1067,6 +1067,28 @@ const Index = () => {
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
+          {/* Image Test Section - Temporary for debugging */}
+          <div className="mb-8 p-4 bg-white/10 rounded-lg">
+            <h3 className="text-white text-lg font-semibold mb-4">Image Test (Debug):</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {[
+                '/lovable-uploads/slbail01.png',
+                '/lovable-uploads/slbail02.png', 
+                '/lovable-uploads/slbail03.png',
+                '/lovable-uploads/slbail04.png'
+              ].map((img, i) => (
+                <div key={i} className="text-center">
+                  <img 
+                    src={img} 
+                    alt={`Test ${i+1}`}
+                    className="w-16 h-16 object-cover rounded border-2 border-white/30"
+                  />
+                  <p className="text-white text-xs mt-2">Test {i+1}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
           <div className="text-center mb-16">
             <div className="inline-block border-2 border-white/30 rounded-xl px-8 py-4 backdrop-blur-sm">
               <h2 className="text-4xl md:text-5xl font-bold text-white text-center">SLBAIL</h2>
@@ -1113,23 +1135,23 @@ const Index = () => {
             ].map((topic, index) => (
               <div 
                 key={topic.id}
-                className="group relative cursor-pointer overflow-hidden rounded-2xl border-2 border-white/20 bg-white/10 backdrop-blur-sm transition-all duration-500 transform hover:scale-105 hover:shadow-2xl"
+                className="slbail-card group relative cursor-pointer overflow-hidden rounded-2xl border-2 border-white/20 bg-white/10 backdrop-blur-sm h-80 md:h-96"
                 style={{
                   animationDelay: `${index * 200}ms`,
                   animation: 'fadeInUp 0.8s ease-out forwards'
                 }}
               >
-                {/* Background Image */}
+                {/* Background Image - Always Visible */}
                 <div 
-                  className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-700 transform scale-110 group-hover:scale-100"
+                  className="slbail-image absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-110"
                   style={{ backgroundImage: `url(${topic.image})` }}
                 />
                 
-                {/* Dark Overlay for Text Readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/40 group-hover:from-black/20 group-hover:via-black/10 group-hover:to-transparent transition-all duration-500" />
+                {/* Dark Overlay for Text Readability - Fades on Hover */}
+                <div className="slbail-overlay absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-black/50" />
                 
                 {/* Text Overlay - Disappears on Hover */}
-                <div className="absolute inset-0 flex flex-col justify-end p-6 text-white group-hover:opacity-0 transition-all duration-500 ease-in-out">
+                <div className="slbail-text-overlay absolute inset-0 flex flex-col justify-end p-6 text-white">
                   <div className={`inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r ${topic.color} text-white text-sm font-semibold mb-4 w-fit shadow-lg`}>
                     {topic.title}
                   </div>
@@ -1138,31 +1160,23 @@ const Index = () => {
                     {topic.description}
                   </p>
                   
-                  <div className="flex items-center text-white/80 text-sm font-medium">
-                    <div className="w-3 h-3 bg-white/80 rounded-full mr-3 animate-pulse"></div>
+                  <div className="flex items-center text-white/90 text-sm font-medium">
+                    <div className="w-3 h-3 bg-white/90 rounded-full mr-3 animate-pulse"></div>
                     Hover to explore image
                   </div>
                 </div>
                 
-                {/* Hover State - Image Revealed */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-in-out">
-                  <div 
-                    className="w-full h-full bg-cover bg-center bg-no-repeat transform scale-95 group-hover:scale-100 transition-transform duration-700"
-                    style={{ backgroundImage: `url(${topic.image})` }}
-                  />
-                  
-                  {/* Subtle Overlay for Better Visibility */}
-                  <div className="absolute inset-0 bg-black/10" />
-                  
+                {/* Hover State - Image Revealed with Badge */}
+                <div className="slbail-hover-content absolute inset-0 opacity-0">
                   {/* Topic Badge on Hover */}
-                  <div className="absolute bottom-4 left-4 right-4">
+                  <div className="absolute bottom-4 left-4 right-4 z-10">
                     <div className={`inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r ${topic.color} text-white font-bold shadow-xl backdrop-blur-sm`}>
                       {topic.title}
                     </div>
                   </div>
                   
                   {/* Decorative Element */}
-                  <div className="absolute top-4 right-4">
+                  <div className="absolute top-4 right-4 z-10">
                     <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
                       <div className="w-2 h-2 bg-white rounded-full"></div>
                     </div>
