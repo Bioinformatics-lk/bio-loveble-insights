@@ -8,7 +8,7 @@ import ReactFlow, {
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ExternalLink } from 'lucide-react';
+import { X, ExternalLink, Clock, BarChart3, BookOpen, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 // Define node data type
@@ -18,47 +18,67 @@ interface CourseNodeData {
   onClick?: () => void;
 }
 
-// Course details data
+// Course details data with enhanced information
 const courseDetails = {
   '1': {
     title: 'Core Foundations',
-    description: 'Build a solid foundation in bioinformatics, including molecular biology, statistics, and programming basics. Prepare for advanced courses.',
+    description: 'Build a solid foundation in bioinformatics, including molecular biology, statistics, and programming basics. This comprehensive course prepares you for advanced studies in computational biology and bioinformatics applications.',
     duration: '4 weeks',
     level: 'Beginner',
     topics: ['Molecular Biology Basics', 'Principles of Statistics', 'Python Programming', 'Database Fundamentals'],
-    enrollmentLink: 'https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform'
+    enrollmentLink: 'https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform',
+    prerequisites: 'Basic high school biology and mathematics',
+    outcomes: ['Understand fundamental biological concepts', 'Master basic statistical analysis', 'Learn Python programming', 'Gain database management skills'],
+    instructor: 'Dr. Sarah Chen',
+    maxStudents: 25
   },
   '2': {
     title: 'Bioinformatics',
-    description: 'Deep dive into core bioinformatics concepts, including sequence analysis, genomics, and proteomics. Master essential skills for biological data analysis.',
+    description: 'Deep dive into core bioinformatics concepts, including sequence analysis, genomics, and proteomics. Master essential skills for biological data analysis and computational biology research.',
     duration: '6 weeks',
     level: 'Intermediate',
     topics: ['Sequence Analysis', 'Genomics', 'Proteomics', 'Biological Databases'],
-    enrollmentLink: 'https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform'
+    enrollmentLink: 'https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform',
+    prerequisites: 'Core Foundations course or equivalent knowledge',
+    outcomes: ['Analyze DNA and protein sequences', 'Understand genomic data processing', 'Master proteomic analysis tools', 'Navigate biological databases'],
+    instructor: 'Dr. Michael Rodriguez',
+    maxStudents: 20
   },
   '3': {
     title: 'Cheminformatics',
-    description: 'Explore cheminformatics, learn about molecular descriptors, drug design, and chemical database analysis. Lay the foundation for drug discovery.',
+    description: 'Explore cheminformatics, learn about molecular descriptors, drug design, and chemical database analysis. Lay the foundation for drug discovery and pharmaceutical research.',
     duration: '5 weeks',
     level: 'Intermediate',
     topics: ['Molecular Descriptors', 'Drug Design', 'Chemical Databases', 'QSAR Modeling'],
-    enrollmentLink: 'https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform'
+    enrollmentLink: 'https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform',
+    prerequisites: 'Bioinformatics course or strong chemistry background',
+    outcomes: ['Calculate molecular descriptors', 'Design drug-like molecules', 'Use chemical databases', 'Apply QSAR modeling'],
+    instructor: 'Dr. Emily Watson',
+    maxStudents: 18
   },
   '4': {
     title: 'Computational Biology',
-    description: 'Combine computational methods and biological principles, learn systems biology, network analysis, and biological modeling techniques.',
+    description: 'Combine computational methods and biological principles, learn systems biology, network analysis, and biological modeling techniques for advanced research applications.',
     duration: '6 weeks',
     level: 'Advanced',
     topics: ['Systems Biology', 'Network Analysis', 'Biological Modeling', 'Machine Learning Basics'],
-    enrollmentLink: 'https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform'
+    enrollmentLink: 'https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform',
+    prerequisites: 'Cheminformatics course or equivalent experience',
+    outcomes: ['Model biological systems', 'Analyze biological networks', 'Apply machine learning', 'Conduct computational research'],
+    instructor: 'Dr. James Thompson',
+    maxStudents: 15
   },
   '5': {
     title: 'AI in Life Sciences',
-    description: 'Apply artificial intelligence in life sciences, learn deep learning, predictive modeling, and automated drug discovery.',
+    description: 'Apply artificial intelligence in life sciences, learn deep learning, predictive modeling, and automated drug discovery for cutting-edge research and development.',
     duration: '8 weeks',
     level: 'Advanced',
     topics: ['Deep Learning', 'Predictive Modeling', 'Automated Drug Discovery', 'AI Ethics'],
-    enrollmentLink: 'https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform'
+    enrollmentLink: 'https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform',
+    prerequisites: 'Computational Biology course or strong AI background',
+    outcomes: ['Implement deep learning models', 'Build predictive systems', 'Automate drug discovery', 'Understand AI ethics'],
+    instructor: 'Dr. Lisa Park',
+    maxStudents: 12
   }
 };
 
@@ -274,84 +294,151 @@ const CoursePipeline: React.FC = () => {
         <Controls className="bg-white/10 backdrop-blur-sm" showInteractive={false} />
       </ReactFlow>
 
-      {/* Course details popup */}
+      {/* Enhanced Course details popup */}
       <AnimatePresence>
         {selectedCourse && courseDetails[selectedCourse as keyof typeof courseDetails] && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto"
             onClick={() => setSelectedCourse(null)}
           >
             {/* Overlay */}
-            <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
             
             {/* Popup content */}
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="relative bg-gradient-to-br from-[#4d2884]/95 to-[#2e0669]/95 backdrop-blur-md border-2 border-white/30 rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 50 }}
+              transition={{ 
+                type: "spring",
+                stiffness: 300,
+                damping: 30,
+                duration: 0.4
+              }}
+              className="relative bg-gradient-to-br from-[#4d2884]/95 to-[#2e0669]/95 backdrop-blur-md border-2 border-white/30 rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close button */}
               <button
                 onClick={() => setSelectedCourse(null)}
-                className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors z-10"
+                className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors z-10 bg-white/10 hover:bg-white/20 rounded-full p-2"
               >
                 <X className="h-6 w-6" />
               </button>
 
               {/* Popup content */}
-              <div className="p-6">
-                <div className="text-center mb-6">
-                  <h3 className="text-2xl font-bold text-white mb-2">
+              <div className="p-8">
+                {/* Header Section */}
+                <div className="text-center mb-8">
+                  <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                     {courseDetails[selectedCourse as keyof typeof courseDetails].title}
-                  </h3>
-                  <p className="text-white/80 text-sm leading-relaxed">
+                  </h2>
+                  <p className="text-white/80 text-lg leading-relaxed max-w-3xl mx-auto">
                     {courseDetails[selectedCourse as keyof typeof courseDetails].description}
                   </p>
                 </div>
 
-                {/* Course info */}
-                <div className="space-y-4 mb-6">
-                  <div className="flex justify-between items-center">
-                    <span className="text-white/70">Duration:</span>
-                    <span className="text-white font-semibold">
-                      {courseDetails[selectedCourse as keyof typeof courseDetails].duration}
-                    </span>
+                {/* Course Info Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                  <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                    <Clock className="h-6 w-6 text-purple-400" />
+                    <div>
+                      <p className="text-white/70 text-sm">Duration</p>
+                      <p className="text-white font-semibold">
+                        {courseDetails[selectedCourse as keyof typeof courseDetails].duration}
+                      </p>
+                    </div>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-white/70">Level:</span>
-                    <span className="text-white font-semibold">
-                      {courseDetails[selectedCourse as keyof typeof courseDetails].level}
-                    </span>
+                  
+                  <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                    <BarChart3 className="h-6 w-6 text-blue-400" />
+                    <div>
+                      <p className="text-white/70 text-sm">Level</p>
+                      <p className="text-white font-semibold">
+                        {courseDetails[selectedCourse as keyof typeof courseDetails].level}
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                    <Users className="h-6 w-6 text-green-400" />
+                    <div>
+                      <p className="text-white/70 text-sm">Max Students</p>
+                      <p className="text-white font-semibold">
+                        {courseDetails[selectedCourse as keyof typeof courseDetails].maxStudents}
+                      </p>
+                    </div>
                   </div>
                 </div>
 
-                {/* Course topics */}
-                <div className="mb-6">
-                  <h4 className="text-white font-semibold mb-3">Topics:</h4>
-                  <div className="grid grid-cols-1 gap-2">
-                    {courseDetails[selectedCourse as keyof typeof courseDetails].topics.map((topic, index) => (
-                      <div key={index} className="flex items-center space-x-2">
-                        <div className="w-2 h-2 bg-white/50 rounded-full"></div>
-                        <span className="text-white/90 text-sm">{topic}</span>
+                {/* Two Column Layout */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  {/* Left Column */}
+                  <div className="space-y-6">
+                    {/* Prerequisites */}
+                    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                      <h3 className="text-white font-semibold text-lg mb-3 flex items-center">
+                        <BookOpen className="h-5 w-5 mr-2 text-purple-400" />
+                        Prerequisites
+                      </h3>
+                      <p className="text-white/90">
+                        {courseDetails[selectedCourse as keyof typeof courseDetails].prerequisites}
+                      </p>
+                    </div>
+
+                    {/* Course Topics */}
+                    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                      <h3 className="text-white font-semibold text-lg mb-4">Course Topics</h3>
+                      <div className="grid grid-cols-1 gap-3">
+                        {courseDetails[selectedCourse as keyof typeof courseDetails].topics.map((topic, index) => (
+                          <div key={index} className="flex items-center space-x-3">
+                            <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+                            <span className="text-white/90">{topic}</span>
+                          </div>
+                        ))}
                       </div>
-                    ))}
+                    </div>
+                  </div>
+
+                  {/* Right Column */}
+                  <div className="space-y-6">
+                    {/* Learning Outcomes */}
+                    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                      <h3 className="text-white font-semibold text-lg mb-4">Learning Outcomes</h3>
+                      <div className="space-y-3">
+                        {courseDetails[selectedCourse as keyof typeof courseDetails].outcomes.map((outcome, index) => (
+                          <div key={index} className="flex items-start space-x-3">
+                            <div className="w-2 h-2 bg-blue-400 rounded-full mt-2 flex-shrink-0"></div>
+                            <span className="text-white/90 text-sm">{outcome}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Instructor Info */}
+                    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                      <h3 className="text-white font-semibold text-lg mb-3">Instructor</h3>
+                      <p className="text-white/90 text-lg">
+                        {courseDetails[selectedCourse as keyof typeof courseDetails].instructor}
+                      </p>
+                    </div>
                   </div>
                 </div>
 
                 {/* Enroll button */}
-                <Button
-                  onClick={() => handleEnrollClick(courseDetails[selectedCourse as keyof typeof courseDetails].enrollmentLink)}
-                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-3 rounded-xl transition-all duration-300 transform hover:scale-105"
-                >
-                  Enroll Now
-                  <ExternalLink className="w-4 h-4 ml-2" />
-                </Button>
+                <div className="mt-8 text-center">
+                  <Button
+                    onClick={() => handleEnrollClick(courseDetails[selectedCourse as keyof typeof courseDetails].enrollmentLink)}
+                    className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 text-lg"
+                  >
+                    Enroll Now
+                    <ExternalLink className="w-5 h-5 ml-2" />
+                  </Button>
+                </div>
               </div>
             </motion.div>
           </motion.div>
