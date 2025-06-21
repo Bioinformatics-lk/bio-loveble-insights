@@ -1074,6 +1074,9 @@ const Index = () => {
             <h3 className="text-xl md:text-2xl font-semibold text-[#EAE3F5] mb-4 mt-8">
               Sri Lankan Bioinformatics and Artificial Intelligence Lab
             </h3>
+            <p className="text-lg text-gray-300 max-w-4xl mx-auto mt-8">
+              Sri Lanka's first Bioinformatics and Artificial Intelligence Lab (SLBAIL) is transforming the landscape of drug discovery by fusing advanced AI technologies with rich traditional botanical wisdom. This innovative system streamlines and enhances the drug development process, setting a new benchmark in AI-driven pharmaceutical research.
+            </p>
           </div>
 
           <div className="relative">
