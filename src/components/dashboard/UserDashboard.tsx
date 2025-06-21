@@ -24,7 +24,7 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
     }
     
     try {
-      await supabase.auth.signOut();
+    await supabase.auth.signOut();
       // Immediate navigation for faster response
       setTimeout(() => navigate('/'), 50);
     } catch (error) {
@@ -96,10 +96,10 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
               onClick={handleLogout}
               data-logout-button
               className="bg-white/10 hover:bg-white/20 text-white border border-white/20 shadow-sm hover:shadow flex items-center space-x-2 transition-all duration-200 transform hover:scale-105"
-              size="sm"
+                size="sm"
             >
-              <LogOut className="h-4 w-4" />
-              <span className="hidden sm:inline">Logout</span>
+                <LogOut className="h-4 w-4" />
+                <span className="hidden sm:inline">Logout</span>
             </Button>
           </div>
         </div>
@@ -112,51 +112,51 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
           <div className="grid md:grid-cols-2 gap-10">
             {/* Services Card */}
             <Card className="border-2 border-white/20 bg-white/10 hover:bg-white/20 transition-colors duration-200 h-full flex flex-col">
-              <CardHeader className="text-center flex-1">
-                <div className="w-24 h-24 mx-auto mb-6 bg-[#363B6B] rounded-full flex items-center justify-center shadow-lg">
-                  <Briefcase className="h-12 w-12 text-white" />
-                </div>
-                <CardTitle className="text-3xl text-white font-bold">
-                  Services
-                </CardTitle>
-                <CardDescription className="text-white/70 text-lg mt-2">
-                  Professional bioinformatics and computational biology services
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="mt-auto">
-                <Button 
-                  onClick={handleViewServices}
+                <CardHeader className="text-center flex-1">
+                  <div className="w-24 h-24 mx-auto mb-6 bg-[#363B6B] rounded-full flex items-center justify-center shadow-lg">
+                    <Briefcase className="h-12 w-12 text-white" />
+                  </div>
+                  <CardTitle className="text-3xl text-white font-bold">
+                    Services
+                  </CardTitle>
+                  <CardDescription className="text-white/70 text-lg mt-2">
+                    Professional bioinformatics and computational biology services
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="mt-auto">
+                  <Button 
+                    onClick={handleViewServices}
                   className="w-full bg-[#363B6B] hover:bg-[#000A33] text-white border border-white/20 transition-colors duration-200 text-lg py-6 font-semibold shadow-lg"
-                  size="lg"
-                >
-                  View Services
-                </Button>
-              </CardContent>
-            </Card>
+                    size="lg"
+                  >
+                    View Services
+                  </Button>
+                </CardContent>
+              </Card>
 
-            {/* Courses Card */}
+          {/* Courses Card */}
             <Card className="border-2 border-white/20 bg-white/10 hover:bg-white/20 transition-colors duration-200 h-full flex flex-col">
-              <CardHeader className="text-center flex-1">
-                <div className="w-24 h-24 mx-auto mb-6 bg-[#363B6B] rounded-full flex items-center justify-center shadow-lg">
-                  <BookOpen className="h-12 w-12 text-white" />
-                </div>
-                <CardTitle className="text-3xl text-white font-bold">
-                  Courses
-                </CardTitle>
-                <CardDescription className="text-white/70 text-lg mt-2">
-                  Access our comprehensive bioinformatics courses
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="mt-auto">
-                <Button 
-                  onClick={handleViewCourses}
+                <CardHeader className="text-center flex-1">
+                  <div className="w-24 h-24 mx-auto mb-6 bg-[#363B6B] rounded-full flex items-center justify-center shadow-lg">
+                    <BookOpen className="h-12 w-12 text-white" />
+              </div>
+                  <CardTitle className="text-3xl text-white font-bold">
+                Courses
+              </CardTitle>
+                  <CardDescription className="text-white/70 text-lg mt-2">
+                Access our comprehensive bioinformatics courses
+              </CardDescription>
+            </CardHeader>
+                <CardContent className="mt-auto">
+              <Button 
+                    onClick={handleViewCourses}
                   className="w-full bg-[#363B6B] hover:bg-[#000A33] text-white border border-white/20 transition-colors duration-200 text-lg py-6 font-semibold shadow-lg"
-                  size="lg"
-                >
-                  View Courses
-                </Button>
-              </CardContent>
-            </Card>
+                size="lg"
+              >
+                View Courses
+              </Button>
+            </CardContent>
+          </Card>
           </div>
 
           {/* SLBAIL Card - Simplified */}
@@ -172,17 +172,17 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
                 <CardDescription className="text-white/90 text-lg mt-2 font-medium">
                   Sri Lanka's First Bioinformatics and Artificial Intelligence Laboratory
                 </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button 
+            </CardHeader>
+            <CardContent>
+              <Button 
                   onClick={handleExploreSlhaif}
                   className="w-full bg-[#363B6B] hover:bg-[#000A33] text-white border border-white/20 transition-colors duration-200 text-lg py-6 font-semibold shadow-lg"
-                  size="lg"
-                >
+                size="lg"
+              >
                   Explore SLBAIL
-                </Button>
-              </CardContent>
-            </Card>
+              </Button>
+            </CardContent>
+          </Card>
           </div>
         </div>
       </main>

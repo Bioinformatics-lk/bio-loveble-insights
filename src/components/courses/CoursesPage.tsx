@@ -385,7 +385,7 @@ export const CoursesPage = () => {
         </div>
 
         {/* Full Screen Course Details Modal */}
-        <AnimatePresence>
+                  <AnimatePresence>
           {selectedCourse !== null && showFullModal && (
             <motion.div
               initial={{ opacity: 0 }}
@@ -399,12 +399,12 @@ export const CoursesPage = () => {
               <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
               
               {/* Modal content */}
-              <motion.div
+                      <motion.div
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 50 }}
-                transition={{ 
-                  type: "spring",
+                        transition={{ 
+                          type: "spring",
                   stiffness: 300,
                   damping: 30,
                   duration: 0.3
@@ -502,12 +502,12 @@ export const CoursesPage = () => {
                               <h3 className="text-white font-semibold text-lg mb-4">Pricing</h3>
                               <div className="space-y-3">
                                 <div className="flex justify-between items-center">
-                                  <span className="text-white/70">Course Fee:</span>
-                                  <span className="text-white font-semibold">{course.price}</span>
-                                </div>
+                            <span className="text-white/70">Course Fee:</span>
+                            <span className="text-white font-semibold">{course.price}</span>
+                          </div>
                                 <div className="flex justify-between items-center">
-                                  <span className="text-white/70">Total Fee to Here:</span>
-                                  <span className="text-white font-semibold">{course.totalFee}</span>
+                            <span className="text-white/70">Total Fee to Here:</span>
+                            <span className="text-white font-semibold">{course.totalFee}</span>
                                 </div>
                               </div>
                             </div>
@@ -529,9 +529,9 @@ export const CoursesPage = () => {
                   })()}
                 </div>
               </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
       </main>
     </div>
   );
