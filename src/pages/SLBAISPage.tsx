@@ -49,15 +49,15 @@ export const SLBAISPage = () => {
 
       <div className="relative z-10 container mx-auto px-4 py-8">
         <div className="text-center mb-12">
-          <Button
-            onClick={() => navigate(-1)}
-            variant="ghost"
+        <Button
+          onClick={() => navigate(-1)}
+          variant="ghost"
             className="absolute top-4 left-4 text-white hover:bg-white/10 z-50"
-          >
+        >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back
-          </Button>
-          
+        </Button>
+
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -155,7 +155,7 @@ export const SLBAISPage = () => {
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </div>
+          </div>
             </motion.div>
           ))}
         </div>

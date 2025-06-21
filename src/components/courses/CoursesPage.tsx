@@ -408,7 +408,7 @@ export const CoursesPage = () => {
                   stiffness: 300,
                   damping: 30,
                   duration: 0.3
-                }}
+                        }}
                 className="relative bg-gradient-to-br from-[#4d2884]/95 to-[#2e0669]/95 backdrop-blur-md border-2 border-white/30 rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto"
                 onClick={(e) => e.stopPropagation()}
               >

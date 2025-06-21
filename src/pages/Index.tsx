@@ -1079,30 +1079,95 @@ const Index = () => {
             </p>
           </div>
 
-          {/* SLBAIL Images Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
+          {/* SLBAIL Topics Grid with Text Overlays */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-12">
             {[
-              { src: "/lovable-uploads/slbail01.png", alt: "SLBAIL Image 1" },
-              { src: "/lovable-uploads/slbail02.png", alt: "SLBAIL Image 2" },
-              { src: "/lovable-uploads/slbail03.png", alt: "SLBAIL Image 3" },
-              { src: "/lovable-uploads/slbail04.png", alt: "SLBAIL Image 4" }
-            ].map((image, index) => (
+              {
+                id: 'ai-agents',
+                title: 'AI Agents',
+                description: 'Advanced artificial intelligence systems for automated research and analysis. Explore cutting-edge AI technologies for drug discovery and computational biology.',
+                image: '/lovable-uploads/slbail01.png',
+                color: 'from-purple-600 to-blue-600'
+              },
+              {
+                id: 'bioinformatics',
+                title: 'Bioinformatics and Cheminformatics',
+                description: 'Computational analysis of biological and chemical data for drug discovery. Integrate molecular biology with computational methods.',
+                image: '/lovable-uploads/slbail02.png',
+                color: 'from-blue-600 to-cyan-600'
+              },
+              {
+                id: 'computational-chemistry',
+                title: 'Computational Chemistry',
+                description: 'Molecular modeling and simulation for chemical research and development. Advanced computational techniques for molecular analysis.',
+                image: '/lovable-uploads/slbail03.png',
+                color: 'from-cyan-600 to-teal-600'
+              },
+              {
+                id: 'cmpaat-database',
+                title: 'CMPAAT Botanical Database',
+                description: 'Comprehensive database of medicinal plants and their therapeutic properties. Access extensive botanical and pharmacological data.',
+                image: '/lovable-uploads/slbail04.png',
+                color: 'from-teal-600 to-green-600'
+              }
+            ].map((topic, index) => (
               <div 
-                key={index}
-                className="group relative overflow-hidden rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-500 transform hover:scale-105 hover:shadow-2xl"
+                key={topic.id}
+                className="group relative cursor-pointer overflow-hidden rounded-2xl border-2 border-white/20 bg-white/10 backdrop-blur-sm transition-all duration-500 transform hover:scale-105 hover:shadow-2xl"
                 style={{
                   animationDelay: `${index * 200}ms`,
                   animation: 'fadeInUp 0.8s ease-out forwards'
                 }}
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-[#54366B]/20 to-[#363B6B]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <img 
-                  src={image.src} 
-                  alt={image.alt}
-                  className="w-full h-48 md:h-56 object-cover transition-transform duration-700 group-hover:scale-110"
-                  loading="lazy"
+                {/* Background Image */}
+                <div 
+                  className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-700 transform scale-110 group-hover:scale-100"
+                  style={{ backgroundImage: `url(${topic.image})` }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                {/* Dark Overlay for Text Readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/40 group-hover:from-black/20 group-hover:via-black/10 group-hover:to-transparent transition-all duration-500" />
+                
+                {/* Text Overlay - Disappears on Hover */}
+                <div className="absolute inset-0 flex flex-col justify-end p-6 text-white group-hover:opacity-0 transition-all duration-500 ease-in-out">
+                  <div className={`inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r ${topic.color} text-white text-sm font-semibold mb-4 w-fit shadow-lg`}>
+                    {topic.title}
+                  </div>
+                  
+                  <p className="text-white text-lg leading-relaxed mb-4 font-medium">
+                    {topic.description}
+                  </p>
+                  
+                  <div className="flex items-center text-white/80 text-sm font-medium">
+                    <div className="w-3 h-3 bg-white/80 rounded-full mr-3 animate-pulse"></div>
+                    Hover to explore image
+                  </div>
+                </div>
+                
+                {/* Hover State - Image Revealed */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-in-out">
+                  <div 
+                    className="w-full h-full bg-cover bg-center bg-no-repeat transform scale-95 group-hover:scale-100 transition-transform duration-700"
+                    style={{ backgroundImage: `url(${topic.image})` }}
+                  />
+                  
+                  {/* Subtle Overlay for Better Visibility */}
+                  <div className="absolute inset-0 bg-black/10" />
+                  
+                  {/* Topic Badge on Hover */}
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <div className={`inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r ${topic.color} text-white font-bold shadow-xl backdrop-blur-sm`}>
+                      {topic.title}
+                    </div>
+                  </div>
+                  
+                  {/* Decorative Element */}
+                  <div className="absolute top-4 right-4">
+                    <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                      <div className="w-2 h-2 bg-white rounded-full"></div>
+                    </div>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
