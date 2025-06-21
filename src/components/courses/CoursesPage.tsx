@@ -12,8 +12,7 @@ import {
   ArrowLeft,
   GraduationCap,
   ChevronRight,
-  ExternalLink,
-  DollarSign
+  ExternalLink
 } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -217,14 +216,12 @@ export const CoursesPage = () => {
                       <div className="flex items-center justify-between">
                         <span className="text-white font-semibold">Course Fee</span>
                         <span className="text-white flex items-center">
-                          <DollarSign className="w-4 h-4 mr-1" />
                           {course.price}
                         </span>
                       </div>
                       <div className="flex items-center justify-between">
                         <span className="text-white font-semibold">Total Fee to Here</span>
                         <span className="text-white flex items-center">
-                          <DollarSign className="w-4 h-4 mr-1" />
                           {course.totalFee}
                         </span>
                       </div>
