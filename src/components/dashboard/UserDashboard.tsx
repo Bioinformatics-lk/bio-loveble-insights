@@ -16,7 +16,25 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
+    // Immediate visual feedback
+    const logoutButton = document.querySelector('[data-logout-button]') as HTMLElement;
+    if (logoutButton) {
+      logoutButton.style.opacity = '0.5';
+      logoutButton.style.pointerEvents = 'none';
+    }
+    
+    try {
+      await supabase.auth.signOut();
+      // Immediate navigation for faster response
+      setTimeout(() => navigate('/'), 50);
+    } catch (error) {
+      console.error('Logout error:', error);
+      // Reset button state on error
+      if (logoutButton) {
+        logoutButton.style.opacity = '1';
+        logoutButton.style.pointerEvents = 'auto';
+      }
+    }
   };
 
   const handleViewCourses = () => {
@@ -76,7 +94,8 @@ export const UserDashboard = ({ user }: UserDashboardProps) => {
             {/* Right Side - Logout Button */}
             <Button
               onClick={handleLogout}
-              className="bg-white/10 hover:bg-white/20 text-white border border-white/20 shadow-sm hover:shadow flex items-center space-x-2 transition-colors duration-200"
+              data-logout-button
+              className="bg-white/10 hover:bg-white/20 text-white border border-white/20 shadow-sm hover:shadow flex items-center space-x-2 transition-all duration-200 transform hover:scale-105"
               size="sm"
             >
               <LogOut className="h-4 w-4" />

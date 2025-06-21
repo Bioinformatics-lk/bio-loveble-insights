@@ -22,24 +22,36 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-      setLoading(false);
-    });
+    // Get initial session with faster timeout
+    const getInitialSession = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        setUser(session?.user ?? null);
+      } catch (error) {
+        console.error('Session error:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    // Listen for auth changes
+    getInitialSession();
+
+    // Listen for auth changes with optimized handling
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
+      // Reduce loading time for auth state changes
+      if (loading) {
+        setTimeout(() => setLoading(false), 100);
+      }
     });
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [loading]);
 
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#170056] to-[#363B6B]">
-        <div className="animate-spin rounded-full h-12 w-12 border-4 border-white border-t-transparent"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-white border-t-transparent transition-all duration-200"></div>
       </div>
     );
   }

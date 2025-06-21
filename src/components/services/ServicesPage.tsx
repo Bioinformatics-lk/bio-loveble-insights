@@ -141,7 +141,7 @@ export const ServicesPage = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              transition={{ duration: 0.2, ease: 'easeInOut' }}
               className="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto"
               onClick={handleCloseMobileModal}
             >
@@ -151,9 +151,9 @@ export const ServicesPage = () => {
                 exit={{ opacity: 0, y: 50 }}
                 transition={{ 
                   type: "spring",
-                  stiffness: 300,
-                  damping: 30,
-                  duration: 0.4
+                  stiffness: 400,
+                  damping: 25,
+                  duration: 0.3
                 }}
                 className="w-full max-w-md bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-lg shadow-xl p-6 relative"
                 onClick={(e) => e.stopPropagation()}
@@ -198,12 +198,12 @@ export const ServicesPage = () => {
               key={index}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ duration: 0.3, delay: index * 0.05 }}
               className="relative"
             >
               <Card 
                 className={`
-                  transform transition-all duration-300
+                  transform transition-all duration-200
                   border-2 border-white/10 hover:border-white/30
                   bg-white/10 backdrop-blur-sm p-4
                 `}
@@ -256,7 +256,7 @@ export const ServicesPage = () => {
                 key={index}
                 initial={{ opacity: 0, x: service.position === 'left' ? -20 : 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.3, delay: index * 0.05 }}
                 className={`flex items-start mb-16 ${
                   service.position === 'left' ? 'justify-start pl-8' : 'flex-row-reverse pl-8'
                 } relative`}
@@ -267,7 +267,7 @@ export const ServicesPage = () => {
                     absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2
                     w-6 h-6 rounded-full bg-gradient-to-r ${service.color}
                     ${hoveredStep === service.step ? 'scale-150' : 'scale-100'}
-                    transition-transform duration-300
+                    transition-transform duration-200
                     shadow-lg z-10
                   `}
                 />
@@ -282,7 +282,7 @@ export const ServicesPage = () => {
                 >
                   <Card 
                     className={`
-                      transform transition-all duration-300 cursor-pointer
+                      transform transition-all duration-200 cursor-pointer
                       border-2 ${selectedService === service.step ? 'border-white/40' : hoveredStep === service.step ? 'border-white/30' : 'border-white/10'}
                       bg-white/10 backdrop-blur-sm relative z-10
                       ${service.position === 'left' ? 'mr-auto' : 'ml-auto'}
@@ -324,12 +324,12 @@ export const ServicesPage = () => {
                           <h3 className={`
                             text-lg font-semibold
                             ${selectedService === service.step ? 'text-white !important' : 'text-white/70'}
-                            transition-all duration-300
+                            transition-all duration-200
                             ${selectedService === service.step ? 'scale-110' : ''}
                           `}>
                             {service.title}
                           </h3>
-                          <p className="text-sm mt-2 text-white/70 transition-colors duration-300">
+                          <p className="text-sm mt-2 text-white/70 transition-colors duration-200">
                             {service.description}
                           </p>
                         </motion.div>
@@ -349,7 +349,7 @@ export const ServicesPage = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              transition={{ duration: 0.2, ease: 'easeInOut' }}
               className="hidden lg:flex fixed inset-0 bg-black/60 backdrop-blur-sm z-50 items-center justify-center p-4 overflow-y-auto"
               onClick={() => setSelectedService(null)}
             >
@@ -359,9 +359,9 @@ export const ServicesPage = () => {
                 exit={{ opacity: 0, y: 50 }}
                 transition={{ 
                   type: "spring",
-                  stiffness: 300,
-                  damping: 30,
-                  duration: 0.4
+                  stiffness: 400,
+                  damping: 25,
+                  duration: 0.3
                 }}
                 className="w-full max-w-2xl bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-lg shadow-xl p-8 relative"
                 onClick={(e) => e.stopPropagation()}
