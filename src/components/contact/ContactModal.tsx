@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Calendar } from "@/components/ui/calendar";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { Phone, User } from "lucide-react";
+import { Phone, User, Calendar } from "lucide-react";
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -18,9 +17,22 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
-  const [selectedDate, setSelectedDate] = useState<Date>();
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+
+  // Load Calendly script when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      const script = document.createElement('script');
+      script.src = 'https://assets.calendly.com/assets/external/widget.js';
+      script.async = true;
+      document.body.appendChild(script);
+
+      return () => {
+        document.body.removeChild(script);
+      };
+    }
+  }, [isOpen]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,7 +45,6 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
           name,
           email,
           message,
-          meeting_date: selectedDate?.toISOString(),
         });
 
       if (error) throw error;
@@ -43,7 +54,6 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
       setName('');
       setEmail('');
       setMessage('');
-      setSelectedDate(undefined);
     } catch (error: any) {
       toast({
         title: "Error",
@@ -57,70 +67,72 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-gradient-to-br from-purple-900/95 via-blue-900/95 to-indigo-900/95 backdrop-blur-md border border-purple-300/30 text-white max-w-4xl">
+      <DialogContent className="bg-gradient-to-br from-purple-900/95 via-blue-900/95 to-indigo-900/95 backdrop-blur-md border border-purple-300/30 text-white max-w-6xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-center text-purple-100">
             Contact Us
           </DialogTitle>
         </DialogHeader>
         
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <Label htmlFor="name" className="text-purple-200">Name</Label>
-              <Input
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-                className="bg-white/10 border-purple-300/30 text-white placeholder:text-purple-200/70"
-                placeholder="Your name"
-              />
-            </div>
-            
-            <div>
-              <Label htmlFor="email" className="text-purple-200">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="bg-white/10 border-purple-300/30 text-white placeholder:text-purple-200/70"
-                placeholder="Your email"
-              />
-            </div>
-          </div>
-          
-          <div>
-            <Label htmlFor="message" className="text-purple-200">Message</Label>
-            <Textarea
-              id="message"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              required
-              className="bg-white/10 border-purple-300/30 text-white placeholder:text-purple-200/70"
-              placeholder="Your message"
-              rows={4}
-            />
-          </div>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div>
-              <Label className="text-purple-200">Select Meeting Date (Optional)</Label>
-              <div className="bg-white/10 rounded-md p-3 border border-purple-300/30">
-                <Calendar
-                  mode="single"
-                  selected={selectedDate}
-                  onSelect={setSelectedDate}
-                  className="text-white [&_.rdp-button]:text-white [&_.rdp-button]:hover:bg-purple-600/30 [&_.rdp-button]:rounded-md [&_.rdp-button]:p-2 [&_.rdp-button]:transition-colors [&_.rdp-head_cell]:text-purple-200 [&_.rdp-nav_button]:text-white [&_.rdp-nav_button]:hover:bg-purple-600/30 [&_.rdp-nav_button]:rounded-md [&_.rdp-nav_button]:p-2 [&_.rdp-nav_button]:transition-colors"
-                  disabled={(date) => date < new Date()}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Left Column - Contact Form */}
+          <div className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="name" className="text-purple-200">Name</Label>
+                  <Input
+                    id="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                    className="bg-white/10 border-purple-300/30 text-white placeholder:text-purple-200/70"
+                    placeholder="Your name"
+                  />
+                </div>
+                
+                <div>
+                  <Label htmlFor="email" className="text-purple-200">Email</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="bg-white/10 border-purple-300/30 text-white placeholder:text-purple-200/70"
+                    placeholder="Your email"
+                  />
+                </div>
+              </div>
+              
+              <div>
+                <Label htmlFor="message" className="text-purple-200">Message</Label>
+                <Textarea
+                  id="message"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  required
+                  className="bg-white/10 border-purple-300/30 text-white placeholder:text-purple-200/70"
+                  placeholder="Your message"
+                  rows={4}
                 />
               </div>
-            </div>
-            
-            <div>
-              <Label className="text-purple-200 mb-4 block">Contact Our Supervisors</Label>
+              
+              <Button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white"
+              >
+                {loading ? 'Sending...' : 'Send Message'}
+              </Button>
+            </form>
+
+            {/* Supervisor Contact Details */}
+            <div className="mt-8">
+              <Label className="text-purple-200 mb-4 block flex items-center gap-2">
+                <User className="h-5 w-5" />
+                Contact Our Supervisors
+              </Label>
               <div className="space-y-4">
                 <div className="bg-white/10 rounded-lg p-4 border border-purple-300/30">
                   <div className="flex items-center space-x-3 mb-2">
@@ -146,15 +158,22 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
               </div>
             </div>
           </div>
-          
-          <Button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white"
-          >
-            {loading ? 'Sending...' : 'Send Message'}
-          </Button>
-        </form>
+
+          {/* Right Column - Calendly Widget */}
+          <div className="space-y-4">
+            <Label className="text-purple-200 mb-4 block flex items-center gap-2">
+              <Calendar className="h-5 w-5" />
+              Schedule a Meeting
+            </Label>
+            <div className="bg-white/10 rounded-lg p-4 border border-purple-300/30">
+              <div 
+                className="calendly-inline-widget" 
+                data-url="https://calendly.com/anuththaragamage45/30min" 
+                style={{ minWidth: '320px', height: '600px' }}
+              />
+            </div>
+          </div>
+        </div>
       </DialogContent>
     </Dialog>
   );

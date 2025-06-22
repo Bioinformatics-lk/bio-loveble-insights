@@ -320,7 +320,7 @@ const Index = () => {
         
         @media (max-width: 768px) {
           .animate-scroll {
-            animation: scroll 4s linear infinite;
+            animation: scroll 2s linear infinite;
           }
         }
 
@@ -964,7 +964,7 @@ const Index = () => {
       </section>
 
       {/* Our Academy Section */}
-      <section className="py-20 bg-gradient-to-br from-[#000A33] via-[#000A33] via-75% to-black">
+      <section className="py-20 bg-gradient-to-br from-[#000A33] via-[#000A33] via-75% to-black" id="courses">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <div className="inline-block border-2 border-white/30 rounded-xl px-8 py-4 backdrop-blur-sm">
@@ -1300,7 +1300,7 @@ const Index = () => {
           
           {/* Auto-scrolling advisors container */}
           <div className="relative overflow-hidden">
-            <div className="flex animate-scroll space-x-1 md:space-x-4 lg:space-x-6">
+            <div className="flex animate-scroll space-x-0.5 md:space-x-2 lg:space-x-4">
               {[
                 {
                   name: "Dr. Lakmal Ranathunga",
@@ -1345,27 +1345,27 @@ const Index = () => {
                   image: "/lovable-uploads/UM.png"
                 }
               ].map((advisor, index) => (
-                <Card key={index} className="min-w-[200px] sm:min-w-[240px] md:min-w-[320px] lg:min-w-[350px] bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
+                <Card key={index} className="min-w-[160px] sm:min-w-[200px] md:min-w-[280px] lg:min-w-[320px] bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
                   <div className="relative overflow-hidden bg-gray-50 p-2 md:p-4">
                     <img 
                       src={advisor.image} 
                       alt={advisor.name}
-                      className="w-full h-28 sm:h-32 md:h-48 lg:h-56 object-contain"
+                      className="w-full h-24 sm:h-28 md:h-40 lg:h-48 object-contain"
                   />
                 </div>
                   <CardHeader className="p-2 md:p-4">
-                    <CardTitle className="text-xs sm:text-sm md:text-lg lg:text-xl text-black hover:text-[#A50053] transition-colors">
+                    <CardTitle className="text-xs sm:text-sm md:text-base lg:text-lg text-black hover:text-[#A50053] transition-colors">
                       {advisor.name}
                   </CardTitle>
                     {advisor.title && (
-                      <CardDescription className="text-xs sm:text-xs md:text-sm lg:text-base text-gray-700 font-medium">
+                      <CardDescription className="text-xs sm:text-xs md:text-sm lg:text-sm text-gray-700 font-medium">
                         {advisor.title}
                       </CardDescription>
                     )}
-                    <CardDescription className="text-xs sm:text-xs md:text-sm text-gray-600">
+                    <CardDescription className="text-xs sm:text-xs md:text-xs lg:text-sm text-gray-600">
                       {advisor.experience}
                     </CardDescription>
-                    <CardDescription className="text-xs sm:text-xs md:text-sm text-gray-600 font-medium">
+                    <CardDescription className="text-xs sm:text-xs md:text-xs lg:text-sm text-gray-600 font-medium">
                       {advisor.education}
                   </CardDescription>
                 </CardHeader>
@@ -1416,27 +1416,27 @@ const Index = () => {
                   image: "/lovable-uploads/UM.png"
                 }
               ].map((advisor, index) => (
-                <Card key={`duplicate-${index}`} className="min-w-[200px] sm:min-w-[240px] md:min-w-[320px] lg:min-w-[350px] bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
+                <Card key={`duplicate-${index}`} className="min-w-[160px] sm:min-w-[200px] md:min-w-[280px] lg:min-w-[320px] bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
                   <div className="relative overflow-hidden bg-gray-50 p-2 md:p-4">
                     <img 
                       src={advisor.image} 
                       alt={advisor.name}
-                      className="w-full h-28 sm:h-32 md:h-48 lg:h-56 object-contain"
+                      className="w-full h-24 sm:h-28 md:h-40 lg:h-48 object-contain"
                     />
                   </div>
                   <CardHeader className="p-2 md:p-4">
-                    <CardTitle className="text-xs sm:text-sm md:text-lg lg:text-xl text-black hover:text-[#A50053] transition-colors">
+                    <CardTitle className="text-xs sm:text-sm md:text-base lg:text-lg text-black hover:text-[#A50053] transition-colors">
                       {advisor.name}
                     </CardTitle>
                     {advisor.title && (
-                      <CardDescription className="text-xs sm:text-xs md:text-sm lg:text-base text-gray-700 font-medium">
+                      <CardDescription className="text-xs sm:text-xs md:text-sm lg:text-sm text-gray-700 font-medium">
                         {advisor.title}
                       </CardDescription>
                     )}
-                    <CardDescription className="text-xs sm:text-xs md:text-sm text-gray-600">
+                    <CardDescription className="text-xs sm:text-xs md:text-xs lg:text-sm text-gray-600">
                       {advisor.experience}
                     </CardDescription>
-                    <CardDescription className="text-xs sm:text-xs md:text-sm text-gray-600 font-medium">
+                    <CardDescription className="text-xs sm:text-xs md:text-xs lg:text-sm text-gray-600 font-medium">
                       {advisor.education}
                     </CardDescription>
                   </CardHeader>
