@@ -697,7 +697,7 @@ const Index = () => {
       </section>
 
       {/* What We Offer Section */}
-      <section className="py-31 md:py-32 bg-gradient-to-br from-[#54366B] via-[#363B6B] to-[#000A33] relative overflow-hidden">
+      <section className="py-34 md:py-32 bg-gradient-to-br from-[#54366B] via-[#363B6B] to-[#000A33] relative overflow-hidden">
         {/* Background Shapes */}
         <div className="absolute inset-0">
           <div className="absolute top-20 left-10 w-64 h-64 rounded-full bg-[#EAE3F5]/10 blur-3xl"></div>
@@ -706,8 +706,8 @@ const Index = () => {
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center mb-22 md:mb-24">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8">
+          <div className="text-center mb-24 md:mb-24">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-10">
               What We Offer at Bioinformatics.lk
             </h2>
             <p className="text-lg md:text-xl lg:text-2xl text-[#EAE3F5]/90 max-w-5xl mx-auto leading-relaxed">
@@ -716,7 +716,7 @@ const Index = () => {
           </div>
 
           {/* Accordion Topics */}
-          <div className="max-w-5xl mx-auto space-y-6 mb-18 md:mb-20">
+          <div className="max-w-5xl mx-auto space-y-8 mb-20 md:mb-20">
             {(() => {
               const [openTopic, setOpenTopic] = useState<number | null>(null);
               const [isMobile, setIsMobile] = useState(false);
