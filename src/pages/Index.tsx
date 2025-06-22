@@ -750,31 +750,31 @@ const Index = () => {
                 }
               ];
 
-              // Faster animations for mobile
-              const animationDuration = isMobile ? 0.15 : 0.25;
-              const staggerDelay = isMobile ? 0.02 : 0.05;
+              // Ultra-fast animations for mobile and web
+              const animationDuration = isMobile ? 0.08 : 0.12;
+              const staggerDelay = isMobile ? 0.01 : 0.02;
 
               return (
                 <>
                   {topics.map((topic, index) => (
                     <motion.div
                       key={index}
-                      initial={{ opacity: 0, y: 10 }}
+                      initial={{ opacity: 0, y: 5 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.3, delay: index * staggerDelay }}
-                      className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl overflow-hidden hover:border-white/40 transition-all duration-200"
+                      transition={{ duration: 0.15, delay: index * staggerDelay }}
+                      className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl overflow-hidden hover:border-white/40 transition-all duration-150"
                     >
                       <button
                         onClick={() => setOpenTopic(openTopic === index ? null : index)}
-                        className="w-full px-6 py-4 md:px-8 md:py-6 flex items-center justify-between text-left hover:bg-white/5 transition-all duration-200"
+                        className="w-full px-6 py-4 md:px-8 md:py-6 flex items-center justify-between text-left hover:bg-white/5 transition-all duration-150"
                       >
                         <h3 className="text-lg md:text-xl font-semibold text-white pr-4">
                           {topic.title}
                         </h3>
                         <motion.div
                           animate={{ rotate: openTopic === index ? 45 : 0 }}
-                          transition={{ duration: isMobile ? 0.15 : 0.2 }}
-                          className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-all duration-200"
+                          transition={{ duration: isMobile ? 0.08 : 0.1 }}
+                          className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-all duration-150"
                         >
                           <svg 
                             className="w-5 h-5 md:w-6 md:h-6 text-white" 
