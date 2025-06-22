@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -8,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Calendar } from "@/components/ui/calendar";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { Phone, User } from "lucide-react";
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -57,7 +57,7 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-gradient-to-br from-purple-900/95 via-blue-900/95 to-indigo-900/95 backdrop-blur-md border border-purple-300/30 text-white max-w-2xl">
+      <DialogContent className="bg-gradient-to-br from-purple-900/95 via-blue-900/95 to-indigo-900/95 backdrop-blur-md border border-purple-300/30 text-white max-w-4xl">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-center text-purple-100">
             Contact Us
@@ -105,16 +105,45 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
             />
           </div>
           
-          <div>
-            <Label className="text-purple-200">Select Meeting Date (Optional)</Label>
-            <div className="bg-white/10 rounded-md p-3 border border-purple-300/30">
-              <Calendar
-                mode="single"
-                selected={selectedDate}
-                onSelect={setSelectedDate}
-                className="text-white"
-                disabled={(date) => date < new Date()}
-              />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div>
+              <Label className="text-purple-200">Select Meeting Date (Optional)</Label>
+              <div className="bg-white/10 rounded-md p-3 border border-purple-300/30">
+                <Calendar
+                  mode="single"
+                  selected={selectedDate}
+                  onSelect={setSelectedDate}
+                  className="text-white [&_.rdp-button]:text-white [&_.rdp-button]:hover:bg-purple-600/30 [&_.rdp-button]:rounded-md [&_.rdp-button]:p-2 [&_.rdp-button]:transition-colors [&_.rdp-head_cell]:text-purple-200 [&_.rdp-nav_button]:text-white [&_.rdp-nav_button]:hover:bg-purple-600/30 [&_.rdp-nav_button]:rounded-md [&_.rdp-nav_button]:p-2 [&_.rdp-nav_button]:transition-colors"
+                  disabled={(date) => date < new Date()}
+                />
+              </div>
+            </div>
+            
+            <div>
+              <Label className="text-purple-200 mb-4 block">Contact Our Supervisors</Label>
+              <div className="space-y-4">
+                <div className="bg-white/10 rounded-lg p-4 border border-purple-300/30">
+                  <div className="flex items-center space-x-3 mb-2">
+                    <User className="h-5 w-5 text-purple-300" />
+                    <span className="font-semibold text-purple-100">Mr. Anuththara Gamage</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <Phone className="h-4 w-4 text-purple-300" />
+                    <span className="text-purple-200">0765617680</span>
+                  </div>
+                </div>
+                
+                <div className="bg-white/10 rounded-lg p-4 border border-purple-300/30">
+                  <div className="flex items-center space-x-3 mb-2">
+                    <User className="h-5 w-5 text-purple-300" />
+                    <span className="font-semibold text-purple-100">Dr. Lakmal Ranathunga</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <Phone className="h-4 w-4 text-purple-300" />
+                    <span className="text-purple-200">0775207615</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           

@@ -71,7 +71,7 @@ const MobileMenu = memo(({
               }}
               className="text-white hover:bg-white/10 text-lg justify-start"
             >
-              Our Courses
+              Our Academy
             </Button>
             <Button
               variant="ghost"
@@ -320,7 +320,7 @@ const Index = () => {
         
         @media (max-width: 768px) {
           .animate-scroll {
-            animation: scroll 8s linear infinite;
+            animation: scroll 4s linear infinite;
           }
         }
 
@@ -336,22 +336,18 @@ const Index = () => {
         }
 
         .research-card:hover {
-          transform: translateY(-12px) scale(1.03);
-          box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+          transform: none;
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
           border-color: rgba(160, 0, 152, 0.3);
         }
 
         .research-description {
           transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-          max-height: 0;
-          overflow: hidden;
         }
 
         .research-card:hover .research-description {
           opacity: 1 !important;
           transform: translateY(0) !important;
-          max-height: 200px;
-          margin-top: 1rem;
         }
 
         .research-card:hover .research-card svg {
@@ -360,11 +356,7 @@ const Index = () => {
 
         @media (max-width: 768px) {
           .research-card:hover {
-            transform: translateY(-6px) scale(1.02);
-          }
-          
-          .research-card:hover .research-description {
-            max-height: 150px;
+            transform: none;
           }
         }
 
@@ -375,22 +367,18 @@ const Index = () => {
         }
 
         .service-card:hover {
-          transform: translateY(-8px) scale(1.02);
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+          transform: none;
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
           border-color: rgba(170, 81, 0, 0.3);
         }
 
         .service-description {
           transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-          max-height: 0;
-          overflow: hidden;
         }
 
         .service-card:hover .service-description {
           opacity: 1 !important;
           transform: translateY(0) !important;
-          max-height: 150px;
-          margin-top: 1rem;
         }
 
         .service-card:hover .service-card svg {
@@ -399,11 +387,7 @@ const Index = () => {
 
         @media (max-width: 768px) {
           .service-card:hover {
-            transform: translateY(-4px) scale(1.01);
-          }
-          
-          .service-card:hover .service-description {
-            max-height: 120px;
+            transform: none;
           }
         }
 
@@ -505,7 +489,7 @@ const Index = () => {
                     : 'text-purple-100 hover:text-white hover:bg-white/10'
                 }`}
               >
-                Our Courses
+                Our Academy
               </Button>
               <Button
                 variant="ghost"
@@ -913,45 +897,66 @@ const Index = () => {
           </div>
           
           <div className="grid md:grid-cols-3 gap-8 lg:gap-10">
-            <Card className="research-card group bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/95 transition-all transform hover:scale-105 shadow-lg cursor-pointer min-h-[280px] md:min-h-[320px]">
-              <CardHeader className="text-center relative overflow-hidden p-8">
-                <div className="flex justify-center mb-6">
-                  <Dna className="h-20 w-20 md:h-24 md:w-24 text-purple-600 transition-all duration-300 group-hover:scale-110 group-hover:text-purple-700" />
+            <Card className="research-card group bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-gray-800 transition-all shadow-lg cursor-pointer min-h-[280px] md:min-h-[320px] relative overflow-hidden">
+              <CardHeader className="text-center relative p-8 flex flex-col justify-center items-center h-full">
+                {/* Default State - Centered Icon and Title */}
+                <div className="research-default absolute inset-0 flex flex-col justify-center items-center p-8 transition-all duration-300 group-hover:opacity-0">
+                  <div className="flex justify-center mb-6">
+                    <Dna className="h-20 w-20 md:h-24 md:w-24 text-purple-600 transition-all duration-300" />
                 </div>
-                <CardTitle className="text-2xl md:text-3xl font-bold text-gray-800 text-center hover:text-[#A00098] transition-colors mb-4">
+                  <CardTitle className="text-2xl md:text-3xl font-bold text-gray-800 text-center">
                   Bioinformatics
                 </CardTitle>
-                <CardDescription className="research-description text-gray-600 text-center text-base md:text-lg leading-relaxed opacity-0 group-hover:opacity-100 transform translate-y-6 group-hover:translate-y-0 transition-all duration-600 ease-out">
+                </div>
+                
+                {/* Hover State - Description with Dark Background */}
+                <div className="research-description absolute inset-0 bg-gray-800 flex items-center justify-center p-8 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                  <CardDescription className="text-white text-center text-base md:text-lg leading-relaxed">
                   Identification of Active Compounds in Sri Lankan Medicinal Plants as Antivirals Against African Swine Fever
                 </CardDescription>
+                </div>
               </CardHeader>
             </Card>
 
-            <Card className="research-card group bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/95 transition-all transform hover:scale-105 shadow-lg cursor-pointer min-h-[280px] md:min-h-[320px]">
-              <CardHeader className="text-center relative overflow-hidden p-8">
-                <div className="flex justify-center mb-6">
-                  <Atom className="h-20 w-20 md:h-24 md:w-24 text-purple-600 transition-all duration-300 group-hover:scale-110 group-hover:text-purple-700" />
+            <Card className="research-card group bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-gray-800 transition-all shadow-lg cursor-pointer min-h-[280px] md:min-h-[320px] relative overflow-hidden">
+              <CardHeader className="text-center relative p-8 flex flex-col justify-center items-center h-full">
+                {/* Default State - Centered Icon and Title */}
+                <div className="research-default absolute inset-0 flex flex-col justify-center items-center p-8 transition-all duration-300 group-hover:opacity-0">
+                  <div className="flex justify-center mb-6">
+                    <Atom className="h-20 w-20 md:h-24 md:w-24 text-purple-600 transition-all duration-300" />
                 </div>
-                <CardTitle className="text-2xl md:text-3xl font-bold text-gray-800 text-center hover:text-[#A00098] transition-colors mb-4">
+                  <CardTitle className="text-2xl md:text-3xl font-bold text-gray-800 text-center">
                   Cheminformatics
                 </CardTitle>
-                <CardDescription className="research-description text-gray-600 text-center text-base md:text-lg leading-relaxed opacity-0 group-hover:opacity-100 transform translate-y-6 group-hover:translate-y-0 transition-all duration-600 ease-out">
+                </div>
+                
+                {/* Hover State - Description with Dark Background */}
+                <div className="research-description absolute inset-0 bg-gray-800 flex items-center justify-center p-8 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                  <CardDescription className="text-white text-center text-base md:text-lg leading-relaxed">
                   Development of globally accessible comprehensive database with an AI-integrated web platform cataloging endemic medicinal plants with detailed information.
                 </CardDescription>
+                </div>
               </CardHeader>
             </Card>
 
-            <Card className="research-card group bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-white/95 transition-all transform hover:scale-105 shadow-lg cursor-pointer min-h-[280px] md:min-h-[320px]">
-              <CardHeader className="text-center relative overflow-hidden p-8">
-                <div className="flex justify-center mb-6">
-                  <Brain className="h-20 w-20 md:h-24 md:w-24 text-purple-600 transition-all duration-300 group-hover:scale-110 group-hover:text-purple-700" />
+            <Card className="research-card group bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-gray-800 transition-all shadow-lg cursor-pointer min-h-[280px] md:min-h-[320px] relative overflow-hidden">
+              <CardHeader className="text-center relative p-8 flex flex-col justify-center items-center h-full">
+                {/* Default State - Centered Icon and Title */}
+                <div className="research-default absolute inset-0 flex flex-col justify-center items-center p-8 transition-all duration-300 group-hover:opacity-0">
+                  <div className="flex justify-center mb-6">
+                    <Brain className="h-20 w-20 md:h-24 md:w-24 text-purple-600 transition-all duration-300" />
                 </div>
-                <CardTitle className="text-2xl md:text-3xl font-bold text-gray-800 text-center hover:text-[#A00098] transition-colors mb-4">
+                  <CardTitle className="text-2xl md:text-3xl font-bold text-gray-800 text-center">
                   AI-driven Drug Discovery
                 </CardTitle>
-                <CardDescription className="research-description text-gray-600 text-center text-base md:text-lg leading-relaxed opacity-0 group-hover:opacity-100 transform translate-y-6 group-hover:translate-y-0 transition-all duration-600 ease-out">
+                </div>
+                
+                {/* Hover State - Description with Dark Background */}
+                <div className="research-description absolute inset-0 bg-gray-800 flex items-center justify-center p-8 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                  <CardDescription className="text-white text-center text-base md:text-lg leading-relaxed">
                   Discovery of Antiviral Compounds from Sri Lankan Medicinal Plants and Deep Learning Based De Novo Design and Bioactivity Prediction of Natural-Product-Inspired Inhibitors Against Livestock and Aquaculture Viral Diseases.
                 </CardDescription>
+                </div>
               </CardHeader>
             </Card>
           </div>
@@ -1020,7 +1025,7 @@ const Index = () => {
           {/* Join Our Academy Button */}
           <div className="text-center mt-12">
             <button 
-              onClick={() => navigate('/join')}
+              onClick={() => setAuthModalOpen(true)}
               className="bg-white text-[#000A33] px-8 py-4 rounded-xl text-lg font-semibold hover:bg-[#4d2884] hover:text-white transition-colors duration-300 shadow-lg"
             >
               Join Our Academy
@@ -1133,18 +1138,25 @@ const Index = () => {
             ].map((service, index) => (
               <Card 
                 key={index} 
-                className="service-card group bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md cursor-pointer min-h-[200px] md:min-h-[240px]"
+                className="service-card group bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:bg-gray-800 transition-all shadow-md cursor-pointer min-h-[200px] md:min-h-[240px] relative overflow-hidden"
               >
-                <CardHeader className="text-center relative overflow-hidden p-6">
-                  <div className="flex justify-center mb-4">
-                    <service.icon className="h-12 w-12 md:h-16 md:w-16 text-orange-600 transition-all duration-300 group-hover:scale-110 group-hover:text-orange-700" />
-                  </div>
-                  <CardTitle className="text-lg md:text-xl font-bold text-black hover:text-[#AA5100] transition-all text-center">
+                <CardHeader className="text-center relative p-6 flex flex-col justify-center items-center h-full">
+                  {/* Default State - Centered Icon and Title */}
+                  <div className="service-default absolute inset-0 flex flex-col justify-center items-center p-6 transition-all duration-300 group-hover:opacity-0">
+                    <div className="flex justify-center mb-4">
+                      <service.icon className="h-12 w-12 md:h-16 md:w-16 text-orange-600 transition-all duration-300" />
+                    </div>
+                    <CardTitle className="text-lg md:text-xl font-bold text-black text-center">
                     {service.title}
                   </CardTitle>
-                  <CardDescription className="service-description text-sm md:text-base text-gray-700 text-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 ease-out mt-4">
+                  </div>
+                  
+                  {/* Hover State - Description with Dark Background */}
+                  <div className="service-description absolute inset-0 bg-gray-800 flex items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                    <CardDescription className="text-white text-center text-sm md:text-base leading-relaxed">
                     {service.description}
                   </CardDescription>
+                  </div>
                 </CardHeader>
               </Card>
             ))}
@@ -1288,7 +1300,7 @@ const Index = () => {
           
           {/* Auto-scrolling advisors container */}
           <div className="relative overflow-hidden">
-            <div className="flex animate-scroll space-x-2 md:space-x-4 lg:space-x-6">
+            <div className="flex animate-scroll space-x-1 md:space-x-4 lg:space-x-6">
               {[
                 {
                   name: "Dr. Lakmal Ranathunga",
@@ -1333,16 +1345,16 @@ const Index = () => {
                   image: "/lovable-uploads/UM.png"
                 }
               ].map((advisor, index) => (
-                <Card key={index} className="min-w-[240px] sm:min-w-[280px] md:min-w-[320px] lg:min-w-[350px] bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
-                  <div className="relative overflow-hidden bg-gray-50 p-3 md:p-4">
+                <Card key={index} className="min-w-[200px] sm:min-w-[240px] md:min-w-[320px] lg:min-w-[350px] bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
+                  <div className="relative overflow-hidden bg-gray-50 p-2 md:p-4">
                     <img 
                       src={advisor.image} 
                       alt={advisor.name}
-                      className="w-full h-32 sm:h-40 md:h-48 lg:h-56 object-contain"
+                      className="w-full h-28 sm:h-32 md:h-48 lg:h-56 object-contain"
                   />
                 </div>
-                  <CardHeader className="p-3 md:p-4">
-                    <CardTitle className="text-sm sm:text-base md:text-lg lg:text-xl text-black hover:text-[#A50053] transition-colors">
+                  <CardHeader className="p-2 md:p-4">
+                    <CardTitle className="text-xs sm:text-sm md:text-lg lg:text-xl text-black hover:text-[#A50053] transition-colors">
                       {advisor.name}
                   </CardTitle>
                     {advisor.title && (
@@ -1404,16 +1416,16 @@ const Index = () => {
                   image: "/lovable-uploads/UM.png"
                 }
               ].map((advisor, index) => (
-                <Card key={`duplicate-${index}`} className="min-w-[240px] sm:min-w-[280px] md:min-w-[320px] lg:min-w-[350px] bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
-                  <div className="relative overflow-hidden bg-gray-50 p-3 md:p-4">
+                <Card key={`duplicate-${index}`} className="min-w-[200px] sm:min-w-[240px] md:min-w-[320px] lg:min-w-[350px] bg-white border-2 border-transparent bg-gradient-to-r from-blue-600/10 to-purple-600/10 hover:shadow-lg transition-all transform hover:scale-105 shadow-md">
+                  <div className="relative overflow-hidden bg-gray-50 p-2 md:p-4">
                     <img 
                       src={advisor.image} 
                       alt={advisor.name}
-                      className="w-full h-32 sm:h-40 md:h-48 lg:h-56 object-contain"
+                      className="w-full h-28 sm:h-32 md:h-48 lg:h-56 object-contain"
                     />
                   </div>
-                  <CardHeader className="p-3 md:p-4">
-                    <CardTitle className="text-sm sm:text-base md:text-lg lg:text-xl text-black hover:text-[#A50053] transition-colors">
+                  <CardHeader className="p-2 md:p-4">
+                    <CardTitle className="text-xs sm:text-sm md:text-lg lg:text-xl text-black hover:text-[#A50053] transition-colors">
                       {advisor.name}
                     </CardTitle>
                     {advisor.title && (
