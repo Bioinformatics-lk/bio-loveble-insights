@@ -716,7 +716,7 @@ const Index = () => {
           </div>
 
           {/* Accordion Topics */}
-          <div className="max-w-4xl mx-auto space-y-4">
+          <div className="max-w-4xl mx-auto space-y-4 relative">
             {(() => {
               const [openTopic, setOpenTopic] = useState<number | null>(null);
               const [isMobile, setIsMobile] = useState(false);
@@ -757,46 +757,53 @@ const Index = () => {
               return (
                 <>
                   {topics.map((topic, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, y: 5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.15, delay: index * staggerDelay }}
-                      className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl overflow-hidden hover:border-white/40 transition-all duration-150"
-                    >
-                      <button
-                        onClick={() => setOpenTopic(openTopic === index ? null : index)}
-                        className="w-full px-6 py-4 md:px-8 md:py-6 flex items-center justify-between text-left hover:bg-white/5 transition-all duration-150"
+                    <div key={index} className="relative">
+                      <motion.div
+                        initial={{ opacity: 0, y: 5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.15, delay: index * staggerDelay }}
+                        className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl overflow-hidden hover:border-white/40 transition-all duration-150 relative z-10"
                       >
-                        <h3 className="text-lg md:text-xl font-semibold text-white pr-4">
-                          {topic.title}
-                        </h3>
-                        <motion.div
-                          animate={{ rotate: openTopic === index ? 45 : 0 }}
-                          transition={{ duration: isMobile ? 0.08 : 0.1 }}
-                          className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-all duration-150"
+                        <button
+                          onClick={() => setOpenTopic(openTopic === index ? null : index)}
+                          className="w-full px-6 py-4 md:px-8 md:py-6 flex items-center justify-between text-left hover:bg-white/5 transition-all duration-150"
                         >
-                          <svg 
-                            className="w-5 h-5 md:w-6 md:h-6 text-white" 
-                            fill="none" 
-                            viewBox="0 0 24 24" 
-                            stroke="currentColor"
+                          <h3 className="text-lg md:text-xl font-semibold text-white pr-4">
+                            {topic.title}
+                          </h3>
+                          <motion.div
+                            animate={{ rotate: openTopic === index ? 45 : 0 }}
+                            transition={{ duration: isMobile ? 0.08 : 0.1 }}
+                            className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-all duration-150"
                           >
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                          </svg>
-                        </motion.div>
-                      </button>
+                            <svg 
+                              className="w-5 h-5 md:w-6 md:h-6 text-white" 
+                              fill="none" 
+                              viewBox="0 0 24 24" 
+                              stroke="currentColor"
+                            >
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                            </svg>
+                          </motion.div>
+                        </button>
+                      </motion.div>
                       
+                      {/* Expandable content positioned absolutely */}
                       <AnimatePresence>
                         {openTopic === index && (
                           <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
+                            initial={{ opacity: 0, height: 0, y: -10 }}
+                            animate={{ opacity: 1, height: "auto", y: 0 }}
+                            exit={{ opacity: 0, height: 0, y: -10 }}
                             transition={{ duration: animationDuration, ease: "easeOut" }}
-                            className="overflow-hidden"
+                            className="absolute top-full left-0 right-0 z-20 bg-white/10 backdrop-blur-md border border-white/20 rounded-b-xl overflow-hidden shadow-lg"
+                            style={{ 
+                              transformOrigin: 'top',
+                              maxHeight: '80vh',
+                              overflowY: 'auto'
+                            }}
                           >
-                            <div className="px-6 py-4 md:px-8 md:py-6 border-t border-white/20">
+                            <div className="px-6 py-4 md:px-8 md:py-6">
                               <p className="text-[#EAE3F5]/90 text-base md:text-lg leading-relaxed whitespace-pre-line">
                                 {topic.description}
                               </p>
@@ -804,7 +811,7 @@ const Index = () => {
                           </motion.div>
                         )}
                       </AnimatePresence>
-                    </motion.div>
+                    </div>
                   ))}
                 </>
               );
