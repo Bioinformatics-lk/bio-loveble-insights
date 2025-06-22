@@ -696,6 +696,108 @@ const Index = () => {
         </div>
       </section>
 
+      {/* What We Offer Section */}
+      <section className="py-20 bg-gradient-to-br from-[#54366B] via-[#363B6B] to-[#000A33] relative overflow-hidden">
+        {/* Background Shapes */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-10 w-64 h-64 rounded-full bg-[#EAE3F5]/10 blur-3xl"></div>
+          <div className="absolute bottom-20 right-10 w-96 h-96 rounded-full bg-[#EAE3F5]/5 blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[#EAE3F5]/5 blur-3xl"></div>
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              What We Offer at Bioinformatics.lk
+            </h2>
+            <p className="text-lg md:text-xl text-[#EAE3F5]/90 max-w-4xl mx-auto">
+              Join us at Bioinformatics.lk – where innovation meets opportunity, and passion meets purpose. Build your future in the growing world of bioinformatics!
+            </p>
+          </div>
+
+          {/* Accordion Topics */}
+          <div className="max-w-4xl mx-auto space-y-4">
+            {(() => {
+              const [openTopic, setOpenTopic] = useState<number | null>(null);
+
+              const topics = [
+                {
+                  title: "Expert Education",
+                  description: "Gain access to world-class education guided by domain experts. Our programs are designed to equip you with in-demand skills and award internationally recognized certifications that validate your expertise in bioinformatics and related disciplines."
+                },
+                {
+                  title: "Research Publications",
+                  description: "We open doors to the scientific world by offering opportunities to:\n\n• Publish your research in reputed international journals\n• Present at global conferences\n• Collaborate on cutting-edge research projects in bioinformatics, cheminformatics, and drug discovery."
+                },
+                {
+                  title: "Internship Opportunities",
+                  description: "Work on real-world open-source projects that matter. We connect you with:\n\n• Global research teams\n• Drug discovery collaborations\n• Hands-on projects that build both your academic and industry portfolios"
+                },
+                {
+                  title: "Startup Support & Innovation Ecosystem",
+                  description: "At Bioinformatics.lk, we are cultivating Sri Lanka's first bioinformatics startup ecosystem. We empower students and researchers to:\n\n• Turn innovative ideas into marketable products or services\n• Receive mentorship, networking, and funding guidance\n• Launch their own bioinformatics startups from idea to impact"
+                }
+              ];
+
+              return (
+                <>
+                  {topics.map((topic, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                      className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl overflow-hidden hover:border-white/40 transition-all duration-300"
+                    >
+                      <button
+                        onClick={() => setOpenTopic(openTopic === index ? null : index)}
+                        className="w-full px-6 py-4 md:px-8 md:py-6 flex items-center justify-between text-left hover:bg-white/5 transition-all duration-300"
+                      >
+                        <h3 className="text-lg md:text-xl font-semibold text-white pr-4">
+                          {topic.title}
+                        </h3>
+                        <motion.div
+                          animate={{ rotate: openTopic === index ? 45 : 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-all"
+                        >
+                          <svg 
+                            className="w-5 h-5 md:w-6 md:h-6 text-white" 
+                            fill="none" 
+                            viewBox="0 0 24 24" 
+                            stroke="currentColor"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                          </svg>
+                        </motion.div>
+                      </button>
+                      
+                      <AnimatePresence>
+                        {openTopic === index && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.4, ease: "easeInOut" }}
+                            className="overflow-hidden"
+                          >
+                            <div className="px-6 py-4 md:px-8 md:py-6 border-t border-white/20">
+                              <p className="text-[#EAE3F5]/90 text-base md:text-lg leading-relaxed whitespace-pre-line">
+                                {topic.description}
+                              </p>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </motion.div>
+                  ))}
+                </>
+              );
+            })()}
+          </div>
+        </div>
+      </section>
+
       {/* Team Section */}
       <section id="team" className="relative py-20 bg-gradient-to-br from-[#000A33] to-[#363B6B] overflow-hidden">
         {/* Background Shapes */}
