@@ -427,11 +427,11 @@ const Index = () => {
             >
               <div className="w-8 h-8 flex items-center justify-center">
                 <img 
-                  src="/lovable-uploads/76f3562a-0d90-4bbc-a1b8-640acc56da80.png" 
+                  src="/logo.svg" 
                   alt="Bioinformatics.lk" 
                   className={`w-8 h-8 object-contain transition-all duration-300 ${
                     isScrolled 
-                      ? 'scale-90 filter brightness-0 saturate-100 invert-20 sepia-100 saturate-1500 hue-rotate-220 brightness-85 contrast-110' 
+                      ? 'scale-90 filter brightness-0 saturate-100 invert-20 sepia-100 saturate-2000 hue-rotate-260 brightness-90 contrast-120' 
                       : 'scale-100 filter brightness-0 saturate-100 invert-100 sepia-50 saturate-200 hue-rotate-280 brightness-110 contrast-90'
                   }`}
                 />
@@ -733,7 +733,7 @@ const Index = () => {
 
               const topics = [
                 {
-                  title: "Expert Education",
+                  title: "Expert Education and Valid Certificates",
                   description: "Gain access to world-class education guided by domain experts. Our programs are designed to equip you with in-demand skills and award internationally recognized certifications that validate your expertise in bioinformatics and related disciplines."
                 },
                 {
