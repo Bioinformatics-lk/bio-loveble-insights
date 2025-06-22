@@ -697,7 +697,7 @@ const Index = () => {
       </section>
 
       {/* What We Offer Section */}
-      <section className="py-24 md:py-32 bg-gradient-to-br from-[#54366B] via-[#363B6B] to-[#000A33] relative overflow-hidden">
+      <section className="py-31 md:py-32 bg-gradient-to-br from-[#54366B] via-[#363B6B] to-[#000A33] relative overflow-hidden">
         {/* Background Shapes */}
         <div className="absolute inset-0">
           <div className="absolute top-20 left-10 w-64 h-64 rounded-full bg-[#EAE3F5]/10 blur-3xl"></div>
@@ -706,7 +706,7 @@ const Index = () => {
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center mb-20 md:mb-24">
+          <div className="text-center mb-22 md:mb-24">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8">
               What We Offer at Bioinformatics.lk
             </h2>
@@ -716,7 +716,7 @@ const Index = () => {
           </div>
 
           {/* Accordion Topics */}
-          <div className="max-w-5xl mx-auto space-y-6 mb-16 md:mb-20">
+          <div className="max-w-5xl mx-auto space-y-6 mb-18 md:mb-20">
             {(() => {
               const [openTopic, setOpenTopic] = useState<number | null>(null);
               const [isMobile, setIsMobile] = useState(false);
@@ -796,7 +796,7 @@ const Index = () => {
                             animate={{ opacity: 1, height: "auto", y: 0 }}
                             exit={{ opacity: 0, height: 0, y: -10 }}
                             transition={{ duration: animationDuration, ease: "easeOut" }}
-                            className="absolute top-full left-0 right-0 z-20 bg-white/10 backdrop-blur-md border border-white/20 rounded-b-xl overflow-hidden shadow-lg"
+                            className="absolute top-full left-0 right-0 z-20 bg-gradient-to-br from-[#0a0514] via-[#1a0b2e] to-[#2d1b69] backdrop-blur-md border border-white/20 rounded-b-xl overflow-hidden shadow-lg"
                             style={{ 
                               transformOrigin: 'top',
                               maxHeight: '80vh',
@@ -804,7 +804,7 @@ const Index = () => {
                             }}
                           >
                             <div className="px-8 py-6 md:px-10 md:py-8">
-                              <p className="text-[#EAE3F5]/90 text-lg md:text-xl leading-relaxed whitespace-pre-line">
+                              <p className="text-[#EAE3F5] text-lg md:text-xl leading-relaxed whitespace-pre-line font-medium">
                                 {topic.description}
                               </p>
                             </div>
