@@ -1,93 +1,73 @@
-# Bioinformatics.lk - Accelerating Bioinformatics Innovation
+# Welcome to your Lovable project
 
-A modern web platform for bioinformatics education, research, and community building.
+## Project info
 
-## 🚀 Features
+**URL**: https://lovable.dev/projects/6bef6bd0-2106-4593-949d-3978b80ff309
 
-- **Expert Education**: World-class bioinformatics courses and certifications
-- **Research Areas**: Cutting-edge research in genomics, proteomics, and computational biology
-- **SLBAIL Platform**: Sri Lanka Bioinformatics and AI Lab integration
-- **Community**: Connect with advisors, researchers, and students
-- **Services**: Professional bioinformatics services and consulting
+## How can I edit this code?
 
-## 🛠️ Tech Stack
+There are several ways of editing your application.
 
-- **Frontend**: React 18 + TypeScript
-- **Styling**: Tailwind CSS + shadcn/ui components
-- **Animations**: Framer Motion
-- **Deployment**: Netlify
-- **Database**: Supabase
+**Use Lovable**
 
-## 🏃‍♂️ Quick Start
+Simply visit the [Lovable Project](https://lovable.dev/projects/6bef6bd0-2106-4593-949d-3978b80ff309) and start prompting.
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd bio-loveble-insights
-   ```
+Changes made via Lovable will be committed automatically to this repo.
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+**Use your preferred IDE**
 
-3. **Start development server**
-   ```bash
-   npm run dev
-   ```
+If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
 
-4. **Build for production**
-   ```bash
-   npm run build
-   ```
+The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
-## 📁 Project Structure
+Follow these steps:
 
-```
-src/
-├── components/          # Reusable UI components
-│   ├── auth/           # Authentication components
-│   ├── courses/        # Course-related components
-│   ├── services/       # Service-related components
-│   └── ui/             # Base UI components
-├── pages/              # Page components
-├── hooks/              # Custom React hooks
-├── lib/                # Utility functions
-└── integrations/       # External service integrations
+```sh
+# Step 1: Clone the repository using the project's Git URL.
+git clone <YOUR_GIT_URL>
+
+# Step 2: Navigate to the project directory.
+cd <YOUR_PROJECT_NAME>
+
+# Step 3: Install the necessary dependencies.
+npm i
+
+# Step 4: Start the development server with auto-reloading and an instant preview.
+npm run dev
 ```
 
-## 🎨 Design System
+**Edit a file directly in GitHub**
 
-The project uses a custom design system with:
-- **Colors**: Deep purple (#54366B), navy blue (#000A33), light purple (#EAE3F5)
-- **Typography**: Modern, clean fonts optimized for readability
-- **Components**: Consistent UI components built with shadcn/ui
-- **Animations**: Smooth, performant animations with Framer Motion
+- Navigate to the desired file(s).
+- Click the "Edit" button (pencil icon) at the top right of the file view.
+- Make your changes and commit the changes.
 
-## 🌐 Deployment
+**Use GitHub Codespaces**
 
-The website is automatically deployed to Netlify with:
-- **Domain**: Custom domain configuration
-- **SSL**: Automatic SSL certificate
-- **CDN**: Global content delivery network
-- **CI/CD**: Automatic builds on git push
+- Navigate to the main page of your repository.
+- Click on the "Code" button (green button) near the top right.
+- Select the "Codespaces" tab.
+- Click on "New codespace" to launch a new Codespace environment.
+- Edit files directly within the Codespace and commit and push your changes once you're done.
 
-## 🤝 Contributing
+## What technologies are used for this project?
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+This project is built with:
 
-## 📄 License
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
 
-This project is proprietary and confidential.
+## How can I deploy this project?
 
-## 👨‍💻 Author
+Simply open [Lovable](https://lovable.dev/projects/6bef6bd0-2106-4593-949d-3978b80ff309) and click on Share -> Publish.
 
-**SaltyHeart** - Lead Developer
+## Can I connect a custom domain to my Lovable project?
 
----
+Yes, you can!
 
-Built with ❤️ for the bioinformatics community
+To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+
+Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
